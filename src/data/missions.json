@@ -1,0 +1,75 @@
+[
+  {
+    "id": "mission-harmony-street",
+    "title": "Architectural Harmony on Jalan Tukang Emas",
+    "type": "notice",
+    "instructions": "Visit Kampung Kling Mosque and Cheng Hoon Teng Temple along Melaka's Harmony Street. Observe how different cultural communities borrowed architectural motifs from one another.",
+    "placeIds": ["mlk-kampung-kling", "mlk-cheng-hoon-teng"],
+    "learningObjective": "Understand how 18th-century Melaka fostered cross-cultural architectural synthesis across Islamic, Chinese, and Indian merchant communities.",
+    "explanation": "Kampung Kling Mosque features a tiered Meru roof and a minaret that mirrors a Chinese pagoda, embellished with English and Portuguese glazed tiles. Just 100 meters away, Cheng Hoon Teng Temple showcases classical southern Chinese woodwork and porcelain cut-and-paste (Qianci) art. These holy sites have coexisted side-by-side peacefully for over 270 years.",
+    "quizQuestion": "What unique architectural feature makes the minaret of Kampung Kling Mosque distinct from traditional Middle Eastern mosques?",
+    "quizOptions": [
+      "It is built out of steel and glass",
+      "It is shaped like an octagonal Chinese pagoda with European balustrades",
+      "It has a golden circular onion dome",
+      "It is constructed underground"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["Inventory of Historic Vernacular Mosques in Peninsular Malaysia"],
+    "sensitivityNote": "When visiting both sacred locations, dress respectfully with knees and shoulders covered, and speak in quiet tones.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-sultanate-timber",
+    "title": "The Nails of the Sultanate Palace",
+    "type": "learn",
+    "instructions": "Inspect the structural engineering of the reconstructed Melaka Sultanate Palace Museum (Muzium Kesultanan Melayu Melaka).",
+    "placeIds": ["mlk-sultanate-palace"],
+    "learningObjective": "Recognize the ingenious mortise-and-tenon indigenous timber joinery perfected during the 15th-century Malacca Sultanate.",
+    "explanation": "According to the Malay Annals (Sejarah Melayu), the original palace of Sultan Mansur Shah was constructed entirely of resilient tropical hardwood (cengal and belian) using traditional interlocking joinery, without relying on iron nails which would corrode in the humid tropical maritime air.",
+    "quizQuestion": "How was the three-story timber Melaka Sultanate Palace structurally assembled without iron nails?",
+    "quizOptions": [
+      "Using industrial epoxy adhesive",
+      "Using precision mortise, tenon, and hardwood wooden dowels (pasak)",
+      "Using braided rattan vines exclusively",
+      "It was carved from a single giant tree trunk"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["The Sejarah Melayu (Malay Annals) and the Architecture of Istana Mansur Shah"],
+    "sensitivityNote": "Always remove footwear at the palace foyer to preserve the polished traditional hardwood floorboards.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-bukit-cina-custodians",
+    "title": "Guardians of Bukit Cina",
+    "type": "reflect",
+    "instructions": "Walk the forested perimeter of Bukit Cina and read about how the Malaysian heritage community rallied to protect this historic hill from commercial flattening in 1984.",
+    "placeIds": ["mlk-bukit-cina"],
+    "learningObjective": "Reflect on how community advocacy and historical consciousness safeguard cultural landscapes against rapid urbanization.",
+    "explanation": "Bukit Cina encompasses over 12,500 historic Chinese tombs across 25 hectares, gifted by Sultan Mansur Shah in the 15th century. In 1984, proposals to bulldoze the hill for commercial development sparked nationwide civic mobilizations across all races. Today, it stands as an irreplaceable ecological lung and ancestral memorial.",
+    "reflectionPrompt": "How can modern cities strike a respectful balance between rapid economic development and preserving ancestral open spaces?",
+    "sourceIds": ["Bukit Cina: The Historic Chinese Hill of Malacca"],
+    "sensitivityNote": "Stay on the designated gravel and earthen paths. Avoid stepping on memorial headstones or gravesites.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-colonial-bastions",
+    "title": "From Albuquerque to Dutch Governors",
+    "type": "connect",
+    "instructions": "Trace the transition of power from the Portuguese Porta de Santiago (A Famosa) to the Dutch Stadthuys complex within Bandar Hilir.",
+    "placeIds": ["mlk-afamosa", "mlk-stadthuys"],
+    "learningObjective": "Connect the 1511 Portuguese military occupation with the 1641 Dutch civic and administrative dominance in the Strait of Malacca.",
+    "explanation": "While the Portuguese built A Famosa primarily as a defensive fortress to dominate spice trade shipping lanes, the Dutch consolidated civil rule by constructing The Stadthuys in 1650 with thick brick masonry, wide verandas, and heavy teak doors designed to withstand tropical monsoons.",
+    "quizQuestion": "Who intervened in 1807 to prevent the British military from completely demolishing the last gate of A Famosa?",
+    "quizOptions": [
+      "Afonso de Albuquerque",
+      "Sir Stamford Raffles",
+      "Francis Xavier",
+      "Captain William Farquhar"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["National Heritage Register of Historic Monuments", "Stadthuys Complex Conservation Assessment"],
+    "sensitivityNote": "Preserve the fragile laterite stone surfaces by not touching or climbing upon the ancient gate.",
+    "verificationStatus": "verified"
+  }
+]

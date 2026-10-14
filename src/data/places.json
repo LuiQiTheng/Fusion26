@@ -1,0 +1,596 @@
+[
+  {
+    "id": "mlk-stadthuys",
+    "name": "The Stadthuys & Dutch Square",
+    "malayName": "Bangunan Stadthuys & Dataran Belanda",
+    "stateId": "MLK",
+    "locality": "Bandar Hilir, Melaka",
+    "categories": ["Architecture", "Colonial", "Museum"],
+    "culturalThemes": ["Colonial Architecture", "Maritime Trade", "Civic History"],
+    "shortDescription": "Built in 1650 as the official residence and office of the Dutch Governor, the Stadthuys is believed to be the oldest surviving Dutch administrative building in the East.",
+    "culturalContext": "The distinctive terracotta red building anchors Dutch Square alongside Christ Church (1753) and Queen Victoria's Fountain. Its heavy masonry walls, louvered windows, and massive doors reflect seventeenth-century Dutch civic engineering adapted to tropical Malacca. Today it houses the Museum of History and Ethnography.",
+    "latitude": 2.1944,
+    "longitude": 102.2492,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ground floor is accessible; upper museum floors have historic wooden staircases without elevator access.",
+    "culturalCareNotes": "Please keep voices modulated inside museum galleries and avoid leaning on historic timber balustrades.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "The red colonial facade of The Stadthuys and Dutch Square in Melaka",
+    "imageCredit": "Unsplash / Creative Commons",
+    "sources": [
+      {
+        "title": "Stadthuys Complex Conservation Assessment",
+        "publisher": "Perbadanan Muzium Melaka (PERZIM)",
+        "url": "https://perzim.gov.my"
+      },
+      {
+        "title": "Melaka Historic City Dossier",
+        "publisher": "UNESCO World Heritage Centre",
+        "url": "https://whc.unesco.org/en/list/1223"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-afamosa",
+    "name": "A Famosa (Porta de Santiago)",
+    "malayName": "Kota A Famosa",
+    "stateId": "MLK",
+    "locality": "Bandar Hilir, Melaka",
+    "categories": ["Architecture", "Colonial", "Monument"],
+    "culturalThemes": ["Colonial Architecture", "Military Fortifications", "Portuguese Legacy"],
+    "shortDescription": "The lone surviving stone gatehouse of the massive sixteenth-century Portuguese citadel constructed under Afonso de Albuquerque following the 1511 conquest.",
+    "culturalContext": "Originally named Fortaleza de Malaca, the fortress once encircled the entire hill to secure maritime control over the Malacca Strait. When the British took over, captain William Farquhar began demolishing the fortress in 1807; only the intervention of Sir Stamford Raffles saved this singular gatehouse (Porta de Santiago) from complete destruction.",
+    "latitude": 2.1918,
+    "longitude": 102.2501,
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open 24 hours (Outdoor monument)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Surrounding paved plaza is wheelchair accessible; uneven cobblestone directly beneath the stone archway.",
+    "culturalCareNotes": "Do not climb onto the historic stone ramparts or carve graffiti into the fragile laterite blocks.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "The historic stone gatehouse of Porta de Santiago, A Famosa",
+    "imageCredit": "Unsplash / Creative Commons",
+    "sources": [
+      {
+        "title": "National Heritage Register of Historic Monuments",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-baba-nyonya",
+    "name": "Baba & Nyonya Heritage Museum",
+    "malayName": "Muzium Warisan Baba & Nyonya",
+    "stateId": "MLK",
+    "locality": "Jalan Tun Tan Cheng Lock (Heeren Street), Melaka",
+    "categories": ["Living Tradition", "Museum", "Peranakan Heritage"],
+    "culturalThemes": ["Peranakan Heritage", "Living Multicultural Traditions", "Domestic Architecture"],
+    "shortDescription": "A magnificent ancestral townhouse complex preserving the nineteenth-century domestic lifestyle, opulence, and hybrid material culture of Straits-born Chinese families.",
+    "culturalContext": "Formed by connecting three contiguous terrace houses owned by the Chan family since 1861, this museum showcases the pinnacle of Peranakan culture—a blend of Chinese ancestral traditions, Malay language & cuisine, and Victorian European decorative furnishings. The house features traditional interior courtyards (airwells), mother-of-pearl blackwood furniture, and intricate beadwork.",
+    "latitude": 2.1956,
+    "longitude": 102.2464,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 18,
+    "openingHoursText": "Tuesday - Sunday: 10:00 AM - 5:00 PM (Guided tours recommended)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional stepped thresholds between inner courtyards; upper ancestral rooms require ascending a steep timber flight of stairs.",
+    "culturalCareNotes": "Photography is restricted inside ancestral altar chambers; please remove footwear where requested by museum docents.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Interior courtyard and antique Peranakan furnishings",
+    "imageCredit": "Wikimedia Commons / CC-BY-SA",
+    "sources": [
+      {
+        "title": "The Baba Nyonya Heritage Museum Archival Documentation",
+        "publisher": "Baba & Nyonya Heritage Museum",
+        "url": "https://babanyonyamuseum.com"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-cheng-hoon-teng",
+    "name": "Cheng Hoon Teng Temple",
+    "malayName": "Tokong Cheng Hoon Teng",
+    "stateId": "MLK",
+    "locality": "Jalan Tokong (Harmony Street), Melaka",
+    "categories": ["Religious", "Architecture", "Living Tradition"],
+    "culturalThemes": ["Living Multicultural Traditions", "Spiritual Heritage", "Craftsmanship"],
+    "shortDescription": "Founded in 1645 by Kapitan Cina Tay Kie Ki, Cheng Hoon Teng is the oldest continuously functioning Chinese temple in Malaysia, practicing the Three Doctrines (Buddhism, Taoism, and Confucianism).",
+    "culturalContext": "Located on Melaka's famous 'Harmony Street' mere steps from a historic mosque and Hindu temple, Cheng Hoon Teng embodies architectural and spiritual pluralism. Restored using traditional craftsmen from southern China, it was honored with a UNESCO Asia-Pacific Heritage Conservation Award in 2003.",
+    "latitude": 2.1973,
+    "longitude": 102.2472,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 7:00 AM - 4:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Single-level ground floor access; small stone thresholds at temple gateways.",
+    "culturalCareNotes": "Active place of worship. Speak quietly, dress respectfully (covered shoulders and knees), and refrain from pointing feet or camera flashes towards praying devotees or deity statues.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Intricate rooftop ridge carvings of dragons and porcelain figurines at Cheng Hoon Teng",
+    "imageCredit": "Creative Commons / UNESCO Heritage Documentation",
+    "sources": [
+      {
+        "title": "UNESCO Asia-Pacific Awards for Cultural Heritage Conservation: Cheng Hoon Teng",
+        "publisher": "UNESCO Bangkok",
+        "url": "https://bangkok.unesco.org"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-kampung-kling",
+    "name": "Kampung Kling Mosque",
+    "malayName": "Masjid Kampung Kling",
+    "stateId": "MLK",
+    "locality": "Jalan Tukang Emas (Harmony Street), Melaka",
+    "categories": ["Religious", "Architecture"],
+    "culturalThemes": ["Islamic Heritage", "Living Multicultural Traditions", "Vernacular Architecture"],
+    "shortDescription": "Erected in 1748 by Indian Muslim merchants, this mosque features a distinctive triple-tiered pagoda-like Meru roof, minaret resembling a pagoda, and Corinthian columns.",
+    "culturalContext": "Kampung Kling Mosque demonstrates how Islamic places of worship in maritime Southeast Asia embraced vernacular architectural forms rather than Middle Eastern domes. The ablution pool is embellished with English and Portuguese ceramic tiles, while Chinese glazed ceramic ornaments adorn the roof ridge.",
+    "latitude": 2.1969,
+    "longitude": 102.2478,
+    "visitDurationMinutes": 40,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open daily outside congregational prayer times",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Step-free ramp provided at side entrance to ablution area and prayer hall perimeter.",
+    "culturalCareNotes": "Visitors must dress modestly (robes and head coverings provided at entrance). Shoes must be removed before stepping onto prayer floors. Please do not enter during Friday congregation.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "The pagoda-like minaret and tiered roof of Kampung Kling Mosque",
+    "imageCredit": "Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "Inventory of Historic Vernacular Mosques in Peninsular Malaysia",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-st-pauls",
+    "name": "St. Paul's Church (Bukit San Pedro)",
+    "malayName": "Gereja St. Paul",
+    "stateId": "MLK",
+    "locality": "St. Paul's Hill (Bukit Melaka), Melaka",
+    "categories": ["Architecture", "Colonial", "Monument"],
+    "culturalThemes": ["Colonial Architecture", "Spiritual Heritage", "Portuguese & Dutch Legacy"],
+    "shortDescription": "Constructed in 1521 by Portuguese fidalgo Duarte Coelho as the Chapel of Madre de Deus, it sits atop Bukit Melaka with panoramic views over the historic port.",
+    "culturalContext": "Used by Saint Francis Xavier as his base in Southeast Asia; his body was temporarily interred here in 1553 before being moved to Goa. Under Dutch rule, it served as the Reformed Church before becoming a burial ground for Dutch dignitaries whose intricately carved tombstones lean against its roofless laterite walls today.",
+    "latitude": 2.1927,
+    "longitude": 102.2494,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open 24 hours (Hilltop site)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Reached via historic stone staircases up Bukit Melaka from Stadthuys or A Famosa. Not wheelchair accessible.",
+    "culturalCareNotes": "Respect the historic gravestones and the marble statue of St. Francis Xavier. Watch footing on worn stone steps.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Open roof laterite walls and Dutch gravestones of St. Paul's Church",
+    "imageCredit": "Unsplash / CC-BY",
+    "sources": [
+      {
+        "title": "A History of Malacca",
+        "publisher": "Malaysian Historical Society",
+        "url": "https://www.arkib.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-sultanate-palace",
+    "name": "Melaka Sultanate Palace Museum",
+    "malayName": "Muzium Kesultanan Melayu Melaka",
+    "stateId": "MLK",
+    "locality": "Jalan Kota, Bandar Hilir, Melaka",
+    "categories": ["Museum", "Architecture", "Malay Heritage"],
+    "culturalThemes": ["Malay Sultanate", "Craftsmanship", "Royal Court Heritage"],
+    "shortDescription": "A meticulous wooden architectural reconstruction of Sultan Mansur Shah's 15th-century royal palace, constructed entirely using mortise and tenon timber joints without iron nails.",
+    "culturalContext": "Based on vivid descriptions recorded in the Malay Annals (Sejarah Melayu), the three-story structure showcases the grandeur of the Golden Age of the Malacca Sultanate. Galleries detail the sovereign regalia, court hierarchy, legal code (Undang-Undang Melaka), and maritime trading delegations from Ming China, India, and the Arab world.",
+    "latitude": 2.1923,
+    "longitude": 102.2508,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Tuesday - Sunday: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "High timber thresholds and staircases to upper royal court chambers.",
+    "culturalCareNotes": "Remove shoes at the palace entrance; shoe racks provided. Follow the designated wooden walkway to preserve traditional hardwood planks.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Ornate carved timber gables and tiered roof of the Melaka Sultanate Palace Museum",
+    "imageCredit": "Perbadanan Muzium Melaka",
+    "sources": [
+      {
+        "title": "The Sejarah Melayu (Malay Annals) and the Architecture of Istana Mansur Shah",
+        "publisher": "Dewan Bahasa dan Pustaka",
+        "url": "https://www.dbp.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-jonker",
+    "name": "Jonker Walk (Jalan Hang Jebat)",
+    "malayName": "Jalan Hang Jebat",
+    "stateId": "MLK",
+    "locality": "Chinatown, Melaka",
+    "categories": ["Living Tradition", "Culinary Heritage"],
+    "culturalThemes": ["Living Multicultural Traditions", "Peranakan Heritage", "Culinary Heritage"],
+    "shortDescription": "The bustling commercial artery of historic Melaka, lined with 17th-century shophouses, antique collectors, master shoemakers, and Peranakan gastronomy.",
+    "culturalContext": "Originally home to servants and Dutch burghers, Jonker Street evolved into the cultural and civic heart of Chinese and Peranakan trade. Here, master craftsmen continue endangered arts such as beaded shoe (Kasut Manik) embroidery, rattan basketry, and hand-milled nyonya kueh.",
+    "latitude": 2.1962,
+    "longitude": 102.2476,
+    "visitDurationMinutes": 75,
+    "estimatedCostMYR": null,
+    "openingHoursText": "Stores open daily 10 AM - 6 PM; Night Market Friday - Sunday 6 PM - 11 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Pavements feature periodic curb cuts; crowded night market conditions may be challenging for manual wheelchairs.",
+    "culturalCareNotes": "Support genuine heritage artisans; avoid taking photos of working craftsmen without asking polite verbal permission.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Streetscape of Jonker Walk with red lanterns and historic Straits eclectic shophouses",
+    "imageCredit": "Tourism Malaysia",
+    "sources": [
+      {
+        "title": "Melaka World Heritage City Shophouse Conservation Guidelines",
+        "publisher": "Majlis Bandaraya Melaka Bersejarah",
+        "url": "https://www.mbmb.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "mlk-bukit-cina",
+    "name": "Bukit Cina & King's Well",
+    "malayName": "Bukit Cina & Perigi Hang Li Po",
+    "stateId": "MLK",
+    "locality": "Jalan Puteri Hang Li Poh, Melaka",
+    "categories": ["Monument", "Living Tradition", "Religious"],
+    "culturalThemes": ["Maritime Trade", "Sino-Malay Diplomacy", "Ancestral Memorial Heritage"],
+    "shortDescription": "One of the largest and oldest traditional Chinese cemeteries outside China, encompassing over 12,500 historic tombs dating back to the Ming Dynasty.",
+    "culturalContext": "Sultan Mansur Shah gifted this tranquil 25-hectare hill to his bride Princess Hang Li Po and her diplomatic entourage from the Ming court in the 15th century. At its foot stands the King's Well (Perigi Hang Li Po), an ancient water source celebrated for never drying up even during severe droughts.",
+    "latitude": 2.1979,
+    "longitude": 102.2575,
+    "visitDurationMinutes": 50,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open daily: 6:00 AM - 7:00 PM (Public park & memorial)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Hill paths consist of grassy knolls and earthen trails; the well and Sam Po Keng Temple at the base are wheelchair accessible.",
+    "culturalCareNotes": "Sacred ancestral burial grounds. Do not step directly on tomb mounds or memorial headstones. Keep to earthen footpaths.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Earthen slopes and Ming dynasty horseshoe graves at Bukit Cina",
+    "imageCredit": "Melaka Chinese Heritage Trust",
+    "sources": [
+      {
+        "title": "Bukit Cina: The Historic Chinese Hill of Malacca",
+        "publisher": "Malaysian Branch of the Royal Asiatic Society",
+        "url": "https://mbras.org.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "png-khoo-kongsi",
+    "name": "Leong San Tong Khoo Kongsi",
+    "malayName": "Khoo Kongsi",
+    "stateId": "PNG",
+    "locality": "Cannon Square, George Town, Penang",
+    "categories": ["Architecture", "Clan Associations", "Living Tradition"],
+    "culturalThemes": ["Clan Associations", "Craftsmanship", "Peranakan Heritage"],
+    "shortDescription": "One of the most grand and ornate Chinese clan temple associations in Southeast Asia, renowned for master stone carvings and gilded wood embellishments.",
+    "culturalContext": "Built by the Khoo clan immigrants from Fujian, China, Khoo Kongsi served as clan hall, administrative chamber, ancestral altar, and theatre stage for traditional Chinese opera.",
+    "latitude": 5.4150,
+    "longitude": 100.3372,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Paved courtyard accessible; temple hall has traditional stone steps.",
+    "culturalCareNotes": "Respect ancestral altar shrines; no smoking or flash photography inside the main hall.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Gilded timber beams and stone dragons of Khoo Kongsi",
+    "imageCredit": "George Town World Heritage Incorporated",
+    "sources": [
+      {
+        "title": "Khoo Kongsi Clan Heritage Dossier",
+        "publisher": "GTWHI",
+        "url": "https://gtwhi.com.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "kul-sultan-abdul-samad",
+    "name": "Sultan Abdul Samad Building",
+    "malayName": "Bangunan Sultan Abdul Samad",
+    "stateId": "KUL",
+    "locality": "Jalan Raja, Merdeka Square, Kuala Lumpur",
+    "categories": ["Architecture", "Colonial", "Monument"],
+    "culturalThemes": ["Moorish-Mughal Architecture", "National Independence"],
+    "shortDescription": "Late nineteenth-century masterpiece designed by A.C. Norman, combining Moorish, Mughal, and Neo-Saracenic architectural aesthetics with a 41-meter clock tower.",
+    "culturalContext": "Originally housing the British colonial administration and later Malaysia's highest judicial courts, this building witnessed the historic lowering of the Union Jack and raising of the Malayan flag on 31 August 1957.",
+    "latitude": 3.1486,
+    "longitude": 101.6944,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Exterior viewable 24 hours (Interior houses government offices)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Surrounding pedestrian plaza at Merdeka Square is flat and fully wheelchair accessible.",
+    "culturalCareNotes": "Pedestrian safety along Jalan Raja; respect heritage boundaries when photographing.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "The iconic illuminated clock tower of Sultan Abdul Samad Building",
+    "imageCredit": "National Archives of Malaysia",
+    "sources": [
+      {
+        "title": "Arkib Negara Malaysia Architectural Documentation",
+        "publisher": "Arkib Negara Malaysia",
+        "url": "http://www.arkib.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "sgr-batu-caves",
+    "name": "Batu Caves Temple Sanctuary",
+    "malayName": "Kuil Batu Caves",
+    "stateId": "SGR",
+    "locality": "Gombak, Selangor",
+    "categories": ["Religious", "Nature", "Living Tradition"],
+    "culturalThemes": ["Batu Caves Hindu Pilgrimage", "Living Multicultural Traditions", "Karst Ecology"],
+    "shortDescription": "Towering 400-million-year-old limestone hill holding sacred Hindu cave shrines, guarded by a world-famous 42.7-meter golden statue of Lord Murugan and 272 rainbow steps.",
+    "culturalContext": "Center of the annual Thaipusam festival, drawing over a million devotees worldwide. Promoted by K. Thamboosamy Pillai in 1890 as a Hindu sanctuary reminiscent of the spear (Vel) carried by Murugan.",
+    "latitude": 3.2374,
+    "longitude": 101.6839,
+    "visitDurationMinutes": 90,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 6:00 AM - 9:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Main Cathedral Cave requires climbing 272 steep steps; Ramayana cave at ground level has ramped access.",
+    "culturalCareNotes": "Strict temple dress code (knees and shoulders covered; sarongs for rent at base). Do not feed or tease the wild macaque monkeys.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Golden Lord Murugan statue and colorful flight of 272 steps at Batu Caves",
+    "imageCredit": "Tourism Selangor",
+    "sources": [
+      {
+        "title": "Batu Caves Cultural and Geological Significance",
+        "publisher": "Jabatan Muzium Malaysia",
+        "url": "http://www.jmm.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "swk-cultural-village",
+    "name": "Sarawak Cultural Village",
+    "malayName": "Kampung Budaya Sarawak",
+    "stateId": "SWK",
+    "locality": "Pantai Damai, Santubong, Sarawak",
+    "categories": ["Living Tradition", "Museum", "Indigenous Culture"],
+    "culturalThemes": ["Longhouse Living Heritage", "Pua Kumbu Sacred Weaving", "Gawai Dayak Traditions"],
+    "shortDescription": "A renowned 17-acre living museum presenting authentic traditional dwellings of Sarawak's ethnic communities: Iban, Bidayuh, Orang Ulu, Penan, Melanau, Malay, and Chinese.",
+    "culturalContext": "Visitors encounter genuine tribal longhouses on stilts, witnessing live demonstrations of blowpipe making, bamboo sago processing, bead crafting, and the annual Rainforest World Music Festival grounds.",
+    "latitude": 1.7508,
+    "longitude": 110.3164,
+    "visitDurationMinutes": 150,
+    "estimatedCostMYR": 95,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM (Cultural performances at 11:30 AM & 4:00 PM)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Paved boardwalks between houses; climbing notched log ladders into traditional longhouses requires assistance.",
+    "culturalCareNotes": "Always request permission before photographing indigenous elders at craft stations.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Traditional timber longhouse on stilts at Sarawak Cultural Village",
+    "imageCredit": "Sarawak Tourism Board",
+    "sources": [
+      {
+        "title": "Living Heritage of Sarawak Longhouses",
+        "publisher": "Sarawak Tourism Board",
+        "url": "https://sarawaktourism.com"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "sbh-monsopiad-village",
+    "name": "Monsopiad Heritage Village",
+    "malayName": "Perkampungan Warisan Monsopiad",
+    "stateId": "SBH",
+    "locality": "Kuai Kandazon, Penampang, Sabah",
+    "categories": ["Living Tradition", "Indigenous Culture"],
+    "culturalThemes": ["Indigenous Living Traditions", "Kaamatan Harvest Heritage"],
+    "shortDescription": "Cultural sanctuary commemorating the legendary 18th-century Kadazan warrior Monsopiad, preserving sacred Bobohizan priestess rites and traditional living skills.",
+    "culturalContext": "Features the House of Skulls (Siou Do Mohoing) protecting 42 trophies of warrior adversaries defeated while defending his village against predatory marauders, along with live demonstrations of traditional rice wine (lihing) preparation.",
+    "latitude": 5.8920,
+    "longitude": 116.0792,
+    "visitDurationMinutes": 90,
+    "estimatedCostMYR": 50,
+    "openingHoursText": "Wednesday - Monday: 9:00 AM - 4:30 PM (Closed Tuesdays)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Rustic gravel paths and traditional timber steps.",
+    "culturalCareNotes": "The House of Skulls is considered a sacred resting precinct; maintain silence and respectful demeanor.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Traditional bamboo Kadazandusun dwelling at Monsopiad",
+    "imageCredit": "Sabah Tourism Board",
+    "sources": [
+      {
+        "title": "Oral History and Folklore of the Kadazan-Dusun",
+        "publisher": "Sabah Cultural Board",
+        "url": "https://culture.sabah.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "prk-ubudiah-mosque",
+    "name": "Ubudiah Mosque & Royal Mausoleum",
+    "malayName": "Masjid Ubudiah",
+    "stateId": "PRK",
+    "locality": "Bukit Chandan, Kuala Kangsar, Perak",
+    "categories": ["Religious", "Architecture"],
+    "culturalThemes": ["Royal Perak Court Heritage", "Moorish-Mughal Architecture"],
+    "shortDescription": "Often cited as one of Malaysia's most picturesque mosques, completed in 1917 with soaring golden domes and Italian black-and-white marble minarets.",
+    "culturalContext": "Commissioned by Sultan Idris Murshidul Adzam Shah as thanksgiving for recovery from illness. Designed by colonial architect Arthur Benison Hubback, who also designed the Kuala Lumpur Railway Station.",
+    "latitude": 4.7645,
+    "longitude": 100.9510,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open daily outside prayer times",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ramp access to exterior perimeter; prayer hall entrance has short marble stairs.",
+    "culturalCareNotes": "Modest Islamic dress required. Please maintain silence within the royal mausoleum grounds.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "The gleaming golden domes and Italian marble minarets of Ubudiah Mosque",
+    "imageCredit": "Perak Heritage Society",
+    "sources": [
+      {
+        "title": "Royal Heritage of Kuala Kangsar",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "ktn-istana-jahar",
+    "name": "Istana Jahar (Museum of Royal Traditions)",
+    "malayName": "Istana Jahar",
+    "stateId": "KTN",
+    "locality": "Jalan Hilir Kota, Kota Bharu, Kelantan",
+    "categories": ["Museum", "Architecture", "Malay Heritage"],
+    "culturalThemes": ["Mak Yong Intangible Heritage", "Craftsmanship", "Royal Court Heritage"],
+    "shortDescription": "Built in 1887 by Sultan Ahmad for his grandson, this timber palace showcases the pinnacle of Kelantanese floral woodcarving craftsmanship.",
+    "culturalContext": "Today housing the Museum of Royal Traditions and Customs, exhibits encompass royal weddings, circumcision ceremonies, royal regalia, traditional weaponry (Keris), and Kelantanese metal casting.",
+    "latitude": 6.1328,
+    "longitude": 102.2369,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 5,
+    "openingHoursText": "Saturday - Thursday: 8:30 AM - 4:45 PM (Closed Fridays)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional raised timber floors with wooden access stairs.",
+    "culturalCareNotes": "Shoes removed at the entry verandah. Do not touch sensitive embroidered royal textiles.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Intricately carved wooden louvers and pent roofs of Istana Jahar",
+    "imageCredit": "Kelantan State Museum Corporation",
+    "sources": [
+      {
+        "title": "Kelantan Malay Vernacular Architecture",
+        "publisher": "Perbadanan Muzium Negeri Kelantan",
+        "url": "https://muzium.kelantan.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "nsn-istana-seri-menanti",
+    "name": "Old Palace of Seri Menanti (Istana Lama)",
+    "malayName": "Istana Lama Seri Menanti",
+    "stateId": "NSN",
+    "locality": "Seri Menanti, Kuala Pilah, Negeri Sembilan",
+    "categories": ["Architecture", "Museum", "Malay Heritage"],
+    "culturalThemes": ["Adat Perpatih Matrilineal System", "Minangkabau Curved Roof Architecture"],
+    "shortDescription": "Magnificent four-story timber palace constructed between 1902 and 1908 by two master builders without a single iron nail, resting on 99 solid cengal wood pillars.",
+    "culturalContext": "Reflects the architectural harmony of Adat Perpatih. The 99 pillars symbolize the 99 warriors of the royal confederacy. Its soaring horn-shaped curved gable roof celebrates the Minangkabau buffalo horn motif (Lentik).",
+    "latitude": 2.6983,
+    "longitude": 102.1584,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Multi-tiered timber levels accessible by internal stairs.",
+    "culturalCareNotes": "Strictly non-smoking zone due to historic cengal timber conservation.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "The black cengal timber four-storey facade of Istana Lama Seri Menanti",
+    "imageCredit": "Lembaga Muzium Negeri Sembilan",
+    "sources": [
+      {
+        "title": "Traditional Vernacular Timber Architecture of Negeri Sembilan",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "kdh-bujang-valley",
+    "name": "Bujang Valley Archaeological Museum",
+    "malayName": "Muzium Arkeologi Lembah Bujang",
+    "stateId": "KDH",
+    "locality": "Merbok, Bedong, Kedah",
+    "categories": ["Museum", "Monument", "Architecture"],
+    "culturalThemes": ["Ancient Lembah Bujang Civilization", "Maritime Trade"],
+    "shortDescription": "The cradle of ancient maritime civilization in Peninsular Malaysia, holding over 50 excavated candi (stone and brick temple shrines) dating from the 3rd to 14th century CE.",
+    "culturalContext": "Proves the existence of a sophisticated trans-peninsular entrepôt where seafaring merchants from India, China, Persia, and Southeast Asia exchanged pottery, beads, glass, and spices guarded by Mount Jerai.",
+    "latitude": 5.7389,
+    "longitude": 100.4137,
+    "visitDurationMinutes": 90,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Grounds feature stone walkways among reconstructed candi shrines.",
+    "culturalCareNotes": "Do not climb or sit upon the fragile ancient laterite temple foundations.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Ancient stone candi ruin of Candi Bukit Batu Pahat in Bujang Valley",
+    "imageCredit": "Jabatan Muzium Malaysia",
+    "sources": [
+      {
+        "title": "Bujang Valley: Early Maritime Trade and Civilization in Southeast Asia",
+        "publisher": "Pusat Penyelidikan Arkeologi Global USM",
+        "url": "https://arkeologi.usm.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "trg-state-museum",
+    "name": "Terengganu State Museum Complex",
+    "malayName": "Muzium Negeri Terengganu",
+    "stateId": "TRG",
+    "locality": "Bukit Losong, Kuala Terengganu, Terengganu",
+    "categories": ["Museum", "Architecture", "Living Tradition"],
+    "culturalThemes": ["Traditional Wooden Boatbuilding", "Songket & Batik Textile Arts", "Islamic Inscription Stone Heritage"],
+    "shortDescription": "The largest museum complex in Southeast Asia (27 hectares), constructed on stilts like traditional Terengganu palaces and housing the monumental 1303 CE Inscription Stone.",
+    "culturalContext": "Four main interconnected palace buildings house exhibits on traditional seafaring, Malay brasswork, royal textiles, and fisheries, set against landscaped botanical gardens and authentic heritage houses.",
+    "latitude": 5.3182,
+    "longitude": 103.1018,
+    "visitDurationMinutes": 120,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Saturday - Thursday: 9:00 AM - 5:00 PM; Friday: 9:00 AM - 12:00 PM, 3:00 PM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Elevators and ramps installed across the interconnected main pavilions.",
+    "culturalCareNotes": "Photography permitted without tripod or flash; respect designated gallery boundaries.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageAlt": "Monumental wooden stilt palace architecture of Terengganu State Museum",
+    "imageCredit": "Lembaga Muzium Negeri Terengganu",
+    "sources": [
+      {
+        "title": "Batu Bersurat Terengganu UNESCO Memory of the World Register",
+        "publisher": "UNESCO",
+        "url": "https://en.unesco.org/memoryoftheworld/registry"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  }
+]

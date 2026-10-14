@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="50%" stop-color="#B45309" />
+      <stop offset="100%" stop-color="#78350F" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#grad)" />
+  <!-- Heritage Dome / Arch motif -->
+  <path d="M32 12 C22 22 18 32 18 48 L46 48 C46 32 42 22 32 12 Z" fill="#FEF3C7" opacity="0.95" />
+  <path d="M32 20 C25 28 22 36 22 48 L42 48 C42 36 39 28 32 20 Z" fill="#D97706" />
+  <circle cx="32" cy="18" r="3" fill="#F59E0B" />
+  <path d="M32 32 L32 48" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round" />
+  <path d="M26 40 L38 40" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round" />
+</svg>

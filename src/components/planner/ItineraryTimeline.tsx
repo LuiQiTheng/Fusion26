@@ -1,0 +1,269 @@
+import React from 'react';
+import {
+  Clock,
+  MapPin,
+  Sparkles,
+  Bookmark,
+  Trash2,
+  Footprints,
+  Car,
+  Bus,
+  Bike,
+  ShieldCheck,
+  AlertCircle,
+  Printer,
+  DollarSign,
+} from 'lucide-react';
+import { Itinerary, HeritagePlace } from '../../types';
+
+interface ItineraryTimelineProps {
+  itinerary: Itinerary;
+  allPlaces: HeritagePlace[];
+  onSelectPlace: (place: HeritagePlace) => void;
+  onRemoveStop: (order: number) => void;
+  onSaveItinerary: () => void;
+  onInspectAI: () => void;
+  isSaved?: boolean;
+}
+
+export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
+  itinerary,
+  allPlaces,
+  onSelectPlace,
+  onRemoveStop,
+  onSaveItinerary,
+  onInspectAI,
+  isSaved = false,
+}) => {
+  const placeMap = new Map<string, HeritagePlace>(allPlaces.map((p) => [p.id, p]));
+
+  // Calculate estimated admission total
+  let totalAdmissionCost = 0;
+  let hasUnverifiedFees = false;
+
+  itinerary.stops.forEach((stop) => {
+    const place = placeMap.get(stop.placeId);
+    if (place) {
+      if (place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined) {
+        totalAdmissionCost += place.estimatedCostMYR;
+      } else {
+        hasUnverifiedFees = true;
+      }
+    }
+  });
+
+  const getTransportIcon = (mode: string) => {
+    switch (mode) {
+      case 'car':
+        return <Car className="w-4 h-4 text-amber-600" />;
+      case 'public_transport':
+        return <Bus className="w-4 h-4 text-amber-600" />;
+      case 'mixed':
+        return <Bike className="w-4 h-4 text-amber-600" />;
+      default:
+        return <Footprints className="w-4 h-4 text-amber-600" />;
+    }
+  };
+
+  const formatMinutes = (totalMinutes: number) => {
+    const hours = Math.floor(totalMinutes / 60);
+    const mins = totalMinutes % 60;
+    if (hours === 0) return `${mins}m`;
+    if (mins === 0) return `${hours}h`;
+    return `${hours}h ${mins}m`;
+  };
+
+  return (
+    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-8">
+      {/* Top Header & Metrics Banner */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+              {itinerary.destinationStateId} Cultural Plan
+            </span>
+            <span className="flex items-center gap-1 text-xs text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Explainable Constraints
+            </span>
+          </div>
+          <h2 className="font-serif font-bold text-2xl text-slate-900">
+            {itinerary.title}
+          </h2>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onInspectAI}
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-amber-500/15 text-amber-900 hover:bg-amber-500/25 border border-amber-300/40 flex items-center gap-1.5 transition-colors"
+          >
+            <Sparkles className="w-4 h-4 text-amber-600" />
+            Inspect AI Logic
+          </button>
+
+          <button
+            onClick={onSaveItinerary}
+            className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+              isSaved
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'bg-amber-600 text-white hover:bg-amber-700 shadow-xs'
+            }`}
+          >
+            <Bookmark className="w-4 h-4" />
+            {isSaved ? 'Saved Locally' : 'Save Itinerary'}
+          </button>
+
+          <button
+            onClick={() => window.print()}
+            className="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition-colors"
+            title="Print Itinerary"
+          >
+            <Printer className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Summary Metrics Row */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+        <div>
+          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Duration</p>
+          <p className="text-base font-extrabold text-slate-900">
+            {formatMinutes(itinerary.totalPlannedMinutes)}
+          </p>
+          <span className="text-[11px] text-slate-500">Target: {formatMinutes(itinerary.availableMinutes)}</span>
+        </div>
+
+        <div>
+          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Monument Visits</p>
+          <p className="text-base font-extrabold text-amber-700">
+            {formatMinutes(itinerary.totalVisitMinutes)}
+          </p>
+          <span className="text-[11px] text-slate-500">{itinerary.stops.length} cultural sites</span>
+        </div>
+
+        <div>
+          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Transit Time</p>
+          <p className="text-base font-extrabold text-indigo-700 flex items-center gap-1">
+            {getTransportIcon(itinerary.transportMode)}
+            {formatMinutes(itinerary.totalTravelMinutes)}
+          </p>
+          <span className="text-[11px] text-slate-500 capitalize">{itinerary.transportMode} mode</span>
+        </div>
+
+        <div>
+          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Est. Entry Cost</p>
+          <p className="text-base font-extrabold text-emerald-700">
+            {totalAdmissionCost === 0 ? 'Free Entry' : `RM ${totalAdmissionCost}`}
+          </p>
+          <span className="text-[11px] text-slate-500">
+            {hasUnverifiedFees ? 'Excludes unlisted' : 'All fees verified'}
+          </span>
+        </div>
+      </div>
+
+      {/* Timeline Stops */}
+      <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-200">
+        {itinerary.stops.map((stop, idx) => {
+          const place = placeMap.get(stop.placeId);
+          if (!place) return null;
+
+          return (
+            <div key={stop.placeId} className="relative pl-12">
+              {/* Stop Number Circle */}
+              <div className="absolute left-0 top-1 w-10 h-10 rounded-2xl bg-amber-600 text-white font-serif font-bold text-sm flex items-center justify-center shadow-md shadow-amber-600/30 z-10">
+                {stop.order}
+              </div>
+
+              {/* Stop Card */}
+              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-amber-400/80 transition-all">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" />
+                        Offset: +{formatMinutes(stop.arrivalOffsetMinutes || 0)}
+                      </span>
+                      <span className="text-slate-300">•</span>
+                      <span className="text-xs font-semibold text-amber-700">
+                        Visit: {stop.visitDurationMinutes} mins
+                      </span>
+                    </div>
+
+                    <h3
+                      onClick={() => onSelectPlace(place)}
+                      className="font-serif font-bold text-lg text-slate-900 hover:text-amber-700 cursor-pointer transition-colors"
+                    >
+                      {place.name}
+                    </h3>
+                    <p className="text-xs text-slate-500">{place.locality}</p>
+
+                    {/* Selection Reasoning pill */}
+                    <div className="mt-2 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/60 text-xs text-amber-900">
+                      <strong>Why Recommended: </strong>
+                      {stop.reasonSelected}
+                    </div>
+                  </div>
+
+                  {/* Thumbnail & Actions */}
+                  <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0">
+                    <img
+                      src={place.imageUrl}
+                      alt={place.name}
+                      className="w-16 h-16 rounded-xl object-cover cursor-pointer hover:opacity-90"
+                      onClick={() => onSelectPlace(place)}
+                    />
+                    {itinerary.stops.length > 1 && (
+                      <button
+                        onClick={() => onRemoveStop(stop.order)}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                        title="Remove stop from plan"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Transit Connector between stops */}
+              {idx < itinerary.stops.length - 1 && (
+                <div className="my-3 py-1.5 px-3 rounded-xl bg-slate-100 text-slate-600 text-xs flex items-center justify-between border border-slate-200/80">
+                  <div className="flex items-center gap-2">
+                    {getTransportIcon(itinerary.transportMode)}
+                    <span className="font-semibold text-slate-800">
+                      {itinerary.stops[idx + 1].travelFromPreviousMinutes || 8} min transfer
+                    </span>
+                    <span className="text-[11px] text-slate-500">
+                      to Stop {stop.order + 1}
+                    </span>
+                  </div>
+
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-white border border-slate-200 text-slate-700">
+                    {itinerary.stops[idx + 1].routeDataStatus === 'estimated'
+                      ? 'Estimated Urban Walk'
+                      : itinerary.stops[idx + 1].routeDataStatus === 'simulated'
+                      ? 'Simulated Transit Model'
+                      : 'Geographic Context'}
+                  </span>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Assumptions and Transparency Footer */}
+      <div className="p-4 rounded-2xl bg-amber-50/50 border border-amber-200/60 text-xs space-y-1.5 text-amber-950">
+        <h4 className="font-bold flex items-center gap-1.5 text-amber-900">
+          <AlertCircle className="w-3.5 h-3.5 text-amber-700" />
+          Planning Assumptions & Data Transparency
+        </h4>
+        <ul className="list-disc list-inside space-y-0.5 text-slate-600">
+          {itinerary.assumptions.map((assump, idx) => (
+            <li key={idx}>{assump}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};

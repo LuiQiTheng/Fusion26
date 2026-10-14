@@ -1,0 +1,35 @@
+[
+  {
+    "id": "col-melaka-harmony",
+    "title": "Melaka Harmony Trail",
+    "tagline": "Three Faiths, One Historic Street",
+    "stateId": "MLK",
+    "theme": "Living Multicultural Traditions",
+    "placeIds": ["mlk-cheng-hoon-teng", "mlk-kampung-kling", "mlk-baba-nyonya", "mlk-jonker"],
+    "recommendedDurationMinutes": 210,
+    "description": "Walk along famous Jalan Tukang Emas and Heeren Street to discover how Malay, Chinese, and Indian Muslim traditions flourished side-by-side in harmony for three centuries.",
+    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "col-melaka-fortress-sultanate",
+    "title": "Sovereigns & Sieges: Sultanate to Colonial Forts",
+    "tagline": "From Mansur Shah's Golden Age to European Bastions",
+    "stateId": "MLK",
+    "theme": "Malay Sultanate & Colonial Architecture",
+    "placeIds": ["mlk-sultanate-palace", "mlk-afamosa", "mlk-st-pauls", "mlk-stadthuys"],
+    "recommendedDurationMinutes": 180,
+    "description": "Trace the dramatic shifts of power in Southeast Asia: starting from the nail-less wooden Malay royal palace up to the Portuguese fortress gate and Dutch governance seat.",
+    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "col-melaka-straits-life",
+    "title": "Living Straits Heritage: Shophouses & Ancestral Mansions",
+    "tagline": "Craftsmen, Antiques, and Baba-Nyonya Living Opulence",
+    "stateId": "MLK",
+    "theme": "Peranakan Heritage & Craftsmanship",
+    "placeIds": ["mlk-baba-nyonya", "mlk-jonker", "mlk-cheng-hoon-teng"],
+    "recommendedDurationMinutes": 160,
+    "description": "An intimate journey through Straits-Chinese architecture, delicate beaded shoe craftsmanship, ancestral shrines, and aromatic Nyonya culinary traditions.",
+    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+  }
+]
