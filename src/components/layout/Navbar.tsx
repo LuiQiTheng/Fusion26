@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, MapPin, Bookmark, Menu, X, Award } from 'lucide-react';
+import { Compass, MapPin, Bookmark, Menu, X, Award, LogIn } from 'lucide-react';
 
 export type NavTab = 'home' | 'explore' | 'missions' | 'saved';
 
@@ -8,6 +8,7 @@ interface NavbarProps {
   onTabChange: (tab: NavTab) => void;
   favoritesCount: number;
   completedMissionsCount: number;
+  onSignIn?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -15,6 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onTabChange,
   favoritesCount,
   completedMissionsCount,
+  onSignIn,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -88,6 +90,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
+          {/* Sign In entry point (desktop) */}
+          {onSignIn && (
+            <button
+              onClick={onSignIn}
+              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white bg-tropical-teal hover:bg-deep-teal transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tropical-teal focus-visible:ring-offset-2"
+            >
+              <LogIn className="w-4 h-4" aria-hidden="true" />
+              Sign In
+            </button>
+          )}
+
           {/* Mobile menu trigger */}
           <div className="flex md:hidden items-center gap-2">
             <button
@@ -128,6 +141,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+          {onSignIn && (
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onSignIn();
+              }}
+              className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl text-sm font-bold text-white bg-tropical-teal hover:bg-deep-teal"
+            >
+              <LogIn className="w-4 h-4" aria-hidden="true" />
+              Sign In
+            </button>
+          )}
         </div>
       )}
     </header>

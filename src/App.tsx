@@ -6,6 +6,7 @@ import { ExplorePage } from './pages/ExplorePage';
 import { MissionsPage } from './pages/MissionsPage';
 import { SavedTripPage } from './pages/SavedTripPage';
 import { AboutDataPage } from './pages/AboutDataPage';
+import { AuthPage, AuthView } from './pages/AuthPage';
 
 import { PlaceDetailModal } from './components/places/PlaceDetailModal';
 import { MelakaShowcaseModal } from './components/places/MelakaShowcaseModal';
@@ -48,6 +49,8 @@ export const App: React.FC = () => {
   // Navigation: Only 4 simplified tabs
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
   const [selectedStateId, setSelectedStateId] = useState<string>('ALL');
+  // Frontend-only auth screens (null = normal website). Existing tab/page state is kept while open.
+  const [authView, setAuthView] = useState<AuthView | null>(null);
 
   // Domain Data
   const states = statesData as StateRecord[];
@@ -150,6 +153,24 @@ export const App: React.FC = () => {
     setMissionProofs({});
   };
 
+  const openAuth = (view: AuthView) => {
+    setAuthView(view);
+    window.scrollTo({ top: 0 });
+  };
+
+  if (authView) {
+    return (
+      <AuthPage
+        view={authView}
+        onViewChange={openAuth}
+        onBack={() => {
+          setAuthView(null);
+          window.scrollTo({ top: 0 });
+        }}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-200 selection:text-amber-900">
       {/* Navbar: 4 Clean Tabs */}
@@ -161,6 +182,7 @@ export const App: React.FC = () => {
         }}
         favoritesCount={favorites.length}
         completedMissionsCount={completedMissionIds.length}
+        onSignIn={() => openAuth('login')}
       />
 
       {/* Main Page Content */}
