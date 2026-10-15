@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, ShieldCheck, X } from 'lucide-react';
+import { Search, Filter, ShieldCheck, X, Grid, Map } from 'lucide-react';
 import { StateRecord } from '../../types';
 
 interface FilterBarProps {
@@ -15,6 +15,8 @@ interface FilterBarProps {
   categories: string[];
   totalResults: number;
   onResetFilters: () => void;
+  viewMode?: 'grid' | 'map';
+  onViewModeChange?: (mode: 'grid' | 'map') => void;
 }
 
 export const FilterBar: React.FC<FilterBarProps> = ({
@@ -30,6 +32,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   categories,
   totalResults,
   onResetFilters,
+  viewMode,
+  onViewModeChange,
 }) => {
   const hasActiveFilters =
     searchTerm !== '' ||
@@ -131,8 +135,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           ))}
         </div>
 
-        {/* Verification Check & Results count */}
-        <div className="flex items-center justify-between sm:justify-end gap-3 text-xs shrink-0">
+        {/* Verification Check, Results count & View switcher */}
+        <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 text-xs shrink-0">
           <label className="flex items-center gap-2 cursor-pointer font-medium text-slate-700 select-none">
             <input
               type="checkbox"
@@ -157,6 +161,37 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             >
               Reset
             </button>
+          )}
+
+          {viewMode && onViewModeChange && (
+            <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200 shrink-0">
+              <button
+                type="button"
+                onClick={() => onViewModeChange('grid')}
+                className={`px-2 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all ${
+                  viewMode === 'grid'
+                    ? 'bg-white text-slate-900 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+                title="Grid View"
+              >
+                <Grid className="w-3.5 h-3.5" />
+                <span>Grid</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onViewModeChange('map')}
+                className={`px-2 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all ${
+                  viewMode === 'map'
+                    ? 'bg-white text-slate-900 shadow-xs'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+                title="Map View"
+              >
+                <Map className="w-3.5 h-3.5" />
+                <span>Map</span>
+              </button>
+            </div>
           )}
         </div>
       </div>

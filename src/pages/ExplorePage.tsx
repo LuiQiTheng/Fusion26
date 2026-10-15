@@ -7,7 +7,7 @@ import { PlannerForm } from '../components/planner/PlannerForm';
 import { ItineraryTimeline } from '../components/planner/ItineraryTimeline';
 import { PlannerOptions, generateItinerary, recalculateItineraryStops } from '../lib/planner';
 import { saveItinerary } from '../lib/persistence';
-import { Map, Grid, ShieldCheck, ExternalLink, Compass, Calendar, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, ExternalLink, Compass, Calendar, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface ExplorePageProps {
   states: StateRecord[];
@@ -296,48 +296,24 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
             </div>
           )}
 
-          {/* Filter Bar with Grid/Map switch */}
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-            <div className="flex-1">
-              <FilterBar
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-                selectedStateId={selectedStateId}
-                onStateChange={onSelectState}
-                selectedCategory={selectedCategory}
-                onCategoryChange={setSelectedCategory}
-                verifiedOnly={verifiedOnly}
-                onVerifiedOnlyChange={setVerifiedOnly}
-                states={states}
-                categories={categories}
-                totalResults={filteredPlaces.length}
-                onResetFilters={handleResetFilters}
-              />
-            </div>
-            <div className="flex bg-slate-100 p-1 rounded-xl self-end shrink-0 border border-slate-200">
-              <button
-                onClick={() => setBrowseViewMode('grid')}
-                className={`p-2 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all ${
-                  browseViewMode === 'grid'
-                    ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                title="Grid View"
-              >
-                <Grid className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setBrowseViewMode('map')}
-                className={`p-2 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all ${
-                  browseViewMode === 'map'
-                    ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-                title="Map View"
-              >
-                <Map className="w-4 h-4" />
-              </button>
-            </div>
+          {/* Filter Bar spanning full width matching other sections */}
+          <div className="w-full">
+            <FilterBar
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              selectedStateId={selectedStateId}
+              onStateChange={onSelectState}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+              verifiedOnly={verifiedOnly}
+              onVerifiedOnlyChange={setVerifiedOnly}
+              states={states}
+              categories={categories}
+              totalResults={filteredPlaces.length}
+              onResetFilters={handleResetFilters}
+              viewMode={browseViewMode}
+              onViewModeChange={setBrowseViewMode}
+            />
           </div>
 
           {/* Grid or Map Display */}

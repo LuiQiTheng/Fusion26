@@ -14,20 +14,17 @@ import { NavTab } from '../components/layout/Navbar';
 
 interface HomePageProps {
   states: StateRecord[];
-  places: HeritagePlace[];
-  collections: CuratedCollection[];
+  places?: HeritagePlace[];
+  collections?: CuratedCollection[];
   onNavigate: (tab: NavTab) => void;
-  onSelectPlace: (place: HeritagePlace) => void;
+  onSelectPlace?: (place: HeritagePlace) => void;
   onSelectState: (stateId: string) => void;
   onOpenMelakaShowcase: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   states,
-  places,
-  collections,
   onNavigate,
-  onSelectPlace,
   onSelectState,
   onOpenMelakaShowcase,
 }) => {
@@ -96,77 +93,6 @@ export const HomePage: React.FC<HomePageProps> = ({
               <span>Cultural Missions</span>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Featured Melaka Journey Section (Clicking opens showcase modal directly) */}
-      <section className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
-              <Sparkles className="w-4 h-4" /> Featured Showcase Destination
-            </div>
-            <h2 className="font-serif font-bold text-3xl text-slate-900 mt-1">
-              Melaka: UNESCO World Heritage Historic City
-            </h2>
-            <p className="text-sm text-slate-600 mt-1 max-w-2xl">
-              500 years of global crossroads where Malay Sultanate origins, Portuguese bastions, Dutch civic red brick, and Baba-Nyonya living heritage converge.
-            </p>
-          </div>
-
-          <button
-            onClick={onOpenMelakaShowcase}
-            className="text-sm font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 shrink-0"
-          >
-            Open Interactive Map & Sites <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Curated Journey Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {collections.map((col) => (
-            <div
-              key={col.id}
-              onClick={onOpenMelakaShowcase}
-              className="group cursor-pointer rounded-3xl bg-white border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between"
-            >
-              <div className="relative h-48 w-full bg-slate-900 overflow-hidden">
-                <img
-                  src={col.imageUrl}
-                  alt={col.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/places/mlk-stadthuys.jpg';
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500 text-slate-950">
-                  {col.theme}
-                </span>
-              </div>
-
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-1.5">
-                  <h3 className="font-serif font-bold text-lg text-slate-900 group-hover:text-amber-700 transition-colors">
-                    {col.title}
-                  </h3>
-                  <p className="text-xs font-semibold text-amber-800 italic">
-                    {col.tagline}
-                  </p>
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                    {col.description}
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
-                  <span>⏱ ~{col.recommendedDurationMinutes} mins total</span>
-                  <span className="font-semibold text-amber-700 flex items-center gap-1">
-                    Explore Showcase →
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -246,53 +172,6 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* How the Explainable Planner Works */}
-      <section className="rounded-3xl bg-slate-50 border border-slate-200/90 p-8 sm:p-12 space-y-8">
-        <div className="max-w-2xl space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700">
-            <ShieldCheck className="w-4 h-4" /> Responsible Design
-          </div>
-          <h2 className="font-serif font-bold text-2xl sm:text-3xl text-slate-900">
-            Explainable Intelligence: No Black Boxes, Zero Speculation
-          </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            In compliance with the FUSION 2026 Responsible AI framework, our itinerary planner does not rely on opaque generative guessing. Instead, it uses transparent constraint heuristics grounded in real travel physics and verified archival data.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200/80 space-y-2 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center font-serif text-lg">
-              1
-            </div>
-            <h4 className="font-bold text-base text-slate-900">Time-Budget Feasibility</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Every stop strictly respects physical visit durations and walking speeds (4.5 km/h) to prevent visitor exhaustion and site overcrowding.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200/80 space-y-2 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center font-serif text-lg">
-              2
-            </div>
-            <h4 className="font-bold text-base text-slate-900">Cultural Diversity Scoring</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              The engine rewards multi-faith and cross-cultural representation (e.g. balancing Islamic, Peranakan, and Colonial traditions without monocultural bias).
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200/80 space-y-2 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center font-serif text-lg">
-              3
-            </div>
-            <h4 className="font-bold text-base text-slate-900">Data Status Transparency</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Every route and cost is explicitly labelled as <em>Verified</em>, <em>Estimated</em>, or <em>Simulated</em>. Unknown values are never fabricated as zero.
-            </p>
-          </div>
         </div>
       </section>
     </div>
