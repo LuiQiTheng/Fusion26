@@ -1,10 +1,12 @@
-import { Itinerary } from '../types';
+import { Itinerary, MissionProof } from '../types';
 
 const STORAGE_KEYS = {
   ITINERARY: 'mhe_saved_itinerary_v1',
   FAVOURITES: 'mhe_saved_favourites_v1',
   MISSIONS: 'mhe_completed_missions_v1',
   PREFERENCES: 'mhe_user_preferences_v1',
+  PROOFS: 'mhe_mission_proofs_v1',
+  BADGES: 'mhe_unlocked_badges_v1',
 };
 
 export function saveItinerary(itinerary: Itinerary): boolean {
@@ -88,13 +90,65 @@ export function completeMission(missionId: string): string[] {
   return current;
 }
 
+export function saveMissionProofs(proofs: Record<string, MissionProof>): boolean {
+  try {
+    localStorage.setItem(STORAGE_KEYS.PROOFS, JSON.stringify(proofs));
+    return true;
+  } catch (err) {
+    console.error('Failed to save mission proofs:', err);
+    return false;
+  }
+}
+
+export function loadMissionProofs(): Record<string, MissionProof> {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.PROOFS);
+    if (!raw) return {};
+    return JSON.parse(raw) as Record<string, MissionProof>;
+  } catch (err) {
+    console.error('Failed to load mission proofs:', err);
+    return {};
+  }
+}
+
+export function addMissionProof(proof: MissionProof): Record<string, MissionProof> {
+  const current = loadMissionProofs();
+  const updated = { ...current, [proof.missionId]: proof };
+  saveMissionProofs(updated);
+  return updated;
+}
+
+export function saveUnlockedBadges(badgeIds: string[]): boolean {
+  try {
+    localStorage.setItem(STORAGE_KEYS.BADGES, JSON.stringify(badgeIds));
+    return true;
+  } catch (err) {
+    console.error('Failed to save unlocked badges:', err);
+    return false;
+  }
+}
+
+export function loadUnlockedBadges(): string[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.BADGES);
+    if (!raw) return [];
+    return JSON.parse(raw) as string[];
+  } catch (err) {
+    console.error('Failed to load unlocked badges:', err);
+    return [];
+  }
+}
+
 export function clearAllSavedData(): void {
   try {
     localStorage.removeItem(STORAGE_KEYS.ITINERARY);
     localStorage.removeItem(STORAGE_KEYS.FAVOURITES);
     localStorage.removeItem(STORAGE_KEYS.MISSIONS);
     localStorage.removeItem(STORAGE_KEYS.PREFERENCES);
+    localStorage.removeItem(STORAGE_KEYS.PROOFS);
+    localStorage.removeItem(STORAGE_KEYS.BADGES);
   } catch (err) {
     console.error('Failed to clear storage:', err);
   }
 }
+

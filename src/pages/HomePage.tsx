@@ -1,14 +1,12 @@
 import React from 'react';
 import {
-  Compass,
+  Sparkles,
   MapPin,
   Calendar,
-  Sparkles,
   ShieldCheck,
   ChevronRight,
   Award,
   Globe,
-  BookOpen,
   ArrowRight,
 } from 'lucide-react';
 import { StateRecord, HeritagePlace, CuratedCollection } from '../types';
@@ -21,6 +19,7 @@ interface HomePageProps {
   onNavigate: (tab: NavTab) => void;
   onSelectPlace: (place: HeritagePlace) => void;
   onSelectState: (stateId: string) => void;
+  onOpenMelakaShowcase: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -30,14 +29,12 @@ export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onSelectPlace,
   onSelectState,
+  onOpenMelakaShowcase,
 }) => {
-  const melakaPlaces = places.filter((p) => p.stateId === 'MLK');
-
   return (
     <div className="space-y-16 sm:space-y-24">
       {/* Hero Section */}
       <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-amber-950 to-slate-900 text-white p-8 sm:p-14 border border-amber-500/20 shadow-2xl">
-        {/* Background decorative glows */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -59,24 +56,24 @@ export const HomePage: React.FC<HomePageProps> = ({
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center gap-3 pt-4">
             <button
-              onClick={() => onNavigate('melaka')}
+              onClick={onOpenMelakaShowcase}
               className="px-6 py-3.5 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold shadow-lg shadow-amber-600/30 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4" />
               Explore Melaka Showcase
             </button>
             <button
-              onClick={() => onNavigate('planner')}
+              onClick={() => onNavigate('explore')}
               className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-sm font-semibold border border-white/20 backdrop-blur-md transition-all flex items-center gap-2 cursor-pointer"
             >
               <Calendar className="w-4 h-4 text-amber-400" />
-              Plan a Cultural Trip
+              Explore States & Plan Trip
             </button>
             <button
-              onClick={() => onNavigate('explore')}
+              onClick={() => onNavigate('missions')}
               className="px-5 py-3.5 rounded-2xl text-slate-300 hover:text-white text-sm font-medium transition-colors flex items-center gap-1.5"
             >
-              Browse All States <ChevronRight className="w-4 h-4" />
+              Cultural Missions <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
@@ -102,7 +99,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* Featured Melaka Journey Section */}
+      {/* Featured Melaka Journey Section (Clicking opens showcase modal directly) */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
@@ -113,15 +110,15 @@ export const HomePage: React.FC<HomePageProps> = ({
               Melaka: UNESCO World Heritage Historic City
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-2xl">
-              500 years of global maritime crossroads where Malay Sultanate origins, Portuguese bastions, Dutch civic red brick, and Baba-Nyonya living heritage converge.
+              500 years of global crossroads where Malay Sultanate origins, Portuguese bastions, Dutch civic red brick, and Baba-Nyonya living heritage converge.
             </p>
           </div>
 
           <button
-            onClick={() => onNavigate('melaka')}
+            onClick={onOpenMelakaShowcase}
             className="text-sm font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 shrink-0"
           >
-            Open Interactive Map <ArrowRight className="w-4 h-4" />
+            Open Interactive Map & Sites <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
@@ -130,14 +127,17 @@ export const HomePage: React.FC<HomePageProps> = ({
           {collections.map((col) => (
             <div
               key={col.id}
-              onClick={() => onNavigate('melaka')}
+              onClick={onOpenMelakaShowcase}
               className="group cursor-pointer rounded-3xl bg-white border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between"
             >
-              <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
+              <div className="relative h-48 w-full bg-slate-900 overflow-hidden">
                 <img
                   src={col.imageUrl}
                   alt={col.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/images/places/mlk-stadthuys.jpg';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                 <span className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-500 text-slate-950">
@@ -161,7 +161,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
                   <span>⏱ ~{col.recommendedDurationMinutes} mins total</span>
                   <span className="font-semibold text-amber-700 flex items-center gap-1">
-                    Explore Trail →
+                    Explore Showcase →
                   </span>
                 </div>
               </div>
@@ -189,7 +189,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             onClick={() => onNavigate('explore')}
             className="text-sm font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 shrink-0"
           >
-            View State Catalog <ArrowRight className="w-4 h-4" />
+            View State Catalog & Plan <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
@@ -203,6 +203,19 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
               className="group cursor-pointer rounded-2xl bg-white p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-amber-400/80 transition-all space-y-2"
             >
+              {st.imageUrl && (
+                <div className="h-28 w-full rounded-xl overflow-hidden mb-2 bg-slate-100">
+                  <img
+                    src={st.imageUrl}
+                    alt={st.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/places/mlk-stadthuys.jpg';
+                    }}
+                  />
+                </div>
+              )}
               <div className="flex items-start justify-between">
                 <div>
                   <h4 className="font-serif font-bold text-base text-slate-900 group-hover:text-amber-700 transition-colors">

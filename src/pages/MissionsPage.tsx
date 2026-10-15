@@ -1,7 +1,10 @@
-import React from 'react';
-import { CulturalMission, HeritagePlace } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import { CulturalMission, HeritagePlace, MissionProof, ExplorerBadge } from '../types';
 import { MissionCard } from '../components/missions/MissionCard';
-import { Award, ShieldCheck, Sparkles, RotateCcw } from 'lucide-react';
+import { BadgeShowcaseBar } from '../components/missions/BadgeShowcaseBar';
+import { BadgeCelebrationModal } from '../components/missions/BadgeCelebrationModal';
+import { Award, RotateCcw } from 'lucide-react';
+import { checkNewlyUnlockedBadge } from '../lib/badges';
 
 interface MissionsPageProps {
   missions: CulturalMission[];
@@ -10,6 +13,8 @@ interface MissionsPageProps {
   places: HeritagePlace[];
   onSelectPlace: (place: HeritagePlace) => void;
   onResetMissions: () => void;
+  proofs: Record<string, MissionProof>;
+  onUploadProof: (proof: MissionProof) => void;
 }
 
 export const MissionsPage: React.FC<MissionsPageProps> = ({
@@ -19,13 +24,46 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
   places,
   onSelectPlace,
   onResetMissions,
+  proofs,
+  onUploadProof,
 }) => {
   const completedCount = completedMissionIds.length;
   const totalCount = missions.length;
   const progressPercent = Math.round((completedCount / totalCount) * 100);
 
+  // Badge Celebration modal state
+  const [celebrationBadge, setCelebrationBadge] = useState<ExplorerBadge | null>(null);
+  const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
+
+  // Track previous completed count to detect badge unlock transition
+  const prevCountRef = useRef(completedCount);
+
+  useEffect(() => {
+    const prevCount = prevCountRef.current;
+    if (completedCount > prevCount) {
+      const unlocked = checkNewlyUnlockedBadge(prevCount, completedCount);
+      if (unlocked) {
+        setCelebrationBadge(unlocked);
+        setIsCelebrationOpen(true);
+      }
+    }
+    prevCountRef.current = completedCount;
+  }, [completedCount]);
+
+  const handleBadgeClick = (badge: ExplorerBadge) => {
+    setCelebrationBadge(badge);
+    setIsCelebrationOpen(true);
+  };
+
   return (
     <div className="space-y-8">
+      {/* Celebration Modal */}
+      <BadgeCelebrationModal
+        badge={celebrationBadge}
+        isOpen={isCelebrationOpen}
+        onClose={() => setIsCelebrationOpen(false)}
+      />
+
       {/* Header Banner */}
       <div className="rounded-3xl bg-gradient-to-r from-emerald-950 via-slate-900 to-amber-950 text-white p-8 sm:p-12 border border-emerald-500/20 shadow-xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -38,33 +76,42 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
               Heritage in Action: Learn, Notice, Reflect
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Engage with historical stories and architectural craftsmanship. These missions encourage thoughtful observation and preservation awareness rather than superficial tourism.
+              Visit heritage monuments in person, upload your photo proof of visit, or test your architectural knowledge. Unlock bronze, silver, and gold explorer badges!
             </p>
           </div>
 
           {/* Progress Card */}
           <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 sm:w-64 space-y-2 shrink-0">
             <div className="flex items-center justify-between text-xs font-semibold text-white">
-              <span>Overall Progress</span>
+              <span>Missions Verified</span>
               <span>{completedCount} / {totalCount} Done</span>
             </div>
             <div className="w-full h-2 rounded-full bg-white/20 overflow-hidden">
               <div
-                className="h-full bg-emerald-400 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-emerald-400 to-amber-400 rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
             <p className="text-[10px] text-emerald-200">
-              {progressPercent === 100 ? '🎉 All cultural missions unlocked!' : 'Complete challenges to earn heritage badges'}
+              {progressPercent === 100
+                ? '🎉 All cultural missions unlocked!'
+                : 'Upload photo proof to level up your badge'}
             </p>
           </div>
         </div>
       </div>
 
+      {/* Explorer Badges Progression Bar */}
+      <BadgeShowcaseBar
+        completedCount={completedCount}
+        totalMissions={totalCount}
+        onBadgeClick={handleBadgeClick}
+      />
+
       {/* Controls & Reset */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-2">
         <div className="text-xs text-slate-500">
-          Showing {missions.length} curated educational missions
+          Showing {missions.length} curated educational missions with photo verification
         </div>
         {completedCount > 0 && (
           <button
@@ -86,6 +133,8 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
             onComplete={onCompleteMission}
             places={places}
             onSelectPlace={onSelectPlace}
+            proof={proofs[mission.id]}
+            onUploadProof={onUploadProof}
           />
         ))}
       </div>

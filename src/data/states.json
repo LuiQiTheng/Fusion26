@@ -19,8 +19,8 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["mlk-afamosa", "mlk-stadthuys", "mlk-baba-nyonya", "mlk-kampung-kling", "mlk-cheng-hoon-teng", "mlk-jonker", "mlk-sultanate-palace", "mlk-st-pauls", "mlk-bukit-cina"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "placeIds": ["mlk-stadthuys", "mlk-afamosa", "mlk-baba-nyonya", "mlk-cheng-hoon-teng", "mlk-kampung-kling", "mlk-jonker", "mlk-sultanate-palace", "mlk-st-pauls", "mlk-bukit-cina"],
+    "imageUrl": "/images/places/mlk-stadthuys.jpg"
   },
   {
     "id": "PNG",
@@ -37,8 +37,8 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["png-khoo-kongsi", "png-cheong-fatt-tze", "png-clan-jetties"],
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
+    "placeIds": ["png-khoo-kongsi"],
+    "imageUrl": "/images/places/png-khoo-kongsi.jpg"
   },
   {
     "id": "KUL",
@@ -55,8 +55,8 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["kul-sultan-abdul-samad", "kul-merdeka-square", "kul-national-museum"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "placeIds": ["kul-sultan-abdul-samad"],
+    "imageUrl": "/images/places/kul-sultan-abdul-samad.jpg"
   },
   {
     "id": "JHR",
@@ -74,7 +74,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["jhr-sultan-abu-bakar-mosque"],
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/jhr-sultan-abu-bakar-mosque.jpg"
   },
   {
     "id": "KDH",
@@ -92,7 +92,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["kdh-bujang-valley"],
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/kdh-bujang-valley.jpg"
   },
   {
     "id": "KTN",
@@ -110,7 +110,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["ktn-istana-jahar"],
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/ktn-istana-jahar.jpg"
   },
   {
     "id": "NSN",
@@ -128,7 +128,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["nsn-istana-seri-menanti"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/nsn-istana-seri-menanti.jpg"
   },
   {
     "id": "PHG",
@@ -146,7 +146,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["phg-masjid-sultan-abdullah"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/phg-masjid-sultan-abdullah.jpg"
   },
   {
     "id": "PRK",
@@ -164,7 +164,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["prk-ubudiah-mosque"],
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/prk-ubudiah-mosque.jpg"
   },
   {
     "id": "PLS",
@@ -182,7 +182,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["pls-kota-kayang"],
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/pls-kota-kayang.jpg"
   },
   {
     "id": "SBH",
@@ -200,7 +200,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["sbh-monsopiad-village"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/sbh-monsopiad-village.jpg"
   },
   {
     "id": "SWK",
@@ -223,7 +223,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["swk-cultural-village"],
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/swk-cultural-village.jpg"
   },
   {
     "id": "SGR",
@@ -241,7 +241,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["sgr-batu-caves"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/sgr-batu-caves.jpg"
   },
   {
     "id": "TRG",
@@ -259,7 +259,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["trg-state-museum"],
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/trg-state-museum.jpg"
   },
   {
     "id": "PJY",
@@ -277,7 +277,7 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["pjy-putra-mosque"],
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/pjy-putra-mosque.jpg"
   },
   {
     "id": "LBN",
@@ -295,6 +295,6 @@
     ],
     "verificationStatus": "verified",
     "placeIds": ["lbn-chimney"],
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
+    "imageUrl": "/images/places/lbn-chimney.jpg"
   }
 ]

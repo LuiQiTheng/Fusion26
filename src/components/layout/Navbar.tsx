@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Compass, MapPin, Calendar, Bookmark, ShieldCheck, Menu, X, Sparkles, Award } from 'lucide-react';
+import { Compass, MapPin, Bookmark, Menu, X, Award } from 'lucide-react';
 
-export type NavTab = 'home' | 'explore' | 'melaka' | 'planner' | 'missions' | 'saved' | 'about';
+export type NavTab = 'home' | 'explore' | 'missions' | 'saved';
 
 interface NavbarProps {
   currentTab: NavTab;
@@ -20,12 +20,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navItems: { id: NavTab; label: string; icon: React.ReactNode; badge?: number }[] = [
     { id: 'home', label: 'Home', icon: <Compass className="w-4 h-4" /> },
-    { id: 'explore', label: 'Explore States', icon: <MapPin className="w-4 h-4" /> },
-    { id: 'melaka', label: 'Melaka Showcase', icon: <Sparkles className="w-4 h-4 text-amber-500" /> },
-    { id: 'planner', label: 'Trip Planner', icon: <Calendar className="w-4 h-4" /> },
+    { id: 'explore', label: 'Explore & Plan', icon: <MapPin className="w-4 h-4" /> },
     { id: 'missions', label: 'Missions', icon: <Award className="w-4 h-4 text-emerald-500" />, badge: completedMissionsCount },
-    { id: 'saved', label: 'Saved Trip', icon: <Bookmark className="w-4 h-4" />, badge: favoritesCount },
-    { id: 'about', label: 'Data & Ethics', icon: <ShieldCheck className="w-4 h-4 text-indigo-500" /> },
+    { id: 'saved', label: 'Saved Trips', icon: <Bookmark className="w-4 h-4" />, badge: favoritesCount },
   ];
 
   const handleSelect = (tab: NavTab) => {
@@ -34,7 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-900/10 shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-900/10 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -62,18 +59,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Clean 4-Column Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
               const isActive = currentTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleSelect(item.id)}
-                  className={`relative flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                     isActive
-                      ? 'bg-amber-500/10 text-amber-900 font-semibold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                      ? 'bg-amber-500/15 text-amber-950 font-bold shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                 >
                   {item.icon}
@@ -113,13 +110,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => handleSelect(item.id)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold ${
                   isActive
-                    ? 'bg-amber-100 text-amber-900 font-semibold'
+                    ? 'bg-amber-100 text-amber-900 font-bold'
                     : 'text-slate-600 hover:bg-slate-100'
                 }`}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   {item.icon}
                   <span>{item.label}</span>
                 </div>

@@ -68,7 +68,7 @@ export const MelakaPage: React.FC<MelakaPageProps> = ({
 
           <div className="pt-4 flex flex-wrap gap-3">
             <button
-              onClick={() => onNavigate('planner')}
+              onClick={() => onNavigate('explore')}
               className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition-all flex items-center gap-1.5"
             >
               <Calendar className="w-4 h-4" />

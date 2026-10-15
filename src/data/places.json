@@ -17,9 +17,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Ground floor is accessible; upper museum floors have historic wooden staircases without elevator access.",
     "culturalCareNotes": "Please keep voices modulated inside museum galleries and avoid leaning on historic timber balustrades.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-stadthuys.jpg",
     "imageAlt": "The red colonial facade of The Stadthuys and Dutch Square in Melaka",
-    "imageCredit": "Unsplash / Creative Commons",
+    "imageCredit": "National Heritage Register / Jabatan Warisan Negara",
     "sources": [
       {
         "title": "Stadthuys Complex Conservation Assessment",
@@ -53,9 +53,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Surrounding paved plaza is wheelchair accessible; uneven cobblestone directly beneath the stone archway.",
     "culturalCareNotes": "Do not climb onto the historic stone ramparts or carve graffiti into the fragile laterite blocks.",
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-afamosa.jpg",
     "imageAlt": "The historic stone gatehouse of Porta de Santiago, A Famosa",
-    "imageCredit": "Unsplash / Creative Commons",
+    "imageCredit": "Jabatan Warisan Negara",
     "sources": [
       {
         "title": "National Heritage Register of Historic Monuments",
@@ -84,9 +84,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Traditional stepped thresholds between inner courtyards; upper ancestral rooms require ascending a steep timber flight of stairs.",
     "culturalCareNotes": "Photography is restricted inside ancestral altar chambers; please remove footwear where requested by museum docents.",
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
-    "imageAlt": "Interior courtyard and antique Peranakan furnishings",
-    "imageCredit": "Wikimedia Commons / CC-BY-SA",
+    "imageUrl": "/images/places/mlk-baba-nyonya.jpg",
+    "imageAlt": "Exterior townhouse facade of Baba & Nyonya Heritage Museum on Heeren Street",
+    "imageCredit": "Baba & Nyonya Heritage Museum",
     "sources": [
       {
         "title": "The Baba Nyonya Heritage Museum Archival Documentation",
@@ -115,9 +115,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Single-level ground floor access; small stone thresholds at temple gateways.",
     "culturalCareNotes": "Active place of worship. Speak quietly, dress respectfully (covered shoulders and knees), and refrain from pointing feet or camera flashes towards praying devotees or deity statues.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-cheng-hoon-teng.jpg",
     "imageAlt": "Intricate rooftop ridge carvings of dragons and porcelain figurines at Cheng Hoon Teng",
-    "imageCredit": "Creative Commons / UNESCO Heritage Documentation",
+    "imageCredit": "UNESCO Asia-Pacific Heritage Documentation",
     "sources": [
       {
         "title": "UNESCO Asia-Pacific Awards for Cultural Heritage Conservation: Cheng Hoon Teng",
@@ -146,7 +146,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Step-free ramp provided at side entrance to ablution area and prayer hall perimeter.",
     "culturalCareNotes": "Visitors must dress modestly (robes and head coverings provided at entrance). Shoes must be removed before stepping onto prayer floors. Please do not enter during Friday congregation.",
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-kampung-kling.jpg",
     "imageAlt": "The pagoda-like minaret and tiered roof of Kampung Kling Mosque",
     "imageCredit": "Jabatan Warisan Negara",
     "sources": [
@@ -177,9 +177,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Reached via historic stone staircases up Bukit Melaka from Stadthuys or A Famosa. Not wheelchair accessible.",
     "culturalCareNotes": "Respect the historic gravestones and the marble statue of St. Francis Xavier. Watch footing on worn stone steps.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-st-pauls.jpg",
     "imageAlt": "Open roof laterite walls and Dutch gravestones of St. Paul's Church",
-    "imageCredit": "Unsplash / CC-BY",
+    "imageCredit": "Jabatan Warisan Negara",
     "sources": [
       {
         "title": "A History of Malacca",
@@ -208,9 +208,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "High timber thresholds and staircases to upper royal court chambers.",
     "culturalCareNotes": "Remove shoes at the palace entrance; shoe racks provided. Follow the designated wooden walkway to preserve traditional hardwood planks.",
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-sultanate-palace.jpg",
     "imageAlt": "Ornate carved timber gables and tiered roof of the Melaka Sultanate Palace Museum",
-    "imageCredit": "Perbadanan Muzium Melaka",
+    "imageCredit": "Perbadanan Muzium Melaka (PERZIM)",
     "sources": [
       {
         "title": "The Sejarah Melayu (Malay Annals) and the Architecture of Istana Mansur Shah",
@@ -239,9 +239,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Pavements feature periodic curb cuts; crowded night market conditions may be challenging for manual wheelchairs.",
     "culturalCareNotes": "Support genuine heritage artisans; avoid taking photos of working craftsmen without asking polite verbal permission.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-jonker.jpg",
     "imageAlt": "Streetscape of Jonker Walk with red lanterns and historic Straits eclectic shophouses",
-    "imageCredit": "Tourism Malaysia",
+    "imageCredit": "Majlis Bandaraya Melaka Bersejarah",
     "sources": [
       {
         "title": "Melaka World Heritage City Shophouse Conservation Guidelines",
@@ -270,7 +270,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Hill paths consist of grassy knolls and earthen trails; the well and Sam Po Keng Temple at the base are wheelchair accessible.",
     "culturalCareNotes": "Sacred ancestral burial grounds. Do not step directly on tomb mounds or memorial headstones. Keep to earthen footpaths.",
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/mlk-bukit-cina.jpg",
     "imageAlt": "Earthen slopes and Ming dynasty horseshoe graves at Bukit Cina",
     "imageCredit": "Melaka Chinese Heritage Trust",
     "sources": [
@@ -301,7 +301,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Paved courtyard accessible; temple hall has traditional stone steps.",
     "culturalCareNotes": "Respect ancestral altar shrines; no smoking or flash photography inside the main hall.",
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/png-khoo-kongsi.jpg",
     "imageAlt": "Gilded timber beams and stone dragons of Khoo Kongsi",
     "imageCredit": "George Town World Heritage Incorporated",
     "sources": [
@@ -323,18 +323,18 @@
     "categories": ["Architecture", "Colonial", "Monument"],
     "culturalThemes": ["Moorish-Mughal Architecture", "National Independence"],
     "shortDescription": "Late nineteenth-century masterpiece designed by A.C. Norman, combining Moorish, Mughal, and Neo-Saracenic architectural aesthetics with a 41-meter clock tower.",
-    "culturalContext": "Originally housing the British colonial administration and later Malaysia's highest judicial courts, this building witnessed the historic lowering of the Union Jack and raising of the Malayan flag on 31 August 1957.",
+    "culturalContext": "Originally housing the British colonial administration and later Malaysia's highest judicial courts, this building witnessed the historic lowering of the Union Jack and raising of the Malayan flag on 31 August 1957 at Dataran Merdeka.",
     "latitude": 3.1486,
     "longitude": 101.6944,
     "visitDurationMinutes": 45,
     "estimatedCostMYR": 0,
-    "openingHoursText": "Exterior viewable 24 hours (Interior houses government offices)",
+    "openingHoursText": "Exterior viewable 24 hours (Merdeka Square precinct)",
     "openingHoursVerified": true,
     "accessibilityNotes": "Surrounding pedestrian plaza at Merdeka Square is flat and fully wheelchair accessible.",
     "culturalCareNotes": "Pedestrian safety along Jalan Raja; respect heritage boundaries when photographing.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
-    "imageAlt": "The iconic illuminated clock tower of Sultan Abdul Samad Building",
-    "imageCredit": "National Archives of Malaysia",
+    "imageUrl": "/images/places/kul-sultan-abdul-samad.jpg",
+    "imageAlt": "The iconic illuminated clock tower of Sultan Abdul Samad Building at Merdeka Square",
+    "imageCredit": "Arkib Negara Malaysia",
     "sources": [
       {
         "title": "Arkib Negara Malaysia Architectural Documentation",
@@ -363,7 +363,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Main Cathedral Cave requires climbing 272 steep steps; Ramayana cave at ground level has ramped access.",
     "culturalCareNotes": "Strict temple dress code (knees and shoulders covered; sarongs for rent at base). Do not feed or tease the wild macaque monkeys.",
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/sgr-batu-caves.jpg",
     "imageAlt": "Golden Lord Murugan statue and colorful flight of 272 steps at Batu Caves",
     "imageCredit": "Tourism Selangor",
     "sources": [
@@ -394,7 +394,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Paved boardwalks between houses; climbing notched log ladders into traditional longhouses requires assistance.",
     "culturalCareNotes": "Always request permission before photographing indigenous elders at craft stations.",
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/swk-cultural-village.jpg",
     "imageAlt": "Traditional timber longhouse on stilts at Sarawak Cultural Village",
     "imageCredit": "Sarawak Tourism Board",
     "sources": [
@@ -425,7 +425,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Rustic gravel paths and traditional timber steps.",
     "culturalCareNotes": "The House of Skulls is considered a sacred resting precinct; maintain silence and respectful demeanor.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/sbh-monsopiad-village.jpg",
     "imageAlt": "Traditional bamboo Kadazandusun dwelling at Monsopiad",
     "imageCredit": "Sabah Tourism Board",
     "sources": [
@@ -456,7 +456,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Ramp access to exterior perimeter; prayer hall entrance has short marble stairs.",
     "culturalCareNotes": "Modest Islamic dress required. Please maintain silence within the royal mausoleum grounds.",
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/prk-ubudiah-mosque.jpg",
     "imageAlt": "The gleaming golden domes and Italian marble minarets of Ubudiah Mosque",
     "imageCredit": "Perak Heritage Society",
     "sources": [
@@ -487,9 +487,9 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Traditional raised timber floors with wooden access stairs.",
     "culturalCareNotes": "Shoes removed at the entry verandah. Do not touch sensitive embroidered royal textiles.",
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/ktn-istana-jahar.jpg",
     "imageAlt": "Intricately carved wooden louvers and pent roofs of Istana Jahar",
-    "imageCredit": "Kelantan State Museum Corporation",
+    "imageCredit": "Perbadanan Muzium Negeri Kelantan",
     "sources": [
       {
         "title": "Kelantan Malay Vernacular Architecture",
@@ -518,7 +518,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Multi-tiered timber levels accessible by internal stairs.",
     "culturalCareNotes": "Strictly non-smoking zone due to historic cengal timber conservation.",
-    "imageUrl": "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/nsn-istana-seri-menanti.jpg",
     "imageAlt": "The black cengal timber four-storey facade of Istana Lama Seri Menanti",
     "imageCredit": "Lembaga Muzium Negeri Sembilan",
     "sources": [
@@ -549,7 +549,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Grounds feature stone walkways among reconstructed candi shrines.",
     "culturalCareNotes": "Do not climb or sit upon the fragile ancient laterite temple foundations.",
-    "imageUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/kdh-bujang-valley.jpg",
     "imageAlt": "Ancient stone candi ruin of Candi Bukit Batu Pahat in Bujang Valley",
     "imageCredit": "Jabatan Muzium Malaysia",
     "sources": [
@@ -580,7 +580,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Elevators and ramps installed across the interconnected main pavilions.",
     "culturalCareNotes": "Photography permitted without tripod or flash; respect designated gallery boundaries.",
-    "imageUrl": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+    "imageUrl": "/images/places/trg-state-museum.jpg",
     "imageAlt": "Monumental wooden stilt palace architecture of Terengganu State Museum",
     "imageCredit": "Lembaga Muzium Negeri Terengganu",
     "sources": [
@@ -588,6 +588,161 @@
         "title": "Batu Bersurat Terengganu UNESCO Memory of the World Register",
         "publisher": "UNESCO",
         "url": "https://en.unesco.org/memoryoftheworld/registry"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "phg-masjid-sultan-abdullah",
+    "name": "Sultan Abdullah Mosque Museum",
+    "malayName": "Muzium Masjid Sultan Abdullah",
+    "stateId": "PHG",
+    "locality": "Pekan, Pahang",
+    "categories": ["Museum", "Architecture", "Religious"],
+    "culturalThemes": ["Royal Pekan Heritage", "Moorish-Mughal Architecture"],
+    "shortDescription": "Built in the 1920s with distinctive Moorish arches and minarets, this royal mosque now serves as an Islamic heritage museum in the royal town of Pekan.",
+    "culturalContext": "Preserves historical artefacts of royal Pahang regalia, early Islamic manuscripts, and architectural relics from the royal court of Pekan.",
+    "latitude": 3.4939,
+    "longitude": 103.3934,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 5,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Grounds and museum halls feature level tiled surfaces.",
+    "culturalCareNotes": "Modest attire required inside the museum grounds.",
+    "imageUrl": "/images/places/phg-masjid-sultan-abdullah.jpg",
+    "imageAlt": "Historic Moorish arches of Sultan Abdullah Mosque Museum in Pekan",
+    "imageCredit": "Perbadanan Muzium Negeri Pahang",
+    "sources": [
+      {
+        "title": "Perbadanan Muzium Negeri Pahang Cultural Profile",
+        "publisher": "Pahang State Museum Corporation",
+        "url": "https://muzium.pahang.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "pls-kota-kayang",
+    "name": "Masjid Alwi (National Heritage Mosque)",
+    "malayName": "Masjid Alwi Kangar",
+    "stateId": "PLS",
+    "locality": "Kangar, Perlis",
+    "categories": ["Religious", "Architecture", "Monument"],
+    "culturalThemes": ["Northern Border Folk Heritage", "Mughal Architecture"],
+    "shortDescription": "Gazetted as a National Heritage Site, this iconic mosque completed in 1936 features striking classical Mughal and Moorish domes and slender minarets.",
+    "culturalContext": "Named after Raja Syed Alwi, this landmark represents the spiritual and architectural focal point of early twentieth-century Perlis, constructed through royal patronages and community waqf donations.",
+    "latitude": 6.4414,
+    "longitude": 100.1986,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open daily outside prayer times",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ramped entrance available to the prayer perimeter.",
+    "culturalCareNotes": "Modest Islamic dress required. Please remove shoes at the entrance foyer.",
+    "imageUrl": "/images/places/pls-kota-kayang.jpg",
+    "imageAlt": "The gleaming white and gold domes of Masjid Alwi in Kangar, Perlis",
+    "imageCredit": "Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "National Heritage Register of Historic Buildings",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "pjy-putra-mosque",
+    "name": "Putra Mosque",
+    "malayName": "Masjid Putra",
+    "stateId": "PJY",
+    "locality": "Presint 1, Putrajaya",
+    "categories": ["Religious", "Architecture", "Monument"],
+    "culturalThemes": ["Contemporary Islamic Architecture", "Civic Design"],
+    "shortDescription": "Famed for its rose-tinted granite domes and 116-meter minaret, Putra Mosque stands gracefully beside Putrajaya Lake and the Perdana Putra complex.",
+    "culturalContext": "Constructed between 1997 and 1999, the mosque blends modern Malaysian Islamic design with Persian, Arab, and traditional Malay woodcarving motifs.",
+    "latitude": 2.9361,
+    "longitude": 101.6892,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 12:30 PM, 2:00 PM - 4:00 PM, 5:30 PM - 6:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Elevator and ramp access to the main prayer hall courtyard.",
+    "culturalCareNotes": "Robes (jubah) provided free of charge for non-Muslim visitors. Remove footwear before entering prayer zones.",
+    "imageUrl": "/images/places/pjy-putra-mosque.jpg",
+    "imageAlt": "The rose granite dome and minaret of Putra Mosque overlooking Putrajaya Lake",
+    "imageCredit": "Perbadanan Putrajaya",
+    "sources": [
+      {
+        "title": "Perbadanan Putrajaya Heritage & Architecture Guide",
+        "publisher": "Perbadanan Putrajaya",
+        "url": "https://www.ppj.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "lbn-chimney",
+    "name": "The Chimney of Labuan",
+    "malayName": "Serombong Labuan",
+    "stateId": "LBN",
+    "locality": "Tanjung Kubong, Labuan",
+    "categories": ["Monument", "Colonial", "Museum"],
+    "culturalThemes": ["Maritime & Coal Mining History", "WWII Memorial Heritage"],
+    "shortDescription": "Enigmatic 32-meter red-brick tower constructed in the late 19th century using over 23,000 British-imported bricks during Labuan's coal-mining era.",
+    "culturalContext": "An engineering enigma whose exact original purpose remains a subject of historical intrigue; local legends and archival surveys suggest it served as a ventilation shaft for underground coal mines.",
+    "latitude": 5.3811,
+    "longitude": 115.2472,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Surrounding landscaped plaza is level and accessible.",
+    "culturalCareNotes": "Do not lean against or deface the historic red-brick structure.",
+    "imageUrl": "/images/places/lbn-chimney.jpg",
+    "imageAlt": "The 32-meter red-brick historical Chimney of Labuan",
+    "imageCredit": "Jabatan Muzium Malaysia",
+    "sources": [
+      {
+        "title": "Labuan Museum & Heritage Department",
+        "publisher": "Department of Museums Malaysia",
+        "url": "http://www.jmm.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-10"
+  },
+  {
+    "id": "jhr-sultan-abu-bakar-mosque",
+    "name": "Sultan Abu Bakar State Mosque",
+    "malayName": "Masjid Negeri Sultan Abu Bakar",
+    "stateId": "JHR",
+    "locality": "Jalan Skudai, Johor Bahru, Johor",
+    "categories": ["Religious", "Architecture", "Monument"],
+    "culturalThemes": ["Royal Johor Heritage", "Victorian-Islamic Architecture"],
+    "shortDescription": "Commissioned in 1892 by Sultan Abu Bakar (Father of Modern Johor), blending classical Victorian colonial clocktower aesthetics with traditional Islamic motifs.",
+    "culturalContext": "Perched gracefully atop a prominent hill overlooking the Straits of Johor, its four minarets resemble Victorian clock towers while housing a marble-columned prayer sanctuary.",
+    "latitude": 1.4589,
+    "longitude": 103.7547,
+    "visitDurationMinutes": 50,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM (Outside congregational prayer)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ramped entrance along the hillside garden promenade.",
+    "culturalCareNotes": "Modest attire required. Maintain quiet decorum within the royal grounds.",
+    "imageUrl": "/images/places/jhr-sultan-abu-bakar-mosque.jpg",
+    "imageAlt": "Victorian clocktower minarets and white facade of Sultan Abu Bakar State Mosque",
+    "imageCredit": "Yayasan Warisan Johor",
+    "sources": [
+      {
+        "title": "Yayasan Warisan Johor (Johor Heritage Foundation)",
+        "publisher": "Johor State Government",
+        "url": "https://ywj.gov.my"
       }
     ],
     "verificationStatus": "verified",

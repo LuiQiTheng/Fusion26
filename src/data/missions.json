@@ -71,5 +71,118 @@
     "sourceIds": ["National Heritage Register of Historic Monuments", "Stadthuys Complex Conservation Assessment"],
     "sensitivityNote": "Preserve the fragile laterite stone surfaces by not touching or climbing upon the ancient gate.",
     "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-batu-caves",
+    "title": "The 272 Steps of Lord Murugan",
+    "type": "notice",
+    "instructions": "Inspect the sacred limestone sanctuary at Batu Caves, guarded by the 42.7m golden Murugan statue.",
+    "placeIds": ["sgr-batu-caves"],
+    "learningObjective": "Understand the cultural and spiritual significance of the sacred Thaipusam festival and limestone karst cave sanctuary in Selangor.",
+    "explanation": "Batu Caves represents one of the most prominent Hindu pilgrimage shrines outside India. Erected in 2006, the 42.7m golden statue of Lord Murugan stands before 272 vibrantly painted steps leading into Cathedral Cave, welcoming millions during the annual Thaipusam procession.",
+    "quizQuestion": "What sacred Hindu deity does the world's tallest statue outside India at the base of Batu Caves depict?",
+    "quizOptions": [
+      "Lord Vishnu",
+      "Lord Murugan",
+      "Lord Shiva",
+      "Lord Ganesha"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["Jabatan Muzium Malaysia"],
+    "sensitivityNote": "Dress modestly with shoulders and knees covered when climbing the sacred temple steps. Avoid feeding wild macaques.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-khoo-kongsi",
+    "title": "The Master Carvers of Cannon Square",
+    "type": "learn",
+    "instructions": "Explore Penang's Leong San Tong Khoo Kongsi to observe master stone carvings and gilded beam embellishments.",
+    "placeIds": ["png-khoo-kongsi"],
+    "learningObjective": "Analyze the intricate clan architecture, gilded woodcraft, and stone masonry preserved in George Town World Heritage Site.",
+    "explanation": "Constructed by Chinese immigrants from Fujian province, Khoo Kongsi served as a clan temple, ancestral altar, and community defense network. Its roof ridge is adorned with 36 divine statues, dragons, and carp symbolizing scholastic perseverance.",
+    "quizQuestion": "From which Chinese province did the master artisans who constructed Penang's Leong San Tong Khoo Kongsi originate?",
+    "quizOptions": [
+      "Sichuan",
+      "Fujian",
+      "Yunnan",
+      "Hunan"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["George Town World Heritage Incorporated (GTWHI)"],
+    "sensitivityNote": "Maintain quiet decorum inside the ancestral altar halls and avoid touching delicate gilded woodcarvings.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-sultan-abdul-samad",
+    "title": "The Midnight Chime of Merdeka",
+    "type": "connect",
+    "instructions": "Stand before the Sultan Abdul Samad Building and Dataran Merdeka where modern Malaysian sovereignty was born.",
+    "placeIds": ["kul-sultan-abdul-samad"],
+    "learningObjective": "Connect the architectural grandeur of late 19th-century Neo-Saracenic design with Malaysia's declaration of independence in 1957.",
+    "explanation": "Designed by A.C. Norman, the Sultan Abdul Samad Building features horseshoe arches, copper domes, and a 41-meter clock tower. Directly facing Dataran Merdeka, it witnessed the historic lowering of the Union Jack at midnight on 30 August 1957 and the birth of Malaya as a sovereign nation.",
+    "quizQuestion": "What architectural style is predominantly displayed in the copper domes and horseshoe arches of the Sultan Abdul Samad Building?",
+    "quizOptions": [
+      "Gothic Revival",
+      "Moorish / Neo-Saracenic",
+      "Art Deco",
+      "Brutalist"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["Arkib Negara Malaysia Architectural Documentation"],
+    "sensitivityNote": "Mind pedestrian traffic when photographing the historic facade from Merdeka Square.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-seri-menanti",
+    "title": "The 99 Pillars of Adat Perpatih",
+    "type": "notice",
+    "instructions": "Examine the black cengal timber facade and soaring curved roof gables of Istana Lama Seri Menanti.",
+    "placeIds": ["nsn-istana-seri-menanti"],
+    "learningObjective": "Examine how traditional Minangkabau matrilineal culture and nail-less architecture shaped royal Negeri Sembilan heritage.",
+    "explanation": "Istana Lama Seri Menanti was erected between 1902 and 1908 by master builders Tukang Kahar and Tukang Taib using interlocking cengal timber without nails. Its 99 foundation pillars represent the 99 warriors of the Luak confederacies, and its curved roof symbolizes the horns of the sacred water buffalo.",
+    "quizQuestion": "What do the 99 solid cengal timber pillars of Istana Lama Seri Menanti represent?",
+    "quizOptions": [
+      "The 99 names of kings",
+      "The 99 warriors of the royal confederacy",
+      "The 99 islands of the archipelago",
+      "The 99 years of construction"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["Jabatan Warisan Negara Registry"],
+    "sensitivityNote": "Remove shoes at the verandah and refrain from touching preserved timber joints.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-bujang-valley",
+    "title": "Cradle of Ancient Maritime Trade",
+    "type": "learn",
+    "instructions": "Inspect the stone candi shrines and archaeological excavations of Lembah Bujang in Kedah.",
+    "placeIds": ["kdh-bujang-valley"],
+    "learningObjective": "Discover the 2,000-year-old trans-peninsular entrepôt and early Hindu-Buddhist stone candi shrines of Lembah Bujang.",
+    "explanation": "Dating back to the 3rd century CE, Lembah Bujang in Kedah was Southeast Asia's greatest trans-peninsular trading entrepôt, where Indian, Arab, and Chinese merchant ships exchanged spices, beads, and ironware guided by Mount Jerai. Over 50 excavated candi shrines including Candi Bukit Batu Pahat bear witness to this proto-historic civilization.",
+    "quizQuestion": "Which prominent mountain served as a natural navigational landmark for ancient sailors arriving at Lembah Bujang?",
+    "quizOptions": [
+      "Mount Kinabalu",
+      "Mount Jerai (Gunung Jerai)",
+      "Mount Ledang",
+      "Mount Tahan"
+    ],
+    "quizCorrectIndex": 1,
+    "sourceIds": ["Pusat Penyelidikan Arkeologi Global USM"],
+    "sensitivityNote": "Do not climb or sit upon ancient excavated candi stone foundations.",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "mission-sarawak-longhouse",
+    "title": "Guardians of Borneo Longhouses",
+    "type": "reflect",
+    "instructions": "Observe the stilt architecture and communal living arrangements of traditional Sarawak dwellings.",
+    "placeIds": ["swk-cultural-village"],
+    "learningObjective": "Reflect on how indigenous Dayak communities preserve communal longhouse living traditions, oral histories, and crafts.",
+    "explanation": "Borneo's living longhouses are vibrant communal ecosystems where extended multi-generational families share a common verandah (ruai), fostering mutual support, storytelling, oral history, and traditional weaving (Pua Kumbu). The Melanau tall house was built on 40-foot stilts to protect against pirate incursions and river floods.",
+    "reflectionPrompt": "What lessons can modern individualistic societies learn from the communal living and mutual care embodied in traditional Borneo longhouses?",
+    "sourceIds": ["Sarawak Museum Department", "Sarawak Tourism Board"],
+    "sensitivityNote": "Always request permission before taking close-up portraits of indigenous elders or craft demonstrations.",
+    "verificationStatus": "verified"
   }
 ]

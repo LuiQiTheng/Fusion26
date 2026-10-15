@@ -3,13 +3,12 @@ import { NavTab, Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HomePage } from './pages/HomePage';
 import { ExplorePage } from './pages/ExplorePage';
-import { MelakaPage } from './pages/MelakaPage';
-import { PlannerPage } from './pages/PlannerPage';
 import { MissionsPage } from './pages/MissionsPage';
 import { SavedTripPage } from './pages/SavedTripPage';
 import { AboutDataPage } from './pages/AboutDataPage';
 
 import { PlaceDetailModal } from './components/places/PlaceDetailModal';
+import { MelakaShowcaseModal } from './components/places/MelakaShowcaseModal';
 import { AIReasoningModal } from './components/common/AIReasoningModal';
 
 import statesData from './data/states.json';
@@ -24,6 +23,7 @@ import {
   CuratedCollection,
   Itinerary,
   AIReasoningInspection,
+  MissionProof,
 } from './types';
 
 import {
@@ -33,13 +33,19 @@ import {
   loadCompletedMissions,
   completeMission,
   clearAllSavedData,
+  loadMissionProofs,
+  addMissionProof,
+  saveCompletedMissions,
+  saveMissionProofs,
+  saveUnlockedBadges,
 } from './lib/persistence';
 
 import { inspectPlaceReasoning, inspectItineraryReasoning } from './lib/aiReasoning';
 import { generateItinerary } from './lib/planner';
+import { X } from 'lucide-react';
 
 export const App: React.FC = () => {
-  // Navigation
+  // Navigation: Only 4 simplified tabs
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
   const [selectedStateId, setSelectedStateId] = useState<string>('ALL');
 
@@ -54,9 +60,12 @@ export const App: React.FC = () => {
   const [savedItinerary, setSavedItinerary] = useState<Itinerary | null>(null);
   const [currentItinerary, setCurrentItinerary] = useState<Itinerary | null>(null);
   const [completedMissionIds, setCompletedMissionIds] = useState<string[]>([]);
+  const [missionProofs, setMissionProofs] = useState<Record<string, MissionProof>>({});
 
   // Modals
   const [detailPlace, setDetailPlace] = useState<HeritagePlace | null>(null);
+  const [isMelakaShowcaseOpen, setIsMelakaShowcaseOpen] = useState(false);
+  const [isEthicsModalOpen, setIsEthicsModalOpen] = useState(false);
   const [aiInspection, setAiInspection] = useState<AIReasoningInspection | null>(null);
   const [aiInspectionTitle, setAiInspectionTitle] = useState<string>('');
 
@@ -68,7 +77,7 @@ export const App: React.FC = () => {
       setSavedItinerary(storedItin);
       setCurrentItinerary(storedItin);
     } else {
-      // Generate default starter Melaka itinerary
+      // Generate starter Melaka itinerary
       const starter = generateItinerary(
         {
           destinationStateId: 'MLK',
@@ -82,6 +91,7 @@ export const App: React.FC = () => {
       setCurrentItinerary(starter);
     }
     setCompletedMissionIds(loadCompletedMissions());
+    setMissionProofs(loadMissionProofs());
   }, []);
 
   // Handlers
@@ -93,6 +103,11 @@ export const App: React.FC = () => {
   const handleCompleteMission = (missionId: string) => {
     const updated = completeMission(missionId);
     setCompletedMissionIds(updated);
+  };
+
+  const handleUploadProof = (proof: MissionProof) => {
+    const updated = addMissionProof(proof);
+    setMissionProofs(updated);
   };
 
   const handleInspectPlaceAI = (place: HeritagePlace) => {
@@ -123,49 +138,8 @@ export const App: React.FC = () => {
     );
     newItin.title = col.title;
     setCurrentItinerary(newItin);
-    setCurrentTab('planner');
+    setCurrentTab('explore');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleAddToItinerary = (place: HeritagePlace) => {
-    if (!currentItinerary) {
-      const newItin = generateItinerary(
-        {
-          destinationStateId: place.stateId,
-          availableMinutes: 240,
-          interests: place.culturalThemes,
-          transportMode: 'walking',
-          budgetLevel: 'flexible',
-          startingPlaceId: place.id,
-        },
-        places
-      );
-      setCurrentItinerary(newItin);
-    } else {
-      // Check if place already exists
-      const alreadyIn = currentItinerary.stops.some((s) => s.placeId === place.id);
-      if (!alreadyIn) {
-        const updatedStops = [
-          ...currentItinerary.stops,
-          {
-            placeId: place.id,
-            order: currentItinerary.stops.length + 1,
-            visitDurationMinutes: place.visitDurationMinutes || 45,
-            routeDataStatus: 'estimated' as const,
-            reasonSelected: `Manually added by user from exploration view.`,
-          },
-        ];
-        setCurrentItinerary({
-          ...currentItinerary,
-          stops: updatedStops,
-          totalPlannedMinutes: currentItinerary.totalPlannedMinutes + (place.visitDurationMinutes || 45) + 10,
-          totalVisitMinutes: currentItinerary.totalVisitMinutes + (place.visitDurationMinutes || 45),
-          totalTravelMinutes: currentItinerary.totalTravelMinutes + 10,
-          isCustomized: true,
-        });
-      }
-    }
-    setCurrentTab('planner');
   };
 
   const handleClearAllSaved = () => {
@@ -173,11 +147,12 @@ export const App: React.FC = () => {
     setFavorites([]);
     setSavedItinerary(null);
     setCompletedMissionIds([]);
+    setMissionProofs({});
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-200 selection:text-amber-900">
-      {/* Navigation */}
+      {/* Navbar: 4 Clean Tabs */}
       <Navbar
         currentTab={currentTab}
         onTabChange={(tab) => {
@@ -188,7 +163,7 @@ export const App: React.FC = () => {
         completedMissionsCount={completedMissionIds.length}
       />
 
-      {/* Main Container */}
+      {/* Main Page Content */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {currentTab === 'home' && (
           <HomePage
@@ -204,6 +179,7 @@ export const App: React.FC = () => {
               setSelectedStateId(stId);
               setCurrentTab('explore');
             }}
+            onOpenMelakaShowcase={() => setIsMelakaShowcaseOpen(true)}
           />
         )}
 
@@ -217,37 +193,11 @@ export const App: React.FC = () => {
             onToggleFavorite={handleToggleFavorite}
             onSelectPlace={setDetailPlace}
             onInspectAI={handleInspectPlaceAI}
-            onAddToItinerary={handleAddToItinerary}
-          />
-        )}
-
-        {currentTab === 'melaka' && (
-          <MelakaPage
-            places={places}
-            collections={collections}
-            favorites={favorites}
-            onToggleFavorite={handleToggleFavorite}
-            onSelectPlace={setDetailPlace}
-            onInspectAI={handleInspectPlaceAI}
-            onAddToItinerary={handleAddToItinerary}
-            onNavigate={(tab) => {
-              setCurrentTab(tab);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onLoadCollectionIntoPlanner={handleLoadCollectionIntoPlanner}
-          />
-        )}
-
-        {currentTab === 'planner' && (
-          <PlannerPage
-            states={states}
-            places={places}
             currentItinerary={currentItinerary}
             onUpdateItinerary={(itin) => {
               setCurrentItinerary(itin);
               if (itin) setSavedItinerary(itin);
             }}
-            onSelectPlace={setDetailPlace}
             onInspectItineraryAI={handleInspectItineraryAI}
           />
         )}
@@ -261,8 +211,13 @@ export const App: React.FC = () => {
             onSelectPlace={setDetailPlace}
             onResetMissions={() => {
               setCompletedMissionIds([]);
-              clearAllSavedData();
+              setMissionProofs({});
+              saveCompletedMissions([]);
+              saveMissionProofs({});
+              saveUnlockedBadges([]);
             }}
+            proofs={missionProofs}
+            onUploadProof={handleUploadProof}
           />
         )}
 
@@ -281,13 +236,12 @@ export const App: React.FC = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onClearAllSaved={handleClearAllSaved}
+            proofs={missionProofs}
           />
         )}
-
-        {currentTab === 'about' && <AboutDataPage />}
       </main>
 
-      {/* Detail Modal */}
+      {/* Place Detail Modal */}
       <PlaceDetailModal
         place={detailPlace}
         isOpen={detailPlace !== null}
@@ -295,7 +249,61 @@ export const App: React.FC = () => {
         isFavorite={detailPlace ? favorites.includes(detailPlace.id) : false}
         onToggleFavorite={handleToggleFavorite}
         onInspectAI={handleInspectPlaceAI}
-        onAddToItinerary={handleAddToItinerary}
+        onAddToItinerary={(place) => {
+          if (!currentItinerary) {
+            const newItin = generateItinerary(
+              {
+                destinationStateId: place.stateId,
+                availableMinutes: 240,
+                interests: place.culturalThemes,
+                transportMode: 'walking',
+                budgetLevel: 'flexible',
+                startingPlaceId: place.id,
+              },
+              places
+            );
+            setCurrentItinerary(newItin);
+          } else {
+            const alreadyIn = currentItinerary.stops.some((s) => s.placeId === place.id);
+            if (!alreadyIn) {
+              const updatedStops = [
+                ...currentItinerary.stops,
+                {
+                  placeId: place.id,
+                  order: currentItinerary.stops.length + 1,
+                  visitDurationMinutes: place.visitDurationMinutes || 45,
+                  routeDataStatus: 'estimated' as const,
+                  reasonSelected: `Added by user from details view.`,
+                },
+              ];
+              setCurrentItinerary({
+                ...currentItinerary,
+                stops: updatedStops,
+                totalPlannedMinutes: currentItinerary.totalPlannedMinutes + (place.visitDurationMinutes || 45) + 10,
+                totalVisitMinutes: currentItinerary.totalVisitMinutes + (place.visitDurationMinutes || 45),
+                totalTravelMinutes: currentItinerary.totalTravelMinutes + 10,
+                isCustomized: true,
+              });
+            }
+          }
+          setCurrentTab('explore');
+        }}
+      />
+
+      {/* Melaka Showcase Pop-Up Modal (Directly on Home without leaving page) */}
+      <MelakaShowcaseModal
+        isOpen={isMelakaShowcaseOpen}
+        onClose={() => setIsMelakaShowcaseOpen(false)}
+        places={places}
+        collections={collections}
+        favorites={favorites}
+        onToggleFavorite={handleToggleFavorite}
+        onSelectPlace={setDetailPlace}
+        onInspectAI={handleInspectPlaceAI}
+        onAddToItinerary={(place) => {
+          setCurrentTab('explore');
+        }}
+        onLoadCollectionIntoPlanner={handleLoadCollectionIntoPlanner}
       />
 
       {/* AI Inspector Modal */}
@@ -306,8 +314,30 @@ export const App: React.FC = () => {
         subjectTitle={aiInspectionTitle}
       />
 
+      {/* Responsible Design Canvas Modal (For Judges / Deliverable 3) */}
+      {isEthicsModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
+            <div className="bg-slate-900 text-white p-5 flex items-center justify-between shrink-0">
+              <h3 className="font-serif font-bold text-lg text-white">
+                Responsible Design Canvas & Ethics (Deliverable 3)
+              </h3>
+              <button
+                onClick={() => setIsEthicsModalOpen(false)}
+                className="p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto">
+              <AboutDataPage />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
-      <Footer />
+      <Footer onOpenEthicsModal={() => setIsEthicsModalOpen(true)} />
     </div>
   );
 };

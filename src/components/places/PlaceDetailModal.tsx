@@ -41,9 +41,12 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         {/* Hero Image Section */}
         <div className="relative h-64 sm:h-72 w-full bg-slate-900 shrink-0">
           <img
-            src={place.imageUrl || 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1000&q=80'}
+            src={place.imageUrl || '/images/places/mlk-stadthuys.jpg'}
             alt={place.imageAlt || place.name}
             className="w-full h-full object-cover opacity-90"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/images/places/mlk-stadthuys.jpg';
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
 

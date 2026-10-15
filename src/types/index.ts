@@ -136,3 +136,26 @@ export interface AIReasoningInspection {
   excludedAssumptions: string[];
   hallucinationCheckPassed: boolean;
 }
+
+export type BadgeTierId = 'bronze' | 'silver' | 'gold';
+
+export interface ExplorerBadge {
+  id: BadgeTierId;
+  name: string;
+  level: 'Beginner' | 'Intermediate' | 'Expert';
+  minRequired: number;
+  color: 'bronze' | 'silver' | 'gold';
+  icon: string;
+  description: string;
+  unlockedAt?: string;
+}
+
+export interface MissionProof {
+  missionId: string;
+  placeId?: string;
+  placeName?: string;
+  photoDataUrl: string;
+  uploadedAt: string;
+  verifiedLabel: string;
+}
+

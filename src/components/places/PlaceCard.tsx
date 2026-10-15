@@ -32,10 +32,13 @@ export const PlaceCard: React.FC<PlaceCardProps> = ({
       {/* Image container */}
       <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
         <img
-          src={place.imageUrl || 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=600&q=80'}
+          src={place.imageUrl || '/images/places/mlk-stadthuys.jpg'}
           alt={place.imageAlt || place.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           loading="lazy"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/images/places/mlk-stadthuys.jpg';
+          }}
         />
 
         {/* Verification status badge */}
