@@ -7,7 +7,7 @@ import { PlannerForm } from '../components/planner/PlannerForm';
 import { ItineraryTimeline } from '../components/planner/ItineraryTimeline';
 import { PlannerOptions, generateItinerary, recalculateItineraryStops } from '../lib/planner';
 import { saveItinerary } from '../lib/persistence';
-import { ShieldCheck, ExternalLink, Compass, Calendar, Sparkles, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, Compass, Calendar, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface ExplorePageProps {
   states: StateRecord[];
@@ -229,41 +229,41 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
       )}
 
       {/* Main Header & Mode Selector */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D4AF37]/20">
         <div>
-          <h1 className="font-serif font-bold text-3xl text-slate-900">
+          <h1 className="font-serif font-bold text-3xl text-[#F5F5F0]">
             Explore States & Plan Trip
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-[#F5F5F0]/70 mt-1">
             Browse authentic heritage sites across Malaysia and generate explainable cultural itineraries
           </p>
         </div>
 
         {/* Master Segmented Switch: Browse vs Plan */}
-        <div className="flex bg-slate-100 p-1.5 rounded-2xl self-start sm:self-auto border border-slate-200/80 shadow-xs">
+        <div className="flex bg-[#0A1F1C] p-1.5 rounded-2xl self-start sm:self-auto border border-[#D4AF37]/25 shadow-md">
           <button
             onClick={() => setActiveMode('browse')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
               activeMode === 'browse'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
+                : 'text-[#F5F5F0]/70 hover:text-[#F5F5F0]'
             }`}
           >
-            <Compass className="w-4 h-4 text-amber-600" />
+            <Compass className={`w-4 h-4 ${activeMode === 'browse' ? 'text-[#04100E]' : 'text-[#D4AF37]'}`} />
             <span>Explore Places</span>
           </button>
           <button
             onClick={() => setActiveMode('plan')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
               activeMode === 'plan'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
+                : 'text-[#F5F5F0]/70 hover:text-[#F5F5F0]'
             }`}
           >
-            <Calendar className="w-4 h-4 text-amber-600" />
+            <Calendar className={`w-4 h-4 ${activeMode === 'plan' ? 'text-[#04100E]' : 'text-[#D4AF37]'}`} />
             <span>Trip Planner</span>
             {currentItinerary && (
-              <span className="w-2 h-2 rounded-full bg-amber-600" />
+              <span className={`w-2 h-2 rounded-full ${activeMode === 'plan' ? 'bg-[#04100E]' : 'bg-[#D4AF37]'}`} />
             )}
           </button>
         </div>
@@ -276,21 +276,21 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
         <div className="space-y-8">
           {/* State Cultural Banner (if specific state selected) */}
           {currentStateRecord && (
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-amber-950 via-slate-900 to-amber-900 text-white shadow-lg space-y-4">
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#04100E] via-[#0A1F1C] to-[#0E2925] border border-[#D4AF37]/35 text-[#F5F5F0] shadow-xl space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950">
+                    <span className="text-[11px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-[#D4AF37] text-slate-950">
                       {currentStateRecord.region}
                     </span>
-                    <span className="text-xs text-amber-200/80 font-medium">
+                    <span className="text-xs text-[#E5C05C]/90 font-medium">
                       Capital: {currentStateRecord.capital}
                     </span>
                   </div>
-                  <h2 className="font-serif font-bold text-2xl text-white">
+                  <h2 className="font-serif font-bold text-2xl text-[#F5F5F0]">
                     {currentStateRecord.name}
                   </h2>
-                  <p className="text-xs text-slate-200 max-w-3xl leading-relaxed">
+                  <p className="text-xs text-[#F5F5F0]/80 max-w-3xl leading-relaxed">
                     {currentStateRecord.shortOverview}
                   </p>
                 </div>
@@ -298,7 +298,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                 <div className="flex flex-col sm:items-end gap-2 shrink-0">
                   <button
                     onClick={() => onSelectState('ALL')}
-                    className="text-xs font-medium text-amber-200 hover:text-white underline"
+                    className="text-xs font-medium text-[#E5C05C] hover:text-white underline cursor-pointer"
                   >
                     View All States
                   </button>
@@ -313,7 +313,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                       });
                       setActiveMode('plan');
                     }}
-                    className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white shadow-xs transition-colors"
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-[#0A1F1C] text-[#F5F5F0] border border-[#D4AF37] hover:border-[#00F0FF] hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] shadow-xs transition-all cursor-pointer"
                   >
                     Plan Trip for {currentStateRecord.name} →
                   </button>
@@ -324,7 +324,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                 {currentStateRecord.culturalThemes.map((theme) => (
                   <span
                     key={theme}
-                    className="text-[11px] px-2.5 py-0.5 rounded-full bg-white/10 text-amber-200 border border-white/20"
+                    className="text-[11px] px-2.5 py-0.5 rounded-full bg-[#0E2925] text-[#E5C05C] border border-[#D4AF37]/30"
                   >
                     {theme}
                   </span>
@@ -370,19 +370,19 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
           ) : (
             <div>
               {filteredPlaces.length === 0 ? (
-                <div className="p-12 text-center bg-white rounded-3xl border border-slate-200/80 space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center mx-auto">
+                <div className="p-12 text-center bg-[#0A1F1C]/90 rounded-3xl border border-[#D4AF37]/25 shadow-lg space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-[#04100E] text-[#D4AF37] border border-[#D4AF37]/30 flex items-center justify-center mx-auto">
                     <Compass className="w-6 h-6" />
                   </div>
-                  <h3 className="font-serif font-bold text-lg text-slate-900">
+                  <h3 className="font-serif font-bold text-lg text-[#F5F5F0]">
                     No matching heritage locations found
                   </h3>
-                  <p className="text-xs text-slate-500 max-w-md mx-auto">
+                  <p className="text-xs text-[#F5F5F0]/70 max-w-md mx-auto">
                     Try resetting filters to explore places across all 16 states & federal territories.
                   </p>
                   <button
                     onClick={handleResetFilters}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white hover:bg-slate-800"
+                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#D4AF37] text-[#04100E] hover:bg-[#E5C05C] cursor-pointer transition-colors"
                   >
                     Reset All Filters
                   </button>
@@ -417,8 +417,8 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
 
           {/* Time Budget Warning */}
           {isOverTimeBudget && (
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs flex items-center gap-3">
-              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <div className="p-4 rounded-2xl bg-[#0A1F1C] border border-amber-500/40 text-amber-200 text-xs flex items-center gap-3">
+              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
               <span>
                 <strong>Time Budget Warning: </strong> Total planned duration ({currentItinerary.totalPlannedMinutes} mins) slightly exceeds your target budget ({currentItinerary.availableMinutes} mins). Consider removing a stop to maintain a relaxed pace.
               </span>
@@ -455,9 +455,9 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
               </div>
             </div>
           ) : (
-            <div className="p-12 text-center bg-white rounded-3xl border border-dashed border-slate-300 space-y-2">
-              <p className="text-sm font-semibold text-slate-700">No active itinerary generated yet</p>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <div className="p-12 text-center bg-[#0A1F1C]/90 rounded-3xl border border-dashed border-[#D4AF37]/30 space-y-2">
+              <p className="text-sm font-semibold text-[#F5F5F0]">No active itinerary generated yet</p>
+              <p className="text-xs text-[#F5F5F0]/70 max-w-sm mx-auto">
                 Use Quick Mode above or configure your custom hours and cultural interests.
               </p>
             </div>

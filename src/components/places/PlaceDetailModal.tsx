@@ -36,10 +36,10 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
   if (!isOpen || !place) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-amber-500/20">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
+      <div className="bg-[#0A1F1C] rounded-3xl shadow-2xl max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-[#D4AF37]/35 text-[#F5F5F0]">
         {/* Hero Image Section */}
-        <div className="relative h-64 sm:h-72 w-full bg-slate-900 shrink-0">
+        <div className="relative h-64 sm:h-72 w-full bg-[#04100E] shrink-0">
           <img
             src={place.imageUrl || '/images/places/mlk-stadthuys.jpg'}
             alt={place.imageAlt || place.name}
@@ -48,23 +48,23 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               (e.target as HTMLImageElement).src = '/images/places/mlk-stadthuys.jpg';
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F1C] via-[#0A1F1C]/40 to-transparent" />
 
           {/* Close & Action buttons */}
           <div className="absolute top-4 right-4 flex items-center gap-2">
             <button
               onClick={() => onToggleFavorite(place.id)}
-              className={`p-2.5 rounded-full backdrop-blur-md transition-colors ${
+              className={`p-2.5 rounded-full backdrop-blur-md transition-colors cursor-pointer ${
                 isFavorite
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'bg-white/80 text-slate-800 hover:bg-white'
+                  ? 'bg-[#D4AF37] text-[#04100E] shadow-md'
+                  : 'bg-[#04100E]/80 text-[#F5F5F0]/80 hover:bg-[#0E2925] hover:text-[#D4AF37] border border-[#D4AF37]/25'
               }`}
             >
               <Bookmark className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
             </button>
             <button
               onClick={onClose}
-              className="p-2.5 rounded-full bg-white/80 text-slate-800 hover:bg-white transition-colors"
+              className="p-2.5 rounded-full bg-[#04100E]/80 text-[#F5F5F0] hover:bg-[#0E2925] hover:text-[#D4AF37] border border-[#D4AF37]/25 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -73,46 +73,46 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
           {/* Hero text overlay */}
           <div className="absolute bottom-5 left-5 right-5 text-white">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500 text-slate-950">
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#D4AF37] text-[#04100E]">
                 {place.locality || place.stateId}
               </span>
 
               {place.heritage_status === 'unesco_inscribed' && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400 text-slate-950 shadow-xs">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#D4AF37] text-[#04100E] shadow-xs">
                   ★ UNESCO Inscribed (2008/2018)
                 </span>
               )}
               {place.heritage_status === 'unesco_urgent_safeguarding' && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 text-white shadow-xs">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-700 text-white shadow-xs">
                   ⚠ UNESCO Urgent Safeguarding (2023)
                 </span>
               )}
               {place.heritage_status === 'national_heritage_listed' && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-900/90 text-amber-300 border border-amber-400/30">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#0E2925] text-[#E5C05C] border border-[#D4AF37]/40">
                   🏛 National Heritage (JWN)
                 </span>
               )}
               {place.heritage_status === 'regional_tradition' && (
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#0E2925] text-emerald-300 border border-emerald-500/40">
                   🌾 Regional Tradition
                 </span>
               )}
 
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md text-white flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#04100E]/80 border border-[#D4AF37]/30 backdrop-blur-md text-[#F5F5F0] flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#00F0FF]" />
                 {place.verificationStatus === 'verified' ? 'Verified Sourced Record' : 'Under Review'}
               </span>
             </div>
-            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-white drop-shadow-xs">
+            <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#F5F5F0] drop-shadow-xs">
               {place.name}
             </h2>
             {place.malayName && (
-              <p className="text-sm text-amber-200/90 italic mt-0.5">
+              <p className="text-sm text-[#E5C05C]/90 italic mt-0.5">
                 {place.malayName}
               </p>
             )}
             {place.imageCredit && (
-              <p className="text-[10px] text-slate-300/80 mt-1">
+              <p className="text-[10px] text-[#F5F5F0]/60 mt-1">
                 Photo credit: {place.imageCredit}
               </p>
             )}
@@ -120,29 +120,29 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="p-6 overflow-y-auto space-y-6 text-slate-700">
+        <div className="p-6 overflow-y-auto space-y-6 text-[#F5F5F0]">
           {/* Location Type & Community Heritage Banner */}
           {place.location_type === 'regional_association' ? (
-            <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200/70 flex items-start gap-3 text-xs text-amber-950">
-              <Compass className="w-4 h-4 text-amber-700 mt-0.5 shrink-0" />
+            <div className="p-3.5 rounded-2xl bg-[#04100E] border border-[#D4AF37]/30 flex items-start gap-3 text-xs text-[#F5F5F0]">
+              <Compass className="w-4 h-4 text-[#D4AF37] mt-0.5 shrink-0" />
               <div>
-                <span className="font-bold">Regional Living Tradition: </span>
+                <span className="font-bold text-[#E5C05C]">Regional Living Tradition: </span>
                 This cultural tradition is celebrated across home kitchens, cultural festivals, and community gatherings throughout {place.state_association?.join(', ') || place.stateId}, rather than restricted to a single physical monument.
                 {place.community_association && (
-                  <span className="block mt-1 font-semibold text-amber-900">
+                  <span className="block mt-1 font-semibold text-[#E5C05C]">
                     Associated Community: {place.community_association.join(', ')}
                   </span>
                 )}
               </div>
             </div>
           ) : place.location_type === 'verified_event_site' ? (
-            <div className="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-200/70 flex items-start gap-3 text-xs text-indigo-950">
-              <MapPin className="w-4 h-4 text-indigo-700 mt-0.5 shrink-0" />
+            <div className="p-3.5 rounded-2xl bg-[#04100E] border border-cyan-500/30 flex items-start gap-3 text-xs text-[#F5F5F0]">
+              <MapPin className="w-4 h-4 text-[#00F0FF] mt-0.5 shrink-0" />
               <div>
-                <span className="font-bold">Verified Event Location: </span>
+                <span className="font-bold text-cyan-300">Verified Event Location: </span>
                 {place.location_name || place.locality}
                 {place.community_association && (
-                  <span className="block mt-1 text-indigo-900 font-medium">
+                  <span className="block mt-1 text-[#E5C05C] font-medium">
                     Practising Communities: {place.community_association.join(', ')}
                   </span>
                 )}
@@ -152,19 +152,19 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
 
           {/* Practical Metrics Pill Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
-              <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+            <div className="p-3 rounded-xl bg-[#04100E] border border-[#D4AF37]/20 flex items-center gap-2.5">
+              <Clock className="w-4 h-4 text-[#D4AF37] shrink-0" />
               <div>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Suggested Time</p>
-                <p className="text-xs font-bold text-slate-900">{place.visitDurationMinutes || 45} mins</p>
+                <p className="text-[10px] text-[#E5C05C] uppercase tracking-wider font-semibold">Suggested Time</p>
+                <p className="text-xs font-bold text-[#F5F5F0]">{place.visitDurationMinutes || 45} mins</p>
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
-              <DollarSign className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="p-3 rounded-xl bg-[#04100E] border border-[#D4AF37]/20 flex items-center gap-2.5">
+              <DollarSign className="w-4 h-4 text-emerald-400 shrink-0" />
               <div>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Estimated Cost</p>
-                <p className="text-xs font-bold text-slate-900">
+                <p className="text-[10px] text-[#E5C05C] uppercase tracking-wider font-semibold">Estimated Cost</p>
+                <p className="text-xs font-bold text-[#F5F5F0]">
                   {place.estimatedCostMYR === 0
                     ? 'Free / Public'
                     : place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined
@@ -174,14 +174,14 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 sm:col-span-2">
-              <Compass className="w-4 h-4 text-indigo-600 shrink-0" />
+            <div className="p-3 rounded-xl bg-[#04100E] border border-[#D4AF37]/20 flex items-center gap-2.5 sm:col-span-2">
+              <Compass className="w-4 h-4 text-[#00F0FF] shrink-0" />
               <div>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Availability & Hours</p>
-                <p className="text-xs font-medium text-slate-900">
+                <p className="text-[10px] text-[#E5C05C] uppercase tracking-wider font-semibold">Availability & Hours</p>
+                <p className="text-xs font-medium text-[#F5F5F0]">
                   {place.openingHoursText || 'Flexible / Seasonal availability'}
                   {!place.openingHoursVerified && (
-                    <span className="text-[10px] text-amber-600 ml-1.5 italic">(Pending verification)</span>
+                    <span className="text-[10px] text-amber-400 ml-1.5 italic">(Pending verification)</span>
                   )}
                 </p>
               </div>
@@ -190,23 +190,23 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
 
           {/* Cultural & Historical Context */}
           <div>
-            <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">
+            <h3 className="font-serif font-bold text-lg text-[#F5F5F0] mb-2">
               Cultural & Historical Significance
             </h3>
-            <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-line">
+            <p className="text-sm leading-relaxed text-[#F5F5F0]/80 whitespace-pre-line">
               {place.culturalContext}
             </p>
           </div>
 
           {/* Cultural Care & Etiquette Banner */}
           {place.culturalCareNotes && (
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+            <div className="p-4 rounded-2xl bg-[#04100E] border border-amber-500/40 flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-400 mt-0.5 shrink-0" />
               <div>
-                <h4 className="text-xs font-bold text-amber-950 uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider">
                   Responsible Cultural Etiquette & Preservation Note
                 </h4>
-                <p className="text-xs text-amber-900 mt-1 leading-relaxed">
+                <p className="text-xs text-amber-200/90 mt-1 leading-relaxed">
                   {place.culturalCareNotes}
                 </p>
               </div>
@@ -215,14 +215,14 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
 
           {/* Categories & Cultural Themes */}
           <div>
-            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+            <h4 className="text-xs font-bold text-[#E5C05C] uppercase tracking-wider mb-2">
               Cultural Themes & Classification
             </h4>
             <div className="flex flex-wrap gap-2">
               {place.categories.map((c) => (
                 <span
                   key={c}
-                  className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-800"
+                  className="px-3 py-1 rounded-full text-xs font-medium bg-[#04100E] text-[#F5F5F0] border border-[#D4AF37]/25"
                 >
                   {c}
                 </span>
@@ -230,7 +230,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               {place.culturalThemes.map((t) => (
                 <span
                   key={t}
-                  className="px-3 py-1 rounded-full text-xs font-medium bg-amber-100/70 text-amber-900 border border-amber-200"
+                  className="px-3 py-1 rounded-full text-xs font-medium bg-[#0E2925] text-[#E5C05C] border border-[#D4AF37]/40"
                 >
                   {t}
                 </span>
@@ -240,29 +240,29 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
 
           {/* Accessibility */}
           {place.accessibilityNotes && (
-            <div className="text-xs text-slate-600 border-l-2 border-slate-300 pl-3">
-              <span className="font-semibold text-slate-800">Accessibility: </span>
+            <div className="text-xs text-[#F5F5F0]/70 border-l-2 border-[#D4AF37]/50 pl-3">
+              <span className="font-semibold text-[#E5C05C]">Accessibility: </span>
               {place.accessibilityNotes}
             </div>
           )}
 
           {/* Verified Source Citations */}
-          <div className="border-t border-slate-100 pt-4">
-            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-amber-700" /> Sourced References & Citations
+          <div className="border-t border-[#D4AF37]/15 pt-4">
+            <h4 className="text-xs font-bold text-[#E5C05C] uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-[#D4AF37]" /> Sourced References & Citations
             </h4>
             <div className="space-y-1.5">
               {place.sources.map((s, idx) => (
-                <div key={idx} className="text-xs text-slate-600 flex items-center justify-between">
+                <div key={idx} className="text-xs text-[#F5F5F0]/75 flex items-center justify-between">
                   <span>
-                    • <strong className="text-slate-800">{s.title}</strong> — {s.publisher}
+                    • <strong className="text-[#F5F5F0]">{s.title}</strong> — {s.publisher}
                   </span>
                   {s.url && (
                     <a
                       href={s.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-amber-700 hover:text-amber-800 font-medium inline-flex items-center gap-0.5 ml-2 shrink-0"
+                      className="text-[#00F0FF] hover:underline font-medium inline-flex items-center gap-0.5 ml-2 shrink-0 cursor-pointer"
                     >
                       Source <ExternalLink className="w-3 h-3" />
                     </a>
@@ -274,12 +274,12 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-[#04100E] border-t border-[#D4AF37]/20 flex flex-wrap items-center justify-between gap-3">
           <button
             onClick={() => onInspectAI(place)}
-            className="px-4 py-2 text-xs font-semibold rounded-xl bg-amber-500/15 text-amber-900 hover:bg-amber-500/25 border border-amber-300/50 flex items-center gap-1.5 transition-colors"
+            className="px-4 py-2 text-xs font-semibold rounded-xl bg-[#00F0FF]/10 text-cyan-300 hover:bg-[#00F0FF]/20 border border-cyan-400/30 flex items-center gap-1.5 transition-colors cursor-pointer"
           >
-            <Sparkles className="w-4 h-4 text-amber-600" />
+            <Sparkles className="w-4 h-4 text-[#00F0FF]" />
             <span>Inspect AI Reasoning</span>
           </button>
 
@@ -290,14 +290,14 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                   onAddToItinerary(place);
                   onClose();
                 }}
-                className="px-4 py-2 text-xs font-semibold rounded-xl bg-amber-600 text-white hover:bg-amber-700 shadow-xs transition-colors"
+                className="px-4 py-2 text-xs font-bold rounded-xl bg-[#D4AF37] text-[#04100E] hover:bg-[#E5C05C] shadow-xs transition-colors cursor-pointer"
               >
                 + Add to Trip Plan
               </button>
             )}
             <button
               onClick={onClose}
-              className="px-4 py-2 text-xs font-medium rounded-xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition-colors"
+              className="px-4 py-2 text-xs font-medium rounded-xl bg-[#0A1F1C] text-[#F5F5F0] border border-[#D4AF37]/30 hover:bg-[#0E2925] transition-colors cursor-pointer"
             >
               Close
             </button>

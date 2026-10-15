@@ -71,41 +71,41 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-md">
+    <div className="bg-[#0A1F1C]/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-[#D4AF37]/25 shadow-lg">
       {/* Tab Switcher: Quick vs Custom */}
-      <div className="flex items-center justify-between pb-6 border-b border-slate-100 mb-6">
+      <div className="flex items-center justify-between pb-6 border-b border-[#D4AF37]/15 mb-6">
         <div>
-          <h2 className="font-serif font-bold text-xl sm:text-2xl text-slate-900">
+          <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#F5F5F0]">
             Smart Cultural Itinerary Planner
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-[#F5F5F0]/70 mt-1">
             Explainable constraint-based routing adhering to authentic heritage time budgets
           </p>
         </div>
 
-        <div className="flex bg-slate-100 p-1 rounded-xl">
+        <div className="flex bg-[#04100E] p-1 rounded-xl border border-[#D4AF37]/25">
           <button
             type="button"
             onClick={() => setModeTab('quick')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
               modeTab === 'quick'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
+                : 'text-[#F5F5F0]/70 hover:text-[#F5F5F0]'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <Sparkles className={`w-3.5 h-3.5 ${modeTab === 'quick' ? 'text-[#04100E]' : 'text-[#D4AF37]'}`} />
             Quick Mode
           </button>
           <button
             type="button"
             onClick={() => setModeTab('custom')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
               modeTab === 'custom'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
+                : 'text-[#F5F5F0]/70 hover:text-[#F5F5F0]'
             }`}
           >
-            <Sliders className="w-3.5 h-3.5 text-amber-600" />
+            <Sliders className={`w-3.5 h-3.5 ${modeTab === 'custom' ? 'text-[#04100E]' : 'text-[#D4AF37]'}`} />
             Custom Plan
           </button>
         </div>
@@ -114,26 +114,26 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
       {modeTab === 'quick' ? (
         /* Quick Mode Banner */
         <div className="space-y-6">
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60">
+          <div className="p-5 rounded-2xl bg-gradient-to-r from-[#04100E] via-[#0A1F1C] to-[#0E2925] border border-[#D4AF37]/35 shadow-md">
             <div className="flex items-start gap-4">
-              <div className="p-3 rounded-2xl bg-amber-600 text-white shadow-md shadow-amber-600/30">
+              <div className="p-3 rounded-2xl bg-[#0E2925] text-[#D4AF37] border border-[#D4AF37]/30 shadow-md">
                 <Compass className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="font-serif font-bold text-base text-amber-950">
+                <h3 className="font-serif font-bold text-base text-[#F5F5F0]">
                   Melaka UNESCO Heritage Starter Trail
                 </h3>
-                <p className="text-xs text-amber-900 leading-relaxed">
+                <p className="text-xs text-[#F5F5F0]/80 leading-relaxed">
                   Generates an optimal 3.5-hour curated walking loop connecting Dutch Square, A Famosa, Harmony Street vernacular mosques & temples, and Jonker Walk craftsmen.
                 </p>
-                <div className="flex flex-wrap gap-2 pt-2 text-[11px] font-semibold text-amber-800">
-                  <span className="px-2 py-0.5 rounded-md bg-white/70 border border-amber-200">
+                <div className="flex flex-wrap gap-2 pt-2 text-[11px] font-semibold text-[#E5C05C]">
+                  <span className="px-2 py-0.5 rounded-md bg-[#04100E] border border-[#D4AF37]/30">
                     ⏱ 3.5 Hours Total
                   </span>
-                  <span className="px-2 py-0.5 rounded-md bg-white/70 border border-amber-200">
+                  <span className="px-2 py-0.5 rounded-md bg-[#04100E] border border-[#D4AF37]/30">
                     🚶 100% Pedestrian Walking
                   </span>
-                  <span className="px-2 py-0.5 rounded-md bg-white/70 border border-amber-200">
+                  <span className="px-2 py-0.5 rounded-md bg-[#04100E] border border-[#D4AF37]/30">
                     🏛 4 Sourced Monuments
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
             type="button"
             onClick={handleQuickSubmit}
             disabled={isLoading}
-            className="w-full py-3.5 px-6 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md shadow-amber-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            className="w-full py-3.5 px-6 rounded-2xl bg-[#D4AF37] hover:bg-[#E5C05C] text-[#04100E] font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
             <Sparkles className="w-4 h-4" />
             {isLoading ? 'Synthesizing Itinerary...' : 'Generate Instant Melaka Itinerary'}
@@ -157,13 +157,13 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
           {/* Destination & Time Budget */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#E5C05C] uppercase tracking-wider mb-2">
                 Destination State
               </label>
               <select
                 value={destinationStateId}
                 onChange={(e) => setDestinationStateId(e.target.value)}
-                className="w-full p-3 rounded-xl border border-slate-200 text-sm font-medium text-slate-900 focus:outline-hidden focus:border-amber-600"
+                className="w-full p-3 rounded-xl border border-[#D4AF37]/30 text-sm font-medium text-[#F5F5F0] bg-[#04100E] focus:outline-hidden focus:border-[#D4AF37] cursor-pointer"
               >
                 <option value="MLK">Melaka (Primary Showcase)</option>
                 {states
@@ -178,10 +178,10 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
 
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <label className="text-xs font-bold text-[#E5C05C] uppercase tracking-wider">
                   Available Time Budget
                 </label>
-                <span className="text-xs font-bold text-amber-700 flex items-center gap-1">
+                <span className="text-xs font-bold text-[#00F0FF] flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" />
                   {availableHours} hours ({Math.round(availableHours * 60)} mins)
                 </span>
@@ -193,9 +193,9 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                 step="0.5"
                 value={availableHours}
                 onChange={(e) => setAvailableHours(parseFloat(e.target.value))}
-                className="w-full accent-amber-600 cursor-pointer"
+                className="w-full accent-[#D4AF37] cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+              <div className="flex justify-between text-[10px] text-[#F5F5F0]/50 mt-1">
                 <span>1.5h (Express)</span>
                 <span>4.0h (Half-Day)</span>
                 <span>8.0h (Full Day)</span>
@@ -205,7 +205,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
 
           {/* Cultural Interests Selection */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-[#E5C05C] uppercase tracking-wider mb-2">
               Cultural Interests & Themes
             </label>
             <div className="flex flex-wrap gap-2">
@@ -216,10 +216,10 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                     key={interest}
                     type="button"
                     onClick={() => toggleInterest(interest)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                       isChecked
-                        ? 'bg-amber-600 text-white shadow-xs font-semibold'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        ? 'bg-[#D4AF37] text-[#04100E] shadow-xs font-semibold'
+                        : 'bg-[#04100E] text-[#F5F5F0]/80 hover:bg-[#0E2925] hover:text-[#F5F5F0] border border-[#D4AF37]/20'
                     }`}
                   >
                     {isChecked ? '✓ ' : '+ '}
@@ -233,59 +233,59 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
           {/* Transport Mode & Budget */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#E5C05C] uppercase tracking-wider mb-2">
                 Transport Mode
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setTransportMode('walking')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all ${
+                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'walking'
-                      ? 'border-amber-600 bg-amber-50 text-amber-900 font-semibold'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-[#D4AF37] bg-[#0E2925] text-[#F5F5F0] font-semibold ring-1 ring-[#D4AF37]/50'
+                      : 'border-[#D4AF37]/20 bg-[#04100E] text-[#F5F5F0]/70 hover:bg-[#0E2925]'
                   }`}
                 >
-                  <Footprints className="w-4 h-4 text-amber-600" /> Walking
+                  <Footprints className="w-4 h-4 text-[#D4AF37]" /> Walking
                 </button>
                 <button
                   type="button"
                   onClick={() => setTransportMode('car')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all ${
+                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'car'
-                      ? 'border-amber-600 bg-amber-50 text-amber-900 font-semibold'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-[#D4AF37] bg-[#0E2925] text-[#F5F5F0] font-semibold ring-1 ring-[#D4AF37]/50'
+                      : 'border-[#D4AF37]/20 bg-[#04100E] text-[#F5F5F0]/70 hover:bg-[#0E2925]'
                   }`}
                 >
-                  <Car className="w-4 h-4 text-amber-600" /> Car / Ride
+                  <Car className="w-4 h-4 text-[#D4AF37]" /> Car / Ride
                 </button>
                 <button
                   type="button"
                   onClick={() => setTransportMode('public_transport')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all ${
+                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'public_transport'
-                      ? 'border-amber-600 bg-amber-50 text-amber-900 font-semibold'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-[#D4AF37] bg-[#0E2925] text-[#F5F5F0] font-semibold ring-1 ring-[#D4AF37]/50'
+                      : 'border-[#D4AF37]/20 bg-[#04100E] text-[#F5F5F0]/70 hover:bg-[#0E2925]'
                   }`}
                 >
-                  <Bus className="w-4 h-4 text-amber-600" /> Public Transit
+                  <Bus className="w-4 h-4 text-[#D4AF37]" /> Public Transit
                 </button>
                 <button
                   type="button"
                   onClick={() => setTransportMode('mixed')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all ${
+                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'mixed'
-                      ? 'border-amber-600 bg-amber-50 text-amber-900 font-semibold'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'border-[#D4AF37] bg-[#0E2925] text-[#F5F5F0] font-semibold ring-1 ring-[#D4AF37]/50'
+                      : 'border-[#D4AF37]/20 bg-[#04100E] text-[#F5F5F0]/70 hover:bg-[#0E2925]'
                   }`}
                 >
-                  <Bike className="w-4 h-4 text-amber-600" /> Mixed
+                  <Bike className="w-4 h-4 text-[#D4AF37]" /> Mixed
                 </button>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#E5C05C] uppercase tracking-wider mb-2">
                 Budget Sensitivity
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -294,17 +294,17 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                     key={b}
                     type="button"
                     onClick={() => setBudgetLevel(b)}
-                    className={`py-3 px-2 rounded-xl text-xs font-medium capitalize border transition-all text-center ${
+                    className={`py-3 px-2 rounded-xl text-xs font-medium capitalize border transition-all text-center cursor-pointer ${
                       budgetLevel === b
-                        ? 'border-amber-600 bg-amber-50 text-amber-900 font-semibold'
-                        : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                        ? 'border-[#D4AF37] bg-[#0E2925] text-[#F5F5F0] font-semibold ring-1 ring-[#D4AF37]/50'
+                        : 'border-[#D4AF37]/20 bg-[#04100E] text-[#F5F5F0]/70 hover:bg-[#0E2925]'
                     }`}
                   >
                     {b === 'low' ? 'Free / Low' : b}
                   </button>
                 ))}
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">
+              <p className="text-[11px] text-[#F5F5F0]/50 mt-2">
                 *Unknown entry fees are preserved rather than assumed zero.
               </p>
             </div>
@@ -313,7 +313,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 px-6 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-md shadow-amber-600/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            className="w-full py-3.5 px-6 rounded-2xl bg-[#D4AF37] hover:bg-[#E5C05C] text-[#04100E] font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
             <Sparkles className="w-4 h-4" />
             {isLoading ? 'Optimizing Itinerary...' : 'Generate Customized Itinerary'}

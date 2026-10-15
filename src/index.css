@@ -1,27 +1,87 @@
 @import "tailwindcss";
 
-/* Tropical Malaysia palette (used by the Login / Sign Up pages) */
+/* Heritage Reimagined: Tropical Digital & Museum Palette */
 @theme {
+  --color-rainforest-dark: #04100E;
+  --color-rainforest-base: #0A1F1C;
+  --color-rainforest-surface: #0E2925;
+  
+  --color-heritage-gold: #D4AF37;
+  --color-heritage-gold-light: #E5C05C;
+  --color-heritage-gold-dark: #A6841B;
+  
+  --color-tech-cyan: #00F0FF;
+  --color-bunga-raya: #FF0055;
+  --color-cream-text: #F5F5F0;
+
+  /* Legacy aliases for compatibility */
   --color-tropical-teal: #087E83;
-  --color-deep-teal: #174B4D;
+  --color-deep-teal: #0A1F1C;
   --color-coral-orange: #F07855;
-  --color-sunshine-yellow: #F2C94C;
+  --color-sunshine-yellow: #E5C05C;
   --color-tropical-mist: #F4F8F5;
 }
 
 @layer base {
   html {
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-gutter: stable;
+    background-color: #04100E;
+    color: #F5F5F0;
   }
 
   body {
+    background-color: #04100E;
+    color: #F5F5F0;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
 
   h1, h2, h3, .font-serif {
     font-family: 'Playfair Display', Georgia, serif;
   }
+}
+
+/* Heritage Reimagined - Songket & Batik Digital Wireframe Pattern */
+.bg-songket-mesh {
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.08) 1.2px, transparent 1.2px),
+    linear-gradient(45deg, transparent 48%, rgba(212, 175, 55, 0.07) 50%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(212, 175, 55, 0.07) 50%, transparent 52%);
+  background-size: 36px 36px, 36px 36px, 36px 36px;
+}
+
+/* Hologram Scanner Line Sweep */
+@keyframes hologram-sweep {
+  0% {
+    top: 2%;
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 96%;
+    opacity: 0.15;
+  }
+}
+
+.animate-hologram-sweep {
+  animation: hologram-sweep 4s ease-in-out infinite alternate;
+}
+
+/* Hologram subtle float */
+@keyframes artifact-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.4deg);
+  }
+}
+
+.animate-artifact-float {
+  animation: artifact-float 6s ease-in-out infinite;
 }
 
 /* Custom scrollbars */

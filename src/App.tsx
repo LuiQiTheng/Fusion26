@@ -172,7 +172,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-200 selection:text-amber-900">
+    <div className="min-h-screen flex flex-col overflow-x-clip bg-[#04100E] bg-gradient-to-b from-[#0A1F1C] via-[#04100E] to-[#020706] text-[#F5F5F0] selection:bg-[#D4AF37]/30 selection:text-[#FFF5D0]">
       {/* Navbar: 4 Clean Tabs */}
       <Navbar
         currentTab={currentTab}

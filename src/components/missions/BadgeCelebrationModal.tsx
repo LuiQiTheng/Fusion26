@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { X, Sparkles, Award, ShieldCheck, Crown, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { ExplorerBadge } from '../../types';
 
 interface BadgeCelebrationModalProps {
@@ -76,7 +76,7 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-amber-500/30 text-center animate-in zoom-in-95 duration-300">
+      <div className="relative bg-[#0A1F1C] rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-[#D4AF37]/35 text-center animate-in zoom-in-95 duration-300 text-[#F5F5F0]">
         {/* Glow ambient circle */}
         <div className={`absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none ${visuals.glowColor}`} />
 
@@ -84,7 +84,7 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
         <div className={`p-6 bg-gradient-to-br ${visuals.bannerBg} text-white relative`}>
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/80 transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/80 transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -114,14 +114,14 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-5">
-          <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/60 text-xs text-slate-700 leading-relaxed text-left space-y-2">
-            <div className="flex items-center gap-2 font-bold text-amber-900">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-6 space-y-5 bg-[#0A1F1C]">
+          <div className="p-4 rounded-2xl bg-[#04100E] border border-[#D4AF37]/25 text-xs text-[#F5F5F0]/80 leading-relaxed text-left space-y-2">
+            <div className="flex items-center gap-2 font-bold text-[#E5C05C]">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>Cultural Milestone Certified</span>
             </div>
-            <p>{badge.description}</p>
-            <p className="text-[11px] text-amber-800 italic">
+            <p className="text-[#F5F5F0]/85">{badge.description}</p>
+            <p className="text-[11px] text-[#E5C05C]/90 italic">
               "Your photographic proof and field engagement contribute to preserving living Malaysian cultural memories for future generations."
             </p>
           </div>
@@ -130,7 +130,7 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
           <div className="space-y-2">
             <button
               onClick={onClose}
-              className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold text-sm shadow-lg shadow-amber-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3.5 px-5 rounded-2xl bg-[#D4AF37] hover:bg-[#E5C05C] text-[#04100E] font-bold text-sm shadow-lg shadow-[#D4AF37]/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Awesome! Keep Exploring</span>
               <ArrowRight className="w-4 h-4" />
