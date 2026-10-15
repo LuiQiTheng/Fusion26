@@ -44,15 +44,15 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
     proofList.length > 0;
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 min-h-[60vh] w-full">
       {/* Title & Clear Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <h1 className="font-serif font-bold text-3xl text-slate-900">
             Saved Trips & Explorer Passport
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Persisted locally in your browser storage. Your verified badges, field photos, and saved itineraries.
+            Persisted locally in your browser storage. Your verified badges, field photos, and saved itineraries
           </p>
         </div>
 
@@ -71,35 +71,35 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
       </div>
 
       {!hasAnySaved ? (
-        <div className="p-16 text-center bg-white rounded-3xl border border-dashed border-slate-300 space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center mx-auto">
+        <div className="p-12 text-center bg-white rounded-3xl border border-slate-200/80 shadow-xs space-y-4 w-full">
+          <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center mx-auto border border-amber-200/60">
             <Bookmark className="w-7 h-7" />
           </div>
-          <div className="space-y-1 max-w-sm mx-auto">
+          <div className="space-y-1.5 max-w-md mx-auto">
             <h3 className="font-serif font-bold text-xl text-slate-900">
               No Saved Cultural Data Yet
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Explore Melaka or generate a personalized itinerary to save trips, bookmark favorite heritage monuments, and earn verified explorer badges.
+              Explore heritage places or generate a personalized itinerary to save trips, bookmark favorite locations, and earn verified explorer badges.
             </p>
           </div>
           <div className="flex justify-center gap-3 pt-2">
             <button
               onClick={() => onNavigate('explore')}
-              className="px-5 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-xs shadow-md hover:bg-amber-700 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-amber-600 text-white font-semibold text-xs shadow-xs hover:bg-amber-700 cursor-pointer transition-colors"
             >
               Generate Itinerary
             </button>
             <button
               onClick={() => onNavigate('missions')}
-              className="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-xs hover:bg-slate-200 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-semibold text-xs hover:bg-slate-200 cursor-pointer transition-colors"
             >
               Explore Missions
             </button>
           </div>
         </div>
       ) : (
-        <div className="space-y-12">
+        <div className="space-y-8">
           {/* Unlocked Badges Showcase Banner */}
           {unlockedBadges.length > 0 && (
             <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-950 via-amber-950 to-slate-900 text-white shadow-xl space-y-4 border border-amber-500/20">
@@ -147,18 +147,19 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
           {/* Verified Field Photos Gallery */}
           {proofList.length > 0 && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="font-serif font-bold text-2xl text-slate-900 flex items-center gap-2">
-                  <Camera className="w-5 h-5 text-amber-600" /> Verified Field Proofs ({proofList.length})
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
+                <h2 className="font-serif font-bold text-xl sm:text-2xl text-slate-900 flex items-center gap-2">
+                  <Camera className="w-5 h-5 text-amber-600" />
+                  <span>Verified Field Proofs ({proofList.length})</span>
                 </h2>
                 <span className="text-xs text-slate-500 font-medium">Captured On-Site</span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {proofList.map((proof) => (
                   <div
                     key={proof.missionId}
-                    className="group rounded-2xl bg-white border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                    className="group rounded-2xl bg-white border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
                   >
                     <div className="relative h-40 w-full bg-slate-900 overflow-hidden">
                       <img
@@ -186,9 +187,10 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
           {/* Saved Itinerary Section */}
           {savedItinerary && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="font-serif font-bold text-2xl text-slate-900 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-amber-600" /> Saved Itinerary
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
+                <h2 className="font-serif font-bold text-xl sm:text-2xl text-slate-900 flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-amber-600" />
+                  <span>Saved Itinerary</span>
                 </h2>
                 <button
                   onClick={() => onNavigate('explore')}
@@ -198,17 +200,17 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
                 </button>
               </div>
 
-              <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-md space-y-4">
+              <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200/60">
                       {savedItinerary.destinationStateId} Plan
                     </span>
-                    <h3 className="font-serif font-bold text-xl text-slate-900 mt-1">
+                    <h3 className="font-serif font-bold text-xl text-slate-900 mt-1.5">
                       {savedItinerary.title}
                     </h3>
                   </div>
-                  <div className="flex items-center gap-4 text-xs text-slate-600">
+                  <div className="flex items-center gap-3 text-xs text-slate-600 bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200/60">
                     <span>⏱ {savedItinerary.totalPlannedMinutes} mins</span>
                     <span>🏛 {savedItinerary.stops.length} stops</span>
                     <span className="capitalize">🚶 {savedItinerary.transportMode}</span>
@@ -223,11 +225,11 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
                       <div
                         key={stop.placeId}
                         onClick={() => onSelectPlace(place)}
-                        className="p-3 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-400 cursor-pointer transition-all"
+                        className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-amber-400 hover:bg-amber-50/20 cursor-pointer transition-all"
                       >
                         <span className="text-[10px] font-bold text-amber-700">Stop {stop.order}</span>
-                        <p className="font-serif font-bold text-xs text-slate-900 line-clamp-1">{place.name}</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">{stop.visitDurationMinutes} mins visit</p>
+                        <p className="font-serif font-bold text-xs text-slate-900 line-clamp-1 mt-0.5">{place.name}</p>
+                        <p className="text-[10px] text-slate-500 mt-1">{stop.visitDurationMinutes} mins visit</p>
                       </div>
                     );
                   })}
@@ -238,12 +240,20 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
 
           {/* Bookmarked Favourites Grid */}
           <div className="space-y-4">
-            <h2 className="font-serif font-bold text-2xl text-slate-900 flex items-center gap-2">
-              <Bookmark className="w-5 h-5 text-amber-600" /> Bookmarked Heritage Places ({favoritePlaces.length})
-            </h2>
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
+              <h2 className="font-serif font-bold text-xl sm:text-2xl text-slate-900 flex items-center gap-2">
+                <Bookmark className="w-5 h-5 text-amber-600" />
+                <span>Bookmarked Heritage Places ({favoritePlaces.length})</span>
+              </h2>
+              {favoritePlaces.length > 0 && (
+                <span className="text-xs text-slate-500 font-medium">Quick Access</span>
+              )}
+            </div>
 
             {favoritePlaces.length === 0 ? (
-              <p className="text-xs text-slate-500 italic">No monuments bookmarked yet. Click the bookmark icon on any place card to save it here.</p>
+              <div className="p-8 text-center bg-white rounded-2xl border border-slate-200/80 text-xs text-slate-500 italic">
+                No monuments bookmarked yet. Click the bookmark icon on any place card in the Explore tab to save it here.
+              </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favoritePlaces.map((place) => (

@@ -51,12 +51,15 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
   const [isSavedLocally, setIsSavedLocally] = useState(false);
   const [saveToast, setSaveToast] = useState(false);
 
-  // Collect unique categories
-  const categories = useMemo(() => {
-    const set = new Set<string>();
-    places.forEach((p) => p.categories.forEach((c) => set.add(c)));
-    return Array.from(set);
-  }, [places]);
+  // Curated core theme filters (7 clean filters including "All Themes")
+  const categories = useMemo(() => [
+    'Food',
+    'Cultural Performance',
+    'Cultural Festival',
+    'Colonial',
+    'Museum',
+    'Religious',
+  ], []);
 
   // Current selected state record
   const currentStateRecord = useMemo(() => {
@@ -67,8 +70,38 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
   // Filtered places
   const filteredPlaces = useMemo(() => {
     return places.filter((place) => {
-      if (selectedStateId !== 'ALL' && place.stateId !== selectedStateId) return false;
-      if (selectedCategory !== 'ALL' && !place.categories.includes(selectedCategory)) return false;
+      if (
+        selectedStateId !== 'ALL' &&
+        place.stateId !== selectedStateId &&
+        !place.state_association?.includes(selectedStateId)
+      ) {
+        return false;
+      }
+
+      // Streamlined category matching
+      if (selectedCategory !== 'ALL') {
+        if (selectedCategory === 'Food' || selectedCategory === 'Traditional Food') {
+          const isFood =
+            place.type === 'food' ||
+            place.categories.includes('Food') ||
+            place.categories.includes('Traditional Food') ||
+            place.categories.includes('Traditional Kuih');
+          if (!isFood) return false;
+        } else if (selectedCategory === 'Cultural Performance') {
+          const isPerf =
+            place.type === 'performance' ||
+            place.categories.includes('Cultural Performance');
+          if (!isPerf) return false;
+        } else if (selectedCategory === 'Cultural Festival') {
+          const isFest =
+            place.type === 'festival' ||
+            place.categories.includes('Cultural Festival');
+          if (!isFest) return false;
+        } else {
+          if (!place.categories.includes(selectedCategory)) return false;
+        }
+      }
+
       if (verifiedOnly && place.verificationStatus !== 'verified') return false;
 
       if (searchTerm.trim() !== '') {
@@ -78,7 +111,11 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
         const localityMatch = place.locality?.toLowerCase().includes(query) || false;
         const descMatch = place.shortDescription.toLowerCase().includes(query);
         const themeMatch = place.culturalThemes.some((t) => t.toLowerCase().includes(query));
-        if (!nameMatch && !malayMatch && !localityMatch && !descMatch && !themeMatch) return false;
+        const communityMatch =
+          place.community_association?.some((c) => c.toLowerCase().includes(query)) || false;
+        if (!nameMatch && !malayMatch && !localityMatch && !descMatch && !themeMatch && !communityMatch) {
+          return false;
+        }
       }
 
       return true;

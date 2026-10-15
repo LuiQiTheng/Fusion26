@@ -17,6 +17,22 @@ export interface SourceReference {
   notes?: string;
 }
 
+export type CulturalItemType = 'food' | 'performance' | 'festival';
+
+export type CulturalHeritageStatus =
+  | 'unesco_inscribed'
+  | 'unesco_urgent_safeguarding'
+  | 'national_heritage_listed'
+  | 'regional_tradition'
+  | 'shared_or_transnational_tradition'
+  | 'not_confirmed';
+
+export type LocationType =
+  | 'verified_venue'
+  | 'verified_event_site'
+  | 'regional_association'
+  | 'not_available';
+
 export interface HeritagePlace {
   id: string;
   name: string;
@@ -52,6 +68,17 @@ export interface HeritagePlace {
   lastReviewedAt?: string;
 
   demoNotes?: string;
+
+  // Cultural-content layer fields (Specification Section 7)
+  type?: CulturalItemType;
+  subcategory?: string;
+  state_association?: string[];
+  community_association?: string[];
+  cultural_significance?: string;
+  heritage_status?: CulturalHeritageStatus;
+  location_type?: LocationType;
+  location_name?: string | null;
+  source_urls?: string[];
 }
 
 export interface StateRecord {

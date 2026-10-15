@@ -178,21 +178,32 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
     }
   }, [places, selectedPlaceId, routeStops]);
 
+  const pinnedCount = places.filter((p) => p.latitude !== undefined && p.longitude !== undefined).length;
+  const regionalCount = places.length - pinnedCount;
+
   return (
     <div className="relative w-full h-full min-h-[420px] rounded-3xl overflow-hidden shadow-md border border-slate-200">
       <div ref={mapContainerRef} className="w-full h-full z-0 min-h-[420px]" />
 
       {/* Floating Status & Legend Bar */}
-      <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-sm border border-slate-200 text-xs flex items-center gap-3">
+      <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-sm border border-slate-200 text-xs flex flex-wrap items-center gap-3">
         <span className="flex items-center gap-1.5 font-semibold text-slate-800">
           <Layers className="w-3.5 h-3.5 text-amber-600" />
           <span>Interactive Cultural Map</span>
         </span>
-        <div className="hidden sm:flex items-center gap-2 border-l border-slate-200 pl-2 text-[11px] text-slate-600">
-          <span className="flex items-center gap-1">
+        <div className="flex items-center gap-2 border-l border-slate-200 pl-2 text-[11px] text-slate-600">
+          <span className="font-medium text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/50">
+            {pinnedCount} Verified Pins
+          </span>
+          {regionalCount > 0 && (
+            <span className="hidden sm:inline font-medium text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50">
+              {regionalCount} Regional Traditions in Grid View
+            </span>
+          )}
+          <span className="hidden md:flex items-center gap-1">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-600 inline-block" /> Selected
           </span>
-          <span className="flex items-center gap-1">
+          <span className="hidden md:flex items-center gap-1">
             <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block" /> Route Stop
           </span>
         </div>

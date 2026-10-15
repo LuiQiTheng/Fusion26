@@ -5,8 +5,15 @@
     "malayName": "Bangunan Stadthuys & Dataran Belanda",
     "stateId": "MLK",
     "locality": "Bandar Hilir, Melaka",
-    "categories": ["Architecture", "Colonial", "Museum"],
-    "culturalThemes": ["Colonial Architecture", "Maritime Trade", "Civic History"],
+    "categories": [
+      "Colonial",
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Colonial Architecture",
+      "Maritime Trade",
+      "Civic History"
+    ],
     "shortDescription": "Built in 1650 as the official residence and office of the Dutch Governor, the Stadthuys is believed to be the oldest surviving Dutch administrative building in the East.",
     "culturalContext": "The distinctive terracotta red building anchors Dutch Square alongside Christ Church (1753) and Queen Victoria's Fountain. Its heavy masonry walls, louvered windows, and massive doors reflect seventeenth-century Dutch civic engineering adapted to tropical Malacca. Today it houses the Museum of History and Ethnography.",
     "latitude": 2.1944,
@@ -33,7 +40,15 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "The Stadthuys & Dutch Square",
+    "source_urls": [
+      "https://perzim.gov.my",
+      "https://whc.unesco.org/en/list/1223"
+    ]
   },
   {
     "id": "mlk-afamosa",
@@ -41,8 +56,14 @@
     "malayName": "Kota A Famosa",
     "stateId": "MLK",
     "locality": "Bandar Hilir, Melaka",
-    "categories": ["Architecture", "Colonial", "Monument"],
-    "culturalThemes": ["Colonial Architecture", "Military Fortifications", "Portuguese Legacy"],
+    "categories": [
+      "Colonial"
+    ],
+    "culturalThemes": [
+      "Colonial Architecture",
+      "Military Fortifications",
+      "Portuguese Legacy"
+    ],
     "shortDescription": "The lone surviving stone gatehouse of the massive sixteenth-century Portuguese citadel constructed under Afonso de Albuquerque following the 1511 conquest.",
     "culturalContext": "Originally named Fortaleza de Malaca, the fortress once encircled the entire hill to secure maritime control over the Malacca Strait. When the British took over, captain William Farquhar began demolishing the fortress in 1807; only the intervention of Sir Stamford Raffles saved this singular gatehouse (Porta de Santiago) from complete destruction.",
     "latitude": 2.1918,
@@ -64,7 +85,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "A Famosa (Porta de Santiago)",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
   },
   {
     "id": "mlk-baba-nyonya",
@@ -72,8 +100,14 @@
     "malayName": "Muzium Warisan Baba & Nyonya",
     "stateId": "MLK",
     "locality": "Jalan Tun Tan Cheng Lock (Heeren Street), Melaka",
-    "categories": ["Living Tradition", "Museum", "Peranakan Heritage"],
-    "culturalThemes": ["Peranakan Heritage", "Living Multicultural Traditions", "Domestic Architecture"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Peranakan Heritage",
+      "Living Multicultural Traditions",
+      "Domestic Architecture"
+    ],
     "shortDescription": "A magnificent ancestral townhouse complex preserving the nineteenth-century domestic lifestyle, opulence, and hybrid material culture of Straits-born Chinese families.",
     "culturalContext": "Formed by connecting three contiguous terrace houses owned by the Chan family since 1861, this museum showcases the pinnacle of Peranakan culture—a blend of Chinese ancestral traditions, Malay language & cuisine, and Victorian European decorative furnishings. The house features traditional interior courtyards (airwells), mother-of-pearl blackwood furniture, and intricate beadwork.",
     "latitude": 2.1956,
@@ -95,7 +129,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Baba & Nyonya Heritage Museum",
+    "source_urls": [
+      "https://babanyonyamuseum.com"
+    ]
   },
   {
     "id": "mlk-cheng-hoon-teng",
@@ -103,8 +144,14 @@
     "malayName": "Tokong Cheng Hoon Teng",
     "stateId": "MLK",
     "locality": "Jalan Tokong (Harmony Street), Melaka",
-    "categories": ["Religious", "Architecture", "Living Tradition"],
-    "culturalThemes": ["Living Multicultural Traditions", "Spiritual Heritage", "Craftsmanship"],
+    "categories": [
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Living Multicultural Traditions",
+      "Spiritual Heritage",
+      "Craftsmanship"
+    ],
     "shortDescription": "Founded in 1645 by Kapitan Cina Tay Kie Ki, Cheng Hoon Teng is the oldest continuously functioning Chinese temple in Malaysia, practicing the Three Doctrines (Buddhism, Taoism, and Confucianism).",
     "culturalContext": "Located on Melaka's famous 'Harmony Street' mere steps from a historic mosque and Hindu temple, Cheng Hoon Teng embodies architectural and spiritual pluralism. Restored using traditional craftsmen from southern China, it was honored with a UNESCO Asia-Pacific Heritage Conservation Award in 2003.",
     "latitude": 2.1973,
@@ -126,7 +173,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Cheng Hoon Teng Temple",
+    "source_urls": [
+      "https://bangkok.unesco.org"
+    ]
   },
   {
     "id": "mlk-kampung-kling",
@@ -134,8 +188,14 @@
     "malayName": "Masjid Kampung Kling",
     "stateId": "MLK",
     "locality": "Jalan Tukang Emas (Harmony Street), Melaka",
-    "categories": ["Religious", "Architecture"],
-    "culturalThemes": ["Islamic Heritage", "Living Multicultural Traditions", "Vernacular Architecture"],
+    "categories": [
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Islamic Heritage",
+      "Living Multicultural Traditions",
+      "Vernacular Architecture"
+    ],
     "shortDescription": "Erected in 1748 by Indian Muslim merchants, this mosque features a distinctive triple-tiered pagoda-like Meru roof, minaret resembling a pagoda, and Corinthian columns.",
     "culturalContext": "Kampung Kling Mosque demonstrates how Islamic places of worship in maritime Southeast Asia embraced vernacular architectural forms rather than Middle Eastern domes. The ablution pool is embellished with English and Portuguese ceramic tiles, while Chinese glazed ceramic ornaments adorn the roof ridge.",
     "latitude": 2.1969,
@@ -157,7 +217,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Kampung Kling Mosque",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
   },
   {
     "id": "mlk-st-pauls",
@@ -165,8 +232,15 @@
     "malayName": "Gereja St. Paul",
     "stateId": "MLK",
     "locality": "St. Paul's Hill (Bukit Melaka), Melaka",
-    "categories": ["Architecture", "Colonial", "Monument"],
-    "culturalThemes": ["Colonial Architecture", "Spiritual Heritage", "Portuguese & Dutch Legacy"],
+    "categories": [
+      "Colonial",
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Colonial Architecture",
+      "Spiritual Heritage",
+      "Portuguese & Dutch Legacy"
+    ],
     "shortDescription": "Constructed in 1521 by Portuguese fidalgo Duarte Coelho as the Chapel of Madre de Deus, it sits atop Bukit Melaka with panoramic views over the historic port.",
     "culturalContext": "Used by Saint Francis Xavier as his base in Southeast Asia; his body was temporarily interred here in 1553 before being moved to Goa. Under Dutch rule, it served as the Reformed Church before becoming a burial ground for Dutch dignitaries whose intricately carved tombstones lean against its roofless laterite walls today.",
     "latitude": 2.1927,
@@ -188,7 +262,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "St. Paul's Church (Bukit San Pedro)",
+    "source_urls": [
+      "https://www.arkib.gov.my"
+    ]
   },
   {
     "id": "mlk-sultanate-palace",
@@ -196,8 +277,14 @@
     "malayName": "Muzium Kesultanan Melayu Melaka",
     "stateId": "MLK",
     "locality": "Jalan Kota, Bandar Hilir, Melaka",
-    "categories": ["Museum", "Architecture", "Malay Heritage"],
-    "culturalThemes": ["Malay Sultanate", "Craftsmanship", "Royal Court Heritage"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Malay Sultanate",
+      "Craftsmanship",
+      "Royal Court Heritage"
+    ],
     "shortDescription": "A meticulous wooden architectural reconstruction of Sultan Mansur Shah's 15th-century royal palace, constructed entirely using mortise and tenon timber joints without iron nails.",
     "culturalContext": "Based on vivid descriptions recorded in the Malay Annals (Sejarah Melayu), the three-story structure showcases the grandeur of the Golden Age of the Malacca Sultanate. Galleries detail the sovereign regalia, court hierarchy, legal code (Undang-Undang Melaka), and maritime trading delegations from Ming China, India, and the Arab world.",
     "latitude": 2.1923,
@@ -219,7 +306,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Melaka Sultanate Palace Museum",
+    "source_urls": [
+      "https://www.dbp.gov.my"
+    ]
   },
   {
     "id": "mlk-jonker",
@@ -227,8 +321,14 @@
     "malayName": "Jalan Hang Jebat",
     "stateId": "MLK",
     "locality": "Chinatown, Melaka",
-    "categories": ["Living Tradition", "Culinary Heritage"],
-    "culturalThemes": ["Living Multicultural Traditions", "Peranakan Heritage", "Culinary Heritage"],
+    "categories": [
+      "Colonial"
+    ],
+    "culturalThemes": [
+      "Living Multicultural Traditions",
+      "Peranakan Heritage",
+      "Culinary Heritage"
+    ],
     "shortDescription": "The bustling commercial artery of historic Melaka, lined with 17th-century shophouses, antique collectors, master shoemakers, and Peranakan gastronomy.",
     "culturalContext": "Originally home to servants and Dutch burghers, Jonker Street evolved into the cultural and civic heart of Chinese and Peranakan trade. Here, master craftsmen continue endangered arts such as beaded shoe (Kasut Manik) embroidery, rattan basketry, and hand-milled nyonya kueh.",
     "latitude": 2.1962,
@@ -250,7 +350,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Jonker Walk (Jalan Hang Jebat)",
+    "source_urls": [
+      "https://www.mbmb.gov.my"
+    ]
   },
   {
     "id": "mlk-bukit-cina",
@@ -258,8 +365,15 @@
     "malayName": "Bukit Cina & Perigi Hang Li Po",
     "stateId": "MLK",
     "locality": "Jalan Puteri Hang Li Poh, Melaka",
-    "categories": ["Monument", "Living Tradition", "Religious"],
-    "culturalThemes": ["Maritime Trade", "Sino-Malay Diplomacy", "Ancestral Memorial Heritage"],
+    "categories": [
+      "Colonial",
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Maritime Trade",
+      "Sino-Malay Diplomacy",
+      "Ancestral Memorial Heritage"
+    ],
     "shortDescription": "One of the largest and oldest traditional Chinese cemeteries outside China, encompassing over 12,500 historic tombs dating back to the Ming Dynasty.",
     "culturalContext": "Sultan Mansur Shah gifted this tranquil 25-hectare hill to his bride Princess Hang Li Po and her diplomatic entourage from the Ming court in the 15th century. At its foot stands the King's Well (Perigi Hang Li Po), an ancient water source celebrated for never drying up even during severe droughts.",
     "latitude": 2.1979,
@@ -281,7 +395,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Bukit Cina & King's Well",
+    "source_urls": [
+      "https://mbras.org.my"
+    ]
   },
   {
     "id": "png-khoo-kongsi",
@@ -289,11 +410,18 @@
     "malayName": "Khoo Kongsi",
     "stateId": "PNG",
     "locality": "Cannon Square, George Town, Penang",
-    "categories": ["Architecture", "Clan Associations", "Living Tradition"],
-    "culturalThemes": ["Clan Associations", "Craftsmanship", "Peranakan Heritage"],
+    "categories": [
+      "Colonial",
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Clan Associations",
+      "Craftsmanship",
+      "Peranakan Heritage"
+    ],
     "shortDescription": "One of the most grand and ornate Chinese clan temple associations in Southeast Asia, renowned for master stone carvings and gilded wood embellishments.",
     "culturalContext": "Built by the Khoo clan immigrants from Fujian, China, Khoo Kongsi served as clan hall, administrative chamber, ancestral altar, and theatre stage for traditional Chinese opera.",
-    "latitude": 5.4150,
+    "latitude": 5.415,
     "longitude": 100.3372,
     "visitDurationMinutes": 60,
     "estimatedCostMYR": 15,
@@ -312,7 +440,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Leong San Tong Khoo Kongsi",
+    "source_urls": [
+      "https://gtwhi.com.my"
+    ]
   },
   {
     "id": "kul-sultan-abdul-samad",
@@ -320,8 +455,13 @@
     "malayName": "Bangunan Sultan Abdul Samad",
     "stateId": "KUL",
     "locality": "Jalan Raja, Merdeka Square, Kuala Lumpur",
-    "categories": ["Architecture", "Colonial", "Monument"],
-    "culturalThemes": ["Moorish-Mughal Architecture", "National Independence"],
+    "categories": [
+      "Colonial"
+    ],
+    "culturalThemes": [
+      "Moorish-Mughal Architecture",
+      "National Independence"
+    ],
     "shortDescription": "Late nineteenth-century masterpiece designed by A.C. Norman, combining Moorish, Mughal, and Neo-Saracenic architectural aesthetics with a 41-meter clock tower.",
     "culturalContext": "Originally housing the British colonial administration and later Malaysia's highest judicial courts, this building witnessed the historic lowering of the Union Jack and raising of the Malayan flag on 31 August 1957 at Dataran Merdeka.",
     "latitude": 3.1486,
@@ -343,7 +483,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Sultan Abdul Samad Building",
+    "source_urls": [
+      "http://www.arkib.gov.my"
+    ]
   },
   {
     "id": "sgr-batu-caves",
@@ -351,8 +498,15 @@
     "malayName": "Kuil Batu Caves",
     "stateId": "SGR",
     "locality": "Gombak, Selangor",
-    "categories": ["Religious", "Nature", "Living Tradition"],
-    "culturalThemes": ["Batu Caves Hindu Pilgrimage", "Living Multicultural Traditions", "Karst Ecology"],
+    "categories": [
+      "Religious",
+      "Cultural Festival"
+    ],
+    "culturalThemes": [
+      "Batu Caves Hindu Pilgrimage",
+      "Living Multicultural Traditions",
+      "Karst Ecology"
+    ],
     "shortDescription": "Towering 400-million-year-old limestone hill holding sacred Hindu cave shrines, guarded by a world-famous 42.7-meter golden statue of Lord Murugan and 272 rainbow steps.",
     "culturalContext": "Center of the annual Thaipusam festival, drawing over a million devotees worldwide. Promoted by K. Thamboosamy Pillai in 1890 as a Hindu sanctuary reminiscent of the spear (Vel) carried by Murugan.",
     "latitude": 3.2374,
@@ -374,7 +528,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Batu Caves Temple Sanctuary",
+    "source_urls": [
+      "http://www.jmm.gov.my"
+    ]
   },
   {
     "id": "swk-cultural-village",
@@ -382,8 +543,15 @@
     "malayName": "Kampung Budaya Sarawak",
     "stateId": "SWK",
     "locality": "Pantai Damai, Santubong, Sarawak",
-    "categories": ["Living Tradition", "Museum", "Indigenous Culture"],
-    "culturalThemes": ["Longhouse Living Heritage", "Pua Kumbu Sacred Weaving", "Gawai Dayak Traditions"],
+    "categories": [
+      "Museum",
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Longhouse Living Heritage",
+      "Pua Kumbu Sacred Weaving",
+      "Gawai Dayak Traditions"
+    ],
     "shortDescription": "A renowned 17-acre living museum presenting authentic traditional dwellings of Sarawak's ethnic communities: Iban, Bidayuh, Orang Ulu, Penan, Melanau, Malay, and Chinese.",
     "culturalContext": "Visitors encounter genuine tribal longhouses on stilts, witnessing live demonstrations of blowpipe making, bamboo sago processing, bead crafting, and the annual Rainforest World Music Festival grounds.",
     "latitude": 1.7508,
@@ -405,7 +573,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Sarawak Cultural Village",
+    "source_urls": [
+      "https://sarawaktourism.com"
+    ]
   },
   {
     "id": "sbh-monsopiad-village",
@@ -413,11 +588,17 @@
     "malayName": "Perkampungan Warisan Monsopiad",
     "stateId": "SBH",
     "locality": "Kuai Kandazon, Penampang, Sabah",
-    "categories": ["Living Tradition", "Indigenous Culture"],
-    "culturalThemes": ["Indigenous Living Traditions", "Kaamatan Harvest Heritage"],
+    "categories": [
+      "Museum",
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Indigenous Living Traditions",
+      "Kaamatan Harvest Heritage"
+    ],
     "shortDescription": "Cultural sanctuary commemorating the legendary 18th-century Kadazan warrior Monsopiad, preserving sacred Bobohizan priestess rites and traditional living skills.",
     "culturalContext": "Features the House of Skulls (Siou Do Mohoing) protecting 42 trophies of warrior adversaries defeated while defending his village against predatory marauders, along with live demonstrations of traditional rice wine (lihing) preparation.",
-    "latitude": 5.8920,
+    "latitude": 5.892,
     "longitude": 116.0792,
     "visitDurationMinutes": 90,
     "estimatedCostMYR": 50,
@@ -436,7 +617,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Monsopiad Heritage Village",
+    "source_urls": [
+      "https://culture.sabah.gov.my"
+    ]
   },
   {
     "id": "prk-ubudiah-mosque",
@@ -444,12 +632,17 @@
     "malayName": "Masjid Ubudiah",
     "stateId": "PRK",
     "locality": "Bukit Chandan, Kuala Kangsar, Perak",
-    "categories": ["Religious", "Architecture"],
-    "culturalThemes": ["Royal Perak Court Heritage", "Moorish-Mughal Architecture"],
+    "categories": [
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Royal Perak Court Heritage",
+      "Moorish-Mughal Architecture"
+    ],
     "shortDescription": "Often cited as one of Malaysia's most picturesque mosques, completed in 1917 with soaring golden domes and Italian black-and-white marble minarets.",
     "culturalContext": "Commissioned by Sultan Idris Murshidul Adzam Shah as thanksgiving for recovery from illness. Designed by colonial architect Arthur Benison Hubback, who also designed the Kuala Lumpur Railway Station.",
     "latitude": 4.7645,
-    "longitude": 100.9510,
+    "longitude": 100.951,
     "visitDurationMinutes": 45,
     "estimatedCostMYR": 0,
     "openingHoursText": "Open daily outside prayer times",
@@ -467,7 +660,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Ubudiah Mosque & Royal Mausoleum",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
   },
   {
     "id": "ktn-istana-jahar",
@@ -475,8 +675,14 @@
     "malayName": "Istana Jahar",
     "stateId": "KTN",
     "locality": "Jalan Hilir Kota, Kota Bharu, Kelantan",
-    "categories": ["Museum", "Architecture", "Malay Heritage"],
-    "culturalThemes": ["Mak Yong Intangible Heritage", "Craftsmanship", "Royal Court Heritage"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Mak Yong Intangible Heritage",
+      "Craftsmanship",
+      "Royal Court Heritage"
+    ],
     "shortDescription": "Built in 1887 by Sultan Ahmad for his grandson, this timber palace showcases the pinnacle of Kelantanese floral woodcarving craftsmanship.",
     "culturalContext": "Today housing the Museum of Royal Traditions and Customs, exhibits encompass royal weddings, circumcision ceremonies, royal regalia, traditional weaponry (Keris), and Kelantanese metal casting.",
     "latitude": 6.1328,
@@ -498,7 +704,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Istana Jahar (Museum of Royal Traditions)",
+    "source_urls": [
+      "https://muzium.kelantan.gov.my"
+    ]
   },
   {
     "id": "nsn-istana-seri-menanti",
@@ -506,8 +719,13 @@
     "malayName": "Istana Lama Seri Menanti",
     "stateId": "NSN",
     "locality": "Seri Menanti, Kuala Pilah, Negeri Sembilan",
-    "categories": ["Architecture", "Museum", "Malay Heritage"],
-    "culturalThemes": ["Adat Perpatih Matrilineal System", "Minangkabau Curved Roof Architecture"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Adat Perpatih Matrilineal System",
+      "Minangkabau Curved Roof Architecture"
+    ],
     "shortDescription": "Magnificent four-story timber palace constructed between 1902 and 1908 by two master builders without a single iron nail, resting on 99 solid cengal wood pillars.",
     "culturalContext": "Reflects the architectural harmony of Adat Perpatih. The 99 pillars symbolize the 99 warriors of the royal confederacy. Its soaring horn-shaped curved gable roof celebrates the Minangkabau buffalo horn motif (Lentik).",
     "latitude": 2.6983,
@@ -529,7 +747,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Old Palace of Seri Menanti (Istana Lama)",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
   },
   {
     "id": "kdh-bujang-valley",
@@ -537,8 +762,13 @@
     "malayName": "Muzium Arkeologi Lembah Bujang",
     "stateId": "KDH",
     "locality": "Merbok, Bedong, Kedah",
-    "categories": ["Museum", "Monument", "Architecture"],
-    "culturalThemes": ["Ancient Lembah Bujang Civilization", "Maritime Trade"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Ancient Lembah Bujang Civilization",
+      "Maritime Trade"
+    ],
     "shortDescription": "The cradle of ancient maritime civilization in Peninsular Malaysia, holding over 50 excavated candi (stone and brick temple shrines) dating from the 3rd to 14th century CE.",
     "culturalContext": "Proves the existence of a sophisticated trans-peninsular entrepôt where seafaring merchants from India, China, Persia, and Southeast Asia exchanged pottery, beads, glass, and spices guarded by Mount Jerai.",
     "latitude": 5.7389,
@@ -560,7 +790,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Bujang Valley Archaeological Museum",
+    "source_urls": [
+      "https://arkeologi.usm.my"
+    ]
   },
   {
     "id": "trg-state-museum",
@@ -568,8 +805,14 @@
     "malayName": "Muzium Negeri Terengganu",
     "stateId": "TRG",
     "locality": "Bukit Losong, Kuala Terengganu, Terengganu",
-    "categories": ["Museum", "Architecture", "Living Tradition"],
-    "culturalThemes": ["Traditional Wooden Boatbuilding", "Songket & Batik Textile Arts", "Islamic Inscription Stone Heritage"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Traditional Wooden Boatbuilding",
+      "Songket & Batik Textile Arts",
+      "Islamic Inscription Stone Heritage"
+    ],
     "shortDescription": "The largest museum complex in Southeast Asia (27 hectares), constructed on stilts like traditional Terengganu palaces and housing the monumental 1303 CE Inscription Stone.",
     "culturalContext": "Four main interconnected palace buildings house exhibits on traditional seafaring, Malay brasswork, royal textiles, and fisheries, set against landscaped botanical gardens and authentic heritage houses.",
     "latitude": 5.3182,
@@ -591,7 +834,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Terengganu State Museum Complex",
+    "source_urls": [
+      "https://en.unesco.org/memoryoftheworld/registry"
+    ]
   },
   {
     "id": "phg-masjid-sultan-abdullah",
@@ -599,8 +849,14 @@
     "malayName": "Muzium Masjid Sultan Abdullah",
     "stateId": "PHG",
     "locality": "Pekan, Pahang",
-    "categories": ["Museum", "Architecture", "Religious"],
-    "culturalThemes": ["Royal Pekan Heritage", "Moorish-Mughal Architecture"],
+    "categories": [
+      "Museum",
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Royal Pekan Heritage",
+      "Moorish-Mughal Architecture"
+    ],
     "shortDescription": "Built in the 1920s with distinctive Moorish arches and minarets, this royal mosque now serves as an Islamic heritage museum in the royal town of Pekan.",
     "culturalContext": "Preserves historical artefacts of royal Pahang regalia, early Islamic manuscripts, and architectural relics from the royal court of Pekan.",
     "latitude": 3.4939,
@@ -622,7 +878,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Sultan Abdullah Mosque Museum",
+    "source_urls": [
+      "https://muzium.pahang.gov.my"
+    ]
   },
   {
     "id": "pls-kota-kayang",
@@ -630,8 +893,13 @@
     "malayName": "Masjid Alwi Kangar",
     "stateId": "PLS",
     "locality": "Kangar, Perlis",
-    "categories": ["Religious", "Architecture", "Monument"],
-    "culturalThemes": ["Northern Border Folk Heritage", "Mughal Architecture"],
+    "categories": [
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Northern Border Folk Heritage",
+      "Mughal Architecture"
+    ],
     "shortDescription": "Gazetted as a National Heritage Site, this iconic mosque completed in 1936 features striking classical Mughal and Moorish domes and slender minarets.",
     "culturalContext": "Named after Raja Syed Alwi, this landmark represents the spiritual and architectural focal point of early twentieth-century Perlis, constructed through royal patronages and community waqf donations.",
     "latitude": 6.4414,
@@ -653,7 +921,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Masjid Alwi (National Heritage Mosque)",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
   },
   {
     "id": "pjy-putra-mosque",
@@ -661,8 +936,13 @@
     "malayName": "Masjid Putra",
     "stateId": "PJY",
     "locality": "Presint 1, Putrajaya",
-    "categories": ["Religious", "Architecture", "Monument"],
-    "culturalThemes": ["Contemporary Islamic Architecture", "Civic Design"],
+    "categories": [
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Contemporary Islamic Architecture",
+      "Civic Design"
+    ],
     "shortDescription": "Famed for its rose-tinted granite domes and 116-meter minaret, Putra Mosque stands gracefully beside Putrajaya Lake and the Perdana Putra complex.",
     "culturalContext": "Constructed between 1997 and 1999, the mosque blends modern Malaysian Islamic design with Persian, Arab, and traditional Malay woodcarving motifs.",
     "latitude": 2.9361,
@@ -684,7 +964,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Putra Mosque",
+    "source_urls": [
+      "https://www.ppj.gov.my"
+    ]
   },
   {
     "id": "lbn-chimney",
@@ -692,8 +979,14 @@
     "malayName": "Serombong Labuan",
     "stateId": "LBN",
     "locality": "Tanjung Kubong, Labuan",
-    "categories": ["Monument", "Colonial", "Museum"],
-    "culturalThemes": ["Maritime & Coal Mining History", "WWII Memorial Heritage"],
+    "categories": [
+      "Colonial",
+      "Museum"
+    ],
+    "culturalThemes": [
+      "Maritime & Coal Mining History",
+      "WWII Memorial Heritage"
+    ],
     "shortDescription": "Enigmatic 32-meter red-brick tower constructed in the late 19th century using over 23,000 British-imported bricks during Labuan's coal-mining era.",
     "culturalContext": "An engineering enigma whose exact original purpose remains a subject of historical intrigue; local legends and archival surveys suggest it served as a ventilation shaft for underground coal mines.",
     "latitude": 5.3811,
@@ -715,7 +1008,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "The Chimney of Labuan",
+    "source_urls": [
+      "http://www.jmm.gov.my"
+    ]
   },
   {
     "id": "jhr-sultan-abu-bakar-mosque",
@@ -723,8 +1023,14 @@
     "malayName": "Masjid Negeri Sultan Abu Bakar",
     "stateId": "JHR",
     "locality": "Jalan Skudai, Johor Bahru, Johor",
-    "categories": ["Religious", "Architecture", "Monument"],
-    "culturalThemes": ["Royal Johor Heritage", "Victorian-Islamic Architecture"],
+    "categories": [
+      "Religious",
+      "Colonial"
+    ],
+    "culturalThemes": [
+      "Royal Johor Heritage",
+      "Victorian-Islamic Architecture"
+    ],
     "shortDescription": "Commissioned in 1892 by Sultan Abu Bakar (Father of Modern Johor), blending classical Victorian colonial clocktower aesthetics with traditional Islamic motifs.",
     "culturalContext": "Perched gracefully atop a prominent hill overlooking the Straits of Johor, its four minarets resemble Victorian clock towers while housing a marble-columned prayer sanctuary.",
     "latitude": 1.4589,
@@ -746,6 +1052,2291 @@
       }
     ],
     "verificationStatus": "verified",
-    "lastReviewedAt": "2026-10-10"
+    "lastReviewedAt": "2026-10-10",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Sultan Abu Bakar State Mosque",
+    "source_urls": [
+      "https://ywj.gov.my"
+    ]
+  },
+  {
+    "id": "food-perlis-laksa-perlis",
+    "name": "Laksa Perlis",
+    "malayName": "Laksa Beras Perlis",
+    "stateId": "PLS",
+    "locality": "Perlis (Regional Heritage)",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Northern Border Gastronomy",
+      "Rice & Fish Traditions",
+      "Malay Vernacular Cuisine"
+    ],
+    "shortDescription": "Northern-style fish noodle soup made with coarse shredded mackerel gravy, daun kesum, tamarind peels, and fresh hand-pressed rice vermicelli garnished with shredded cucumber, onions, and boiled egg.",
+    "culturalContext": "Laksa Perlis is deeply rooted in the rural fishing communities of northern Peninsular Malaysia. The dish is notable for using freshly extruded rice noodles and thick fish broth enriched with toasted belacan and wild herbs, representing generational coastal culinary wisdom.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 8,
+    "openingHoursText": "Available daily at local stalls and traditional markets across Perlis",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Widely accessible at street food venues and riverside eateries in Kuala Perlis.",
+    "culturalCareNotes": "Muslim-friendly (Halal ingredients); respect local etiquette when dining at community warungs.",
+    "imageUrl": "/images/cultural/food-perlis-laksa-perlis.jpg",
+    "imageAlt": "Bowl of authentic Laksa Perlis with shredded fish broth and fresh herbs",
+    "imageCredit": "Wikimedia Commons / Tourism Malaysia",
+    "sources": [
+      {
+        "title": "Koleksi Warisan Makanan Tradisional Negeri Perlis",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Perlis"
+    ],
+    "community_association": [
+      "Malay"
+    ],
+    "cultural_significance": "Authentic northern rice-and-fish culinary identity connecting agrarian paddy communities and Straits fishermen.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-perlis-ikan-bakar",
+    "name": "Ikan Bakar Kuala Perlis",
+    "malayName": "Ikan Bakar Petai Kuala Perlis",
+    "stateId": "PLS",
+    "locality": "Kuala Perlis, Perlis",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Coastal Maritime Culture",
+      "Charcoal Grilling",
+      "Straits of Malacca Catch"
+    ],
+    "shortDescription": "Freshly caught coastal fish and stingray chargrilled over coconut husk coals wrapped in banana leaves, slathered in spicy petai sambal and served with air asam dipping sauce.",
+    "culturalContext": "Kuala Perlis serves as the principal fishing port and jetty to the Langkawi archipelago. The open-flame fish grilling tradition developed among fishing families as a communal way to prepare the freshest daily catch directly by the waterfront.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 35,
+    "openingHoursText": "Daily evening seafood stalls from 5:00 PM to midnight",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Paved waterfront food complexes with ground-level wheelchair access.",
+    "culturalCareNotes": "Traditional communal dining; seafood is sourced Halal from local fishermen.",
+    "imageUrl": "/images/cultural/food-perlis-ikan-bakar.jpg",
+    "imageAlt": "Chargrilled fish with sambal petai wrapped in banana leaf",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Profil Budaya Gastronomi Pesisir Perlis",
+        "publisher": "Kerajaan Negeri Perlis",
+        "url": "https://www.perlis.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Perlis"
+    ],
+    "community_association": [
+      "Malay",
+      "Coastal Communities"
+    ],
+    "cultural_significance": "Sustains the artisanal fishing economy and nocturnal social dining fabric of northern coastal communities.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://www.perlis.gov.my"
+    ]
+  },
+  {
+    "id": "food-kedah-pekasam",
+    "name": "Pekasam",
+    "malayName": "Pekasam Ikan Darat Kedah",
+    "stateId": "KDH",
+    "locality": "Kedah (Regional Heritage)",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Ancient Food Preservation",
+      "Paddy-Field Ecology",
+      "Agrarian Wisdom"
+    ],
+    "shortDescription": "Traditional freshwater river and paddy fish fermented with sea salt, toasted ground rice (beras sangai), and tamarind slices over several weeks, pan-fried crisp with shallots and fiery chillies.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Pekasam represents an ingenious agrarian food preservation technique developed by Kedah paddy farmers to preserve monsoon seasonal surplus catches of lampam, puyu, and sepat.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 12,
+    "openingHoursText": "Available year-round in artisanal markets across Kedah and Perak border towns",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Packaged artisanal heritage food available at traditional dry markets.",
+    "culturalCareNotes": "Naturally fermented traditional product, savoured cooked with hot rice.",
+    "imageUrl": "/images/cultural/food-kedah-pekasam.jpg",
+    "imageAlt": "Golden fried pekasam with toasted rice grains and sliced onions",
+    "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Pekasam",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Kedah"
+    ],
+    "community_association": [
+      "Malay",
+      "Paddy Farming Communities"
+    ],
+    "cultural_significance": "Historic ecological food preservation technology reflecting the agrarian rhythms of the Rice Bowl of Malaysia.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-kedah-laksa-kedah",
+    "name": "Laksa Kedah",
+    "malayName": "Laksa Teluk Kechai / Laksa Kedah",
+    "stateId": "KDH",
+    "locality": "Teluk Kechai, Alor Setar, Kedah",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Rice Agrarian Culture",
+      "Fish Broth Traditions",
+      "Festive Feasts"
+    ],
+    "shortDescription": "Handmade fresh rice noodles immersed in an aromatic fish soup flavoured with boiled fresh sea eel or mackerel, daun kesum, torch ginger buds (bunga kantan), and tamarind, topped with boiled egg and fresh ulam.",
+    "culturalContext": "Officially registered as a National Heritage Food. Known famously around Teluk Kechai, Laksa Kedah is distinguished by using freshly milled rice dough cooked in boiling cauldrons and its deeply herbal, tamarind-infused soup base.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 7,
+    "openingHoursText": "Traditional village laksa stalls open 11:00 AM - 7:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional roadside warungs with step-free outdoor seating.",
+    "culturalCareNotes": "Traditional comfort food of festive kenduri celebrations.",
+    "imageUrl": "/images/cultural/food-kedah-laksa-kedah.jpg",
+    "imageAlt": "Bowl of Laksa Kedah garnished with fresh polygonum herbs and lime",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Kebangsaan - Laksa Kedah",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Kedah"
+    ],
+    "community_association": [
+      "Malay"
+    ],
+    "cultural_significance": "A cornerstone of northern festive hospitality and artisanal noodle-making craft.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-penang-assam-laksa",
+    "name": "Penang Assam Laksa",
+    "malayName": "Asam Laksa Pulau Pinang",
+    "stateId": "PNG",
+    "locality": "George Town, Penang",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Straits Maritime Fusion",
+      "Peranakan Chinese-Malay Convergence",
+      "UNESCO Gastronomy"
+    ],
+    "shortDescription": "A bold, sour-spicy poached mackerel broth simmered with tamarind, dried asam keping, torch ginger bud, lemongrass, and mint leaves, served with thick rice noodles and pungent fermented prawn paste (hae ko).",
+    "culturalContext": "Officially recognized as a National Heritage Food by Jabatan Warisan Negara and celebrated worldwide. An authentic Peranakan Straits creation blending Chinese rice noodles with Malay coastal fish-spicing techniques.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 9,
+    "openingHoursText": "Daily hawker stalls across George Town, Air Itam, and Balik Pulau",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Accessible at major George Town hawker centres and shophouses.",
+    "culturalCareNotes": "Contains prawn paste (shrimp derivative); non-halal stalls may be nearby in multi-vendor hawker centres.",
+    "imageUrl": "/images/cultural/food-penang-assam-laksa.jpg",
+    "imageAlt": "Steaming bowl of Penang Assam Laksa with mint and prawn paste",
+    "imageCredit": "Wikimedia Commons (CC-BY-SA)",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Asam Laksa",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Penang"
+    ],
+    "community_association": [
+      "Peranakan (Baba Nyonya)",
+      "Chinese",
+      "Malay"
+    ],
+    "cultural_significance": "A living testament to George Town’s UNESCO port heritage and multicultural cross-pollination.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-penang-char-kway-teow",
+    "name": "Char Kway Teow Pulau Pinang",
+    "malayName": "Char Kway Teow Pulau Pinang",
+    "stateId": "PNG",
+    "locality": "George Town, Penang",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Wok-Hei Culinary Mastery",
+      "Immigrant Labour Heritage",
+      "Hawker Culture"
+    ],
+    "shortDescription": "Flat rice noodles stir-fried over roaring charcoal fire with prawns, blood cockles, eggs, bean sprouts, garlic, Chinese chives, and premium soy sauces, achieving intense smoky wok-hei caramelization.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Originally crafted by 19th-century Teochew and Hokkien immigrant dockworkers along Weld Quay, requiring extreme wok heat and rhythm to sear without scorching.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 12,
+    "openingHoursText": "Daily across morning markets and evening roadside hawker centres",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Street-side stalls and open-air food courts.",
+    "culturalCareNotes": "Traditional recipes frequently use lard; Halal-certified and Muslim-friendly iterations are widely available as Char Kuey Teow Kerang.",
+    "imageUrl": "/images/cultural/food-penang-char-kway-teow.jpg",
+    "imageAlt": "Sizzling Penang Char Kway Teow with fresh prawns and cockles",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Makanan - Char Kway Teow",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Penang"
+    ],
+    "community_association": [
+      "Chinese",
+      "Straits Immigrant Labour"
+    ],
+    "cultural_significance": "Exemplifies 150 years of Straits artisanal street cooking passed down through family-owned hawker lineages.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-perak-rendang-tok",
+    "name": "Rendang Tok",
+    "malayName": "Rendang Tok Perak",
+    "stateId": "PRK",
+    "locality": "Kuala Kangsar, Perak",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Perak Royal Banquet Heritage",
+      "Slow-Food Preservation",
+      "Spiced Caramelization"
+    ],
+    "shortDescription": "A dark, fragrant dry-caramelized beef rendang slow-cooked for up to eight hours in heavy copper cauldrons with thick coconut milk, kerisik, aromatic spices, and tender coconut slices.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Historically prepared by palace royal chefs (tukang masak istana) in Kuala Kangsar for the Sultan of Perak before being shared into festive village feasts.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Available at specialized traditional eateries in Kuala Kangsar, Ipoh, and during festive seasons",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Sold packaged and served at traditional Malay restaurants across Perak.",
+    "culturalCareNotes": "Muslim-friendly (100% Halal beef preparation); treasured centerpiece of Hari Raya gatherings.",
+    "imageUrl": "/images/cultural/food-perak-rendang-tok.jpg",
+    "imageAlt": "Rich dark Rendang Tok with tender beef pieces and sliced coconut",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Rendang Tok",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Perak"
+    ],
+    "community_association": [
+      "Perak Royal Palace",
+      "Malay"
+    ],
+    "cultural_significance": "Preserves ancestral slow-simmering copper-cauldron cooking techniques of the royal court of Perak.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-perak-ipoh-hor-fun",
+    "name": "Ipoh Hor Fun / Kai See Hor Fun",
+    "malayName": "Kuey Teow Sup Ayam Ipoh",
+    "stateId": "PRK",
+    "locality": "Ipoh, Perak",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Limestone Karst Springs",
+      "Cantonese Tin-Mining Heritage",
+      "Clear Broth Artistry"
+    ],
+    "shortDescription": "Silky, translucent flat rice noodles bathed in a clean, golden broth brewed from poached free-range chicken and fresh prawn shells, topped with shredded chicken, chives, and fragrant orange prawn oil.",
+    "culturalContext": "A hallmark of Kinta Valley culinary heritage. The exceptionally slippery and soft texture of the noodles is attributed to Ipoh’s mineral-rich limestone spring water used during noodle manufacturing since the early 20th century.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Morning and lunch hours across traditional Ipoh coffee shops (7:30 AM - 3:00 PM)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Colonial-era ground floor shophouses and heritage kopitiams.",
+    "culturalCareNotes": "Halal and Muslim-friendly versions (Kuey Teow Sup Ayam) are widely served in dedicated halal kopitiams.",
+    "imageUrl": "/images/cultural/food-perak-ipoh-hor-fun.jpg",
+    "imageAlt": "Bowl of Ipoh Hor Fun with shredded chicken and golden prawn oil",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Katalog Warisan Budaya Gastronomi Negeri Perak",
+        "publisher": "Tourism Perak",
+        "url": "https://tourismperakmalaysia.com"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Perak"
+    ],
+    "community_association": [
+      "Cantonese",
+      "Chinese",
+      "Perak Urban Communities"
+    ],
+    "cultural_significance": "Embodies the artisanal coffee shop culture that arose during the late-19th-century Kinta Valley tin rush.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://tourismperakmalaysia.com"
+    ]
+  },
+  {
+    "id": "food-selangor-sate-kajang",
+    "name": "Sate Kajang",
+    "malayName": "Sate Kajang Tradisional",
+    "stateId": "SGR",
+    "locality": "Kajang, Selangor",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Charcoal Skewer Mastery",
+      "Peanut Sauce Craft",
+      "Javanese-Malay Gastronomy"
+    ],
+    "shortDescription": "Skewers of succulent marinated beef, chicken, or mutton grilled over open glowing coconut charcoal, accompanied by rich, coarsely crushed spiced peanut sauce, sambal cili, pressed rice cubes (ketupat), and cucumber.",
+    "culturalContext": "Recognized in the National Heritage Department food register. Pioneered in Kajang around 1917 by Tasmin Sakiban, a Javanese immigrant whose generous skewered cuts and spiced peanut dip transformed Kajang into Malaysia’s Satay Capital.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Daily: 10:30 AM - 11:30 PM across prominent Kajang satay restaurants",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Spacious air-conditioned dining halls and outdoor garden seating.",
+    "culturalCareNotes": "100% Halal; a universally shared communal dining feast.",
+    "imageUrl": "/images/cultural/food-selangor-sate-kajang.jpg",
+    "imageAlt": "Grilled chicken and beef satay skewers with peanut sauce dip",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Kebangsaan - Sate",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Selangor"
+    ],
+    "community_association": [
+      "Javanese-Malay",
+      "Selangor Heritage Communities"
+    ],
+    "cultural_significance": "Represents century-old grilling mastery and culinary entrepreneurship in the Klang Valley.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-selangor-nasi-ambeng",
+    "name": "Nasi Ambeng",
+    "malayName": "Nasi Ambeng Tradisi Selangor",
+    "stateId": "SGR",
+    "locality": "Kuala Selangor & Banting, Selangor",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Communal Sharing (Sepakat)",
+      "Javanese-Malay Ancestry",
+      "Gotong-Royong Banquets"
+    ],
+    "shortDescription": "A communal feast served on a large round metal tray (dulang) layered with banana leaf, featuring a central mound of fragrant white rice encircled by chicken opor/rendang, mee goreng, spiced grated coconut (serunding kelapa), bergedil, and sambal goreng.",
+    "culturalContext": "Officially inscribed in 2022 as a National Heritage Food by Jabatan Warisan Negara. Traditionally prepared for thanksgiving feasts (kenduri kesyukuran) in rural Selangor, where four to five diners share the same platter to foster kinship and equality.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 45,
+    "openingHoursText": "Available at specialized Malay-Javanese restaurants in Sabak Bernam, Kuala Selangor, and Bangi",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Family-friendly banquet dining venues with communal table setups.",
+    "culturalCareNotes": "Traditionally eaten by hand with the right hand; portioned to be eaten and packed home (berkat).",
+    "imageUrl": "/images/cultural/food-selangor-nasi-ambeng.jpg",
+    "imageAlt": "Nasi Ambeng communal platter on banana leaf with various side dishes",
+    "imageCredit": "Wikimedia Commons (CC-BY-SA)",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Nasi Ambeng",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Selangor"
+    ],
+    "community_association": [
+      "Javanese-Malay"
+    ],
+    "cultural_significance": "A tangible living symbol of egalitarian communal harmony, brotherhood, and rural mutual assistance.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-n9-masak-lemak-cili-api",
+    "name": "Masak Lemak Cili Api",
+    "malayName": "Masak Lemak Cili Api Nogori",
+    "stateId": "NSN",
+    "locality": "Kuala Pilah, Negeri Sembilan",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Adat Perpatih Culture",
+      "Raw Turmeric & Cili Api",
+      "Oil-Free Simmering"
+    ],
+    "shortDescription": "A fiery, golden turmeric-coconut stew cooked strictly without onions, garlic, or oil, relying solely on freshly ground raw turmeric roots, birds-eye chillies, thick coconut cream, bruised lemongrass, and asam keping simmered with freshwater fish, chicken, or wild paku fern.",
+    "culturalContext": "The culinary soul of Negeri Sembilan and Adat Perpatih tradition. Unlike other regional curries, authentic Nogori masak lemak avoids sautéing in oil, deriving its velvet body from pure fresh coconut cream and fresh turmeric sharpness.",
+    "visitDurationMinutes": 50,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Lunch hours from 11:00 AM - 3:30 PM across Negeri Sembilan rest-stop eateries",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional roadside warungs and rural culinary spots.",
+    "culturalCareNotes": "Intensely spicy; approach with caution if sensitive to high chilli levels.",
+    "imageUrl": "/images/cultural/food-n9-masak-lemak-cili-api.jpg",
+    "imageAlt": "Vibrant yellow Masak Lemak Cili Api with birds-eye chillies",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Dokumentasi Masakan Tradisional Negeri Sembilan",
+        "publisher": "Lembaga Muzium Negeri Sembilan",
+        "url": "https://lmns.ns.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Negeri Sembilan"
+    ],
+    "community_association": [
+      "Minangkabau",
+      "Malay",
+      "Adat Perpatih"
+    ],
+    "cultural_significance": "Preserves ancestral Minangkabau matriarchal cooking rules passed down unadulterated through centuries.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://lmns.ns.gov.my"
+    ]
+  },
+  {
+    "id": "food-n9-daging-salai",
+    "name": "Daging Salai Masak Lemak",
+    "malayName": "Daging Salai Masak Lemak Cili Api",
+    "stateId": "NSN",
+    "locality": "Rembau & Kuala Pilah, Negeri Sembilan",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Wood-Smoked Curing",
+      "Adat Perpatih Living Culture",
+      "Aromatic Timber Smoke"
+    ],
+    "shortDescription": "Prime beef slices slowly cold-smoked for five to seven hours over glowing coconut husks and rubberwood embers on elevated bamboo racks, then braised in fiery turmeric coconut gravy.",
+    "culturalContext": "Smoked meat curing (salai) is a historical preservation practice in Rembau and Kuala Pilah. The slow wood-smoking infuses the meat with a distinctive aroma and tender texture before it meets the state’s signature chilli-turmeric broth.",
+    "visitDurationMinutes": 50,
+    "estimatedCostMYR": 22,
+    "openingHoursText": "Available daily for lunch in Rembau, Seri Menanti, and along the Senawang-Kuala Pilah trunk road",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Specialist roadside smoking sheds and dining huts with parking.",
+    "culturalCareNotes": "100% Halal; celebrated culinary pride of the Luak chieftain districts.",
+    "imageUrl": "/images/cultural/food-n9-daging-salai.jpg",
+    "imageAlt": "Smoked beef simmered in rich golden turmeric gravy",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Kearifan Tempatan: Kaedah Salai Tradisi Negeri Sembilan",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Negeri Sembilan"
+    ],
+    "community_association": [
+      "Malay",
+      "Minangkabau"
+    ],
+    "cultural_significance": "Combines pre-refrigeration food preservation ingenuity with high-art spiced coconut cuisine.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "food-melaka-kuih-keria",
+    "name": "Kuih Keria Gula Melaka",
+    "malayName": "Kuih Keria Antarabangsa Gula Melaka",
+    "stateId": "MLK",
+    "locality": "Limbongan, Melaka",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Palm Sugar Craft",
+      "Sweet Potato Pastry",
+      "Coastal Village Heritage"
+    ],
+    "shortDescription": "Golden doughnut-shaped fritters made from mashed steamed sweet potatoes (keledek) and light flour, deep-fried to a crisp outer crust and glazed in crystallized pure, smoky Gula Melaka (coconut palm nectar).",
+    "culturalContext": "An iconic Melaka traditional tea-time kuih perfected in coastal settlements like Limbongan. The authenticity hinges on using pure floral coconut palm nectar tapped along coastal Melaka plantations rather than refined cane sugar.",
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 6,
+    "openingHoursText": "Daily: 1:00 PM - 7:00 PM (famous queues at Limbongan stall)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Takeaway roadside stall with queue barriers and nearby parking.",
+    "culturalCareNotes": "Plant-based sweet pastry, suitable for vegetarians; best consumed warm.",
+    "imageUrl": "/images/cultural/food-melaka-kuih-keria.jpg",
+    "imageAlt": "Crisp Kuih Keria glazed in frosted caramelized Gula Melaka",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Kuih-Muih Tradisional Melaka",
+        "publisher": "Perbadanan Muzium Melaka (PERZIM)",
+        "url": "https://perzim.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_kuih",
+    "state_association": [
+      "Melaka"
+    ],
+    "community_association": [
+      "Malay",
+      "Melaka Coastal Communities"
+    ],
+    "cultural_significance": "Celebrates traditional agro-forestry palm sugar production and artisanal coastal tea culture.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://perzim.gov.my"
+    ]
+  },
+  {
+    "id": "food-melaka-kari-debal",
+    "name": "Kari Devil / Kari Debal",
+    "malayName": "Kari Debal / Curry Debal",
+    "stateId": "MLK",
+    "locality": "Portuguese Settlement, Melaka",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Portuguese-Eurasian Synthesis",
+      "Straits Maritime History",
+      "Boxing Day Festive Dish"
+    ],
+    "shortDescription": "A fiery, tangy stew cooked with chicken, cocktail sausages, potatoes, shallots, vinegar, and ground yellow mustard seeds, red chillies, and ginger root simmered to a pungent piquancy without coconut milk.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. The crowning festive dish of the Kristang (Portuguese-Eurasian) community residing in the Portuguese Settlement of Ujong Pasir, traditionally cooked on Boxing Day using roast banquet leftovers.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 28,
+    "openingHoursText": "Available evening hours at the Portuguese Square seafood restaurants in Ujong Pasir",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Seaside square with level paved walkways and outdoor seaside dining.",
+    "culturalCareNotes": "Unique Catholic-Eurasian festive dish; pork-free poultry versions are served for diverse guests.",
+    "imageUrl": "/images/cultural/food-melaka-kari-debal.jpg",
+    "imageAlt": "Vibrant and spicy red Kari Debal stew with chicken and potatoes",
+    "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Kari Debal",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Melaka"
+    ],
+    "community_association": [
+      "Kristang (Portuguese-Eurasian)",
+      "Straits Creole Communities"
+    ],
+    "cultural_significance": "Living testament to 500 years of Portuguese-Malay language, faith, and culinary synthesis in Melaka.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-johor-laksa-johor",
+    "name": "Laksa Johor",
+    "malayName": "Laksa Johor Diraja",
+    "stateId": "JHR",
+    "locality": "Johor Bahru, Johor",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "East-West Royal Gastronomy",
+      "Sultan Abu Bakar Legacy",
+      "Spaghetti Fusion"
+    ],
+    "shortDescription": "Italian spaghetti noodles layered beneath a thick, complex fish gravy pounded from wolf herring (ikan parang), toasted coconut kerisik, coconut milk, and dried prawns, topped with fresh ulam and eaten with the hands.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Legend attributes its creation to Sultan Abu Bakar of Johor after his royal diplomatic tours to Victorian Britain and Italy in the late 19th century, substituting rice noodles with Italian spaghetti.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Available at specialized Johor heritage restaurants and during Hari Raya open houses",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Served in heritage restaurants and cultural centers across Johor Bahru.",
+    "culturalCareNotes": "Traditionally eaten using the clean fingers of the right hand rather than chopsticks or cutlery.",
+    "imageUrl": "/images/cultural/food-johor-laksa-johor.jpg",
+    "imageAlt": "Plated Laksa Johor with spaghetti base and rich fish gravy",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Makanan Kebangsaan - Laksa Johor",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Johor"
+    ],
+    "community_association": [
+      "Johor Royal Court",
+      "Malay"
+    ],
+    "cultural_significance": "An early masterclass in cross-continental gastronomic fusion under the modernizing Johor Sultanate.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-johor-telur-pindang",
+    "name": "Telur Pindang",
+    "malayName": "Telur Pindang Johor Tradisional",
+    "stateId": "JHR",
+    "locality": "Muar & Batu Pahat, Johor",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Royal Wedding Rituals",
+      "Ethnobotanical Herb Decoction",
+      "Ceremonial Gifting"
+    ],
+    "shortDescription": "Fresh chicken eggs boiled slowly for three to seven uninterrupted days in a restorative decoction of guava leaves, mangosteen peels, shallot skins, galangal, and aromatic whole spices until the shells and egg whites turn rich dark mahogany.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Originating from Johor aristocrats, Telur Pindang serves as the prestigious floral door gift (bunga telur) at traditional Malay weddings, symbolizing patience, health, and marital blessing.",
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 5,
+    "openingHoursText": "Crafted on commission for wedding kenduris and sold in Johor heritage gift shops",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Artisanal packaged cultural food available at heritage centres.",
+    "culturalCareNotes": "A treasured ceremonial gift; keep uncracked shell intact until ready to savour.",
+    "imageUrl": "/images/cultural/food-johor-telur-pindang.jpg",
+    "imageAlt": "Dark spiced herbal Telur Pindang eggs with herbal leaves",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Telur Pindang",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Johor"
+    ],
+    "community_association": [
+      "Johor Malay Aristocracy",
+      "Malay"
+    ],
+    "cultural_significance": "A multi-day ethnobotanical decoction embodying ancient Malay herbal knowledge and wedding ceremonial decorum.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-pahang-gulai-tempoyak-ikan-patin",
+    "name": "Gulai Tempoyak Ikan Patin",
+    "malayName": "Gulai Tempoyak Ikan Patin Temerloh",
+    "stateId": "PHG",
+    "locality": "Temerloh, Pahang",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Pahang River Catch",
+      "Fermented Durian Art",
+      "Riverine Culinary Identity"
+    ],
+    "shortDescription": "Fresh silver catfish (patin) plucked from the swift currents of the Pahang River, simmered gently in a vibrant golden gravy of fermented durian paste (tempoyak), fresh turmeric, birds-eye chillies, and wild daun kesum.",
+    "culturalContext": "Officially inscribed as a National Heritage Food by Jabatan Warisan Negara. Temerloh on the Pahang River is crowned the Patin Capital of Malaysia, where wild river catfish and fermented durian preserve riverine Malay culinary heritage.",
+    "visitDurationMinutes": 50,
+    "estimatedCostMYR": 35,
+    "openingHoursText": "Daily lunchtime along the riverside esplanade in Temerloh (10:30 AM - 4:00 PM)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Riverfront food complexes with ramps and spacious parking.",
+    "culturalCareNotes": "Patin buah (wild caught) is premium; patin sangkar (farmed) is also offered. 100% Halal.",
+    "imageUrl": "/images/cultural/food-pahang-gulai-tempoyak-ikan-patin.jpg",
+    "imageAlt": "Golden yellow broth of Gulai Tempoyak with fresh river patin fish",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Gulai Tempoyak Ikan Patin",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Pahang"
+    ],
+    "community_association": [
+      "Pahang River Communities",
+      "Malay"
+    ],
+    "cultural_significance": "Celebrates the riverine ecology and seasonal tropical durian fermentation traditions of the Pahang river basin.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-pahang-puding-raja",
+    "name": "Puding Raja",
+    "malayName": "Puding Diraja Pekan Pahang",
+    "stateId": "PHG",
+    "locality": "Pekan, Pahang",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Pahang Royal Palace Heritage",
+      "Golden Egg-Thread Art (Jala Emas)",
+      "Aristocratic Banquets"
+    ],
+    "shortDescription": "A majestic royal dessert comprising caramelized sweet pisang lemak manis bananas blanketed with fine spun golden egg-yolk threads (jala emas), prunes, maraschino cherries, and toasted cashew nuts, bathed in a chilled evaporated milk custard sauce.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Created exclusively in the royal town of Pekan for the royal banquets of the Sultan of Pahang, where master pastry artisans spin raw egg yolks into boiling syrup to craft jala emas.",
+    "visitDurationMinutes": 40,
+    "estimatedCostMYR": 18,
+    "openingHoursText": "Available daily at heritage dessert cafes in Pekan and Kuantan",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Air-conditioned cafes and heritage bakeries with wheelchair access.",
+    "culturalCareNotes": "A rich and delicate dessert traditionally served cold during royal ceremonies and celebrations.",
+    "imageUrl": "/images/cultural/food-pahang-puding-raja.jpg",
+    "imageAlt": "Puding Raja crowned with golden jala emas and cashew nuts",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Puding Diraja",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_kuih",
+    "state_association": [
+      "Pahang"
+    ],
+    "community_association": [
+      "Pahang Royal Court",
+      "Malay"
+    ],
+    "cultural_significance": "Preserves the intricate sugar-spun egg thread craft of the ancient Pahang Sultanate royal kitchens.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-terengganu-nasi-dagang",
+    "name": "Nasi Dagang Terengganu",
+    "malayName": "Nasi Dagang Terengganu Asli",
+    "stateId": "TRG",
+    "locality": "Kuala Terengganu, Terengganu",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Fishermen Breakfast Rituals",
+      "Tuna Fish Stew (Gulai Ikan Tongkol)",
+      "Aromatic Fenugreek Steaming"
+    ],
+    "shortDescription": "Fragrant white rice steamed with coconut milk, shallots, ginger, and fenugreek seeds (biji halba), served alongside a rich dark tuna fish curry (gulai ikan aya), pickled cucumber-carrot acar, and hard-boiled egg.",
+    "culturalContext": "Officially inscribed as a National Heritage Food by Jabatan Warisan Negara. Unlike the reddish-brown Kelantanese rice, authentic Terengganu Nasi Dagang uses white rice scented with halba, serving as the definitive fishermen breakfast along the South China Sea.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 8,
+    "openingHoursText": "Early morning breakfast stalls: 6:30 AM - 11:30 AM daily",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Roadside warungs and Pasar Payang market dining stalls.",
+    "culturalCareNotes": "100% Halal; quintessential breakfast ritual of the east coast.",
+    "imageUrl": "/images/cultural/food-terengganu-nasi-dagang.jpg",
+    "imageAlt": "Plate of Terengganu Nasi Dagang with gulai ikan tongkol and acar",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Kebangsaan - Nasi Dagang Terengganu",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Terengganu"
+    ],
+    "community_association": [
+      "Terengganu Coastal Communities",
+      "Malay"
+    ],
+    "cultural_significance": "Sustained generations of artisanal fishermen heading into open South China Sea fishing waters.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-terengganu-keropok-lekor",
+    "name": "Keropok Lekor Terengganu",
+    "malayName": "Keropok Lekor Losong Terengganu",
+    "stateId": "TRG",
+    "locality": "Kampung Losong, Kuala Terengganu",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Round Scad Fish Processing",
+      "Cottage Industry Heritage",
+      "Losong Village Craft"
+    ],
+    "shortDescription": "Artisanal sausage-shaped fish cakes made by kneading fresh round scad (ikan selayang/parang) mince with sago flour and salt into logs, boiled to a chewy tenderness or deep-fried crisp, served with homemade sweet tamarind chilli sauce.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Kampung Losong in Kuala Terengganu is world-renowned as the epicentre of artisanal keropok production, anchoring a generational maritime cottage economy.",
+    "visitDurationMinutes": 40,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Daily: 8:30 AM - 7:00 PM along the Kampung Losong heritage strip",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Drive-through and walk-in shops with dedicated parking.",
+    "culturalCareNotes": "Best consumed freshly fried; high fish-to-flour ratio denotes premium quality.",
+    "imageUrl": "/images/cultural/food-terengganu-keropok-lekor.jpg",
+    "imageAlt": "Golden fried Keropok Lekor pieces with sweet chilli dipping sauce",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Keropok Lekor",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Terengganu"
+    ],
+    "community_association": [
+      "Terengganu Fishermen Communities",
+      "Malay"
+    ],
+    "cultural_significance": "Preserves ancestral zero-waste fish preservation methods of the Terengganu coastline.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-kelantan-nasi-kerabu",
+    "name": "Nasi Kerabu",
+    "malayName": "Nasi Kerabu Bunga Telang",
+    "stateId": "KTN",
+    "locality": "Kota Bharu, Kelantan",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Butterfly Pea Natural Dye",
+      "Raw Wild Herbs (Ulam-Ulaman)",
+      "Fermented Budu Dressing"
+    ],
+    "shortDescription": "Striking indigo-blue rice tinted naturally with butterfly pea flowers (bunga telang), topped with a fragrant salad of finely shredded fresh wild herbs, spiced toasted coconut flakes, stuffed peppers (solok lada), salted egg, keropok, and pungent budu.",
+    "culturalContext": "Designated a National Heritage Food by Jabatan Warisan Negara. Nasi Kerabu is the ultimate expression of East Coast ethnobotany, incorporating up to ten types of wild forest herbs (daun pegaga, kesum, serai) alongside fermented anchovy sauce (budu).",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Morning and lunch stalls: 7:00 AM - 2:00 PM across Kota Bharu",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Widely accessible across markets and eateries.",
+    "culturalCareNotes": "100% Halal; assemble by thoroughly tossing the herbs, budu, and blue rice together.",
+    "imageUrl": "/images/cultural/food-kelantan-nasi-kerabu.jpg",
+    "imageAlt": "Vibrant indigo blue Nasi Kerabu rice surrounded by fresh shredded herbs",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Nasi Kerabu",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Kelantan"
+    ],
+    "community_association": [
+      "Kelantan Malay",
+      "Peranakan Cina Kampung"
+    ],
+    "cultural_significance": "Represents deep rainforest and coastal ethnobotanical medicinal foraging knowledge.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-kelantan-akok",
+    "name": "Kuih Akok",
+    "malayName": "Akok Tradisi Kelantan",
+    "stateId": "KTN",
+    "locality": "Salor & Kota Bharu, Kelantan",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Charcoal Ember Baking",
+      "Egg Custard Heritage",
+      "Ramadan Sweet Traditions"
+    ],
+    "shortDescription": "A rich, melt-in-the-mouth custardy confection crafted from duck and chicken eggs, coconut cream, dark palm sugar, and pandan juice, traditionally baked in bronze moulds between glowing coconut shell embers above and below.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. The wrinkled, caramelized surface and smokey aroma distinguish authentic Kelantanese akok, which is baked using intense dual-directional charcoal heat in villages like Salor.",
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 5,
+    "openingHoursText": "Daily: 11:00 AM - 6:00 PM across afternoon stalls and markets",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Roadside stalls and morning market kiosks.",
+    "culturalCareNotes": "Rich in eggs and coconut; served fresh off the brass baking moulds.",
+    "imageUrl": "/images/cultural/food-kelantan-akok.jpg",
+    "imageAlt": "Platter of freshly baked golden-brown wrinkled Kuih Akok",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Akok",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_kuih",
+    "state_association": [
+      "Kelantan"
+    ],
+    "community_association": [
+      "Kelantan Malay"
+    ],
+    "cultural_significance": "Exemplifies traditional dual-heat brass mould artisanal baking techniques.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-sabah-hinava",
+    "name": "Hinava",
+    "malayName": "Hinava Ginapan Kadazandusun",
+    "stateId": "SBH",
+    "locality": "Penampang, Sabah",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Citrus Curing",
+      "Bambangan Seed Seasoning",
+      "Kaamatan Feast Cuisine"
+    ],
+    "shortDescription": "A revered Kadazandusun ceremonial delicacy of fresh raw mackerel (tenggiri) cured in fresh calamansi lime juice, tossed with finely grated dried wild mango seed (bambangan), shallots, red chillies, and shredded young ginger.",
+    "culturalContext": "A cornerstone of Kadazandusun cultural identity served during the Kaamatan harvest festival. Unlike ceviche, the inclusion of grated bambangan seed neutralizes fishiness and adds a distinctive earthy aroma and preservative effect.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Available at native Sabahan cultural eateries and during Kaamatan celebrations at KDCA",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional restaurants and cultural village pavilions in Penampang and Kota Kinabalu.",
+    "culturalCareNotes": "Raw citrus-cured seafood; safe handling requires pristine fresh fish.",
+    "imageUrl": "/images/cultural/food-sabah-hinava.jpg",
+    "imageAlt": "Plate of fresh Hinava cured with calamansi, chillies, and bambangan seed",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Muzium Sabah: Etnografi Makanan Tradisi Kadazandusun",
+        "publisher": "Jabatan Muzium Sabah",
+        "url": "https://museum.sabah.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Sabah"
+    ],
+    "community_association": [
+      "Kadazandusun"
+    ],
+    "cultural_significance": "Sacred ceremonial dish connecting the community with the harvests of the sea and forest.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://museum.sabah.gov.my"
+    ]
+  },
+  {
+    "id": "food-sabah-kuih-cincin",
+    "name": "Kuih Cincin",
+    "malayName": "Kuih Cincin Tradisi Sabah",
+    "stateId": "SBH",
+    "locality": "Papar, Sabah",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Four-Hole Ring Geometry",
+      "Gula Apong Nipa Palm Sugar",
+      "Bajau & Bruneian Malay Heritage"
+    ],
+    "shortDescription": "Crisp ring-shaped biscuits with four or six distinctive holes, handcrafted from rice flour and dark red palm sugar (gula apong), dipped in rice batter and double-fried to achieve a long-lasting, crunchy caramelized glaze.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. Originating from the Bajau and Bruneian Malay communities of Papar, Kuih Cincin serves as an essential festive hospitality offering during weddings and cultural festivities.",
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 8,
+    "openingHoursText": "Daily along Papar cottage industry outlets and Kota Kinabalu central handicraft markets",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Shops and packaging centres along main transit routes.",
+    "culturalCareNotes": "Long shelf-life traditional dry pastry; vegetarian and Halal.",
+    "imageUrl": "/images/cultural/food-sabah-kuih-cincin.jpg",
+    "imageAlt": "Golden crisp Kuih Cincin with characteristic four-ring pattern",
+    "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Kuih Cincin",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_kuih",
+    "state_association": [
+      "Sabah"
+    ],
+    "community_association": [
+      "Bajau",
+      "Bruneian Malay"
+    ],
+    "cultural_significance": "Preserves ancient double-fry starch crystallization techniques of western Sabah coastal communities.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-sarawak-manok-pansoh",
+    "name": "Manok Pansoh",
+    "malayName": "Manok Pansoh (Ayam Pansuh)",
+    "stateId": "SWK",
+    "locality": "Kuching & Sri Aman, Sarawak",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Bamboo Pit Roasting",
+      "Bungkang Leaves Aromatics",
+      "Iban Ancestral Traditions"
+    ],
+    "shortDescription": "Free-range chicken cutlets tossed with lemongrass, ginger, garlic, shallots, and fragrant bungkang leaves, tightly stuffed into a freshly cut green bamboo stalk sealed with tapioca leaves and roasted over an open wood fire.",
+    "culturalContext": "Inscribed as a National Heritage Food by Jabatan Warisan Negara. An ancestral culinary tradition of the Iban and Bidayuh communities of Sarawak, historically prepared during Gawai Dayak in longhouses where the bamboo naturally steams the chicken in its own juices.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Available at Dayak heritage restaurants and native night markets across Kuching and Miri",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional Dayak eateries and open-air food fairs.",
+    "culturalCareNotes": "Authentic forest-cooking method; traditional versions are 100% natural and organic.",
+    "imageUrl": "/images/cultural/food-sarawak-manok-pansoh.jpg",
+    "imageAlt": "Manok Pansoh being cooked inside green bamboo over outdoor open embers",
+    "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "Warisan Makanan Kebangsaan - Manok Pansoh",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_dish",
+    "state_association": [
+      "Sarawak"
+    ],
+    "community_association": [
+      "Iban",
+      "Bidayuh",
+      "Dayak Communities"
+    ],
+    "cultural_significance": "Preserves ancient rainforest bamboo-roasting technology central to Dayak identity.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+    ]
+  },
+  {
+    "id": "food-sarawak-kek-lapis",
+    "name": "Kek Lapis Sarawak",
+    "malayName": "Kek Lapis Sarawak Tradisional",
+    "stateId": "SWK",
+    "locality": "Kuching, Sarawak",
+    "categories": [
+      "Food"
+    ],
+    "culturalThemes": [
+      "Geometric Layering Craft",
+      "Festive Open House Hospitality",
+      "UNESCO City of Gastronomy"
+    ],
+    "shortDescription": "An elaborate, colourful layered butter cake distinguished by complex geometric patterns, baked meticulously layer by layer under overhead heat, cut into interlocking prisms, and bound with sweet jam into kaleidoscope motifs.",
+    "culturalContext": "Protected under Malaysian Geographical Indication (GI). Originated from Betawi lapis legit brought to Sarawak in the 1970s and transformed by Malay and Dayak women into intricate geometric works of art shared across all cultural open houses.",
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Daily: 8:30 AM - 6:30 PM along the Main Bazaar and waterfront of Kuching",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Modern storefront bakeries and sampling shops along Kuching Waterfront.",
+    "culturalCareNotes": "A multi-ethnic festive delicacy shared during Hari Raya, Gawai, and Chinese New Year alike.",
+    "imageUrl": "/images/cultural/food-sarawak-kek-lapis.jpg",
+    "imageAlt": "Vibrant kaleidoscope patterns of authentic sliced Kek Lapis Sarawak",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Perbadanan Harta Intelek Malaysia (MyIPO) - Geographical Indication: Kek Lapis Sarawak",
+        "publisher": "MyIPO & Sarawak Tourism Board",
+        "url": "https://sarawaktourism.com"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "food",
+    "subcategory": "traditional_kuih",
+    "state_association": [
+      "Sarawak"
+    ],
+    "community_association": [
+      "Sarawak Malay",
+      "Dayak",
+      "Chinese"
+    ],
+    "cultural_significance": "A protected craft bridging multi-ethnic households in UNESCO City of Gastronomy Kuching.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://sarawaktourism.com"
+    ]
+  },
+  {
+    "id": "perf-mak-yong",
+    "name": "Mak Yong",
+    "malayName": "Teater Tradisional Mak Yong",
+    "stateId": "KTN",
+    "locality": "Kota Bharu, Kelantan",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Ancient Royal Court Drama",
+      "UNESCO Masterpiece",
+      "Rebab & Gamelan Accompaniment"
+    ],
+    "shortDescription": "An ancient Malay dance-drama combining stylized acting, vocal solos, comedic interludes, and gestural choreography, accompanied by a royal ensemble of spiked fiddle (rebab), double-headed drums (gendang), and hanging tetawak gongs.",
+    "culturalContext": "Inscribed in 2008 on the UNESCO Representative List of the Intangible Cultural Heritage of Humanity (originally proclaimed a Masterpiece in 2005). Tracing to pre-Islamic royal courts in Kelantan and Patani, it enacts mythical tales of gods and kings with deep ritual and spiritual roots.",
+    "visitDurationMinutes": 90,
+    "estimatedCostMYR": 30,
+    "openingHoursText": "Scheduled cultural showcase performances by JKKN and National Heritage Academy",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Auditoriums and cultural theatres with wheelchair seating.",
+    "culturalCareNotes": "Sacred introductory ritual (Buka Panggung) requires quiet respectful observation.",
+    "imageUrl": "/images/cultural/perf-mak-yong.jpg",
+    "imageAlt": "Lead Pak Yong performer in royal silk costume and golden headdress",
+    "imageCredit": "UNESCO / Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+    "sources": [
+      {
+        "title": "Mak Yong theatre - Representative List of the Intangible Cultural Heritage of Humanity",
+        "publisher": "UNESCO",
+        "url": "https://ich.unesco.org/en/RL/mak-yong-theatre-00167"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_theatre",
+    "state_association": [
+      "Kelantan"
+    ],
+    "community_association": [
+      "Malay"
+    ],
+    "cultural_significance": "One of the oldest surviving ritual court dance-dramas in Southeast Asia.",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://ich.unesco.org/en/RL/mak-yong-theatre-00167"
+    ]
+  },
+  {
+    "id": "perf-mek-mulung",
+    "name": "Mek Mulung",
+    "malayName": "Teater Tradisional Mek Mulung",
+    "stateId": "KDH",
+    "locality": "Kampung Wang Tepus, Jitra, Kedah",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "UNESCO Urgent Safeguarding 2023",
+      "Kedah Folk Theatre",
+      "Sembong Drum Music"
+    ],
+    "shortDescription": "A rare traditional folk theatre originating exclusively from Kampung Wang Tepus, Kedah, performed by an all-male ensemble intertwining spoken dialogue, comic sketches, ritual healing dances, and percussive music led by the sembong drum and rebana.",
+    "culturalContext": "Inscribed in 2023 on the UNESCO List of Intangible Cultural Heritage in Need of Urgent Safeguarding. Passed down orally within Wang Tepus village lineages for over four centuries, it faces critical risks due to elderly master practitioners and modern rural-urban migration.",
+    "visitDurationMinutes": 75,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Annual village heritage showcase and community cultural transmission workshops",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Open-air village arena (bangsal) setting.",
+    "culturalCareNotes": "A fragile community treasure; photography allowed without flash during rituals.",
+    "imageUrl": "/images/cultural/perf-mek-mulung.jpg",
+    "imageAlt": "Mek Mulung actors performing in traditional Kedah stage regalia",
+    "imageCredit": "UNESCO Intangible Cultural Heritage (Nomination file no. 01610)",
+    "sources": [
+      {
+        "title": "Mek Mulung - List of Intangible Cultural Heritage in Need of Urgent Safeguarding",
+        "publisher": "UNESCO",
+        "url": "https://ich.unesco.org/en/USL/mek-mulung-01610"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_theatre",
+    "state_association": [
+      "Kedah"
+    ],
+    "community_association": [
+      "Kedah Malay",
+      "Wang Tepus Village Lineage"
+    ],
+    "cultural_significance": "Unique northern rural theatre under global emergency preservation to safeguard oral living traditions.",
+    "heritage_status": "unesco_urgent_safeguarding",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://ich.unesco.org/en/USL/mek-mulung-01610"
+    ]
+  },
+  {
+    "id": "perf-dondang-sayang",
+    "name": "Dondang Sayang",
+    "malayName": "Dondang Sayang Melaka",
+    "stateId": "MLK",
+    "locality": "Bandar Melaka, Melaka",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Spontaneous Pantun Poetry",
+      "Cross-Cultural Unity",
+      "Violin & Rebana Ensemble"
+    ],
+    "shortDescription": "An evocative poetic song exchange where pairs of singers trade witty, spontaneous four-line pantun verses in friendly melodic duels, accompanied by a counter-melody violin, two rebana drums, and a tetawak gong.",
+    "culturalContext": "Inscribed in 2018 on the UNESCO Representative List of the Intangible Cultural Heritage of Humanity. Practised collaboratively across Malay, Baba Nyonya (Peranakan Chinese), Chitty (Indian Peranakan), and Portuguese communities in Melaka since the 15th-century Sultanate.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Regular evening cultural showcases in Jonker Street and Portuguese Square",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Community halls and outdoor cultural pavilions with ramp access.",
+    "culturalCareNotes": "Audience engagement through witty applause for clever rhyming pantuns is welcomed.",
+    "imageUrl": "/images/cultural/perf-dondang-sayang.jpg",
+    "imageAlt": "Dondang Sayang singers and violin player in traditional Straits kebaya and baju Melayu",
+    "imageCredit": "UNESCO Intangible Cultural Heritage (Nomination file no. 01410)",
+    "sources": [
+      {
+        "title": "Dondang Sayang - Representative List of the Intangible Cultural Heritage of Humanity",
+        "publisher": "UNESCO",
+        "url": "https://ich.unesco.org/en/RL/dondang-sayang-01410"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_music",
+    "state_association": [
+      "Melaka"
+    ],
+    "community_association": [
+      "Malay",
+      "Baba Nyonya",
+      "Chitty",
+      "Portuguese-Eurasian"
+    ],
+    "cultural_significance": "Supreme embodiment of Melaka’s harmonious multiculturalism through spontaneous poetic dialogue.",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://ich.unesco.org/en/RL/dondang-sayang-01410"
+    ]
+  },
+  {
+    "id": "perf-wayang-kulit-kelantan",
+    "name": "Wayang Kulit Kelantan",
+    "malayName": "Wayang Kulit Kelantan (Wayang Siam)",
+    "stateId": "KTN",
+    "locality": "Kota Bharu, Kelantan",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Tok Dalang Master Storyteller",
+      "Water Buffalo Hide Puppets",
+      "Hikayat Seri Rama Epic"
+    ],
+    "shortDescription": "Ancient shadow puppet theatre where a master puppeteer (Tok Dalang) manipulates intricately carved buffalo-leather puppets against a backlit cotton screen, delivering character voices, sound effects, and moral philosophies accompanied by a bronze gamelan percussion troupe.",
+    "culturalContext": "Inscribed as National Heritage by Jabatan Warisan Negara. It preserves local adaptations of epic storytelling (Hikayat Seri Rama), combining pre-Islamic mystical legends with Kelantanese dialect humor. (Note: Officially listed on the National Heritage Register; pending international nomination).",
+    "visitDurationMinutes": 90,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Showcases at Gelanggang Seni (Cultural Centre) Kota Bharu and master dalang workshops",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Gelanggang Seni features level seating with view of both front and behind screen.",
+    "culturalCareNotes": "Respect the Tok Dalang’s ceremonial space; do not step over the instruments or puppets.",
+    "imageUrl": "/images/cultural/perf-wayang-kulit-kelantan.jpg",
+    "imageAlt": "Intricately carved leather shadow puppet manipulated against backlit screen",
+    "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
+    "sources": [
+      {
+        "title": "Daftar Warisan Kebangsaan - Wayang Kulit Kelantan",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_theatre",
+    "state_association": [
+      "Kelantan"
+    ],
+    "community_association": [
+      "Kelantan Malay"
+    ],
+    "cultural_significance": "A masterclass of solo theatrical stamina, ethical philosophy, and indigenous acoustic synchronization.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "perf-zapin",
+    "name": "Zapin",
+    "malayName": "Tarian Zapin Johor",
+    "stateId": "JHR",
+    "locality": "Johor Bahru & Muar, Johor",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Arab-Malay Cultural Exchange",
+      "Gambus Lute Rhythms",
+      "Langkah Footwork Poetry"
+    ],
+    "shortDescription": "A dynamic, rhythmic court and village dance performed in coordinated lines or pairs to the syncopated rhythms of the gambus (Arabian lute), marwas drums, and harmonium, highlighting agile step-and-turn footwork (langkah zapin).",
+    "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Brought to the Straits by Arab-Hadhrami merchants in the 14th century and adopted by the Johor royal court, evolving into numerous regional sub-styles (Zapin Tenglu, Zapin Pekajang) celebrating poise and decorum.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Performances at Yayasan Warisan Johor cultural complex and state heritage festivals",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Cultural centres with modern theater seating.",
+    "culturalCareNotes": "Rooted in Islamic Malay decorum (kesantunan); modest, graceful movements are emphasized.",
+    "imageUrl": "/images/cultural/perf-zapin.jpg",
+    "imageAlt": "Male and female dancers in traditional baju Teluk Belanga performing Zapin",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Kesenian Zapin Negeri Johor",
+        "publisher": "Yayasan Warisan Johor",
+        "url": "https://ywj.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Johor"
+    ],
+    "community_association": [
+      "Malay",
+      "Arab-Hadhrami Diaspora"
+    ],
+    "cultural_significance": "Exemplifies centuries of maritime Indian Ocean Islamic cultural syncretism in the Malay archipelago.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://ywj.gov.my"
+    ]
+  },
+  {
+    "id": "perf-dikir-barat",
+    "name": "Dikir Barat",
+    "malayName": "Dikir Barat Kelantan",
+    "stateId": "KTN",
+    "locality": "Kota Bharu, Kelantan",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Choral Hand-Clapping",
+      "Lyrical Tukang Karang Poetry",
+      "Village Social Commentary"
+    ],
+    "shortDescription": "A high-energy choral performance where seated rows of choristers (awok-awok) perform intricate, synchronized torso bends and rhythmic hand claps, answering the witty topical verse duels of the lead soloist (Tok Juara) and spontaneous poet (Tukang Karang).",
+    "culturalContext": "Recognized on the National Heritage Register. Emerging from agricultural villages in Kelantan and southern Thailand, Dikir Barat serves as a democratic, grassroots voice for moral storytelling, current news commentary, and electrifying village gatherings.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Showcases during East Coast cultural festivals and national Dikir Barat competitions",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Open community plazas and cultural hall auditoriums.",
+    "culturalCareNotes": "Audiences often clap along to the hypnotic rebana ubi and canang beats.",
+    "imageUrl": "/images/cultural/perf-dikir-barat.jpg",
+    "imageAlt": "Seated rows of Dikir Barat performers clapping in synchrony",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Seni Persembahan - Dikir Barat",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_music",
+    "state_association": [
+      "Kelantan"
+    ],
+    "community_association": [
+      "Kelantan Malay"
+    ],
+    "cultural_significance": "Democratic, community-driven poetic choir celebrating lyrical agility and egalitarian gathering.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "perf-sumazau",
+    "name": "Sumazau",
+    "malayName": "Tarian Sumazau Kadazandusun",
+    "stateId": "SBH",
+    "locality": "Penampang, Sabah",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Eagle Flight Choreography",
+      "Kaamatan Harvest Ritual",
+      "Brass Gong Symphony"
+    ],
+    "shortDescription": "A traditional ceremonial ritual dance of the Kadazandusun people, where male and female partners spread their arms like soaring eagles and step rhythmically to the hypnotic metallic tempos of an eight-piece hanging brass gong (tagung) ensemble.",
+    "culturalContext": "Recognized on the National Heritage Register. Originally performed as a sacred thanksgiving ritual to Bambaazon (the spirit of the paddy) during the Kaamatan harvest festival, symbolizing protection, harvest gratitude, and peaceful communal unity.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Showcased during Kaamatan celebrations at Hongkod Koisaan KDCA and cultural villages in Sabah",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Traditional longhouse and community hall venues.",
+    "culturalCareNotes": "Danced in authentic black velvet souva and siring costumes embellished with gold embroidery.",
+    "imageUrl": "/images/cultural/perf-sumazau.jpg",
+    "imageAlt": "Kadazandusun dancers in black and gold traditional attire performing Sumazau",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Tarian Tradisional Etnik Kadazandusun - Sumazau",
+        "publisher": "Lembaga Kebudayaan Negeri Sabah",
+        "url": "https://culture.sabah.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Sabah"
+    ],
+    "community_association": [
+      "Kadazandusun"
+    ],
+    "cultural_significance": "Sacred agrarian avian dance expressing eternal gratitude to the creator and rice spirits.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://culture.sabah.gov.my"
+    ]
+  },
+  {
+    "id": "perf-ngajat",
+    "name": "Ngajat",
+    "malayName": "Tarian Ngajat Iban",
+    "stateId": "SWK",
+    "locality": "Santubong & Kapit, Sarawak",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Hornbill Bird Mimesis",
+      "Iban Warrior Valor",
+      "Gawai Dayak Ritual"
+    ],
+    "shortDescription": "An expressive warrior dance of the Iban community in Sarawak, featuring bird-like leap movements, sweeping hornbill feather headdresses (lelanjang), ornate wooden shields (terabai), and ceremonial swords (ilang) danced to the rhythm of the engkerumong bronze gong set.",
+    "culturalContext": "Inscribed on the National Heritage Register. Performed during Gawai Dayak in ancestral longhouses to welcome returning warriors, celebrate agricultural abundance, and honor ancestral spirits (Petara) with graceful yet powerful martial posturing.",
+    "visitDurationMinutes": 50,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Daily cultural performances at Sarawak Cultural Village and during June Gawai celebrations",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Cultural village theater and authentic elevated longhouse verandas.",
+    "culturalCareNotes": "Honor the sacred significance of the hornbill feathers; avoid touching warrior regalia without permission.",
+    "imageUrl": "/images/cultural/perf-ngajat.jpg",
+    "imageAlt": "Iban warrior dancer wearing hornbill feather headpiece and carrying painted shield",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Seni Tari Etnik Iban: Ngajat",
+        "publisher": "Majlis Adat Istiadat Sarawak",
+        "url": "https://nativecustoms.sarawak.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Sarawak"
+    ],
+    "community_association": [
+      "Iban",
+      "Dayak Communities"
+    ],
+    "cultural_significance": "Preserves ancestral warrior bravery ethos and sacred avian animal mimesis of the interior rainforests.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://nativecustoms.sarawak.gov.my"
+    ]
+  },
+  {
+    "id": "perf-boria",
+    "name": "Boria",
+    "malayName": "Teater Tradisional Boria Pulau Pinang",
+    "stateId": "PNG",
+    "locality": "George Town, Penang",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Satirical Comic Sketches",
+      "Chorus Line (Marass) Singing",
+      "Straits Immigrant Heritage"
+    ],
+    "shortDescription": "A lively community theatre performance comprising a comic theatrical sketch (lawak jenaka) followed by a synchronized song-and-dance chorus line (marass) led by a baton-twirling Tukang Karang dressed in colourful sailor costumes.",
+    "culturalContext": "Inscribed on the National Heritage Register by Jabatan Warisan Negara. Evolving in 19th-century colonial Penang among Indian-Muslim and Straits Malay regiments, Boria grew into a premier vehicle for social satire, public health campaigns, and multi-ethnic street celebration.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Featured during Penang George Town Heritage Day celebrations and local cultural carnivals",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Open-air esplanade and community stage venues in George Town.",
+    "culturalCareNotes": "Humorous and family-friendly; audience interaction and laughter are essential components.",
+    "imageUrl": "/images/cultural/perf-boria.jpg",
+    "imageAlt": "Boria Penang chorus troupe in coordinated sailor hats and satin tunics",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Boria Pulau Pinang",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_theatre",
+    "state_association": [
+      "Penang"
+    ],
+    "community_association": [
+      "Jawi Peranakan",
+      "Penang Malay"
+    ],
+    "cultural_significance": "Unique municipal satirical theater fusing European military march elements with Malay pantun songwriting.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "perf-ulek-mayang",
+    "name": "Ulek Mayang",
+    "malayName": "Tarian Tradisional Ulek Mayang",
+    "stateId": "TRG",
+    "locality": "Kuala Terengganu, Terengganu",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Seven Sea Princesses Legend",
+      "Areca Palm Blossom Ritual",
+      "Healing Trance Music"
+    ],
+    "shortDescription": "An ethereal coastal healing dance invoking the Seven Sea Princesses (Tuan Puteri Tujuh), performed around an unopened areca nut palm blossom (mayang pinang) accompanied by haunting circular vocal chanting and delicate swaying gestures.",
+    "culturalContext": "A profound spiritual ritual created by ancient Terengganu fishing communities to heal fishermen afflicted by ocean spirits. Today, it is respectfully staged as an elegant classical performance celebrating maritime folklore and ancestral music.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 15,
+    "openingHoursText": "Performances at Terengganu State Museum and cultural arts festivals",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "State museum auditorium and beachside cultural amphitheaters.",
+    "culturalCareNotes": "A deeply reverent performance; audiences are asked to maintain quiet during the opening chant.",
+    "imageUrl": "/images/cultural/perf-ulek-mayang.jpg",
+    "imageAlt": "Female dancers in flowing silk gowns holding mayang pinang blossoms",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Kesenian Tradisional Negeri Terengganu: Ulek Mayang",
+        "publisher": "Lembaga Muzium Negeri Terengganu",
+        "url": "https://muzium.terengganu.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Terengganu"
+    ],
+    "community_association": [
+      "Terengganu Malay Coastal Fishermen"
+    ],
+    "cultural_significance": "Safeguards pre-Islamic maritime animist healing rituals through classical choreographic preservation.",
+    "heritage_status": "regional_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://muzium.terengganu.gov.my"
+    ]
+  },
+  {
+    "id": "perf-lion-dance",
+    "name": "Malaysian High-Stilt Lion Dance",
+    "malayName": "Tarian Singa Tonggak Malaysia",
+    "stateId": "JHR",
+    "locality": "Muar, Johor & Nationwide",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "High-Stilt Acrobatic Mastery",
+      "Kun Seng Keng Legacy",
+      "National Heritage Listed 2007"
+    ],
+    "shortDescription": "World-renowned acrobatic performance where two synchronized athletes manipulate an ornate Southern Chinese lion costume atop metal poles (tiang) up to three metres high, executing breathtaking leaps, balance holds, and drum-driven drama.",
+    "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara in 2007. Pioneered in Muar, Johor by the Kun Seng Keng Lion Dance Troupe, who invented high-stilt jumping techniques that transformed traditional lion dance into an internationally recognized Malaysian art form.",
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Performances during Chinese New Year festivals, temple celebrations, and national competitions",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Open public plazas, temple courtyards, and exhibition arenas.",
+    "culturalCareNotes": "Shared transnational tradition refined into a uniquely Malaysian sporting and cultural art form.",
+    "imageUrl": "/images/cultural/perf-lion-dance.jpg",
+    "imageAlt": "Colourful lion performing acrobatic leap on high iron stilts",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Kebangsaan Objek Warisan Tidak Ketara - Tarian Singa",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Johor",
+      "Nationwide"
+    ],
+    "community_association": [
+      "Malaysian Chinese"
+    ],
+    "cultural_significance": "A shared transnational tradition elevated into a globally celebrated Malaysian performance innovation.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "perf-gamelan-melayu",
+    "name": "Malay Gamelan",
+    "malayName": "Gamelan Melayu Diraja",
+    "stateId": "TRG",
+    "locality": "Kuala Terengganu, Terengganu & Pekan, Pahang",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Royal Bronze Ensemble",
+      "Pahang-Terengganu Court Lineage",
+      "Pentatonic Tuning"
+    ],
+    "shortDescription": "A regal bronze percussion orchestra comprising saron barung, saron demung, gambang kayu, bonang (keromong), kenong, and gong ageng, tuned to a distinct Malay pentatonic scale playing timeless court compositions.",
+    "culturalContext": "Recognized on the National Heritage Register. Brought from the Riau-Lingga Sultanate to the Pahang court in 1811 and subsequently preserved in Terengganu by Tengku Ampuan Mariam, representing the pinnacle of Malay court acoustic civilization.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Showcases at Istana Maziah cultural events and university gamelan academies",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Indoor royal galleries and concert halls.",
+    "culturalCareNotes": "Bronze instruments are traditionally treated with great respect; do not step across instruments.",
+    "imageUrl": "/images/cultural/perf-gamelan-melayu.jpg",
+    "imageAlt": "Set of bronze Malay Gamelan instruments with woodcarved casings",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Daftar Warisan Muzik Tradisional - Gamelan Melayu",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_music",
+    "state_association": [
+      "Terengganu",
+      "Pahang"
+    ],
+    "community_association": [
+      "Malay Royal Court"
+    ],
+    "cultural_significance": "Preserves exclusive aristocratic court orchestral repertoire distinct from Javanese and Balinese traditions.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "perf-joget-gamelan",
+    "name": "Joget Gamelan",
+    "malayName": "Joget Gamelan Istana",
+    "stateId": "TRG",
+    "locality": "Kuala Terengganu, Terengganu",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Palace Classical Dance",
+      "Silk Songket Costumes",
+      "Romantic Court Dramas"
+    ],
+    "shortDescription": "A refined classical palace dance performed exclusively by female court dancers in woven silk songket, royal sarongs, and gilded headdresses, enacting mythical stories to the regal acoustic rhythms of the Gamelan Melayu.",
+    "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Revived in Terengganu in the early 20th century under royal patronage, Joget Gamelan combines subtle hand flourishes (lentik), graceful glides, and courtly poise.",
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Scheduled royal heritage productions and national cultural festivals",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "State theaters and cultural auditoriums with tiered seating.",
+    "culturalCareNotes": "A formal classical court art; photography without flash is requested.",
+    "imageUrl": "/images/cultural/perf-joget-gamelan.jpg",
+    "imageAlt": "Female Joget Gamelan court dancer in full royal headdress and gold songket",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Warisan Seni Tari Istana - Joget Gamelan",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Terengganu",
+      "Pahang"
+    ],
+    "community_association": [
+      "Malay Royal Court"
+    ],
+    "cultural_significance": "Represents the epitome of Malay feminine classical court aesthetic and choreographic discipline.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://pemetaanbudaya.jkkn.gov.my"
+    ]
+  },
+  {
+    "id": "perf-bharatanatyam",
+    "name": "Bharatanatyam (Malaysian Indian Heritage)",
+    "malayName": "Tarian Klasik Bharatanatyam",
+    "stateId": "KUL",
+    "locality": "Brickfields & Klang Valley, Kuala Lumpur",
+    "categories": [
+      "Cultural Performance"
+    ],
+    "culturalThemes": [
+      "Sculptural Poses (Adavus)",
+      "Expressive Storytelling (Abhinaya)",
+      "Temple Dance Preservation"
+    ],
+    "shortDescription": "South Indian classical dance characterized by dynamic geometric postures, rhythmic footwork driven by ankle bells (salangai), symbolic hand gestures (mudras), and evocative facial storytelling (abhinaya) backed by Carnatic vocal and mridangam percussion.",
+    "culturalContext": "Preserved and nurtured actively across generations by Malaysian Indian cultural institutions such as the Temple of Fine Arts and Sutra Dance Theatre. It represents a living classical transnational tradition deeply woven into Malaysia’s multi-ethnic performing arts fabric.",
+    "visitDurationMinutes": 75,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Regular classical dance arangetram performances and seasonal temple productions",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Equipped cultural auditoriums in Brickfields and Kuala Lumpur.",
+    "culturalCareNotes": "Audience etiquette encourages respectful silence during expressive abhinaya solos.",
+    "imageUrl": "/images/cultural/perf-bharatanatyam.jpg",
+    "imageAlt": "Bharatanatyam dancer in ornate pleated silk costume with intricate hand mudra",
+    "imageCredit": "Wikimedia Commons",
+    "sources": [
+      {
+        "title": "Dokumentasi Seni Persembahan Tradisional Malaysia",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "performance",
+    "subcategory": "traditional_dance",
+    "state_association": [
+      "Kuala Lumpur",
+      "Nationwide"
+    ],
+    "community_association": [
+      "Malaysian Indian"
+    ],
+    "cultural_significance": "Exemplifies the living continuity of classical South Asian devotional dance arts within contemporary Malaysia.",
+    "heritage_status": "shared_or_transnational_tradition",
+    "location_type": "regional_association",
+    "location_name": null,
+    "source_urls": [
+      "https://pemetaanbudaya.jkkn.gov.my"
+    ]
+  },
+  {
+    "id": "fest-kaamatan",
+    "name": "Pesta Kaamatan (Tadau Kaamatan)",
+    "malayName": "Pesta Kaamatan Sabah",
+    "stateId": "SBH",
+    "locality": "Hongkod Koisaan, Penampang, Sabah",
+    "categories": [
+      "Cultural Festival"
+    ],
+    "culturalThemes": [
+      "Bambaazon Rice Thanksgiving",
+      "Unduk Ngadau Crown",
+      "Bobohizan Ritual Blessings"
+    ],
+    "shortDescription": "The premier month-long harvest festival celebrated throughout May by Sabah’s Kadazandusun and Murut communities to offer gratitude to Kinoingan and Bambaazon (the rice spirit) for the year’s harvest, culminating in grand ceremonies at the Hongkod Koisaan.",
+    "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Highlights include spiritual blessing ceremonies by high priestesses (Bobohizan), soul-recalling rituals (Magavau), traditional sports (Mipulos), and the Unduk Ngadau pageant commemorating the sacrificial maiden Huminodun.",
+    "latitude": 5.9185,
+    "longitude": 116.0967,
+    "visitDurationMinutes": 180,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Month-long in May, concluding in the State-Level Festival on 30 & 31 May",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Hongkod Koisaan complex features paved pavilions and exhibition spaces with ramp access.",
+    "culturalCareNotes": "A sacred cultural celebration; visitors are welcomed warmly to observe rituals with cultural sensitivity.",
+    "imageUrl": "/images/cultural/fest-kaamatan.jpg",
+    "imageAlt": "Kadazandusun cultural celebration with traditional gong ensemble at Hongkod Koisaan",
+    "imageCredit": "Wikimedia Commons / Sabah Tourism Board",
+    "sources": [
+      {
+        "title": "Kadazandusun Cultural Association (KDCA) Kaamatan Heritage Archive",
+        "publisher": "KDCA & Sabah Tourism Board",
+        "url": "https://kdca.org.my"
+      },
+      {
+        "title": "Warisan Kebangsaan - Pesta Kaamatan",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "festival",
+    "subcategory": "cultural_festival",
+    "state_association": [
+      "Sabah"
+    ],
+    "community_association": [
+      "Kadazandusun",
+      "Murut",
+      "Rungus"
+    ],
+    "cultural_significance": "Unites over 30 indigenous ethnic communities in reverence for agricultural sustenance and ancestral heritage.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_event_site",
+    "location_name": "Hongkod Koisaan (KDCA Cultural Centre), Penampang, Sabah",
+    "source_urls": [
+      "https://kdca.org.my",
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "fest-gawai-dayak",
+    "name": "Gawai Dayak",
+    "malayName": "Perayaan Gawai Dayak Sarawak",
+    "stateId": "SWK",
+    "locality": "Santubong & Traditional Longhouses, Sarawak",
+    "categories": [
+      "Cultural Festival"
+    ],
+    "culturalThemes": [
+      "Rice Harvest Thanksgiving",
+      "Ancestral Longhouse Miring Blessings",
+      "Tuak & Ngajat Fellowship"
+    ],
+    "shortDescription": "Celebrated annually on 1st and 2nd June by Sarawak’s Dayak peoples—including Iban, Bidayuh, and Orang Ulu—marking the successful conclusion of the paddy harvesting season and the auspicious dawn of the new agricultural year.",
+    "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Marked by ceremonial offerings (miring) to ancestral spirits (Petara), the ceremonial cutting of the ranyai tree, sharing of homemade rice wine (tuak), and spirited Ngajat dances uniting longhouse communities.",
+    "latitude": 1.7503,
+    "longitude": 110.3168,
+    "visitDurationMinutes": 180,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Annual official dates: 1 & 2 June (longhouse celebrations continue throughout the month)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Sarawak Cultural Village provides accessible pathways; rural longhouses require climbing traditional notched log steps.",
+    "culturalCareNotes": "A time of profound hospitality; accepting offerings of tuak is a gesture of mutual friendship.",
+    "imageUrl": "/images/cultural/fest-gawai-dayak.jpg",
+    "imageAlt": "Dayak elders in ceremonial attire performing miring ritual during Gawai Dayak",
+    "imageCredit": "Wikimedia Commons / Sarawak Tourism Board",
+    "sources": [
+      {
+        "title": "Majlis Adat Istiadat Sarawak: Direktori Adat Gawai Dayak",
+        "publisher": "Kerajaan Negeri Sarawak",
+        "url": "https://nativecustoms.sarawak.gov.my"
+      },
+      {
+        "title": "Warisan Kebangsaan - Perayaan Gawai Dayak",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "festival",
+    "subcategory": "cultural_festival",
+    "state_association": [
+      "Sarawak"
+    ],
+    "community_association": [
+      "Iban",
+      "Bidayuh",
+      "Orang Ulu",
+      "Dayak Communities"
+    ],
+    "cultural_significance": "Affirms indigenous kinship, ancestral gratitude, and community solidarity across all Sarawak longhouses.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_event_site",
+    "location_name": "Sarawak Cultural Village & Traditional Longhouses, Santubong, Sarawak",
+    "source_urls": [
+      "https://nativecustoms.sarawak.gov.my",
+      "https://heritage.gov.my"
+    ]
+  },
+  {
+    "id": "fest-johor-chingay",
+    "name": "Johor Bahru Chingay Procession",
+    "malayName": "Perarakan Chingay Kuil Kuno Johor Bahru",
+    "stateId": "JHR",
+    "locality": "Jalan Trus, Johor Bahru, Johor",
+    "categories": [
+      "Cultural Festival",
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Five Dialect Group Solidarity",
+      "Deity Palanquin Parade",
+      "Historic Civic Harmony"
+    ],
+    "shortDescription": "A five-day annual religious and cultural street parade held on the 21st day of the First Lunar Month, uniting Johor Bahru’s five Chinese dialect groups (Teochew, Hokkien, Cantonese, Hakka, Fuzhou) in a vibrant display of dragon dances, stilt-walkers, and deity palanquins.",
+    "culturalContext": "Inscribed in 2012 as a National Intangible Cultural Heritage by Jabatan Warisan Negara. Organised by Johor Bahru Old Chinese Temple, it commemorates over 150 years of communal peace fostered by Sultan Abu Bakar and Tan Hiok Nee.",
+    "latitude": 1.4589,
+    "longitude": 103.7645,
+    "visitDurationMinutes": 120,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Annual: 20th–22nd days of the 1st Lunar Month (climax on the 21st evening parade)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Downtown street parade with roadside viewing platforms and level streets.",
+    "culturalCareNotes": "A sacred religious procession; maintain respectful boundaries around sacred deity palanquins.",
+    "imageUrl": "/images/cultural/fest-johor-chingay.jpg",
+    "imageAlt": "Vibrant evening Chingay procession on the streets of Johor Bahru with deity palanquin",
+    "imageCredit": "Wikimedia Commons (Chingay Johor 2018)",
+    "sources": [
+      {
+        "title": "Warisan Kebangsaan Tidak Ketara - Perarakan Chingay Johor Bahru",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      },
+      {
+        "title": "Persekutuan Tiong-Hua Johor Bahru: Rekod Sejarah Chingay",
+        "publisher": "Johor Bahru Old Chinese Temple Committee",
+        "url": "https://jb-tionghua.org.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "festival",
+    "subcategory": "cultural_festival",
+    "state_association": [
+      "Johor"
+    ],
+    "community_association": [
+      "Malaysian Chinese (Five Dialect Groups)"
+    ],
+    "cultural_significance": "Historic symbol of cross-dialect peace and civic partnership under the modern Johor Sultanate since 1870.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_event_site",
+    "location_name": "Johor Bahru Old Chinese Temple, Jalan Trus, Johor Bahru",
+    "source_urls": [
+      "https://heritage.gov.my",
+      "https://jb-tionghua.org.my"
+    ]
+  },
+  {
+    "id": "fest-thaipusam",
+    "name": "Thaipusam at Batu Caves",
+    "malayName": "Perayaan Thaipusam Batu Caves",
+    "stateId": "SGR",
+    "locality": "Batu Caves, Gombak, Selangor",
+    "categories": [
+      "Cultural Festival",
+      "Religious"
+    ],
+    "culturalThemes": [
+      "Lord Murugan Devotion",
+      "Kavadi & Paal Kudam Penance",
+      "Sacred Limestone Sanctuary"
+    ],
+    "shortDescription": "A sacred Hindu religious pilgrimage observed during the Tamil month of Thai, where over a million devotees and pilgrims undertake vows of thanksgiving and penance honouring Lord Murugan, carrying milk pots and ornate kavadis up the 272 colorful steps to the Temple Cave.",
+    "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Observed with profound spiritual discipline since 1891, devotees observe strict fasting before bearing decorated peacock kavadis and milk offerings in gratitude for answered prayers and divine grace.",
+    "latitude": 3.2379,
+    "longitude": 101.684,
+    "visitDurationMinutes": 120,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Annual during the full moon of the Tamil month of Thai (January/February)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Base grounds are paved and accessible; ascending the Temple Cave requires climbing 272 concrete steps.",
+    "culturalCareNotes": "A sacred religious observance, not a tourist spectacle. Visitors must dress modestly with shoulders and knees covered, remove footwear before entering sanctums, and avoid blocking devotees carrying kavadis.",
+    "imageUrl": "/images/cultural/fest-thaipusam.jpg",
+    "imageAlt": "Lord Murugan colossal statue at Batu Caves with Thaipusam devotees carrying kavadis",
+    "imageCredit": "Wikimedia Commons / Tourism Selangor",
+    "sources": [
+      {
+        "title": "Warisan Kebangsaan - Perayaan Thaipusam",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://heritage.gov.my"
+      },
+      {
+        "title": "Sri Maha Mariamman Temple Dhevasthanam Heritage Archives",
+        "publisher": "Batu Caves Temple Management Committee",
+        "url": "https://batucaves.org"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-15",
+    "type": "festival",
+    "subcategory": "religious_festival",
+    "state_association": [
+      "Selangor",
+      "Nationwide"
+    ],
+    "community_association": [
+      "Malaysian Hindu",
+      "Tamil"
+    ],
+    "cultural_significance": "World’s most iconic spiritual pilgrimage honouring Lord Murugan, symbolizing sacrifice, purity, and devotion.",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_event_site",
+    "location_name": "Batu Caves Sri Subramaniar Swamy Temple, Gombak, Selangor",
+    "source_urls": [
+      "https://heritage.gov.my",
+      "https://batucaves.org"
+    ]
   }
 ]

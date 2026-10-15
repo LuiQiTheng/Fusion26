@@ -5,7 +5,13 @@
     "capital": "Bandar Melaka",
     "region": "West Malaysia",
     "shortOverview": "UNESCO World Heritage Site since 2008, celebrated for its 500-year legacy of maritime trade, Malay Sultanate origins, and multicultural Baba-Nyonya, Portuguese, Dutch, and British synthesis.",
-    "culturalThemes": ["Maritime Trade", "Malay Sultanate", "Peranakan Heritage", "Colonial Architecture", "Living Multicultural Traditions"],
+    "culturalThemes": [
+      "Maritime Trade",
+      "Malay Sultanate",
+      "Peranakan Heritage",
+      "Colonial Architecture",
+      "Living Multicultural Traditions"
+    ],
     "sourceReferences": [
       {
         "title": "Melaka and George Town, Historic Cities of the Straits of Malacca",
@@ -19,7 +25,20 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["mlk-stadthuys", "mlk-afamosa", "mlk-baba-nyonya", "mlk-cheng-hoon-teng", "mlk-kampung-kling", "mlk-jonker", "mlk-sultanate-palace", "mlk-st-pauls", "mlk-bukit-cina"],
+    "placeIds": [
+      "mlk-stadthuys",
+      "mlk-afamosa",
+      "mlk-baba-nyonya",
+      "mlk-cheng-hoon-teng",
+      "mlk-kampung-kling",
+      "mlk-jonker",
+      "mlk-sultanate-palace",
+      "mlk-st-pauls",
+      "mlk-bukit-cina",
+      "food-melaka-kuih-keria",
+      "food-melaka-kari-debal",
+      "perf-dondang-sayang"
+    ],
     "imageUrl": "/images/places/mlk-stadthuys.jpg"
   },
   {
@@ -28,7 +47,12 @@
     "capital": "George Town",
     "region": "West Malaysia",
     "shortOverview": "Co-listed UNESCO World Heritage city renowned for intact Straits eclectic shophouses, clan jetties, vibrant street murals, and distinctive culinary fusion.",
-    "culturalThemes": ["Straits Settlements", "Clan Associations", "Peranakan Culture", "Hawker Culinary Traditions"],
+    "culturalThemes": [
+      "Straits Settlements",
+      "Clan Associations",
+      "Peranakan Culture",
+      "Hawker Culinary Traditions"
+    ],
     "sourceReferences": [
       {
         "title": "George Town World Heritage Incorporated",
@@ -37,7 +61,12 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["png-khoo-kongsi"],
+    "placeIds": [
+      "png-khoo-kongsi",
+      "food-penang-assam-laksa",
+      "food-penang-char-kway-teow",
+      "perf-boria"
+    ],
     "imageUrl": "/images/places/png-khoo-kongsi.jpg"
   },
   {
@@ -46,7 +75,12 @@
     "capital": "Kuala Lumpur",
     "region": "Federal Territory",
     "shortOverview": "The federal capital blends Moorish-Mughal colonial monuments around Merdeka Square with dynamic contemporary architecture and multi-ethnic enclaves.",
-    "culturalThemes": ["National Independence", "Moorish-Mughal Architecture", "Tin Mining History", "Multi-ethnic Urban Fabric"],
+    "culturalThemes": [
+      "National Independence",
+      "Moorish-Mughal Architecture",
+      "Tin Mining History",
+      "Multi-ethnic Urban Fabric"
+    ],
     "sourceReferences": [
       {
         "title": "National Archives of Malaysia (Arkib Negara Malaysia)",
@@ -55,7 +89,10 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["kul-sultan-abdul-samad"],
+    "placeIds": [
+      "kul-sultan-abdul-samad",
+      "perf-bharatanatyam"
+    ],
     "imageUrl": "/images/places/kul-sultan-abdul-samad.jpg"
   },
   {
@@ -64,7 +101,11 @@
     "capital": "Johor Bahru",
     "region": "West Malaysia",
     "shortOverview": "Southern gateway famed for Zapin dance, Ghazal music, Victorian-Islamic royal architectural legacy, and pineapple & gambier agrarian history.",
-    "culturalThemes": ["Royal Johor Heritage", "Zapin & Ghazal Traditional Arts", "Southern Malay Architecture"],
+    "culturalThemes": [
+      "Royal Johor Heritage",
+      "Zapin & Ghazal Traditional Arts",
+      "Southern Malay Architecture"
+    ],
     "sourceReferences": [
       {
         "title": "Yayasan Warisan Johor (Johor Heritage Foundation)",
@@ -73,7 +114,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["jhr-sultan-abu-bakar-mosque"],
+    "placeIds": [
+      "jhr-sultan-abu-bakar-mosque",
+      "food-johor-laksa-johor",
+      "food-johor-telur-pindang",
+      "perf-zapin",
+      "perf-lion-dance",
+      "fest-johor-chingay"
+    ],
     "imageUrl": "/images/places/jhr-sultan-abu-bakar-mosque.jpg"
   },
   {
@@ -82,7 +130,11 @@
     "capital": "Alor Setar",
     "region": "West Malaysia",
     "shortOverview": "Known as the Rice Bowl of Malaysia, Kedah is home to the ancient Lembah Bujang Hindu-Buddhist civilization dating back over 2,000 years.",
-    "culturalThemes": ["Ancient Lembah Bujang Civilization", "Rice Agrarian Traditions", "Royal Kedah Nobat"],
+    "culturalThemes": [
+      "Ancient Lembah Bujang Civilization",
+      "Rice Agrarian Traditions",
+      "Royal Kedah Nobat"
+    ],
     "sourceReferences": [
       {
         "title": "Archaeological Heritage of the Bujang Valley",
@@ -91,7 +143,12 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["kdh-bujang-valley"],
+    "placeIds": [
+      "kdh-bujang-valley",
+      "food-kedah-pekasam",
+      "food-kedah-laksa-kedah",
+      "perf-mek-mulung"
+    ],
     "imageUrl": "/images/places/kdh-bujang-valley.jpg"
   },
   {
@@ -100,7 +157,12 @@
     "capital": "Kota Bharu",
     "region": "West Malaysia",
     "shortOverview": "Cradle of Malay Culture celebrated for traditional arts including Wayang Kulit, Mak Yong dance theater (UNESCO recognized), batik, and silversmithing.",
-    "culturalThemes": ["Mak Yong Intangible Heritage", "Wayang Kulit", "Kite-Making (Wau)", "Woodcarving Craftsmanship"],
+    "culturalThemes": [
+      "Mak Yong Intangible Heritage",
+      "Wayang Kulit",
+      "Kite-Making (Wau)",
+      "Woodcarving Craftsmanship"
+    ],
     "sourceReferences": [
       {
         "title": "Mak Yong theatre - Representative List of the Intangible Cultural Heritage of Humanity",
@@ -109,7 +171,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["ktn-istana-jahar"],
+    "placeIds": [
+      "ktn-istana-jahar",
+      "food-kelantan-nasi-kerabu",
+      "food-kelantan-akok",
+      "perf-mak-yong",
+      "perf-wayang-kulit-kelantan",
+      "perf-dikir-barat"
+    ],
     "imageUrl": "/images/places/ktn-istana-jahar.jpg"
   },
   {
@@ -118,7 +187,11 @@
     "capital": "Seremban",
     "region": "West Malaysia",
     "shortOverview": "Distinguished by Adat Perpatih (matrilineal customary law) and Minangkabau-influenced curved horn-shaped roof architecture.",
-    "culturalThemes": ["Adat Perpatih Matrilineal System", "Minangkabau Curved Roof Architecture", "Traditional Weaving"],
+    "culturalThemes": [
+      "Adat Perpatih Matrilineal System",
+      "Minangkabau Curved Roof Architecture",
+      "Traditional Weaving"
+    ],
     "sourceReferences": [
       {
         "title": "Lembaga Muzium Negeri Sembilan",
@@ -127,7 +200,11 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["nsn-istana-seri-menanti"],
+    "placeIds": [
+      "nsn-istana-seri-menanti",
+      "food-n9-masak-lemak-cili-api",
+      "food-n9-daging-salai"
+    ],
     "imageUrl": "/images/places/nsn-istana-seri-menanti.jpg"
   },
   {
@@ -136,7 +213,11 @@
     "capital": "Kuantan",
     "region": "West Malaysia",
     "shortOverview": "The largest state in Peninsular Malaysia, featuring royal traditions in historic Pekan, Orang Asli heritage, and ancient tropical rainforest ecosystems.",
-    "culturalThemes": ["Royal Pekan Heritage", "Tenun Pahang Diraja (Royal Silk Weaving)", "Orang Asli Ethnobotany"],
+    "culturalThemes": [
+      "Royal Pekan Heritage",
+      "Tenun Pahang Diraja (Royal Silk Weaving)",
+      "Orang Asli Ethnobotany"
+    ],
     "sourceReferences": [
       {
         "title": "Perbadanan Muzium Negeri Pahang",
@@ -145,7 +226,11 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["phg-masjid-sultan-abdullah"],
+    "placeIds": [
+      "phg-masjid-sultan-abdullah",
+      "food-pahang-gulai-tempoyak-ikan-patin",
+      "food-pahang-puding-raja"
+    ],
     "imageUrl": "/images/places/phg-masjid-sultan-abdullah.jpg"
   },
   {
@@ -154,7 +239,11 @@
     "capital": "Ipoh",
     "region": "West Malaysia",
     "shortOverview": "Rich mining and royal heritage centered on the Perak River valley, famed for royal regalia, UNESCO World Heritage Lenggong Valley archaeological sites, and limestone cave temples.",
-    "culturalThemes": ["Lenggong Valley World Heritage", "Royal Perak Court Heritage", "Tin Mining Heritage"],
+    "culturalThemes": [
+      "Lenggong Valley World Heritage",
+      "Royal Perak Court Heritage",
+      "Tin Mining Heritage"
+    ],
     "sourceReferences": [
       {
         "title": "Archaeological Heritage of the Lenggong Valley",
@@ -163,7 +252,11 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["prk-ubudiah-mosque"],
+    "placeIds": [
+      "prk-ubudiah-mosque",
+      "food-perak-rendang-tok",
+      "food-perak-ipoh-hor-fun"
+    ],
     "imageUrl": "/images/places/prk-ubudiah-mosque.jpg"
   },
   {
@@ -172,7 +265,11 @@
     "capital": "Kangar",
     "region": "West Malaysia",
     "shortOverview": "Malaysia's northernmost state, with deep border trade connections, limestone karsts, unique folk performance traditions like Hadrah, and Harum Manis agro-heritage.",
-    "culturalThemes": ["Northern Border Folk Heritage", "Hadrah Traditional Performance", "Karst Landscape Heritage"],
+    "culturalThemes": [
+      "Northern Border Folk Heritage",
+      "Hadrah Traditional Performance",
+      "Karst Landscape Heritage"
+    ],
     "sourceReferences": [
       {
         "title": "Perlis State Economic Planning Unit Cultural Profile",
@@ -181,7 +278,11 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["pls-kota-kayang"],
+    "placeIds": [
+      "pls-kota-kayang",
+      "food-perlis-laksa-perlis",
+      "food-perlis-ikan-bakar"
+    ],
     "imageUrl": "/images/places/pls-kota-kayang.jpg"
   },
   {
@@ -190,7 +291,12 @@
     "capital": "Kota Kinabalu",
     "region": "East Malaysia",
     "shortOverview": "Home to over 30 indigenous ethnic groups including Kadazan-Dusun, Bajau, and Murut, famous for the Kaamatan harvest festival, Monsopiad warrior traditions, and Bajau horsemen.",
-    "culturalThemes": ["Indigenous Living Traditions", "Kaamatan Harvest Heritage", "Bajau Laut Maritime Culture", "Traditional Beadwork & Weaving"],
+    "culturalThemes": [
+      "Indigenous Living Traditions",
+      "Kaamatan Harvest Heritage",
+      "Bajau Laut Maritime Culture",
+      "Traditional Beadwork & Weaving"
+    ],
     "sourceReferences": [
       {
         "title": "Sabah Museum and Heritage Services",
@@ -199,7 +305,13 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["sbh-monsopiad-village"],
+    "placeIds": [
+      "sbh-monsopiad-village",
+      "food-sabah-hinava",
+      "food-sabah-kuih-cincin",
+      "perf-sumazau",
+      "fest-kaamatan"
+    ],
     "imageUrl": "/images/places/sbh-monsopiad-village.jpg"
   },
   {
@@ -208,7 +320,12 @@
     "capital": "Kuching",
     "region": "East Malaysia",
     "shortOverview": "The Land of the Hornbills features rich longhouse culture of the Iban, Bidayuh, and Orang Ulu, UNESCO City of Gastronomy Kuching, and ancient Niah Cave heritage.",
-    "culturalThemes": ["Longhouse Living Heritage", "Pua Kumbu Sacred Weaving", "Gawai Dayak Traditions", "Niah Cave Prehistoric Heritage"],
+    "culturalThemes": [
+      "Longhouse Living Heritage",
+      "Pua Kumbu Sacred Weaving",
+      "Gawai Dayak Traditions",
+      "Niah Cave Prehistoric Heritage"
+    ],
     "sourceReferences": [
       {
         "title": "Sarawak Museum Department",
@@ -222,7 +339,13 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["swk-cultural-village"],
+    "placeIds": [
+      "swk-cultural-village",
+      "food-sarawak-manok-pansoh",
+      "food-sarawak-kek-lapis",
+      "perf-ngajat",
+      "fest-gawai-dayak"
+    ],
     "imageUrl": "/images/places/swk-cultural-village.jpg"
   },
   {
@@ -231,7 +354,11 @@
     "capital": "Shah Alam",
     "region": "West Malaysia",
     "shortOverview": "Economic powerhouse with historical royal roots in Klang and Jugra, sacred limestone sanctuary at Batu Caves, and Mah Meri indigenous woodcraft in Carey Island.",
-    "culturalThemes": ["Batu Caves Hindu Pilgrimage", "Mah Meri Indigenous Mask Craft", "Royal Klang Heritage"],
+    "culturalThemes": [
+      "Batu Caves Hindu Pilgrimage",
+      "Mah Meri Indigenous Mask Craft",
+      "Royal Klang Heritage"
+    ],
     "sourceReferences": [
       {
         "title": "Tourism Selangor Cultural Heritage Division",
@@ -240,7 +367,12 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["sgr-batu-caves"],
+    "placeIds": [
+      "sgr-batu-caves",
+      "food-selangor-sate-kajang",
+      "food-selangor-nasi-ambeng",
+      "fest-thaipusam"
+    ],
     "imageUrl": "/images/places/sgr-batu-caves.jpg"
   },
   {
@@ -249,7 +381,11 @@
     "capital": "Kuala Terengganu",
     "region": "West Malaysia",
     "shortOverview": "Renowned for maritime boat-building craftsmanship on Duyong Island, Songket weaving, batik, and the historic 1303 CE Terengganu Inscription Stone (Batu Bersurat).",
-    "culturalThemes": ["Traditional Wooden Boatbuilding", "Songket & Batik Textile Arts", "Islamic Inscription Stone Heritage"],
+    "culturalThemes": [
+      "Traditional Wooden Boatbuilding",
+      "Songket & Batik Textile Arts",
+      "Islamic Inscription Stone Heritage"
+    ],
     "sourceReferences": [
       {
         "title": "Lembaga Muzium Negeri Terengganu",
@@ -258,7 +394,14 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["trg-state-museum"],
+    "placeIds": [
+      "trg-state-museum",
+      "food-terengganu-nasi-dagang",
+      "food-terengganu-keropok-lekor",
+      "perf-ulek-mayang",
+      "perf-gamelan-melayu",
+      "perf-joget-gamelan"
+    ],
     "imageUrl": "/images/places/trg-state-museum.jpg"
   },
   {
@@ -267,7 +410,11 @@
     "capital": "Putrajaya",
     "region": "Federal Territory",
     "shortOverview": "Malaysia's administrative center exemplifying modern Islamic-inspired garden city architecture, pedestrian bridges, and monumental cultural civic spaces.",
-    "culturalThemes": ["Contemporary Islamic Architecture", "Garden City Planning", "Monumental Civic Design"],
+    "culturalThemes": [
+      "Contemporary Islamic Architecture",
+      "Garden City Planning",
+      "Monumental Civic Design"
+    ],
     "sourceReferences": [
       {
         "title": "Perbadanan Putrajaya Heritage & Architecture Guide",
@@ -276,7 +423,9 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["pjy-putra-mosque"],
+    "placeIds": [
+      "pjy-putra-mosque"
+    ],
     "imageUrl": "/images/places/pjy-putra-mosque.jpg"
   },
   {
@@ -285,7 +434,11 @@
     "capital": "Victoria",
     "region": "Federal Territory",
     "shortOverview": "Historic island territory off the Borneo coast with deep WWII memorial sites, naval history, and the enigmatic colonial Chimney landmark.",
-    "culturalThemes": ["WWII Memorial Heritage", "Maritime & Coal Mining History", "Borneo Gateway Culture"],
+    "culturalThemes": [
+      "WWII Memorial Heritage",
+      "Maritime & Coal Mining History",
+      "Borneo Gateway Culture"
+    ],
     "sourceReferences": [
       {
         "title": "Labuan Museum & Heritage Department",
@@ -294,7 +447,9 @@
       }
     ],
     "verificationStatus": "verified",
-    "placeIds": ["lbn-chimney"],
+    "placeIds": [
+      "lbn-chimney"
+    ],
     "imageUrl": "/images/places/lbn-chimney.jpg"
   }
 ]

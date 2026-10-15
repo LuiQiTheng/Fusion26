@@ -41,18 +41,36 @@ export const PlaceCard: React.FC<PlaceCardProps> = ({
           }}
         />
 
-        {/* Verification status badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold backdrop-blur-md shadow-xs bg-white/90 text-slate-800">
-          {place.verificationStatus === 'verified' ? (
-            <>
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="text-emerald-800">Source Verified</span>
-            </>
-          ) : (
-            <>
-              <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
-              <span className="text-amber-800">Needs Review</span>
-            </>
+        {/* Verification & Heritage status badge row */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold backdrop-blur-md shadow-xs bg-white/90 text-slate-800">
+            {place.verificationStatus === 'verified' ? (
+              <>
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-emerald-800">Source Verified</span>
+              </>
+            ) : (
+              <>
+                <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+                <span className="text-amber-800">Needs Review</span>
+              </>
+            )}
+          </div>
+
+          {place.heritage_status === 'unesco_inscribed' && (
+            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500 text-slate-950 shadow-xs">
+              ★ UNESCO Inscribed
+            </span>
+          )}
+          {place.heritage_status === 'unesco_urgent_safeguarding' && (
+            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-red-600 text-white shadow-xs">
+              ⚠ UNESCO Urgent Safeguarding
+            </span>
+          )}
+          {place.heritage_status === 'national_heritage_listed' && (
+            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-900 text-amber-300 shadow-xs">
+              🏛 National Heritage
+            </span>
           )}
         </div>
 
@@ -72,18 +90,22 @@ export const PlaceCard: React.FC<PlaceCardProps> = ({
           <Bookmark className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
         </button>
 
-        {/* State / locality pill */}
-        <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[11px] font-medium text-white px-2 py-0.5 rounded-md bg-slate-900/70 backdrop-blur-xs">
-          <MapPin className="w-3 h-3 text-amber-400" />
-          <span>{place.locality || place.stateId}</span>
+        {/* State / locality / regional tradition pill */}
+        <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[11px] font-medium text-white px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur-xs">
+          <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
+          <span className="truncate max-w-[220px]">
+            {place.location_type === 'regional_association'
+              ? `${place.stateId} • Regional Tradition`
+              : place.locality || place.stateId}
+          </span>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-5 flex-1 flex flex-col justify-between">
         <div>
-          {/* Category Chips */}
-          <div className="flex flex-wrap gap-1.5 mb-2">
+          {/* Category Chips and Community association */}
+          <div className="flex flex-wrap items-center gap-1.5 mb-2">
             {place.categories.slice(0, 2).map((cat) => (
               <span
                 key={cat}
@@ -92,6 +114,11 @@ export const PlaceCard: React.FC<PlaceCardProps> = ({
                 {cat}
               </span>
             ))}
+            {place.community_association && place.community_association[0] && (
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                {place.community_association[0]}
+              </span>
+            )}
           </div>
 
           {/* Place Title */}

@@ -76,9 +76,31 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500 text-slate-950">
                 {place.locality || place.stateId}
               </span>
+
+              {place.heritage_status === 'unesco_inscribed' && (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400 text-slate-950 shadow-xs">
+                  ★ UNESCO Inscribed (2008/2018)
+                </span>
+              )}
+              {place.heritage_status === 'unesco_urgent_safeguarding' && (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 text-white shadow-xs">
+                  ⚠ UNESCO Urgent Safeguarding (2023)
+                </span>
+              )}
+              {place.heritage_status === 'national_heritage_listed' && (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-900/90 text-amber-300 border border-amber-400/30">
+                  🏛 National Heritage (JWN)
+                </span>
+              )}
+              {place.heritage_status === 'regional_tradition' && (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">
+                  🌾 Regional Tradition
+                </span>
+              )}
+
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md text-white flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                {place.verificationStatus === 'verified' ? 'Verified Heritage Record' : 'Under Community Review'}
+                {place.verificationStatus === 'verified' ? 'Verified Sourced Record' : 'Under Review'}
               </span>
             </div>
             <h2 className="font-serif font-bold text-2xl sm:text-3xl text-white drop-shadow-xs">
@@ -89,17 +111,51 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                 {place.malayName}
               </p>
             )}
+            {place.imageCredit && (
+              <p className="text-[10px] text-slate-300/80 mt-1">
+                Photo credit: {place.imageCredit}
+              </p>
+            )}
           </div>
         </div>
 
         {/* Content Body */}
         <div className="p-6 overflow-y-auto space-y-6 text-slate-700">
+          {/* Location Type & Community Heritage Banner */}
+          {place.location_type === 'regional_association' ? (
+            <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200/70 flex items-start gap-3 text-xs text-amber-950">
+              <Compass className="w-4 h-4 text-amber-700 mt-0.5 shrink-0" />
+              <div>
+                <span className="font-bold">Regional Living Tradition: </span>
+                This cultural tradition is celebrated across home kitchens, cultural festivals, and community gatherings throughout {place.state_association?.join(', ') || place.stateId}, rather than restricted to a single physical monument.
+                {place.community_association && (
+                  <span className="block mt-1 font-semibold text-amber-900">
+                    Associated Community: {place.community_association.join(', ')}
+                  </span>
+                )}
+              </div>
+            </div>
+          ) : place.location_type === 'verified_event_site' ? (
+            <div className="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-200/70 flex items-start gap-3 text-xs text-indigo-950">
+              <MapPin className="w-4 h-4 text-indigo-700 mt-0.5 shrink-0" />
+              <div>
+                <span className="font-bold">Verified Event Location: </span>
+                {place.location_name || place.locality}
+                {place.community_association && (
+                  <span className="block mt-1 text-indigo-900 font-medium">
+                    Practising Communities: {place.community_association.join(', ')}
+                  </span>
+                )}
+              </div>
+            </div>
+          ) : null}
+
           {/* Practical Metrics Pill Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
               <Clock className="w-4 h-4 text-amber-600 shrink-0" />
               <div>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Suggested Visit</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Suggested Time</p>
                 <p className="text-xs font-bold text-slate-900">{place.visitDurationMinutes || 45} mins</p>
               </div>
             </div>
@@ -107,13 +163,13 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
               <DollarSign className="w-4 h-4 text-emerald-600 shrink-0" />
               <div>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Admission Fee</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Estimated Cost</p>
                 <p className="text-xs font-bold text-slate-900">
                   {place.estimatedCostMYR === 0
-                    ? 'Free Admission'
+                    ? 'Free / Public'
                     : place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined
                     ? `RM ${place.estimatedCostMYR}`
-                    : 'Price not verified'}
+                    : 'Cost unverified'}
                 </p>
               </div>
             </div>
@@ -121,9 +177,9 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 sm:col-span-2">
               <Compass className="w-4 h-4 text-indigo-600 shrink-0" />
               <div>
-                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Opening Hours</p>
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Availability & Hours</p>
                 <p className="text-xs font-medium text-slate-900">
-                  {place.openingHoursText || 'Hours variable / outdoor monument'}
+                  {place.openingHoursText || 'Flexible / Seasonal availability'}
                   {!place.openingHoursVerified && (
                     <span className="text-[10px] text-amber-600 ml-1.5 italic">(Pending verification)</span>
                   )}
