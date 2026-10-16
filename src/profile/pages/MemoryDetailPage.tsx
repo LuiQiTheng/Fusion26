@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { AlertTriangle, Calendar, Camera, ImageOff, MapPin, Pencil, RefreshCw, Trash2 } from 'lucide-react';
 import { HeritagePlace } from '../../types';
@@ -16,8 +17,8 @@ interface MemoryDetailPageProps {
 }
 
 const FOCUS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
-const CARD = 'rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
+const CARD = 'rounded-2xl border border-[#087E83]/20 bg-white shadow-sm';
 
 // "2025-03-14" -> "14 Mar 2025". Built from the parts so time zones cannot shift the day.
 function formatVisitDate(value: string | null): string {
@@ -109,9 +110,9 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   if (!record) {
     return (
       <div role="alert" className={`${CARD} space-y-3 p-6 text-center`}>
-        <AlertTriangle className="mx-auto h-8 w-8 text-[#E5C05C]" aria-hidden="true" />
-        <p className="font-semibold text-[#F5F5F0]">This memory could not be found</p>
-        <p className="text-sm text-[#F5F5F0]/70">It may have been deleted. Use Back to Profile to continue.</p>
+        <AlertTriangle className="mx-auto h-8 w-8 text-[#B88E18]" aria-hidden="true" />
+        <p className="font-semibold text-[#0A2F25]">This memory could not be found</p>
+        <p className="text-sm text-[#0A2F25]/70">It may have been deleted. Use Back to Profile to continue.</p>
       </div>
     );
   }
@@ -155,19 +156,19 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
       <header className="space-y-3">
         <h1
           id="memory-title"
-          className="flex items-start gap-2 break-words font-serif text-2xl font-bold text-[#F5F5F0] sm:text-3xl"
+          className="flex items-start gap-2 break-words font-serif text-2xl font-bold text-[#0A2F25] sm:text-3xl"
         >
-          <MapPin className="mt-1.5 h-6 w-6 shrink-0 text-[#D4AF37]" aria-hidden="true" />
+          <MapPin className="mt-1.5 h-6 w-6 shrink-0 text-[#087E83]" aria-hidden="true" />
           {placeName}
         </h1>
-        {placeDetail && <p className="text-sm text-[#F5F5F0]/60">{placeDetail}</p>}
-        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#F5F5F0]/80">
+        {placeDetail && <p className="text-sm text-[#0A2F25]/65">{placeDetail}</p>}
+        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#0A2F25]/80">
           <span className="inline-flex items-center gap-1.5">
-            <Calendar className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
+            <Calendar className="h-4 w-4 text-[#087E83]" aria-hidden="true" />
             {formatVisitDate(record.visitDate)}
           </span>
           {formatAddedDate(record.createdAt) && (
-            <span className="text-xs text-[#F5F5F0]/50">Added {formatAddedDate(record.createdAt)}</span>
+            <span className="text-xs text-[#0A2F25]/60">Added {formatAddedDate(record.createdAt)}</span>
           )}
         </p>
 
@@ -175,7 +176,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
           <button
             type="button"
             onClick={() => onEdit(record.id)}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#D4AF37] px-5 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-5 py-2 text-sm font-bold text-white hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
           >
             <Pencil className="h-4 w-4" aria-hidden="true" />
             Edit Memory
@@ -183,7 +184,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
           <button
             type="button"
             onClick={() => setConfirmOpen(true)}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-red-400/60 px-5 py-2 text-sm font-bold text-red-200 hover:bg-red-950/40 cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-red-300 px-5 py-2 text-sm font-bold text-red-700 hover:bg-red-50 cursor-pointer ${FOCUS}`}
           >
             <Trash2 className="h-4 w-4" aria-hidden="true" />
             Delete
@@ -194,16 +195,16 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
       {deleteError && (
         <div
           role="alert"
-          className="flex flex-col gap-3 rounded-xl border border-red-400/50 bg-red-950/40 p-4 text-sm text-[#F5F5F0] sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-3 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-[#0A2F25] sm:flex-row sm:items-center sm:justify-between"
         >
           <p className="flex items-start gap-2">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-300" aria-hidden="true" />
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-700" aria-hidden="true" />
             <span>This memory was not deleted. {deleteError}</span>
           </p>
           <button
             type="button"
             onClick={handleDelete}
-            className={`inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border border-red-300/60 px-4 py-2 font-semibold hover:bg-red-900/40 cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border border-red-300 px-4 py-2 font-semibold hover:bg-red-100 cursor-pointer ${FOCUS}`}
           >
             <RefreshCw className="h-4 w-4" aria-hidden="true" />
             Retry
@@ -213,25 +214,25 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
 
       {/* Photos */}
       <section aria-labelledby="memory-photos-heading" className={`${CARD} space-y-4 p-5 sm:p-6`}>
-        <h2 id="memory-photos-heading" className="font-serif text-lg font-bold text-[#F5F5F0]">
-          Photos {photoCount > 0 && <span className="text-sm font-normal text-[#F5F5F0]/60">({photoCount})</span>}
+        <h2 id="memory-photos-heading" className="font-serif text-lg font-bold text-[#0A2F25]">
+          Photos {photoCount > 0 && <span className="text-sm font-normal text-[#0A2F25]/65">({photoCount})</span>}
         </h2>
 
         {photoCount === 0 ? (
-          <p className="flex items-center gap-2 text-sm text-[#F5F5F0]/60">
-            <Camera className="h-4 w-4 text-[#D4AF37]/60" aria-hidden="true" />
+          <p className="flex items-center gap-2 text-sm text-[#0A2F25]/65">
+            <Camera className="h-4 w-4 text-[#087E83]/70" aria-hidden="true" />
             No photos for this memory.
           </p>
         ) : photoState.status === 'error' ? (
-          <div role="alert" className="flex flex-col gap-3 text-sm text-[#F5F5F0] sm:flex-row sm:items-center sm:justify-between">
+          <div role="alert" className="flex flex-col gap-3 text-sm text-[#0A2F25] sm:flex-row sm:items-center sm:justify-between">
             <p className="flex items-start gap-2">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-300" aria-hidden="true" />
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-700" aria-hidden="true" />
               <span>Your photos could not be loaded. {photoState.error}</span>
             </p>
             <button
               type="button"
               onClick={reloadPhotos}
-              className={`inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border border-red-300/60 px-4 py-2 font-semibold hover:bg-red-900/40 cursor-pointer ${FOCUS}`}
+              className={`inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border border-red-300 px-4 py-2 font-semibold hover:bg-red-50 cursor-pointer ${FOCUS}`}
             >
               <RefreshCw className="h-4 w-4" aria-hidden="true" />
               Retry
@@ -239,7 +240,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
           </div>
         ) : (
           <>
-            <div className="flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-[#D4AF37]/25 bg-[#04100E]">
+            <div className="flex min-h-[220px] items-center justify-center overflow-hidden rounded-xl border border-[#087E83]/20 bg-[#E6F3ED]">
               {activeUrl ? (
                 <img
                   src={activeUrl}
@@ -247,7 +248,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
                   className="max-h-[70vh] w-full object-contain"
                 />
               ) : (
-                <p className="flex items-center gap-2 px-4 text-sm text-[#F5F5F0]/60">
+                <p className="flex items-center gap-2 px-4 text-sm text-[#0A2F25]/65">
                   <ImageOff className="h-5 w-5" aria-hidden="true" />
                   {photoState.status === 'loading' ? 'Loading photo...' : 'This photo could not be found.'}
                 </p>
@@ -266,8 +267,8 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
                         onClick={() => setSelectedIndex(index)}
                         aria-label={`Show photo ${index + 1}${index === 0 ? ' (cover)' : ''}`}
                         aria-current={isActive ? 'true' : undefined}
-                        className={`block aspect-square w-full overflow-hidden rounded-lg border-2 bg-[#04100E] cursor-pointer ${
-                          isActive ? 'border-[#D4AF37]' : 'border-[#D4AF37]/20 hover:border-[#D4AF37]/60'
+                        className={`block aspect-square w-full overflow-hidden rounded-lg border-2 bg-[#E6F3ED] cursor-pointer ${
+                          isActive ? 'border-[#087E83]' : 'border-[#087E83]/20 hover:border-[#087E83]/60'
                         } ${FOCUS}`}
                       >
                         {url ? (
@@ -277,7 +278,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
                             className="h-full w-full object-cover"
                           />
                         ) : (
-                          <span className="flex h-full w-full items-center justify-center text-[#F5F5F0]/40">
+                          <span className="flex h-full w-full items-center justify-center text-[#0A2F25]/50">
                             <ImageOff className="h-4 w-4" aria-hidden="true" />
                           </span>
                         )}
@@ -289,7 +290,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
             )}
 
             {photoState.status === 'ready' && photoState.missingCount > 0 && (
-              <p role="status" className="text-xs text-[#E5C05C]">
+              <p role="status" className="text-xs text-[#0A2F25]">
                 {photoState.missingCount} {photoState.missingCount === 1 ? 'photo' : 'photos'} could not be
                 found in browser storage.
               </p>
@@ -300,13 +301,13 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
 
       {/* Notes */}
       <section aria-labelledby="memory-notes-heading" className={`${CARD} space-y-3 p-5 sm:p-6`}>
-        <h2 id="memory-notes-heading" className="font-serif text-lg font-bold text-[#F5F5F0]">
+        <h2 id="memory-notes-heading" className="font-serif text-lg font-bold text-[#0A2F25]">
           Notes
         </h2>
         {record.notes ? (
-          <p className="whitespace-pre-line break-words text-sm text-[#F5F5F0]/85">{record.notes}</p>
+          <p className="whitespace-pre-line break-words text-sm text-[#0A2F25]/85">{record.notes}</p>
         ) : (
-          <p className="text-sm italic text-[#F5F5F0]/50">No notes for this memory.</p>
+          <p className="text-sm italic text-[#0A2F25]/60">No notes for this memory.</p>
         )}
       </section>
 

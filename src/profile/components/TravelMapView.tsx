@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -25,8 +26,8 @@ function buildIcon(place: VisitedPlace, selected: boolean): L.DivIcon {
   const count = place.matchingRecords.length;
   const content = count > 1 ? String(count) : PIN_SVG;
   const look = selected
-    ? 'scale-125 border-white bg-[#D4AF37] text-slate-950 ring-4 ring-[#00F0FF]/70'
-    : 'border-[#04100E] bg-[#D4AF37] text-slate-950';
+    ? 'scale-125 border-white bg-[#087E83] text-white ring-4 ring-[#087E83]/30'
+    : 'border-white bg-[#087E83] text-white';
   return L.divIcon({
     className: 'custom-div-icon',
     html: `<div class="flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-bold shadow-lg ${look}">${content}</div>`,
@@ -221,13 +222,13 @@ export const TravelMapView: React.FC<TravelMapViewProps> = ({
     <div
       role="region"
       aria-label={label}
-      className={`relative isolate z-0 overflow-hidden rounded-2xl border border-[#D4AF37]/30 ${className}`}
+      className={`relative isolate z-0 overflow-hidden rounded-2xl border border-[#087E83]/30 ${className}`}
     >
       <div ref={containerRef} className="h-full w-full" />
 
       {tileError && (
-        <div className="absolute bottom-3 left-3 z-[1000] flex max-w-[80%] items-center gap-2 rounded-xl border border-[#D4AF37]/40 bg-[#0A1F1C]/95 px-3 py-1.5 text-xs text-[#F5F5F0]">
-          <AlertCircle className="h-4 w-4 shrink-0 text-[#E5C05C]" aria-hidden="true" />
+        <div className="absolute bottom-3 left-3 z-[1000] flex max-w-[80%] items-center gap-2 rounded-xl border border-[#087E83]/30 bg-white/95 px-3 py-1.5 text-xs text-[#0A2F25]">
+          <AlertCircle className="h-4 w-4 shrink-0 text-[#087E83]" aria-hidden="true" />
           <span>Map tiles are loading slowly or you are offline. The list still works.</span>
         </div>
       )}

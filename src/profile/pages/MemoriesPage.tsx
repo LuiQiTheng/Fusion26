@@ -1,3 +1,4 @@
+
 import React, { useId, useMemo } from 'react';
 import { Calendar, Camera, LayoutGrid, List, MapPin, Plus, Search, Trash2, X } from 'lucide-react';
 import { ProfileData } from '../types';
@@ -31,10 +32,10 @@ interface MemoriesPageProps {
 }
 
 const FOCUS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
-const CARD = 'rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
+const CARD = 'rounded-2xl border border-[#087E83]/20 bg-white shadow-sm';
 const FIELD =
-  'w-full min-h-[44px] rounded-xl border border-[#D4AF37]/30 bg-[#04100E] px-4 py-2 text-sm text-[#F5F5F0] placeholder:text-[#F5F5F0]/40 focus:border-[#00F0FF]';
+  'w-full min-h-[44px] rounded-xl border border-[#087E83]/30 bg-white px-4 py-2 text-sm text-[#0A2F25] placeholder:text-[#0A2F25]/50 focus:border-[#087E83]';
 
 const PHOTO_FILTER_LABELS: Record<PhotoFilter, string> = {
   all: 'All memories',
@@ -82,7 +83,7 @@ const GridCard: React.FC<{ item: MemoryItem; onOpen: () => void }> = ({ item, on
     <button
       type="button"
       onClick={onOpen}
-      className={`${CARD} flex h-full w-full flex-col overflow-hidden text-left transition-all hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 cursor-pointer ${FOCUS}`}
+      className={`${CARD} flex h-full w-full flex-col overflow-hidden text-left transition-all hover:border-[#087E83]/50 hover:bg-[#E6F3ED]/80 cursor-pointer ${FOCUS}`}
     >
       <StoredImage
         photoId={record.photoIds[0]}
@@ -90,16 +91,16 @@ const GridCard: React.FC<{ item: MemoryItem; onOpen: () => void }> = ({ item, on
         className="h-44 w-full shrink-0"
       />
       <div className="flex-1 space-y-1.5 p-4">
-        <h3 className="flex items-center gap-1.5 font-semibold text-[#F5F5F0]">
-          <MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" aria-hidden="true" />
+        <h3 className="flex items-center gap-1.5 font-semibold text-[#0A2F25]">
+          <MapPin className="h-4 w-4 shrink-0 text-[#087E83]" aria-hidden="true" />
           <span className="truncate">{placeName}</span>
         </h3>
-        <p className="flex items-center gap-1.5 text-xs text-[#F5F5F0]/60">
+        <p className="flex items-center gap-1.5 text-xs text-[#0A2F25]/65">
           <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           {formatVisitDate(record.visitDate)}
           <PhotoCount count={record.photoIds.length} />
         </p>
-        {record.notes && <p className="line-clamp-2 text-sm text-[#F5F5F0]/75">{record.notes}</p>}
+        {record.notes && <p className="line-clamp-2 text-sm text-[#0A2F25]/80">{record.notes}</p>}
       </div>
     </button>
   );
@@ -112,7 +113,7 @@ const TimelineCard: React.FC<{ item: MemoryItem; onOpen: () => void }> = ({ item
     <button
       type="button"
       onClick={onOpen}
-      className={`${CARD} flex w-full items-stretch gap-4 overflow-hidden text-left transition-all hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 cursor-pointer ${FOCUS}`}
+      className={`${CARD} flex w-full items-stretch gap-4 overflow-hidden text-left transition-all hover:border-[#087E83]/50 hover:bg-[#E6F3ED]/80 cursor-pointer ${FOCUS}`}
     >
       <StoredImage
         photoId={record.photoIds[0]}
@@ -120,17 +121,17 @@ const TimelineCard: React.FC<{ item: MemoryItem; onOpen: () => void }> = ({ item
         className="h-auto min-h-[96px] w-24 shrink-0 sm:w-32"
       />
       <div className="min-w-0 flex-1 space-y-1 py-3 pr-4">
-        <h4 className="flex items-center gap-1.5 font-semibold text-[#F5F5F0]">
-          <MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" aria-hidden="true" />
+        <h4 className="flex items-center gap-1.5 font-semibold text-[#0A2F25]">
+          <MapPin className="h-4 w-4 shrink-0 text-[#087E83]" aria-hidden="true" />
           <span className="truncate">{placeName}</span>
         </h4>
-        <p className="flex flex-wrap items-center gap-x-1 text-xs text-[#F5F5F0]/60">
+        <p className="flex flex-wrap items-center gap-x-1 text-xs text-[#0A2F25]/65">
           <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           {formatVisitDate(record.visitDate)}
           <PhotoCount count={record.photoIds.length} />
           {added && <span> · Added {added}</span>}
         </p>
-        {record.notes && <p className="line-clamp-2 text-sm text-[#F5F5F0]/75">{record.notes}</p>}
+        {record.notes && <p className="line-clamp-2 text-sm text-[#0A2F25]/80">{record.notes}</p>}
       </div>
     </button>
   );
@@ -189,17 +190,17 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-serif text-2xl font-bold text-[#F5F5F0] sm:text-3xl">Memories</h1>
+        <h1 className="font-serif text-2xl font-bold text-[#0A2F25] sm:text-3xl">Memories</h1>
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
             onClick={onOpenRecycleBin}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#087E83]/30 bg-white px-4 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#087E83] cursor-pointer ${FOCUS}`}
           >
-            <Trash2 className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
+            <Trash2 className="h-4 w-4 text-[#087E83]" aria-hidden="true" />
             Recycle Bin
             {recycleBinCount > 0 && (
-              <span className="rounded-full bg-[#D4AF37] px-2 py-0.5 text-[10px] font-bold text-slate-950">
+              <span className="rounded-full bg-[#E6F3ED] px-2 py-0.5 text-[10px] font-bold text-[#0A2F25]">
                 <span className="sr-only">{recycleBinCount} items: </span>
                 {recycleBinCount}
               </span>
@@ -208,7 +209,7 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
           <button
             type="button"
             onClick={onAddMemory}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#D4AF37] px-4 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-4 py-2 text-sm font-bold text-white hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
             Add Memory
@@ -218,17 +219,17 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
 
       {allItems.length === 0 ? (
         <div className={`${CARD} flex flex-col items-center gap-4 px-6 py-12 text-center`}>
-          <Camera className="h-10 w-10 text-[#D4AF37]/50" aria-hidden="true" />
+          <Camera className="h-10 w-10 text-[#087E83]/60" aria-hidden="true" />
           <div className="space-y-1">
-            <p className="font-semibold text-[#F5F5F0]">No memories yet</p>
-            <p className="text-sm text-[#F5F5F0]/60">
+            <p className="font-semibold text-[#0A2F25]">No memories yet</p>
+            <p className="text-sm text-[#0A2F25]/65">
               Record a place you have visited, with an optional date, notes and photos.
             </p>
           </div>
           <button
             type="button"
             onClick={onAddMemory}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#D4AF37] px-5 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-5 py-2 text-sm font-bold text-white hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
             Add First Memory
@@ -239,12 +240,12 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
           {/* Search and filters */}
           <section aria-label="Search and filters" className={`${CARD} space-y-4 p-5`}>
             <div className="space-y-1.5">
-              <label htmlFor={searchId} className="block text-sm font-semibold text-[#F5F5F0]">
+              <label htmlFor={searchId} className="block text-sm font-semibold text-[#0A2F25]">
                 Search place names and notes
               </label>
               <div className="relative">
                 <Search
-                  className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#F5F5F0]/50"
+                  className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0A2F25]/60"
                   aria-hidden="true"
                 />
                 <input
@@ -261,7 +262,7 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-1.5">
-                <label htmlFor={fromId} className="block text-sm font-semibold text-[#F5F5F0]">
+                <label htmlFor={fromId} className="block text-sm font-semibold text-[#0A2F25]">
                   Visited from
                 </label>
                 <input
@@ -274,7 +275,7 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
                 />
               </div>
               <div className="space-y-1.5">
-                <label htmlFor={toId} className="block text-sm font-semibold text-[#F5F5F0]">
+                <label htmlFor={toId} className="block text-sm font-semibold text-[#0A2F25]">
                   Visited to
                 </label>
                 <input
@@ -287,7 +288,7 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
                 />
               </div>
               <div className="space-y-1.5">
-                <label htmlFor={placeId} className="block text-sm font-semibold text-[#F5F5F0]">
+                <label htmlFor={placeId} className="block text-sm font-semibold text-[#0A2F25]">
                   Place
                 </label>
                 <select
@@ -305,7 +306,7 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label htmlFor={photosId} className="block text-sm font-semibold text-[#F5F5F0]">
+                <label htmlFor={photosId} className="block text-sm font-semibold text-[#0A2F25]">
                   Photos
                 </label>
                 <select
@@ -324,12 +325,12 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
             </div>
 
             {dateRangeError && (
-              <p id={`${ids}-range-error`} role="alert" className="text-xs text-red-300">
+              <p id={`${ids}-range-error`} role="alert" className="text-xs text-red-700">
                 {dateRangeError}
               </p>
             )}
             {(filters.dateFrom !== '' || filters.dateTo !== '') && !dateRangeError && (
-              <p className="text-xs text-[#F5F5F0]/60">
+              <p className="text-xs text-[#0A2F25]/65">
                 Memories without a visit date do not match a date range.
               </p>
             )}
@@ -338,7 +339,7 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
               <button
                 type="button"
                 onClick={clearFilters}
-                className={`inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-[#D4AF37]/40 px-4 text-sm font-semibold text-[#E5C05C] hover:border-[#00F0FF] cursor-pointer ${FOCUS}`}
+                className={`inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-[#087E83]/30 bg-white px-4 text-sm font-semibold text-[#087E83] hover:border-[#087E83] hover:bg-[#E6F3ED] cursor-pointer ${FOCUS}`}
               >
                 <X className="h-4 w-4" aria-hidden="true" />
                 Clear Filters ({activeFilterCount})
@@ -348,13 +349,13 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
 
           {/* Display mode, sort and result count */}
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div role="group" aria-label="Display mode" className="inline-flex overflow-hidden rounded-xl border border-[#D4AF37]/40">
+            <div role="group" aria-label="Display mode" className="inline-flex overflow-hidden rounded-xl border border-[#087E83]/30 bg-white">
               <button
                 type="button"
                 onClick={() => onViewChange({ ...view, mode: 'grid' })}
                 aria-pressed={view.mode === 'grid'}
                 className={`inline-flex min-h-[44px] items-center gap-2 px-4 text-sm font-semibold cursor-pointer ${FOCUS} ${
-                  view.mode === 'grid' ? 'bg-[#D4AF37]/20 text-[#E5C05C]' : 'text-[#F5F5F0]/80 hover:bg-[#0E2925]/70'
+                  view.mode === 'grid' ? 'bg-[#E6F3ED] text-[#0A2F25]' : 'text-[#0A2F25]/80 hover:bg-[#F4F9F6]'
                 }`}
               >
                 <LayoutGrid className="h-4 w-4" aria-hidden="true" />
@@ -364,8 +365,8 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
                 type="button"
                 onClick={() => onViewChange({ ...view, mode: 'timeline' })}
                 aria-pressed={view.mode === 'timeline'}
-                className={`inline-flex min-h-[44px] items-center gap-2 border-l border-[#D4AF37]/40 px-4 text-sm font-semibold cursor-pointer ${FOCUS} ${
-                  view.mode === 'timeline' ? 'bg-[#D4AF37]/20 text-[#E5C05C]' : 'text-[#F5F5F0]/80 hover:bg-[#0E2925]/70'
+                className={`inline-flex min-h-[44px] items-center gap-2 border-l border-[#087E83]/30 px-4 text-sm font-semibold cursor-pointer ${FOCUS} ${
+                  view.mode === 'timeline' ? 'bg-[#E6F3ED] text-[#0A2F25]' : 'text-[#0A2F25]/80 hover:bg-[#F4F9F6]'
                 }`}
               >
                 <List className="h-4 w-4" aria-hidden="true" />
@@ -374,11 +375,11 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              <p role="status" className="text-sm text-[#F5F5F0]/70">
+              <p role="status" className="text-sm text-[#0A2F25]/75">
                 {resultSummary}
               </p>
               <div className="flex items-center gap-2">
-                <label htmlFor={sortId} className="text-sm font-semibold text-[#F5F5F0]">
+                <label htmlFor={sortId} className="text-sm font-semibold text-[#0A2F25]">
                   Sort
                 </label>
                 <select
@@ -400,15 +401,15 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
           {/* Results */}
           {results.length === 0 ? (
             <div className={`${CARD} flex flex-col items-center gap-4 px-6 py-10 text-center`}>
-              <Search className="h-8 w-8 text-[#D4AF37]/50" aria-hidden="true" />
+              <Search className="h-8 w-8 text-[#087E83]/60" aria-hidden="true" />
               <div className="space-y-1">
-                <p className="font-semibold text-[#F5F5F0]">No memories match your filters</p>
-                <p className="text-sm text-[#F5F5F0]/60">Try removing a filter or searching for something else.</p>
+                <p className="font-semibold text-[#0A2F25]">No memories match your filters</p>
+                <p className="text-sm text-[#0A2F25]/65">Try removing a filter or searching for something else.</p>
               </div>
               <button
                 type="button"
                 onClick={clearFilters}
-                className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#D4AF37] px-5 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+                className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-5 py-2 text-sm font-bold text-white hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
               >
                 <X className="h-4 w-4" aria-hidden="true" />
                 Clear Filters
@@ -426,12 +427,12 @@ export const MemoriesPage: React.FC<MemoriesPageProps> = ({
             <div className="space-y-8">
               {timelineGroups.map((group) => (
                 <section key={group.label} aria-label={group.label} className="space-y-3">
-                  <h2 className="font-serif text-lg font-bold text-[#E5C05C]">{group.label}</h2>
-                  <ul className="space-y-3 border-l-2 border-[#D4AF37]/30 pl-4 sm:pl-6">
+                  <h2 className="font-serif text-lg font-bold text-[#0A2F25]">{group.label}</h2>
+                  <ul className="space-y-3 border-l-2 border-[#087E83]/30 pl-4 sm:pl-6">
                     {group.items.map((item) => (
                       <li key={item.record.id} className="relative">
                         <span
-                          className="absolute -left-[1.35rem] top-6 h-3 w-3 rounded-full border-2 border-[#04100E] bg-[#D4AF37] sm:-left-[1.85rem]"
+                          className="absolute -left-[1.35rem] top-6 h-3 w-3 rounded-full border-2 border-[#F4F9F6] bg-[#087E83] sm:-left-[1.85rem]"
                           aria-hidden="true"
                         />
                         <TimelineCard item={item} onOpen={() => onOpenMemory(item.record.id)} />

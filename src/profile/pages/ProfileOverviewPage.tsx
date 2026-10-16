@@ -35,8 +35,9 @@ interface ProfileOverviewPageProps {
 }
 
 const FOCUS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
-const CARD = 'rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
+const CARD =
+  'rounded-2xl border border-[#087E83]/20 bg-white shadow-sm';
 
 // "2025-03-14" -> "14 Mar 2025". Built from the parts so time zones cannot shift the day.
 function formatVisitDate(value: string | null): string {
@@ -90,11 +91,11 @@ const StatButton: React.FC<StatButtonProps> = ({ label, value, icon, onClick }) 
     type="button"
     onClick={onClick}
     aria-label={`${label}: ${value}. Open ${label}`}
-    className={`${CARD} flex min-h-[88px] flex-col items-center justify-center gap-1 px-2 py-4 text-center transition-all hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 cursor-pointer ${FOCUS}`}
+    className={`${CARD} flex min-h-[88px] flex-col items-center justify-center gap-1 px-2 py-4 text-center transition-all hover:border-[#087E83]/50 hover:bg-[#E6F3ED]/80 cursor-pointer ${FOCUS}`}
   >
-    <span className="text-[#D4AF37]">{icon}</span>
-    <span className="font-serif text-2xl font-bold text-[#F5F5F0]">{value}</span>
-    <span className="text-xs font-semibold text-[#F5F5F0]/70">{label}</span>
+    <span className="text-[#087E83]">{icon}</span>
+    <span className="font-serif text-2xl font-bold text-[#0A2F25]">{value}</span>
+    <span className="text-xs font-semibold text-[#0A2F25]/70">{label}</span>
   </button>
 );
 
@@ -111,9 +112,9 @@ const RecentMemoryCard: React.FC<RecentMemoryCardProps> = ({ record, placeName, 
     <button
       type="button"
       onClick={onOpen}
-      className={`${CARD} overflow-hidden text-left transition-all hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 cursor-pointer ${FOCUS}`}
+      className={`${CARD} overflow-hidden text-left transition-all hover:border-[#087E83]/50 hover:bg-[#E6F3ED]/80 cursor-pointer ${FOCUS}`}
     >
-      <div className="flex h-36 w-full items-center justify-center bg-[#04100E]">
+      <div className="flex h-36 w-full items-center justify-center bg-[#E6F3ED]">
         {coverUrl ? (
           <img
             src={coverUrl}
@@ -125,11 +126,11 @@ const RecentMemoryCard: React.FC<RecentMemoryCardProps> = ({ record, placeName, 
         )}
       </div>
       <div className="space-y-1.5 p-4">
-        <h3 className="flex items-center gap-1.5 font-semibold text-[#F5F5F0]">
+        <h3 className="flex items-center gap-1.5 font-semibold text-[#0A2F25]">
           <MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" aria-hidden="true" />
           <span className="truncate">{placeName}</span>
         </h3>
-        <p className="flex items-center gap-1.5 text-xs text-[#F5F5F0]/60">
+        <p className="flex items-center gap-1.5 text-xs text-[#0A2F25]/60">
           <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           {formatVisitDate(record.visitDate)}
           {record.photoIds.length > 0 && (
@@ -139,7 +140,7 @@ const RecentMemoryCard: React.FC<RecentMemoryCardProps> = ({ record, placeName, 
             </span>
           )}
         </p>
-        {record.notes && <p className="line-clamp-2 text-sm text-[#F5F5F0]/75">{record.notes}</p>}
+        {record.notes && <p className="line-clamp-2 text-sm text-[#0A2F25]/75">{record.notes}</p>}
       </div>
     </button>
   );
@@ -201,16 +202,16 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
 
           <div className="min-w-0 flex-1 space-y-3">
             <div>
-              <h1 className="break-words font-serif text-2xl font-bold text-[#F5F5F0] sm:text-3xl">
+              <h1 className="break-words font-serif text-2xl font-bold text-[#0A2F25] sm:text-3xl">
                 {profile.displayName}
               </h1>
-              <p className="text-sm text-[#E5C05C]">@{profile.username}</p>
+              <p className="text-sm text-[#087E83]">@{profile.username}</p>
             </div>
 
             {profile.bio ? (
-              <p className="whitespace-pre-line break-words text-sm text-[#F5F5F0]/80">{profile.bio}</p>
+              <p className="whitespace-pre-line break-words text-sm text-[#0A2F25]/80">{profile.bio}</p>
             ) : (
-              <p className="text-sm italic text-[#F5F5F0]/50">No bio yet. Add one in Edit Profile.</p>
+              <p className="text-sm italic text-[#0A2F25]/50">No bio yet. Add one in Edit Profile.</p>
             )}
 
             {profile.interests.length > 0 && (
@@ -221,7 +222,7 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
                 {profile.interests.map((interest) => (
                   <li
                     key={interest}
-                    className="rounded-full border border-[#D4AF37]/35 bg-[#D4AF37]/15 px-3 py-1 text-xs font-semibold text-[#E5C05C]"
+                    className="rounded-full border border-[#D4AF37]/35 bg-[#087E83]/15 px-3 py-1 text-xs font-semibold text-[#087E83]"
                   >
                     {interest}
                   </li>
@@ -233,7 +234,7 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigate('edit-profile')}
-                className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#D4AF37] px-4 py-2 text-sm font-bold text-slate-950 transition-all hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+                className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-4 py-2 text-sm font-bold text-white transition-all hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
               >
                 <Pencil className="h-4 w-4" aria-hidden="true" />
                 Edit Profile
@@ -241,9 +242,9 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigate('settings')}
-                className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 bg-gradient-to-r from-[#0A1F1C] to-[#0E2925] px-4 py-2 text-sm font-bold text-[#F5F5F0] transition-all hover:border-[#00F0FF] cursor-pointer ${FOCUS}`}
+                className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#087E83]/25 bg-white px-4 py-2 text-sm font-bold text-[#0A2F25] transition-all hover:border-[#087E83] cursor-pointer ${FOCUS}`}
               >
-                <Settings className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
+                <Settings className="h-4 w-4 text-[#087E83]" aria-hidden="true" />
                 Settings
               </button>
             </div>
@@ -280,14 +281,14 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
             key={card.target}
             type="button"
             onClick={() => onNavigate(card.target)}
-            className={`${CARD} group flex min-h-[44px] items-center gap-4 p-5 text-left transition-all hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 cursor-pointer ${FOCUS}`}
+            className={`${CARD} group flex min-h-[44px] items-center gap-4 p-5 text-left transition-all hover:border-[#087E83]/50 hover:bg-[#E6F3ED]/80 cursor-pointer ${FOCUS}`}
           >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#D4AF37]/35 bg-[#D4AF37]/10 text-[#D4AF37]">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#087E83]/20 bg-[#E6F3ED] text-[#087E83]">
               {card.icon}
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block font-semibold text-[#F5F5F0]">{card.title}</span>
-              <span className="block text-xs text-[#F5F5F0]/60">{card.description}</span>
+              <span className="block font-semibold text-[#0A2F25]">{card.title}</span>
+              <span className="block text-xs text-[#0A2F25]/60">{card.description}</span>
             </span>
             <ChevronRight
               className="h-4 w-4 shrink-0 text-[#D4AF37]/60 transition-transform group-hover:translate-x-0.5"
@@ -300,14 +301,14 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
       {/* Recent memories */}
       <section aria-labelledby="recent-memories-heading" className="space-y-4">
         <div className="flex items-center justify-between gap-3">
-          <h2 id="recent-memories-heading" className="font-serif text-xl font-bold text-[#F5F5F0]">
+          <h2 id="recent-memories-heading" className="font-serif text-xl font-bold text-[#0A2F25]">
             Recent Memories
           </h2>
           {recentRecords.length > 0 && (
             <button
               type="button"
               onClick={() => onNavigate('memories')}
-              className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[#E5C05C] hover:text-[#D4AF37] cursor-pointer ${FOCUS}`}
+              className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[#087E83] hover:text-[#0A2F25] cursor-pointer ${FOCUS}`}
             >
               View all
               <ChevronRight className="h-4 w-4" aria-hidden="true" />
@@ -319,15 +320,15 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
           <div className={`${CARD} flex flex-col items-center gap-4 px-6 py-10 text-center`}>
             <Camera className="h-10 w-10 text-[#D4AF37]/50" aria-hidden="true" />
             <div className="space-y-1">
-              <p className="font-semibold text-[#F5F5F0]">No memories yet</p>
-              <p className="text-sm text-[#F5F5F0]/60">
+              <p className="font-semibold text-[#0A2F25]">No memories yet</p>
+              <p className="text-sm text-[#0A2F25]/60">
                 Record a place you have visited, with an optional date, notes and photos.
               </p>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('add-memory')}
-              className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#D4AF37] px-5 py-2 text-sm font-bold text-slate-950 transition-all hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+              className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-5 py-2 text-sm font-bold text-white transition-all hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
             >
               <Plus className="h-4 w-4" aria-hidden="true" />
               Add First Memory

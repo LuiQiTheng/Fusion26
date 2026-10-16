@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { AlertTriangle, Calendar, CheckCircle2, RotateCcw, Trash2, X } from 'lucide-react';
 import { ProfileData, RecycledPhoto, RecycledRecord, TravelRecord } from '../types';
@@ -23,8 +24,8 @@ interface RecycleBinPageProps {
 }
 
 const FOCUS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
-const CARD = 'rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
+const CARD = 'rounded-2xl border border-[#087E83]/20 bg-white';
 const BTN =
   'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer';
 
@@ -59,9 +60,9 @@ function photoOwnerName(data: ProfileData, photo: RecycledPhoto['photo']): strin
 }
 
 const NOTICE_STYLES: Record<Notice['tone'], string> = {
-  success: 'border-[#D4AF37]/50 bg-[#0A1F1C]/95',
-  warning: 'border-[#D4AF37]/50 bg-[#D4AF37]/10',
-  error: 'border-red-400/50 bg-red-950/40',
+  success: 'border-[#087E83]/30 bg-[#E6F3ED]',
+  warning: 'border-[#087E83]/30 bg-[#E6F3ED]',
+  error: 'border-red-300 bg-red-50',
 };
 
 export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChanged, onNotify }) => {
@@ -247,7 +248,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="font-serif text-2xl font-bold text-[#F5F5F0] focus:outline-none sm:text-3xl"
+          className="font-serif text-2xl font-bold text-[#0A2F25] focus:outline-none sm:text-3xl"
         >
           Recycle Bin
         </h1>
@@ -257,7 +258,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
               type="button"
               onClick={() => void handleRestoreAll()}
               disabled={busy}
-              className={`${BTN} bg-[#D4AF37] text-slate-950 hover:bg-[#E5C05C] ${FOCUS}`}
+              className={`${BTN} bg-[#087E83] text-white hover:bg-[#06676B] ${FOCUS}`}
             >
               <RotateCcw className="h-4 w-4" aria-hidden="true" />
               Restore All
@@ -266,7 +267,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
               type="button"
               onClick={() => setEmptyStep(1)}
               disabled={busy}
-              className={`${BTN} border border-red-400/60 text-red-200 hover:bg-red-950/40 ${FOCUS}`}
+              className={`${BTN} border border-red-300 text-red-700 hover:bg-red-50 ${FOCUS}`}
             >
               <Trash2 className="h-4 w-4" aria-hidden="true" />
               Empty Recycle Bin
@@ -275,7 +276,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
         )}
       </div>
 
-      <p className="text-sm text-[#F5F5F0]/70">
+      <p className="text-sm text-[#0A2F25]/70">
         Deleted memories and photos stay here until you delete them permanently. Nothing is removed
         automatically.
       </p>
@@ -284,7 +285,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
         {busy ? 'Working...' : ''}
       </p>
       {busy && (
-        <p aria-hidden="true" className="text-sm text-[#E5C05C]">
+        <p aria-hidden="true" className="text-sm text-[#087E83]">
           Working...
         </p>
       )}
@@ -292,13 +293,13 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
       {notice && (
         <div
           role={notice.tone === 'error' ? 'alert' : 'status'}
-          className={`flex items-start gap-3 rounded-xl border p-4 text-sm text-[#F5F5F0] ${NOTICE_STYLES[notice.tone]}`}
+          className={`flex items-start gap-3 rounded-xl border p-4 text-sm text-[#0A2F25] ${NOTICE_STYLES[notice.tone]}`}
         >
           {notice.tone === 'success' ? (
-            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#D4AF37]" aria-hidden="true" />
+            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#087E83]" aria-hidden="true" />
           ) : (
             <AlertTriangle
-              className={`mt-0.5 h-5 w-5 shrink-0 ${notice.tone === 'error' ? 'text-red-300' : 'text-[#E5C05C]'}`}
+              className={`mt-0.5 h-5 w-5 shrink-0 ${notice.tone === 'error' ? 'text-red-600' : 'text-[#087E83]'}`}
               aria-hidden="true"
             />
           )}
@@ -318,7 +319,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
             type="button"
             onClick={() => setNotice(null)}
             aria-label="Dismiss message"
-            className={`-m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#F5F5F0]/70 hover:text-white cursor-pointer ${FOCUS}`}
+            className={`-m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#0A2F25]/70 hover:text-[#087E83] cursor-pointer ${FOCUS}`}
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -327,16 +328,16 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
 
       {total === 0 ? (
         <div className={`${CARD} flex flex-col items-center gap-3 px-6 py-12 text-center`}>
-          <Trash2 className="h-10 w-10 text-[#D4AF37]/50" aria-hidden="true" />
-          <p className="font-semibold text-[#F5F5F0]">The Recycle Bin is empty</p>
-          <p className="text-sm text-[#F5F5F0]/60">Memories and photos you delete will appear here.</p>
+          <Trash2 className="h-10 w-10 text-[#087E83]/50" aria-hidden="true" />
+          <p className="font-semibold text-[#0A2F25]">The Recycle Bin is empty</p>
+          <p className="text-sm text-[#0A2F25]/60">Memories and photos you delete will appear here.</p>
         </div>
       ) : (
         <>
           {records.length > 0 && (
             <section aria-labelledby="bin-records-heading" className="space-y-3">
-              <h2 id="bin-records-heading" className="font-serif text-lg font-bold text-[#F5F5F0]">
-                Memories <span className="text-sm font-normal text-[#F5F5F0]/60">({records.length})</span>
+              <h2 id="bin-records-heading" className="font-serif text-lg font-bold text-[#0A2F25]">
+                Memories <span className="text-sm font-normal text-[#0A2F25]/60">({records.length})</span>
               </h2>
               <ul className="space-y-3">
                 {records.map((entry) => {
@@ -351,8 +352,8 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                         className="h-28 w-full shrink-0 rounded-xl sm:w-36"
                       />
                       <div className="min-w-0 flex-1 space-y-1">
-                        <h3 className="break-words font-semibold text-[#F5F5F0]">{placeName}</h3>
-                        <p className="flex flex-wrap items-center gap-x-1 text-xs text-[#F5F5F0]/60">
+                        <h3 className="break-words font-semibold text-[#0A2F25]">{placeName}</h3>
+                        <p className="flex flex-wrap items-center gap-x-1 text-xs text-[#0A2F25]/60">
                           <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                           {formatVisitDate(entry.record.visitDate)}
                           {photoCount > 0 && (
@@ -364,7 +365,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                           {deleted && <span> · Deleted {deleted}</span>}
                         </p>
                         {entry.record.notes && (
-                          <p className="line-clamp-2 text-sm text-[#F5F5F0]/75">{entry.record.notes}</p>
+                          <p className="line-clamp-2 text-sm text-[#0A2F25]/75">{entry.record.notes}</p>
                         )}
                       </div>
                       <div className="flex flex-wrap gap-2 sm:flex-col">
@@ -373,9 +374,9 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                           onClick={() => void handleRestoreRecord(entry)}
                           disabled={busy}
                           aria-label={`Restore memory at ${placeName}`}
-                          className={`${BTN} border border-[#D4AF37]/40 text-[#F5F5F0] hover:border-[#00F0FF] ${FOCUS}`}
+                          className={`${BTN} border border-[#087E83]/40 text-[#0A2F25] hover:border-[#087E83] ${FOCUS}`}
                         >
-                          <RotateCcw className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
+                          <RotateCcw className="h-4 w-4 text-[#087E83]" aria-hidden="true" />
                           Restore
                         </button>
                         <button
@@ -383,7 +384,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                           onClick={() => openDeleteRecord(entry)}
                           disabled={busy}
                           aria-label={`Permanently delete memory at ${placeName}`}
-                          className={`${BTN} border border-red-400/60 text-red-200 hover:bg-red-950/40 ${FOCUS}`}
+                          className={`${BTN} border border-red-300 text-red-700 hover:bg-red-50 ${FOCUS}`}
                         >
                           <Trash2 className="h-4 w-4" aria-hidden="true" />
                           Delete
@@ -398,8 +399,8 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
 
           {photos.length > 0 && (
             <section aria-labelledby="bin-photos-heading" className="space-y-3">
-              <h2 id="bin-photos-heading" className="font-serif text-lg font-bold text-[#F5F5F0]">
-                Photos <span className="text-sm font-normal text-[#F5F5F0]/60">({photos.length})</span>
+              <h2 id="bin-photos-heading" className="font-serif text-lg font-bold text-[#0A2F25]">
+                Photos <span className="text-sm font-normal text-[#0A2F25]/60">({photos.length})</span>
               </h2>
               <ul className="space-y-3">
                 {photos.map((entry) => {
@@ -414,18 +415,18 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                         className="h-28 w-full shrink-0 rounded-xl sm:w-36"
                       />
                       <div className="min-w-0 flex-1 space-y-1">
-                        <h3 className="break-all font-semibold text-[#F5F5F0]">{entry.photo.fileName}</h3>
-                        <p className="text-xs text-[#F5F5F0]/60">
+                        <h3 className="break-all font-semibold text-[#0A2F25]">{entry.photo.fileName}</h3>
+                        <p className="text-xs text-[#0A2F25]/60">
                           From your memory at {ownerName} · was photo {entry.originalIndex + 1}
                           {deleted && ` · Deleted ${deleted}`}
                         </p>
                         {home === 'recycled' && (
-                          <p className="text-xs text-[#E5C05C]">
+                          <p className="text-xs text-[#087E83]">
                             Restore the memory it belonged to first, then restore this photo.
                           </p>
                         )}
                         {home === 'gone' && (
-                          <p className="text-xs text-[#E5C05C]">
+                          <p className="text-xs text-[#087E83]">
                             Its memory no longer exists, so this photo can only be deleted permanently.
                           </p>
                         )}
@@ -436,9 +437,9 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                           onClick={() => void handleRestorePhoto(entry)}
                           disabled={busy || home !== 'active'}
                           aria-label={`Restore photo ${entry.photo.fileName}`}
-                          className={`${BTN} border border-[#D4AF37]/40 text-[#F5F5F0] hover:border-[#00F0FF] ${FOCUS}`}
+                          className={`${BTN} border border-[#087E83]/40 text-[#0A2F25] hover:border-[#087E83] ${FOCUS}`}
                         >
-                          <RotateCcw className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
+                          <RotateCcw className="h-4 w-4 text-[#087E83]" aria-hidden="true" />
                           Restore
                         </button>
                         <button
@@ -446,7 +447,7 @@ export const RecycleBinPage: React.FC<RecycleBinPageProps> = ({ data, onDataChan
                           onClick={() => openDeletePhoto(entry)}
                           disabled={busy}
                           aria-label={`Permanently delete photo ${entry.photo.fileName}`}
-                          className={`${BTN} border border-red-400/60 text-red-200 hover:bg-red-950/40 ${FOCUS}`}
+                          className={`${BTN} border border-red-300 text-red-700 hover:bg-red-50 ${FOCUS}`}
                         >
                           <Trash2 className="h-4 w-4" aria-hidden="true" />
                           Delete

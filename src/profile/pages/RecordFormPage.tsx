@@ -1,3 +1,4 @@
+
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { AlertTriangle, RefreshCw, Save, X } from 'lucide-react';
 import { HeritagePlace } from '../../types';
@@ -22,10 +23,10 @@ interface RecordFormPageProps {
 }
 
 const FOCUS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
-const CARD = 'rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70 p-5 sm:p-6';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
+const CARD = 'rounded-2xl border border-[#087E83]/20 bg-white p-5 sm:p-6';
 const INPUT =
-  'w-full min-h-[44px] rounded-xl border bg-[#04100E] px-4 py-2 text-sm text-[#F5F5F0] placeholder:text-[#F5F5F0]/40';
+  'w-full min-h-[44px] rounded-xl border bg-white px-4 py-2 text-sm text-[#0A2F25] placeholder:text-[#0A2F25]/40';
 
 // Today in the user's own time zone, as "YYYY-MM-DD" (used as the latest allowed visit date).
 function todayString(): string {
@@ -187,16 +188,16 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
 
   if (isEditing && !record) {
     return (
-      <div role="alert" className="space-y-4 rounded-2xl border border-red-400/40 bg-red-950/30 p-6 text-center">
-        <AlertTriangle className="mx-auto h-8 w-8 text-red-300" aria-hidden="true" />
-        <p className="font-semibold text-[#F5F5F0]">This memory could not be found</p>
-        <p className="text-sm text-[#F5F5F0]/75">It may have been deleted. Use Back to Profile to continue.</p>
+      <div role="alert" className="space-y-4 rounded-2xl border border-red-300 bg-red-50 p-6 text-center">
+        <AlertTriangle className="mx-auto h-8 w-8 text-red-600" aria-hidden="true" />
+        <p className="font-semibold text-[#0A2F25]">This memory could not be found</p>
+        <p className="text-sm text-[#0A2F25]/75">It may have been deleted. Use Back to Profile to continue.</p>
       </div>
     );
   }
 
   const fieldBorder = (hasError: boolean) =>
-    hasError ? 'border-red-400' : 'border-[#D4AF37]/30 focus:border-[#00F0FF]';
+    hasError ? 'border-red-500' : 'border-[#087E83]/30 focus:border-[#087E83]';
 
   return (
     <form
@@ -207,24 +208,24 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
       }}
       className="space-y-6"
     >
-      <h1 className="font-serif text-2xl font-bold text-[#F5F5F0] sm:text-3xl">
+      <h1 className="font-serif text-2xl font-bold text-[#0A2F25] sm:text-3xl">
         {isEditing ? 'Edit Memory' : 'Add Memory'}
       </h1>
 
       {saveError && (
         <div
           role="alert"
-          className="flex flex-col gap-3 rounded-xl border border-red-400/50 bg-red-950/40 p-4 text-sm text-[#F5F5F0] sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-3 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-[#0A2F25] sm:flex-row sm:items-center sm:justify-between"
         >
           <p className="flex items-start gap-2">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-300" aria-hidden="true" />
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" aria-hidden="true" />
             <span>Your memory was not saved. {saveError} Everything you entered is still here.</span>
           </p>
           <button
             type="button"
             onClick={() => void handleSave()}
             disabled={submitting}
-            className={`inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border border-red-300/60 px-4 py-2 font-semibold hover:bg-red-900/40 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-lg border border-red-300 px-4 py-2 font-semibold text-red-700 hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
           >
             <RefreshCw className="h-4 w-4" aria-hidden="true" />
             Retry
@@ -249,8 +250,8 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
       {/* Date and notes */}
       <section aria-label="Visit details" className={`${CARD} space-y-5`}>
         <div className="space-y-1.5">
-          <label htmlFor={dateId} className="block text-sm font-semibold text-[#F5F5F0]">
-            Visit date <span className="text-sm font-normal text-[#F5F5F0]/60">(optional)</span>
+          <label htmlFor={dateId} className="block text-sm font-semibold text-[#0A2F25]">
+            Visit date <span className="text-sm font-normal text-[#0A2F25]/60">(optional)</span>
           </label>
           <div className="flex flex-wrap items-center gap-3">
             <input
@@ -271,7 +272,7 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
                 type="button"
                 onClick={() => setVisitDate('')}
                 disabled={submitting}
-                className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-3 text-sm font-semibold text-[#E5C05C] hover:text-[#D4AF37] disabled:opacity-50 cursor-pointer ${FOCUS}`}
+                className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-3 text-sm font-semibold text-[#087E83] hover:text-[#0A2F25] disabled:opacity-50 cursor-pointer ${FOCUS}`}
               >
                 <X className="h-4 w-4" aria-hidden="true" />
                 Clear date
@@ -279,15 +280,15 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
             )}
           </div>
           {showDateError && (
-            <p id={`${dateId}-error`} className="text-xs text-red-300">
+            <p id={`${dateId}-error`} className="text-xs text-red-600">
               {showDateError}
             </p>
           )}
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor={notesId} className="block text-sm font-semibold text-[#F5F5F0]">
-            Notes <span className="text-sm font-normal text-[#F5F5F0]/60">(optional)</span>
+          <label htmlFor={notesId} className="block text-sm font-semibold text-[#0A2F25]">
+            Notes <span className="text-sm font-normal text-[#0A2F25]/60">(optional)</span>
           </label>
           <textarea
             ref={notesRef}
@@ -302,12 +303,12 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
             className={`${INPUT} resize-y ${fieldBorder(Boolean(showNotesError))} ${FOCUS}`}
           />
           <div className="flex items-start justify-between gap-3">
-            <p id={`${notesId}-error`} className="text-xs text-red-300">
+            <p id={`${notesId}-error`} className="text-xs text-red-600">
               {showNotesError}
             </p>
             <p
               id={`${notesId}-count`}
-              className={`ml-auto shrink-0 text-xs ${notesOver ? 'font-semibold text-red-300' : 'text-[#F5F5F0]/50'}`}
+              className={`ml-auto shrink-0 text-xs ${notesOver ? 'font-semibold text-red-600' : 'text-[#0A2F25]/50'}`}
             >
               {notes.length}/{LIMITS.NOTES_MAX}
             </p>
@@ -326,7 +327,7 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
           disabled={submitting}
         />
         {removedPhotoIds.length > 0 && (
-          <p role="status" className="mt-3 text-xs text-[#E5C05C]">
+          <p role="status" className="mt-3 text-xs text-[#087E83]">
             {removedPhotoIds.length} {removedPhotoIds.length === 1 ? 'photo' : 'photos'} will move to the
             Recycle Bin when you save. Cancel to keep {removedPhotoIds.length === 1 ? 'it' : 'them'}.
           </p>
@@ -339,14 +340,14 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
           type="button"
           onClick={onCancel}
           disabled={submitting}
-          className={`min-h-[44px] rounded-xl border border-[#D4AF37]/40 px-6 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+          className={`min-h-[44px] rounded-xl border border-[#087E83]/40 px-6 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#087E83] hover:bg-[#E6F3ED] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={submitting}
-          className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#D4AF37] px-6 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer ${FOCUS}`}
+          className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#087E83] px-6 py-2 text-sm font-bold text-white hover:bg-[#06676B] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer ${FOCUS}`}
         >
           <Save className="h-4 w-4" aria-hidden="true" />
           {submitting ? 'Saving...' : isEditing ? 'Save Changes' : 'Save Memory'}
