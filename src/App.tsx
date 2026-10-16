@@ -32,6 +32,7 @@ import {
   loadFavourites,
   toggleFavourite,
   loadItinerary,
+  saveItinerary,
   loadCompletedMissions,
   completeMission,
   clearAllSavedData,
@@ -44,6 +45,7 @@ import {
 
 import { inspectPlaceReasoning, inspectItineraryReasoning } from './lib/aiReasoning';
 import { generateItinerary } from './lib/planner';
+import { calculateHaversineDistanceKm } from './lib/routing';
 import { X } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -78,8 +80,45 @@ export const App: React.FC = () => {
     setFavorites(loadFavourites());
     const storedItin = loadItinerary();
     if (storedItin) {
-      setSavedItinerary(storedItin);
-      setCurrentItinerary(storedItin);
+      const statePhysicalPlaces = places.filter(
+        (p) => p.stateId === storedItin.destinationStateId && p.latitude && p.longitude
+      );
+      const itinPhysicalStops = storedItin.stops.filter((s) => {
+        const p = places.find((pl) => pl.id === s.placeId);
+        return p && p.latitude && p.longitude;
+      });
+
+      const distinctPhysicalStops = itinPhysicalStops.filter((s, idx, arr) => {
+        const p1 = places.find((pl) => pl.id === s.placeId);
+        if (!p1 || p1.latitude === undefined || p1.longitude === undefined) return false;
+        if (idx === 0) return true;
+        const prev = places.find((pl) => pl.id === arr[idx - 1].placeId);
+        if (!prev || prev.latitude === undefined || prev.longitude === undefined) return true;
+        const dist = calculateHaversineDistanceKm(p1.latitude, p1.longitude, prev.latitude, prev.longitude);
+        return dist >= 0.10;
+      });
+
+      if (statePhysicalPlaces.length >= 2 && distinctPhysicalStops.length < 2) {
+        const refreshed = generateItinerary(
+          {
+            destinationStateId: storedItin.destinationStateId,
+            availableMinutes: storedItin.availableMinutes || 240,
+            interests:
+              storedItin.interests && storedItin.interests.length > 0
+                ? storedItin.interests
+                : ['Living Tradition', 'Architecture', 'Colonial'],
+            transportMode: storedItin.transportMode || 'walking',
+            budgetLevel: storedItin.budgetLevel || 'flexible',
+          },
+          places
+        );
+        setSavedItinerary(refreshed);
+        setCurrentItinerary(refreshed);
+        saveItinerary(refreshed);
+      } else {
+        setSavedItinerary(storedItin);
+        setCurrentItinerary(storedItin);
+      }
     } else {
       // Generate starter Melaka itinerary
       const starter = generateItinerary(
@@ -284,7 +323,7 @@ export const App: React.FC = () => {
         onToggleFavorite={handleToggleFavorite}
         onInspectAI={handleInspectPlaceAI}
         onAddToItinerary={(place) => {
-          if (!currentItinerary) {
+          if (!currentItinerary || currentItinerary.destinationStateId !== place.stateId) {
             const newItin = generateItinerary(
               {
                 destinationStateId: place.stateId,

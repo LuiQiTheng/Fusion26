@@ -73,7 +73,7 @@ export function scorePlace(
   } else if (distanceKmFromPrevious !== null && distanceKmFromPrevious <= 0.8) {
     explanation = `Conveniently situated within easy walking reach of your prior stop.`;
   } else {
-    explanation = `Highlighted landmark essential to Melaka's historic landscape.`;
+    explanation = `Highlighted landmark essential to ${place.locality || 'the state'}'s historic landscape.`;
   }
 
   return {

@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StateRecord, HeritagePlace, Itinerary } from '../types';
 import { PlannerForm } from '../components/planner/PlannerForm';
 import { ItineraryTimeline } from '../components/planner/ItineraryTimeline';
 import { InteractiveMap } from '../components/map/InteractiveMap';
-import { PlannerOptions, generateItinerary, recalculateItineraryStops } from '../lib/planner';
+import {
+  PlannerOptions,
+  generateItinerary,
+  recalculateItineraryStops,
+  applyRouteResultToItinerary,
+  optimizeItineraryWithRoadNetwork,
+} from '../lib/planner';
+import { OSRMRouteResult } from '../lib/routing';
 import { saveItinerary } from '../lib/persistence';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 
@@ -32,6 +39,12 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
     const newItin = generateItinerary(options, places);
     onUpdateItinerary(newItin);
     setIsSavedLocally(false);
+
+    if (options.transportMode === 'car') {
+      optimizeItineraryWithRoadNetwork(newItin, places).then((optimized) => {
+        onUpdateItinerary(optimized);
+      });
+    }
   };
 
   // Remove Stop Handler
@@ -78,6 +91,21 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
     routeDataStatus: s.routeDataStatus,
   }));
 
+  const handleRouteCalculated = useCallback(
+    (result: OSRMRouteResult) => {
+      if (!currentItinerary) return;
+      const { updatedItinerary, hasChanges } = applyRouteResultToItinerary(
+        currentItinerary,
+        places,
+        result
+      );
+      if (hasChanges) {
+        onUpdateItinerary(updatedItinerary);
+      }
+    },
+    [currentItinerary, places, onUpdateItinerary]
+  );
+
   const isOverTimeBudget =
     currentItinerary &&
     currentItinerary.totalPlannedMinutes > currentItinerary.availableMinutes;
@@ -103,7 +131,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
       </div>
 
       {/* Planner Controls Form */}
-      <PlannerForm states={states} onGenerate={handleGenerate} />
+      <PlannerForm states={states} places={places} onGenerate={handleGenerate} />
 
       {/* Over-Budget Warning Banner if applicable */}
       {isOverTimeBudget && (
@@ -138,6 +166,8 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
             <InteractiveMap
               places={activePlacesForMap}
               routeStops={routeStopsForMap}
+              transportMode={currentItinerary?.transportMode || 'walking'}
+              onRouteCalculated={handleRouteCalculated}
               onSelectPlace={onSelectPlace}
               center={
                 activePlacesForMap[0]?.latitude

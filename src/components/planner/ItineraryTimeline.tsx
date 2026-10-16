@@ -13,6 +13,7 @@ import {
   Printer,
 } from 'lucide-react';
 import { Itinerary, HeritagePlace } from '../../types';
+import { isCompactDistrict, calculateHaversineDistanceKm } from '../../lib/routing';
 
 interface ItineraryTimelineProps {
   itinerary: Itinerary;
@@ -34,6 +35,24 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   isSaved = false,
 }) => {
   const placeMap = new Map<string, HeritagePlace>(allPlaces.map((p) => [p.id, p]));
+
+  // Map physical places to consecutive 1-indexed pin numbers matching the map markers exactly
+  const physicalPinMap = new Map<string, number>();
+  let physicalPinCounter = 1;
+  itinerary.stops.forEach((stop) => {
+    const p = placeMap.get(stop.placeId);
+    if (
+      p &&
+      typeof p.latitude === 'number' &&
+      typeof p.longitude === 'number' &&
+      !isNaN(p.latitude) &&
+      !isNaN(p.longitude)
+    ) {
+      if (!physicalPinMap.has(p.id)) {
+        physicalPinMap.set(p.id, physicalPinCounter++);
+      }
+    }
+  });
 
   // Calculate estimated admission total
   let totalAdmissionCost = 0;
@@ -159,24 +178,86 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         </div>
       </div>
 
+      {/* Contextual Guidance Advice */}
+      {(() => {
+        const isCompact = isCompactDistrict(allPlaces, itinerary.destinationStateId);
+        if (isCompact && itinerary.transportMode === 'car') {
+          return (
+            <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2.5">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                <strong>Historic District Advice: </strong> Attractions in this heritage core are clustered within short walking distance. Driving routes may encounter one-way streets, pedestrianized zones, and parking constraints. Walking is recommended for this area.
+              </span>
+            </div>
+          );
+        }
+        if (!isCompact && itinerary.transportMode === 'walking') {
+          return (
+            <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2.5">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                <strong>Regional Distances Advice: </strong> Attractions in this state are geographically dispersed. Driving or ride-hailing is strongly recommended over long-distance walking between towns.
+              </span>
+            </div>
+          );
+        }
+        return null;
+      })()}
+
       {/* Timeline Stops */}
       <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-teal-900/15">
         {itinerary.stops.map((stop, idx) => {
           const place = placeMap.get(stop.placeId);
           if (!place) return null;
 
+          const isPhys = Boolean(
+            place &&
+            typeof place.latitude === 'number' &&
+            typeof place.longitude === 'number' &&
+            !isNaN(place.latitude) &&
+            !isNaN(place.longitude)
+          );
+          const pinNumber = physicalPinMap.get(place.id);
+
           return (
             <div key={stop.placeId} className="relative pl-12">
-              {/* Stop Number Circle */}
-              <div className="absolute left-0 top-1 w-10 h-10 rounded-2xl bg-[#0A2F25] text-white font-serif font-bold text-sm flex items-center justify-center shadow-xs z-10">
-                {stop.order}
-              </div>
+              {/* Stop Number Circle / Pin Badge */}
+              {isPhys && pinNumber ? (
+                <div
+                  className="absolute left-0 top-1 w-10 h-10 rounded-2xl bg-[#0A2F25] text-white flex flex-col items-center justify-center shadow-xs z-10"
+                  title={`Map Pin ${pinNumber}`}
+                >
+                  <span className="text-[8px] uppercase tracking-wider text-amber-300 font-sans font-extrabold leading-none">
+                    Pin
+                  </span>
+                  <span className="text-sm font-bold font-serif leading-none mt-0.5">
+                    {pinNumber}
+                  </span>
+                </div>
+              ) : (
+                <div
+                  className="absolute left-0 top-1 w-10 h-10 rounded-2xl bg-amber-600 text-white flex items-center justify-center shadow-xs z-10"
+                  title="Cultural & Culinary Experience"
+                >
+                  <Sparkles className="w-5 h-5 text-amber-100" />
+                </div>
+              )}
 
               {/* Stop Card */}
               <div className="p-5 rounded-2xl bg-white border border-teal-900/10 shadow-xs hover:border-[#C5A028] transition-all">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {isPhys && pinNumber ? (
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#EBF5F0] text-[#0A2F25] border border-teal-900/10">
+                          Pin {pinNumber} on Map
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                          Cultural & Culinary Experience
+                        </span>
+                      )}
+                      <span className="text-teal-900/20">•</span>
                       <span className="text-xs font-semibold text-[#0A2F25]/60 flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5 text-[#B88E18]" />
                         Offset: +{formatMinutes(stop.arrivalOffsetMinutes || 0)}
@@ -224,27 +305,118 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
               </div>
 
               {/* Transit Connector between stops */}
-              {idx < itinerary.stops.length - 1 && (
-                <div className="my-3 py-1.5 px-3 rounded-xl bg-[#EBF5F0] text-[#0A2F25] text-xs flex items-center justify-between border border-teal-900/10">
-                  <div className="flex items-center gap-2">
-                    {getTransportIcon(itinerary.transportMode)}
-                    <span className="font-semibold text-[#0A2F25]">
-                      {itinerary.stops[idx + 1].travelFromPreviousMinutes || 8} min transfer
-                    </span>
-                    <span className="text-[11px] text-[#0A2F25]/60">
-                      to Stop {stop.order + 1}
-                    </span>
-                  </div>
+              {idx < itinerary.stops.length - 1 && (() => {
+                const nextStop = itinerary.stops[idx + 1];
+                const fromPlace = allPlaces.find((p) => p.id === stop.placeId);
+                const toPlace = allPlaces.find((p) => p.id === nextStop.placeId);
+                if (!toPlace) return null;
 
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-white border border-teal-900/10 text-[#0A2F25]">
-                    {itinerary.stops[idx + 1].routeDataStatus === 'estimated'
-                      ? 'Estimated Urban Walk'
-                      : itinerary.stops[idx + 1].routeDataStatus === 'simulated'
-                      ? 'Simulated Transit Model'
-                      : 'Geographic Context'}
-                  </span>
-                </div>
-              )}
+                const toIsPhys = Boolean(
+                  typeof toPlace.latitude === 'number' &&
+                  typeof toPlace.longitude === 'number' &&
+                  !isNaN(toPlace.latitude) &&
+                  !isNaN(toPlace.longitude)
+                );
+                const toPin = physicalPinMap.get(toPlace.id);
+
+                if (toIsPhys && toPin) {
+                  // Find previous physical place for geographic distance calculation
+                  let originPhys: HeritagePlace | null =
+                    fromPlace && typeof fromPlace.latitude === 'number' && typeof fromPlace.longitude === 'number'
+                      ? fromPlace
+                      : null;
+                  if (!originPhys) {
+                    for (let j = idx - 1; j >= 0; j--) {
+                      const p = allPlaces.find((x) => x.id === itinerary.stops[j].placeId);
+                      if (p && typeof p.latitude === 'number' && typeof p.longitude === 'number') {
+                        originPhys = p;
+                        break;
+                      }
+                    }
+                  }
+
+                  let distLabel = '';
+                  if (originPhys) {
+                    const directKm = calculateHaversineDistanceKm(
+                      originPhys.latitude!,
+                      originPhys.longitude!,
+                      toPlace.latitude!,
+                      toPlace.longitude!
+                    );
+                    if (itinerary.transportMode === 'walking') {
+                      const walkKm = directKm * 1.2;
+                      distLabel = walkKm < 1 ? `~${Math.round(walkKm * 1000)} m` : `~${walkKm.toFixed(1)} km`;
+                    } else {
+                      const driveKm = directKm * 1.35;
+                      distLabel = `~${driveKm.toFixed(1)} km`;
+                    }
+                  }
+
+                  const mode = itinerary.transportMode;
+                  const isCar = mode === 'car';
+                  const isWalking = mode === 'walking';
+                  const isTransit = mode === 'public_transport';
+                  const isRealOSRM = nextStop.routeDataStatus === 'real_service';
+
+                  const travelMins = nextStop.travelFromPreviousMinutes || (isWalking ? 3 : 5);
+
+                  let badgeLabel = 'Estimated Road Transfer';
+                  let badgeClass = 'bg-white text-[#0A2F25] border-teal-900/10';
+
+                  if (isCar) {
+                    badgeLabel = isRealOSRM ? 'OSRM Driving Route' : 'Estimated Driving Leg';
+                    badgeClass = isRealOSRM
+                      ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                      : 'bg-emerald-50/50 text-emerald-700 border-emerald-200';
+                  } else if (isWalking) {
+                    badgeLabel = 'Pedestrian Pace Estimate';
+                    badgeClass = 'bg-sky-50 text-sky-800 border-sky-300';
+                  } else if (isTransit) {
+                    badgeLabel = 'Simulated Transit Model';
+                    badgeClass = 'bg-purple-50 text-purple-800 border-purple-300';
+                  } else if (mode === 'mixed') {
+                    badgeLabel = 'Mixed Route Estimate';
+                    badgeClass = 'bg-amber-50 text-amber-800 border-amber-300';
+                  }
+
+                  return (
+                    <div className="my-3 py-1.5 px-3 rounded-xl bg-[#EBF5F0] text-[#0A2F25] text-xs flex items-center justify-between border border-teal-900/10">
+                      <div className="flex items-center gap-2">
+                        {getTransportIcon(itinerary.transportMode)}
+                        <span className="font-semibold text-[#0A2F25]">
+                          {travelMins} min {isWalking ? 'walk' : isCar ? 'drive' : isTransit ? 'transit' : 'transfer'}
+                        </span>
+                        <span className="text-[11px] text-[#0A2F25]/70">
+                          to Pin {toPin}: {toPlace.name}
+                          {distLabel && ` (${distLabel}${isWalking ? ' at 4.5 km/h' : ''})`}
+                        </span>
+                      </div>
+
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold border ${badgeClass}`}>
+                        {badgeLabel}
+                      </span>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className="my-3 py-1.5 px-3 rounded-xl bg-amber-50/70 text-amber-950 text-xs flex items-center justify-between border border-amber-200/60">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                        <span className="font-semibold text-amber-900">
+                          Cultural & Culinary Experience
+                        </span>
+                        <span className="text-[11px] text-amber-800/70">
+                          (Local tasting & living tradition near {fromPlace?.name || 'heritage quarter'})
+                        </span>
+                      </div>
+
+                      <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-white text-amber-900 border border-amber-200">
+                        Intangible Heritage
+                      </span>
+                    </div>
+                  );
+                }
+              })()}
             </div>
           );
         })}

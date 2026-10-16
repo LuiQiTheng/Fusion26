@@ -17,7 +17,7 @@ export interface SourceReference {
   notes?: string;
 }
 
-export type CulturalItemType = 'food' | 'performance' | 'festival';
+export type CulturalItemType = 'monument' | 'food' | 'performance' | 'festival';
 
 export type CulturalHeritageStatus =
   | 'unesco_inscribed'

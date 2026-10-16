@@ -1,11 +1,18 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { StateRecord, HeritagePlace, Itinerary } from '../types';
 import { PlaceCard } from '../components/places/PlaceCard';
 import { FilterBar } from '../components/places/FilterBar';
 import { InteractiveMap } from '../components/map/InteractiveMap';
 import { PlannerForm } from '../components/planner/PlannerForm';
 import { ItineraryTimeline } from '../components/planner/ItineraryTimeline';
-import { PlannerOptions, generateItinerary, recalculateItineraryStops } from '../lib/planner';
+import {
+  PlannerOptions,
+  generateItinerary,
+  recalculateItineraryStops,
+  applyRouteResultToItinerary,
+  optimizeItineraryWithRoadNetwork,
+} from '../lib/planner';
+import { OSRMRouteResult, getDefaultTransportMode } from '../lib/routing';
 import { saveItinerary } from '../lib/persistence';
 import { ShieldCheck, Compass, Calendar, CheckCircle2, AlertTriangle } from 'lucide-react';
 
@@ -131,13 +138,14 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
 
   // Add place to itinerary and switch to planner view
   const handleAddToItinerary = (place: HeritagePlace) => {
-    if (!currentItinerary) {
+    if (!currentItinerary || currentItinerary.destinationStateId !== place.stateId) {
+      const defaultMode = getDefaultTransportMode(places, place.stateId);
       const newItin = generateItinerary(
         {
           destinationStateId: place.stateId,
           availableMinutes: 240,
           interests: place.culturalThemes,
-          transportMode: 'walking',
+          transportMode: defaultMode,
           budgetLevel: 'flexible',
           startingPlaceId: place.id,
         },
@@ -147,7 +155,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     } else {
       const alreadyIn = currentItinerary.stops.some((s) => s.placeId === place.id);
       if (!alreadyIn) {
-        const updatedStops = [
+        const rawNewStops = [
           ...currentItinerary.stops,
           {
             placeId: place.id,
@@ -157,12 +165,15 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
             reasonSelected: `Added by user from explore view.`,
           },
         ];
+        const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
+          recalculateItineraryStops(rawNewStops, places, currentItinerary.transportMode);
+
         onUpdateItinerary({
           ...currentItinerary,
           stops: updatedStops,
-          totalPlannedMinutes: currentItinerary.totalPlannedMinutes + (place.visitDurationMinutes || 45) + 10,
-          totalVisitMinutes: currentItinerary.totalVisitMinutes + (place.visitDurationMinutes || 45),
-          totalTravelMinutes: currentItinerary.totalTravelMinutes + 10,
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
           isCustomized: true,
         });
       }
@@ -175,6 +186,12 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     const newItin = generateItinerary(options, places);
     onUpdateItinerary(newItin);
     setIsSavedLocally(false);
+
+    if (options.transportMode === 'car') {
+      optimizeItineraryWithRoadNetwork(newItin, places).then((optimized) => {
+        onUpdateItinerary(optimized);
+      });
+    }
   };
 
   const handleRemoveStop = (order: number) => {
@@ -205,15 +222,35 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     }
   };
 
-  const activePlacesForMap = currentItinerary
-    ? places.filter((p) => currentItinerary.stops.some((s) => s.placeId === p.id))
-    : places.filter((p) => p.stateId === 'MLK');
+  const activePlacesForMap = useMemo(() => {
+    const targetStateId =
+      currentItinerary?.destinationStateId ||
+      (selectedStateId !== 'ALL' ? selectedStateId : 'MLK');
+    const statePlaces = places.filter((p) => p.stateId === targetStateId);
+    if (statePlaces.length > 0) return statePlaces;
+    return places.filter((p) => p.stateId === 'MLK');
+  }, [currentItinerary?.destinationStateId, selectedStateId, places]);
 
   const routeStopsForMap = currentItinerary?.stops.map((s) => ({
     placeId: s.placeId,
     order: s.order,
     routeDataStatus: s.routeDataStatus,
   }));
+
+  const handleRouteCalculated = useCallback(
+    (result: OSRMRouteResult) => {
+      if (!currentItinerary) return;
+      const { updatedItinerary, hasChanges } = applyRouteResultToItinerary(
+        currentItinerary,
+        places,
+        result
+      );
+      if (hasChanges) {
+        onUpdateItinerary(updatedItinerary);
+      }
+    },
+    [currentItinerary, places, onUpdateItinerary]
+  );
 
   const isOverTimeBudget =
     currentItinerary && currentItinerary.totalPlannedMinutes > currentItinerary.availableMinutes;
@@ -308,7 +345,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                         destinationStateId: currentStateRecord.id,
                         availableMinutes: 240,
                         interests: currentStateRecord.culturalThemes,
-                        transportMode: 'walking',
+                        transportMode: getDefaultTransportMode(places, currentStateRecord.id),
                         budgetLevel: 'flexible',
                       });
                       setActiveMode('plan');
@@ -413,7 +450,16 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
       {activeMode === 'plan' && (
         <div className="space-y-8">
           {/* Planner Controls Form */}
-          <PlannerForm states={states} onGenerate={handleGenerateItinerary} />
+          <PlannerForm
+            states={states}
+            places={places}
+            onGenerate={handleGenerateItinerary}
+            initialStateId={
+              selectedStateId !== 'ALL'
+                ? selectedStateId
+                : currentItinerary?.destinationStateId || 'MLK'
+            }
+          />
 
           {/* Time Budget Warning */}
           {isOverTimeBudget && (
@@ -444,13 +490,18 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                 <InteractiveMap
                   places={activePlacesForMap}
                   routeStops={routeStopsForMap}
+                  transportMode={currentItinerary?.transportMode || 'walking'}
                   onSelectPlace={onSelectPlace}
+                  onRouteCalculated={handleRouteCalculated}
                   center={
-                    activePlacesForMap[0]?.latitude
-                      ? [activePlacesForMap[0].latitude, activePlacesForMap[0].longitude!]
+                    activePlacesForMap.find((p) => p.latitude && p.longitude)
+                      ? [
+                          activePlacesForMap.find((p) => p.latitude && p.longitude)!.latitude!,
+                          activePlacesForMap.find((p) => p.latitude && p.longitude)!.longitude!,
+                        ]
                       : [2.1950, 102.2490]
                   }
-                  zoom={15}
+                  zoom={14}
                 />
               </div>
             </div>

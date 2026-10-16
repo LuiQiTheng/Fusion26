@@ -1,31 +1,77 @@
-import React, { useState } from 'react';
-import { Sparkles, Sliders, Footprints, Car, Bus, Bike, Clock, Compass } from 'lucide-react';
-import { StateRecord, TransportMode, BudgetLevel } from '../../types';
+import React, { useState, useEffect } from 'react';
+import { Sparkles, Sliders, Footprints, Car, Bus, Bike, Clock, Compass, AlertCircle } from 'lucide-react';
+import { StateRecord, HeritagePlace, TransportMode, BudgetLevel } from '../../types';
 import { PlannerOptions } from '../../lib/planner';
+import { isCompactDistrict, getDefaultTransportMode } from '../../lib/routing';
 
 interface PlannerFormProps {
   states: StateRecord[];
+  places: HeritagePlace[];
   onGenerate: (options: PlannerOptions) => void;
   isLoading?: boolean;
+  initialStateId?: string;
+  initialTransportMode?: TransportMode;
 }
 
 export const PlannerForm: React.FC<PlannerFormProps> = ({
   states,
+  places,
   onGenerate,
   isLoading = false,
+  initialStateId,
+  initialTransportMode,
 }) => {
   const [modeTab, setModeTab] = useState<'quick' | 'custom'>('quick');
 
-  // Form State
-  const [destinationStateId, setDestinationStateId] = useState('MLK');
+  // Destination State
+  const [destinationStateId, setDestinationStateId] = useState(() => {
+    return initialStateId && initialStateId !== 'ALL' ? initialStateId : 'MLK';
+  });
+
+  // Track whether the user has explicitly selected a transport mode
+  const [userSelectedMode, setUserSelectedMode] = useState<boolean>(false);
+
+  // Initialize transport mode based on geographic spread of physical attractions
+  const [transportMode, setTransportMode] = useState<TransportMode>(() => {
+    if (initialTransportMode) return initialTransportMode;
+    const targetState = initialStateId && initialStateId !== 'ALL' ? initialStateId : 'MLK';
+    return getDefaultTransportMode(places, targetState);
+  });
+
+  // When initialStateId changes from external controls
+  useEffect(() => {
+    if (initialStateId && initialStateId !== 'ALL') {
+      setDestinationStateId(initialStateId);
+      // Only adjust mode if user has NOT explicitly made an active selection
+      if (!userSelectedMode) {
+        setTransportMode(getDefaultTransportMode(places, initialStateId));
+      }
+    }
+  }, [initialStateId, places, userSelectedMode]);
+
+  const handleDestinationStateChange = (newStateId: string) => {
+    setDestinationStateId(newStateId);
+    // Keep user's explicit choice if set; otherwise default based on state's geographic density
+    if (!userSelectedMode) {
+      setTransportMode(getDefaultTransportMode(places, newStateId));
+    }
+  };
+
+  const handleSelectMode = (mode: TransportMode) => {
+    setTransportMode(mode);
+    setUserSelectedMode(true);
+  };
+
   const [availableHours, setAvailableHours] = useState(3.5);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([
     'Living Tradition',
     'Architecture',
     'Colonial',
   ]);
-  const [transportMode, setTransportMode] = useState<TransportMode>('walking');
   const [budgetLevel, setBudgetLevel] = useState<BudgetLevel>('flexible');
+
+  const activeState = states.find((s) => s.id === destinationStateId) || states[0];
+  const isCompact = isCompactDistrict(places, destinationStateId);
 
   const availableInterestOptions = [
     'Living Tradition',
@@ -50,11 +96,18 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
   };
 
   const handleQuickSubmit = () => {
+    const quickMode = userSelectedMode
+      ? transportMode
+      : getDefaultTransportMode(places, activeState ? activeState.id : 'MLK');
+
     onGenerate({
-      destinationStateId: 'MLK',
+      destinationStateId: activeState ? activeState.id : 'MLK',
       availableMinutes: 210, // 3.5 hours
-      interests: ['Living Tradition', 'Architecture', 'Colonial'],
-      transportMode: 'walking',
+      interests:
+        activeState && activeState.culturalThemes.length > 0
+          ? activeState.culturalThemes.slice(0, 3)
+          : ['Living Tradition', 'Architecture', 'Colonial'],
+      transportMode: quickMode,
       budgetLevel: 'flexible',
     });
   };
@@ -121,20 +174,28 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               </div>
               <div className="space-y-1">
                 <h3 className="font-serif font-bold text-base text-[#0A2F25]">
-                  Melaka UNESCO Heritage Starter Trail
+                  {activeState?.name || 'Malaysia'} Heritage Starter Trail
                 </h3>
                 <p className="text-xs text-[#0A2F25]/80 leading-relaxed">
-                  Generates an optimal 3.5-hour curated walking loop connecting Dutch Square, A Famosa, Harmony Street vernacular mosques & temples, and Jonker Walk craftsmen.
+                  {userSelectedMode
+                    ? `Generates an optimal 3.5-hour curated ${transportMode} itinerary connecting top heritage monuments and local traditions in ${activeState?.name || 'the state'}.`
+                    : isCompact
+                    ? `Generates an optimal 3.5-hour curated walking loop connecting top heritage monuments, cultural landmarks, and local traditions in ${activeState?.name || 'the state'}.`
+                    : `Generates an optimal 3.5-hour scenic heritage road route connecting top monuments, cultural landmarks, and regional traditions in ${activeState?.name || 'the state'}.`}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2 text-[11px] font-semibold text-[#0A2F25]">
                   <span className="px-2 py-0.5 rounded-md bg-[#EBF5F0] border border-teal-900/10">
                     ⏱ 3.5 Hours Total
                   </span>
                   <span className="px-2 py-0.5 rounded-md bg-[#EBF5F0] border border-teal-900/10">
-                    🚶 100% Pedestrian Walking
+                    {(userSelectedMode ? transportMode : (isCompact ? 'walking' : 'car')) === 'walking'
+                      ? '🚶 100% Pedestrian Walking'
+                      : (userSelectedMode ? transportMode : (isCompact ? 'walking' : 'car')) === 'car'
+                      ? '🚗 Scenic Heritage Drive'
+                      : '🚌 Transit Cultural Route'}
                   </span>
                   <span className="px-2 py-0.5 rounded-md bg-[#EBF5F0] border border-teal-900/10">
-                    🏛 4 Sourced Monuments
+                    🏛 Curated Sourced Monuments
                   </span>
                 </div>
               </div>
@@ -148,7 +209,9 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
             className="w-full py-3.5 px-6 rounded-2xl bg-[#0A2F25] hover:bg-[#0E3D31] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
             <Sparkles className="w-4 h-4 text-[#E5C05C]" />
-            {isLoading ? 'Synthesizing Itinerary...' : 'Generate Instant Melaka Itinerary'}
+            {isLoading
+              ? 'Synthesizing Itinerary...'
+              : `Generate Instant ${activeState?.name || 'Heritage'} Itinerary`}
           </button>
         </div>
       ) : (
@@ -162,7 +225,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               </label>
               <select
                 value={destinationStateId}
-                onChange={(e) => setDestinationStateId(e.target.value)}
+                onChange={(e) => handleDestinationStateChange(e.target.value)}
                 className="w-full p-3 rounded-xl border border-teal-900/15 text-sm font-medium text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] cursor-pointer"
               >
                 <option value="MLK">Melaka (Primary Showcase)</option>
@@ -239,7 +302,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
-                  onClick={() => setTransportMode('walking')}
+                  onClick={() => handleSelectMode('walking')}
                   className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'walking'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
@@ -250,7 +313,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => setTransportMode('car')}
+                  onClick={() => handleSelectMode('car')}
                   className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'car'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
@@ -261,7 +324,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => setTransportMode('public_transport')}
+                  onClick={() => handleSelectMode('public_transport')}
                   className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'public_transport'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
@@ -272,7 +335,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={() => setTransportMode('mixed')}
+                  onClick={() => handleSelectMode('mixed')}
                   className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
                     transportMode === 'mixed'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
@@ -282,6 +345,32 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                   <Bike className="w-4 h-4 text-[#B88E18]" /> Mixed
                 </button>
               </div>
+
+              {/* Contextual Guidance Notes */}
+              {isCompact && transportMode === 'car' && (
+                <div className="mt-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <p>
+                    <strong>Compact Heritage District: </strong> Sights in {activeState?.name || 'this state'} are clustered within walking distance (&le; 4 km). Driving may encounter one-way streets, pedestrian zones, and limited parking around historic monuments. Walking is recommended.
+                  </p>
+                </div>
+              )}
+
+              {!isCompact && transportMode === 'walking' && (
+                <div className="mt-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <p>
+                    <strong>Dispersed Heritage Sites: </strong> Attractions in {activeState?.name || 'this state'} span wider road distances (&gt; 4 km). Walking between distant locations is not practical; driving or ride-hailing is recommended.
+                  </p>
+                </div>
+              )}
+
+              {transportMode === 'walking' && (
+                <p className="text-[11px] text-[#0A2F25]/60 mt-1.5 flex items-center gap-1">
+                  <Footprints className="w-3.5 h-3.5 text-[#B88E18]" />
+                  Walking times calibrated at a realistic 4.5 km/h pedestrian pace.
+                </p>
+              )}
             </div>
 
             <div>

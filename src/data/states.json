@@ -65,7 +65,10 @@
       "png-khoo-kongsi",
       "food-penang-assam-laksa",
       "food-penang-char-kway-teow",
-      "perf-boria"
+      "perf-boria",
+      "png-fort-cornwallis",
+      "png-peranakan-mansion",
+      "png-cheong-fatt-tze"
     ],
     "imageUrl": "/images/places/png-khoo-kongsi.jpg"
   },
@@ -91,7 +94,8 @@
     "verificationStatus": "verified",
     "placeIds": [
       "kul-sultan-abdul-samad",
-      "perf-bharatanatyam"
+      "perf-bharatanatyam",
+      "kul-railway-station"
     ],
     "imageUrl": "/images/places/kul-sultan-abdul-samad.jpg"
   },
@@ -120,7 +124,8 @@
       "food-johor-telur-pindang",
       "perf-zapin",
       "perf-lion-dance",
-      "fest-johor-chingay"
+      "fest-johor-chingay",
+      "jhr-old-chinese-temple"
     ],
     "imageUrl": "/images/places/jhr-sultan-abu-bakar-mosque.jpg"
   },
@@ -147,7 +152,8 @@
       "kdh-bujang-valley",
       "food-kedah-pekasam",
       "food-kedah-laksa-kedah",
-      "perf-mek-mulung"
+      "perf-mek-mulung",
+      "kdh-masjid-zahir"
     ],
     "imageUrl": "/images/places/kdh-bujang-valley.jpg"
   },
@@ -177,7 +183,8 @@
       "food-kelantan-akok",
       "perf-mak-yong",
       "perf-wayang-kulit-kelantan",
-      "perf-dikir-barat"
+      "perf-dikir-barat",
+      "ktn-bank-kerapu"
     ],
     "imageUrl": "/images/places/ktn-istana-jahar.jpg"
   },
@@ -255,7 +262,8 @@
     "placeIds": [
       "prk-ubudiah-mosque",
       "food-perak-rendang-tok",
-      "food-perak-ipoh-hor-fun"
+      "food-perak-ipoh-hor-fun",
+      "prk-kellies-castle"
     ],
     "imageUrl": "/images/places/prk-ubudiah-mosque.jpg"
   },
@@ -310,7 +318,8 @@
       "food-sabah-hinava",
       "food-sabah-kuih-cincin",
       "perf-sumazau",
-      "fest-kaamatan"
+      "fest-kaamatan",
+      "sbh-atkinson-clock-tower"
     ],
     "imageUrl": "/images/places/sbh-monsopiad-village.jpg"
   },
@@ -344,7 +353,8 @@
       "food-sarawak-manok-pansoh",
       "food-sarawak-kek-lapis",
       "perf-ngajat",
-      "fest-gawai-dayak"
+      "fest-gawai-dayak",
+      "swk-fort-margherita"
     ],
     "imageUrl": "/images/places/swk-cultural-village.jpg"
   },
@@ -371,7 +381,9 @@
       "sgr-batu-caves",
       "food-selangor-sate-kajang",
       "food-selangor-nasi-ambeng",
-      "fest-thaipusam"
+      "fest-thaipusam",
+      "sgr-masjid-sultan-sulaiman",
+      "sgr-gedung-raja-abdullah"
     ],
     "imageUrl": "/images/places/sgr-batu-caves.jpg"
   },

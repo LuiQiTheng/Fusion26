@@ -3132,8 +3132,6 @@
     ],
     "shortDescription": "The premier month-long harvest festival celebrated throughout May by Sabah’s Kadazandusun and Murut communities to offer gratitude to Kinoingan and Bambaazon (the rice spirit) for the year’s harvest, culminating in grand ceremonies at the Hongkod Koisaan.",
     "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Highlights include spiritual blessing ceremonies by high priestesses (Bobohizan), soul-recalling rituals (Magavau), traditional sports (Mipulos), and the Unduk Ngadau pageant commemorating the sacrificial maiden Huminodun.",
-    "latitude": 5.9185,
-    "longitude": 116.0967,
     "visitDurationMinutes": 180,
     "estimatedCostMYR": 0,
     "openingHoursText": "Month-long in May, concluding in the State-Level Festival on 30 & 31 May",
@@ -3198,8 +3196,6 @@
     ],
     "shortDescription": "Celebrated annually on 1st and 2nd June by Sarawak’s Dayak peoples—including Iban, Bidayuh, and Orang Ulu—marking the successful conclusion of the paddy harvesting season and the auspicious dawn of the new agricultural year.",
     "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Marked by ceremonial offerings (miring) to ancestral spirits (Petara), the ceremonial cutting of the ranyai tree, sharing of homemade rice wine (tuak), and spirited Ngajat dances uniting longhouse communities.",
-    "latitude": 1.7503,
-    "longitude": 110.3168,
     "visitDurationMinutes": 180,
     "estimatedCostMYR": 0,
     "openingHoursText": "Annual official dates: 1 & 2 June (longhouse celebrations continue throughout the month)",
@@ -3260,8 +3256,6 @@
     ],
     "shortDescription": "A five-day annual religious and cultural street parade held on the 21st day of the First Lunar Month, uniting Johor Bahru’s five Chinese dialect groups (Teochew, Hokkien, Cantonese, Hakka, Fuzhou) in a vibrant display of dragon dances, stilt-walkers, and deity palanquins.",
     "culturalContext": "Inscribed in 2012 as a National Intangible Cultural Heritage by Jabatan Warisan Negara. Organised by Johor Bahru Old Chinese Temple, it commemorates over 150 years of communal peace fostered by Sultan Abu Bakar and Tan Hiok Nee.",
-    "latitude": 1.4589,
-    "longitude": 103.7645,
     "visitDurationMinutes": 120,
     "estimatedCostMYR": 0,
     "openingHoursText": "Annual: 20th–22nd days of the 1st Lunar Month (climax on the 21st evening parade)",
@@ -3319,8 +3313,6 @@
     ],
     "shortDescription": "A sacred Hindu religious pilgrimage observed during the Tamil month of Thai, where over a million devotees and pilgrims undertake vows of thanksgiving and penance honouring Lord Murugan, carrying milk pots and ornate kavadis up the 272 colorful steps to the Temple Cave.",
     "culturalContext": "Inscribed as a National Heritage by Jabatan Warisan Negara. Observed with profound spiritual discipline since 1891, devotees observe strict fasting before bearing decorated peacock kavadis and milk offerings in gratitude for answered prayers and divine grace.",
-    "latitude": 3.2379,
-    "longitude": 101.684,
     "visitDurationMinutes": 120,
     "estimatedCostMYR": 0,
     "openingHoursText": "Annual during the full moon of the Tamil month of Thai (January/February)",
@@ -3367,6 +3359,547 @@
       "https://batucaves.org",
       "https://ihauntu.com/why-is-thaipusam-celebrated-in-batu-caves/",
       "https://cilisos.my/the-multiracial-history-of-batu-caves-that-your-sejarah-lessons-never-taught-you/"
+    ]
+  },
+  {
+    "id": "png-fort-cornwallis",
+    "name": "Fort Cornwallis (Kota Cornwallis)",
+    "malayName": "Kota Cornwallis",
+    "stateId": "PNG",
+    "locality": "George Town, Penang",
+    "categories": [
+      "Colonial",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "Colonial Architecture",
+      "Straits Settlements",
+      "Maritime Defense"
+    ],
+    "shortDescription": "Constructed by Captain Francis Light in 1786, Fort Cornwallis is the largest standing British fort in Malaysia, featuring historic bastions and the Seri Rambai cannon.",
+    "culturalContext": "Guarding the northeastern cape of Penang Island, the star-shaped fort represents the founding of the British Straits Settlement of Prince of Wales Island. Gazetted as a National Heritage Monument.",
+    "latitude": 5.4206,
+    "longitude": 100.344,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Daily: 9:00 AM - 7:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Level paved walkways; historic ramparts require staircase access.",
+    "culturalCareNotes": "Please refrain from climbing cannon barrels or leaning on historic perimeter embrasures.",
+    "imageUrl": "/images/places/png-khoo-kongsi.jpg",
+    "imageAlt": "The stone ramparts and historic lighthouse of Fort Cornwallis",
+    "imageCredit": "Jabatan Warisan Negara / GTWHI",
+    "sources": [
+      {
+        "title": "Fort Cornwallis Conservation Management Plan",
+        "publisher": "George Town World Heritage Incorporated (GTWHI)",
+        "url": "https://gtwhi.com.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Fort Cornwallis (Kota Cornwallis)",
+    "source_urls": [
+      "https://gtwhi.com.my"
+    ]
+  },
+  {
+    "id": "png-peranakan-mansion",
+    "name": "Pinang Peranakan Mansion",
+    "malayName": "Rumah Agam Peranakan Pulau Pinang",
+    "stateId": "PNG",
+    "locality": "Church Street, George Town, Penang",
+    "categories": [
+      "Museum",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "Peranakan Heritage",
+      "Baba-Nyonya Culture",
+      "Straits Eclectic Architecture"
+    ],
+    "shortDescription": "A nineteenth-century courtyard mansion showcasing over 1,000 Straits Chinese antiques, gold-leaf timber carvings, and English ceramic floor tiles.",
+    "culturalContext": "Illustrating the opulence of Baba-Nyonya merchants during the tin boom of colonial George Town, synthesizing southern Chinese courtyards with European ironwork.",
+    "latitude": 5.4181,
+    "longitude": 100.3414,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Daily: 9:30 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ground floor courtyard accessible; upper residential quarters reached by timber staircases.",
+    "culturalCareNotes": "Photography permitted without tripods; please do not touch delicate antique porcelain or mother-of-pearl furniture.",
+    "imageUrl": "/images/places/png-khoo-kongsi.jpg",
+    "imageAlt": "The emerald green facade and courtyard of Pinang Peranakan Mansion",
+    "imageCredit": "Pinang Peranakan Mansion Archives",
+    "sources": [
+      {
+        "title": "Pinang Peranakan Mansion Architectural Register",
+        "publisher": "George Town World Heritage Incorporated (GTWHI)",
+        "url": "https://gtwhi.com.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Pinang Peranakan Mansion",
+    "source_urls": [
+      "https://gtwhi.com.my"
+    ]
+  },
+  {
+    "id": "png-cheong-fatt-tze",
+    "name": "Cheong Fatt Tze Mansion (The Blue Mansion)",
+    "malayName": "Rumah Agam Cheong Fatt Tze",
+    "stateId": "PNG",
+    "locality": "Leith Street, George Town, Penang",
+    "categories": [
+      "Historic Monument",
+      "Architecture"
+    ],
+    "culturalThemes": [
+      "Feng Shui Architecture",
+      "Straits Settlements",
+      "Chinese Heritage"
+    ],
+    "shortDescription": "Built in the 1890s by industrialist Cheong Fatt Tze, this indigo-blue mansion features 38 rooms, 5 granite courtyards, and Art Nouveau stained glass.",
+    "culturalContext": "Winner of the 2000 UNESCO Asia-Pacific Heritage Conservation Award, exemplifying master craftsmanship adhering to classical Suzhounese courtyard principles.",
+    "latitude": 5.4214,
+    "longitude": 100.3347,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 25,
+    "openingHoursText": "Guided tours: 11:00 AM & 2:00 PM daily",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Courtyard level fully wheelchair accessible.",
+    "culturalCareNotes": "Visits operate on scheduled guided heritage tours to safeguard quiet residential quarters.",
+    "imageUrl": "/images/places/png-khoo-kongsi.jpg",
+    "imageAlt": "The iconic indigo blue exterior of Cheong Fatt Tze Mansion",
+    "imageCredit": "Cheong Fatt Tze Heritage Trust",
+    "sources": [
+      {
+        "title": "UNESCO Asia-Pacific Awards for Cultural Heritage Conservation: Cheong Fatt Tze Mansion",
+        "publisher": "UNESCO Bangkok",
+        "url": "https://bangkok.unesco.org"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "unesco_inscribed",
+    "location_type": "verified_venue",
+    "location_name": "Cheong Fatt Tze Mansion",
+    "source_urls": [
+      "https://bangkok.unesco.org"
+    ]
+  },
+  {
+    "id": "sgr-masjid-sultan-sulaiman",
+    "name": "Sultan Sulaiman Royal Mosque",
+    "malayName": "Masjid Diraja Sultan Sulaiman",
+    "stateId": "SGR",
+    "locality": "Klang, Selangor",
+    "categories": [
+      "Religious",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "Selangor Sultanate",
+      "Art Deco Islamic Architecture",
+      "Royal Heritage"
+    ],
+    "shortDescription": "Inaugurated in 1932 by Sultan Alaeddin Sulaiman Shah, this royal mosque features a unique synthesis of Art Deco, Neoclassical, and Islamic dome architecture.",
+    "culturalContext": "Served as the royal state mosque of Selangor for over four decades, officially gazetted as a National Heritage Monument under Act 645.",
+    "latitude": 3.0345,
+    "longitude": 101.4503,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM (outside prayer times)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Surrounding compound ramped and wheelchair accessible.",
+    "culturalCareNotes": "Modest attire required; robes provided at entrance. Remove shoes before entering prayer hall.",
+    "imageUrl": "/images/places/sgr-batu-caves.jpg",
+    "imageAlt": "The Art Deco octagonal minaret and domes of Sultan Sulaiman Royal Mosque",
+    "imageCredit": "Jabatan Warisan Negara / Tourism Selangor",
+    "sources": [
+      {
+        "title": "Register of Historic Royal Mosques in Selangor",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Sultan Sulaiman Royal Mosque",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
+  },
+  {
+    "id": "sgr-gedung-raja-abdullah",
+    "name": "Gedung Raja Abdullah (Klang Heritage Centre)",
+    "malayName": "Gedung Raja Abdullah",
+    "stateId": "SGR",
+    "locality": "Jalan Raja Ringgit, Klang, Selangor",
+    "categories": [
+      "Museum",
+      "Colonial"
+    ],
+    "culturalThemes": [
+      "Selangor Civil War",
+      "Tin Mining Heritage",
+      "Royal Governance"
+    ],
+    "shortDescription": "Constructed in 1857 as a fortified tin warehouse by Raja Abdullah, this timber and brick structure is the oldest surviving modern civic building in Klang.",
+    "culturalContext": "Pivotal military stronghold during the historic Klang War (1867-1874) and later served as Selangor’s first governmental treasury and police headquarters.",
+    "latitude": 3.0433,
+    "longitude": 101.4485,
+    "visitDurationMinutes": 40,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Tuesday - Sunday: 9:30 AM - 4:30 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Paved street access; ground floor accessible.",
+    "culturalCareNotes": "Please maintain quiet voices inside historic timber gallery floors.",
+    "imageUrl": "/images/places/sgr-batu-caves.jpg",
+    "imageAlt": "The historic colonial-era timber warehouse of Gedung Raja Abdullah",
+    "imageCredit": "Lembaga Muzium Selangor",
+    "sources": [
+      {
+        "title": "Gedung Raja Abdullah Monument Conservation Dossier",
+        "publisher": "Jabatan Warisan Negara",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Gedung Raja Abdullah",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
+  },
+  {
+    "id": "kul-railway-station",
+    "name": "Old Kuala Lumpur Railway Station",
+    "malayName": "Stesen Keretapi Kuala Lumpur",
+    "stateId": "KUL",
+    "locality": "Jalan Sultan Hishamuddin, Kuala Lumpur",
+    "categories": [
+      "Colonial",
+      "Architecture",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "Moorish-Mughal Architecture",
+      "Colonial Infrastructure",
+      "Civic History"
+    ],
+    "shortDescription": "Completed in 1910 and designed by A.B. Hubback in Anglo-Asian Mughal-Saracenic revival style, featuring minarets, domes, and keyhole arches.",
+    "culturalContext": "The historic railway hub of the Federated Malay States, connecting the tin fields to the ports and designated as an iconic National Heritage site.",
+    "latitude": 3.1397,
+    "longitude": 101.6936,
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open 24 hours (operational train station and heritage concourse)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Elevators and tactile paving installed on main platforms.",
+    "culturalCareNotes": "Active passenger station; respect commuter flows while photographing architectural arches.",
+    "imageUrl": "/images/places/kul-sultan-abdul-samad.jpg",
+    "imageAlt": "The white Mughal domes and arches of the Old Kuala Lumpur Railway Station",
+    "imageCredit": "Arkib Negara Malaysia",
+    "sources": [
+      {
+        "title": "Architectural Heritage of Malayan Railway Infrastructure",
+        "publisher": "Arkib Negara Malaysia",
+        "url": "http://www.arkib.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Old Kuala Lumpur Railway Station",
+    "source_urls": [
+      "http://www.arkib.gov.my"
+    ]
+  },
+  {
+    "id": "prk-kellies-castle",
+    "name": "Kellie's Castle",
+    "malayName": "Istana Kellie",
+    "stateId": "PRK",
+    "locality": "Batu Gajah, Perak",
+    "categories": [
+      "Colonial",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "Colonial Plantations",
+      "Moorish-Gothic Architecture",
+      "Perak History"
+    ],
+    "shortDescription": "An unfinished Scottish-Moorish mansion commissioned in 1915 by planter William Kellie Smith, showcasing Greco-Roman colonnades and Moorish horseshoe arches.",
+    "culturalContext": "A landmark of early twentieth-century Malayan rubber boom romanticism, crafted by imported Tamil artisans and preserved as a state heritage park.",
+    "latitude": 4.4751,
+    "longitude": 101.0874,
+    "visitDurationMinutes": 60,
+    "estimatedCostMYR": 10,
+    "openingHoursText": "Daily: 9:00 AM - 5:00 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ground floor and perimeter park accessible; tower levels require steep spiral stairways.",
+    "culturalCareNotes": "Do not climb unguarded rooftop ledges or historic parapets.",
+    "imageUrl": "/images/places/prk-ubudiah-mosque.jpg",
+    "imageAlt": "The red brick towers and arches of Kellies Castle in Batu Gajah",
+    "imageCredit": "Tourism Perak",
+    "sources": [
+      {
+        "title": "Kellie's Castle Historical Preservation Report",
+        "publisher": "Tourism Perak & Jabatan Warisan Negara",
+        "url": "https://tourismperakmalaysia.com"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Kellie's Castle",
+    "source_urls": [
+      "https://tourismperakmalaysia.com"
+    ]
+  },
+  {
+    "id": "jhr-old-chinese-temple",
+    "name": "Johor Bahru Old Chinese Temple",
+    "malayName": "Tokong Kuno Johor Bahru",
+    "stateId": "JHR",
+    "locality": "Jalan Trus, Johor Bahru, Johor",
+    "categories": [
+      "Religious",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "Five Dialect Unity",
+      "Chinese Heritage",
+      "Johor Bahru History"
+    ],
+    "shortDescription": "Built in 1870 by Tan Hiok Nee, this sacred temple unifies Johor Bahru’s five Chinese dialect communities under the patronage of Sultan Abu Bakar.",
+    "culturalContext": "The spiritual anchor of the annual Johor Bahru Chingay Procession, recognized as a National Intangible Heritage tradition of unity and multicultural harmony.",
+    "latitude": 1.4608,
+    "longitude": 103.7633,
+    "visitDurationMinutes": 40,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 7:30 AM - 5:30 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Street level entrance with slight door sill step into main courtyard.",
+    "culturalCareNotes": "Remove hats before praying; speak in hushed tones during active burning of joss sticks.",
+    "imageUrl": "/images/places/jhr-sultan-abu-bakar-mosque.jpg",
+    "imageAlt": "The ornate roof ridges and courtyard gate of Johor Bahru Old Chinese Temple",
+    "imageCredit": "Persekutuan Tiong-Hua Johor Bahru",
+    "sources": [
+      {
+        "title": "Sejarah Tokong Kuno Johor Bahru dan Tradisi Chingay",
+        "publisher": "Persekutuan Tiong-Hua Johor Bahru",
+        "url": "https://jb-tionghua.org.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Johor Bahru Old Chinese Temple",
+    "source_urls": [
+      "https://jb-tionghua.org.my"
+    ]
+  },
+  {
+    "id": "kdh-masjid-zahir",
+    "name": "Zahir Mosque (Masjid Zahir)",
+    "malayName": "Masjid Zahir",
+    "stateId": "KDH",
+    "locality": "Alor Setar, Kedah",
+    "categories": [
+      "Religious",
+      "Architecture"
+    ],
+    "culturalThemes": [
+      "Moorish-Islamic Architecture",
+      "Kedah Sultanate",
+      "Royal Heritage"
+    ],
+    "shortDescription": "Inaugurated in 1912 on the grounds of historic defenders of Kedah, Zahir Mosque is celebrated as one of the grandest black-domed Moorish mosques in the world.",
+    "culturalContext": "Designed by Tunku Mahmud with five black domes symbolizing the Five Pillars of Islam, anchoring the royal plaza of Alor Setar.",
+    "latitude": 6.1203,
+    "longitude": 100.3663,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Daily: 9:00 AM - 6:00 PM (outside prayer times)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ramp access available at northern portico.",
+    "culturalCareNotes": "Modest dress required; silence mobile devices before entering prayer sanctuary.",
+    "imageUrl": "/images/places/kdh-bujang-valley.jpg",
+    "imageAlt": "The five black domes and white arches of Masjid Zahir in Alor Setar",
+    "imageCredit": "Lembaga Muzium Negeri Kedah",
+    "sources": [
+      {
+        "title": "Sejarah Masjid Zahir Alor Setar",
+        "publisher": "Lembaga Muzium Negeri Kedah",
+        "url": "https://www.heritage.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Zahir Mosque (Masjid Zahir)",
+    "source_urls": [
+      "https://www.heritage.gov.my"
+    ]
+  },
+  {
+    "id": "swk-fort-margherita",
+    "name": "Fort Margherita & Brooke Gallery",
+    "malayName": "Kubu Margherita",
+    "stateId": "SWK",
+    "locality": "Petra Jaya, Kuching, Sarawak",
+    "categories": [
+      "Colonial",
+      "Museum"
+    ],
+    "culturalThemes": [
+      "White Rajahs",
+      "Brooke Era",
+      "Sarawak River Heritage"
+    ],
+    "shortDescription": "Constructed in 1879 by Charles Brooke and named after Ranee Margaret, this castle-like English fortress guards the Sarawak River in Kuching.",
+    "culturalContext": "Designed in the style of an English renaissance castle, now housing the Brooke Gallery documenting the unique sovereign dynasty of the White Rajahs.",
+    "latitude": 1.5614,
+    "longitude": 110.3494,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 20,
+    "openingHoursText": "Daily: 9:00 AM - 4:45 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ground floor battery accessible; spiral watchtower steps are steep.",
+    "culturalCareNotes": "Please preserve archival artifacts and original nineteenth-century cannon embrasures.",
+    "imageUrl": "/images/places/swk-cultural-village.jpg",
+    "imageAlt": "The white crenellated walls and watchtower of Fort Margherita over the Sarawak River",
+    "imageCredit": "Sarawak Museum Department & Brooke Trust",
+    "sources": [
+      {
+        "title": "Fort Margherita Conservation and Historical Archives",
+        "publisher": "Sarawak Museum Department",
+        "url": "https://museum.sarawak.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Fort Margherita & Brooke Gallery",
+    "source_urls": [
+      "https://museum.sarawak.gov.my"
+    ]
+  },
+  {
+    "id": "sbh-atkinson-clock-tower",
+    "name": "Atkinson Clock Tower (Menara Jam Atkinson)",
+    "malayName": "Menara Jam Atkinson",
+    "stateId": "SBH",
+    "locality": "Signal Hill, Kota Kinabalu, Sabah",
+    "categories": [
+      "Colonial",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "North Borneo History",
+      "Jesselton Era",
+      "Colonial Timber Architecture"
+    ],
+    "shortDescription": "Erected in 1905 in memory of Francis George Atkinson, this double-story all-timber clock tower is the oldest standing structure in Kota Kinabalu.",
+    "culturalContext": "Survived the heavy bombardment of Jesselton during World War II, serving as an irreplaceable maritime navigation beacon and city landmark.",
+    "latitude": 5.9814,
+    "longitude": 116.0772,
+    "visitDurationMinutes": 30,
+    "estimatedCostMYR": 0,
+    "openingHoursText": "Open 24 hours (Outdoor historic monument)",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Surrounding observation deck paved; slight hill incline along Signal Hill road.",
+    "culturalCareNotes": "Do not climb wooden structural framing or carve into the historic mirabau hardwood panels.",
+    "imageUrl": "/images/places/sbh-monsopiad-village.jpg",
+    "imageAlt": "The white timber tower and clock face of the Atkinson Clock Tower",
+    "imageCredit": "Jabatan Muzium Sabah",
+    "sources": [
+      {
+        "title": "Atkinson Clock Tower Historic Monument Dossier",
+        "publisher": "Jabatan Muzium Sabah",
+        "url": "https://museum.sabah.gov.my"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Atkinson Clock Tower",
+    "source_urls": [
+      "https://museum.sabah.gov.my"
+    ]
+  },
+  {
+    "id": "ktn-bank-kerapu",
+    "name": "Bank Kerapu (World War II Memorial Museum)",
+    "malayName": "Muzium Perang Bank Kerapu",
+    "stateId": "KTN",
+    "locality": "Jalan Hospital, Kota Bharu, Kelantan",
+    "categories": [
+      "Museum",
+      "Historic Monument"
+    ],
+    "culturalThemes": [
+      "World War II History",
+      "Colonial Banking Architecture",
+      "Kelantan Heritage"
+    ],
+    "shortDescription": "Built in 1912 as Kelantan’s first commercial bank, it was utilized by the Kempeitai in 1941 and now exhibits wartime photographs and historical artifacts.",
+    "culturalContext": "Marked the historic landing of Japanese forces at Kota Bharu on 8 December 1941, launching the Pacific War in Southeast Asia.",
+    "latitude": 6.132,
+    "longitude": 102.2356,
+    "visitDurationMinutes": 45,
+    "estimatedCostMYR": 4,
+    "openingHoursText": "Saturday - Thursday: 8:30 AM - 4:45 PM",
+    "openingHoursVerified": true,
+    "accessibilityNotes": "Ground floor gallery accessible; outdoor military vehicle park fully accessible.",
+    "culturalCareNotes": "Please maintain a quiet, reflective atmosphere in historical memorial galleries.",
+    "imageUrl": "/images/places/ktn-istana-jahar.jpg",
+    "imageAlt": "The historic colonial masonry facade of Bank Kerapu in Kota Bharu",
+    "imageCredit": "Perbadanan Muzium Negeri Kelantan",
+    "sources": [
+      {
+        "title": "Bank Kerapu WWII Memorial Archival Records",
+        "publisher": "Perbadanan Muzium Negeri Kelantan",
+        "url": "https://perdana.attanahotels.com/explore/uncovering-a-majestic-heritage-gem/"
+      }
+    ],
+    "verificationStatus": "verified",
+    "lastReviewedAt": "2026-10-16",
+    "type": "monument",
+    "heritage_status": "national_heritage_listed",
+    "location_type": "verified_venue",
+    "location_name": "Bank Kerapu (World War II Memorial Museum)",
+    "source_urls": [
+      "https://perdana.attanahotels.com/explore/uncovering-a-majestic-heritage-gem/"
     ]
   }
 ]
