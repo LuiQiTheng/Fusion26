@@ -41,23 +41,23 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     verifiedOnly;
 
   return (
-    <div className="bg-[#0A1F1C]/90 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-[#D4AF37]/25 shadow-lg space-y-4">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-teal-900/10 shadow-md shadow-teal-900/5 space-y-4">
       {/* Top search & state selection */}
       <div className="flex flex-col sm:flex-row gap-3">
         {/* Search bar */}
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-[#D4AF37] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#B88E18] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search heritage monuments, temples, mosques, crafts..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#D4AF37]/30 text-sm text-[#F5F5F0] bg-[#04100E] focus:outline-hidden focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition-all placeholder:text-[#F5F5F0]/40"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-teal-900/15 text-sm text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] focus:ring-2 focus:ring-[#C5A028]/20 transition-all placeholder:text-[#0A2F25]/45"
           />
           {searchTerm && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#F5F5F0]/50 hover:text-[#F5F5F0] cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#0A2F25]/50 hover:text-[#0A2F25] cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -69,7 +69,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <select
             value={selectedStateId}
             onChange={(e) => onStateChange(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF37]/30 text-sm font-medium text-[#F5F5F0] bg-[#04100E] focus:outline-hidden focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 cursor-pointer"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-teal-900/15 text-sm font-medium text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] focus:ring-2 focus:ring-[#C5A028]/20 cursor-pointer"
           >
             <option value="ALL">All States & Territories (16)</option>
             <optgroup label="Showcase Destination">
@@ -107,14 +107,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       </div>
 
       {/* Category chips and verification toggle */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2 border-t border-[#D4AF37]/15">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2 border-t border-teal-900/10">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
           <button
             onClick={() => onCategoryChange('ALL')}
             className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
               selectedCategory === 'ALL'
-                ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
-                : 'bg-[#04100E] text-[#F5F5F0]/80 hover:bg-[#0E2925] hover:text-[#F5F5F0] border border-[#D4AF37]/20'
+                ? 'bg-[#0A2F25] text-white shadow-xs'
+                : 'bg-white text-[#0A2F25]/80 hover:bg-[#EBF5F0] hover:text-[#0A2F25] border border-teal-900/10'
             }`}
           >
             All Themes
@@ -125,8 +125,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               onClick={() => onCategoryChange(cat)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-[#D4AF37] text-[#04100E] shadow-xs font-semibold'
-                  : 'bg-[#04100E] text-[#F5F5F0]/80 hover:bg-[#0E2925] hover:text-[#F5F5F0] border border-[#D4AF37]/20'
+                  ? 'bg-[#0A2F25] text-white shadow-xs font-semibold'
+                  : 'bg-white text-[#0A2F25]/80 hover:bg-[#EBF5F0] hover:text-[#0A2F25] border border-teal-900/10'
               }`}
             >
               {cat}
@@ -136,41 +136,41 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
         {/* Verification Check, Results count & View switcher */}
         <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 text-xs shrink-0">
-          <label className="flex items-center gap-2 cursor-pointer font-medium text-[#F5F5F0]/85 select-none">
+          <label className="flex items-center gap-2 cursor-pointer font-medium text-[#0A2F25]/85 select-none">
             <input
               type="checkbox"
               checked={verifiedOnly}
               onChange={(e) => onVerifiedOnlyChange(e.target.checked)}
-              className="rounded text-[#D4AF37] focus:ring-[#D4AF37] w-4 h-4 bg-[#04100E] border-[#D4AF37]/40"
+              className="rounded text-[#0A2F25] focus:ring-[#C5A028] w-4 h-4 bg-white border-teal-900/20"
             />
-            <span className="flex items-center gap-1 text-[#F5F5F0]/90">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#00F0FF]" />
+            <span className="flex items-center gap-1 text-[#0A2F25]/90">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#087E83]" />
               Verified Sources Only
             </span>
           </label>
 
-          <span className="text-[#F5F5F0]/65 font-medium">
+          <span className="text-[#0A2F25]/65 font-medium">
             {totalResults} {totalResults === 1 ? 'place' : 'places'}
           </span>
 
           {hasActiveFilters && (
             <button
               onClick={onResetFilters}
-              className="text-[#E5C05C] hover:text-white hover:underline font-semibold cursor-pointer"
+              className="text-[#087E83] hover:text-[#0A2F25] hover:underline font-semibold cursor-pointer"
             >
               Reset
             </button>
           )}
 
           {viewMode && onViewModeChange && (
-            <div className="flex items-center bg-[#04100E] p-0.5 rounded-xl border border-[#D4AF37]/30 shrink-0">
+            <div className="flex items-center bg-white p-0.5 rounded-xl border border-teal-900/10 shrink-0">
               <button
                 type="button"
                 onClick={() => onViewModeChange('grid')}
                 className={`px-2 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all cursor-pointer ${
                   viewMode === 'grid'
-                    ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
-                    : 'text-[#F5F5F0]/60 hover:text-[#F5F5F0]'
+                    ? 'bg-[#0A2F25] text-white shadow-xs'
+                    : 'text-[#0A2F25]/60 hover:text-[#0A2F25]'
                 }`}
                 title="Grid View"
               >
@@ -182,8 +182,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 onClick={() => onViewModeChange('map')}
                 className={`px-2 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all cursor-pointer ${
                   viewMode === 'map'
-                    ? 'bg-[#D4AF37] text-[#04100E] shadow-xs'
-                    : 'text-[#F5F5F0]/60 hover:text-[#F5F5F0]'
+                    ? 'bg-[#0A2F25] text-white shadow-xs'
+                    : 'text-[#0A2F25]/60 hover:text-[#0A2F25]'
                 }`}
                 title="Map View"
               >

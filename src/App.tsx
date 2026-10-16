@@ -173,7 +173,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-clip bg-[#04100E] bg-gradient-to-b from-[#0A1F1C] via-[#04100E] to-[#020706] text-[#F5F5F0] selection:bg-[#D4AF37]/30 selection:text-[#FFF5D0]">
+    <div className="min-h-screen flex flex-col overflow-x-clip bg-[#F4F9F6] bg-gradient-to-b from-[#EBF5F0] via-[#F4F9F6] to-[#E8F3EE] text-[#0A2F25] selection:bg-[#C5A028]/25 selection:text-[#0A2F25]">
       {/* Navbar: 4 Clean Tabs */}
       <Navbar
         currentTab={currentTab}
@@ -350,20 +350,20 @@ export const App: React.FC = () => {
 
       {/* Responsible Design Canvas Modal (For Judges / Deliverable 3) */}
       {isEthicsModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
-            <div className="bg-slate-900 text-white p-5 flex items-center justify-between shrink-0">
-              <h3 className="font-serif font-bold text-lg text-white">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-teal-900/15">
+            <div className="bg-gradient-to-r from-[#EBF5F0] via-white to-[#E8F3EE] border-b border-teal-900/10 text-[#0A2F25] p-5 flex items-center justify-between shrink-0">
+              <h3 className="font-serif font-bold text-lg text-[#0A2F25]">
                 Responsible Design Canvas & Ethics (Deliverable 3)
               </h3>
               <button
                 onClick={() => setIsEthicsModalOpen(false)}
-                className="p-1.5 rounded-lg bg-white/10 text-white hover:bg-white/20"
+                className="p-1.5 rounded-lg bg-white text-[#0A2F25]/70 hover:text-[#0A2F25] border border-teal-900/15 hover:bg-[#EBF5F0] transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="p-6 overflow-y-auto">
+            <div className="p-6 overflow-y-auto bg-[#F4F9F6]">
               <AboutDataPage />
             </div>
           </div>

@@ -75,8 +75,8 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
   const visuals = getTierVisuals();
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="relative bg-[#0A1F1C] rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-[#D4AF37]/35 text-center animate-in zoom-in-95 duration-300 text-[#F5F5F0]">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
+      <div className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-teal-900/15 text-center animate-in zoom-in-95 duration-300 text-[#0A2F25]">
         {/* Glow ambient circle */}
         <div className={`absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none ${visuals.glowColor}`} />
 
@@ -114,14 +114,14 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-5 bg-[#0A1F1C]">
-          <div className="p-4 rounded-2xl bg-[#04100E] border border-[#D4AF37]/25 text-xs text-[#F5F5F0]/80 leading-relaxed text-left space-y-2">
-            <div className="flex items-center gap-2 font-bold text-[#E5C05C]">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="p-6 space-y-5 bg-white">
+          <div className="p-4 rounded-2xl bg-[#EBF5F0] border border-teal-900/15 text-xs text-[#0A2F25]/80 leading-relaxed text-left space-y-2">
+            <div className="flex items-center gap-2 font-bold text-[#B88E18]">
+              <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
               <span>Cultural Milestone Certified</span>
             </div>
-            <p className="text-[#F5F5F0]/85">{badge.description}</p>
-            <p className="text-[11px] text-[#E5C05C]/90 italic">
+            <p className="text-[#0A2F25]/85">{badge.description}</p>
+            <p className="text-[11px] text-[#B88E18] italic">
               "Your photographic proof and field engagement contribute to preserving living Malaysian cultural memories for future generations."
             </p>
           </div>
@@ -130,7 +130,7 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
           <div className="space-y-2">
             <button
               onClick={onClose}
-              className="w-full py-3.5 px-5 rounded-2xl bg-[#D4AF37] hover:bg-[#E5C05C] text-[#04100E] font-bold text-sm shadow-lg shadow-[#D4AF37]/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3.5 px-5 rounded-2xl bg-[#C5A028] hover:bg-[#B88E18] text-white font-bold text-sm shadow-md shadow-[#C5A028]/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Awesome! Keep Exploring</span>
               <ArrowRight className="w-4 h-4" />

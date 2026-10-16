@@ -41,42 +41,42 @@ export const MelakaPage: React.FC<MelakaPageProps> = ({
   return (
     <div className="space-y-10">
       {/* Melaka UNESCO Showcase Header */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-[#04100E] via-[#0A1F1C] to-[#0E2925] text-[#F5F5F0] p-8 sm:p-12 overflow-hidden shadow-xl border border-[#D4AF37]/35">
+      <div className="relative rounded-3xl bg-gradient-to-r from-[#EBF5F0] via-white to-[#E8F3EE] text-[#0A2F25] p-8 sm:p-12 overflow-hidden shadow-sm border border-teal-900/10">
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0E2925] border border-[#D4AF37]/40 text-[#E5C05C] text-xs font-semibold backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#00F0FF]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF5F0] border border-teal-900/15 text-[#B88E18] text-xs font-semibold backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#087E83]" />
             <span>FUSION 2026 Primary Demonstration Showcase</span>
           </div>
 
-          <h1 className="font-serif font-extrabold text-3xl sm:text-5xl text-[#F5F5F0] tracking-tight">
+          <h1 className="font-serif font-extrabold text-3xl sm:text-5xl text-[#0A2F25] tracking-tight">
             Melaka: Historic City of the Straits
           </h1>
 
-          <p className="text-sm sm:text-base text-[#F5F5F0]/80 leading-relaxed">
-            Co-inscribed as a <strong className="text-[#E5C05C]">UNESCO World Heritage Site</strong> in 2008. Melaka presents 500 years of trading history where Malay, Chinese, Indian, Portuguese, Dutch, and British civilizations created a unique architectural and intangible living synthesis.
+          <p className="text-sm sm:text-base text-[#0A2F25]/80 leading-relaxed">
+            Co-inscribed as a <strong className="text-[#B88E18]">UNESCO World Heritage Site</strong> in 2008. Melaka presents 500 years of trading history where Malay, Chinese, Indian, Portuguese, Dutch, and British civilizations created a unique architectural and intangible living synthesis.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-[#E5C05C] font-medium">
+          <div className="flex flex-wrap items-center gap-4 pt-2 text-xs text-[#B88E18] font-medium">
             <span className="flex items-center gap-1">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> 9 Verified Monuments
+              <ShieldCheck className="w-4 h-4 text-emerald-700" /> 9 Verified Monuments
             </span>
             <span className="flex items-center gap-1">
-              <MapPin className="w-4 h-4 text-[#D4AF37]" /> Compact Walkable Core
+              <MapPin className="w-4 h-4 text-[#C5A028]" /> Compact Walkable Core
             </span>
-            <span className="text-[#F5F5F0]/70">Jalan Tukang Emas Multi-Faith Coexistence</span>
+            <span className="text-[#0A2F25]/70">Jalan Tukang Emas Multi-Faith Coexistence</span>
           </div>
 
           <div className="pt-4 flex flex-wrap gap-3">
             <button
               onClick={() => onNavigate('explore')}
-              className="px-5 py-2.5 rounded-xl bg-[#D4AF37] hover:bg-[#E5C05C] text-[#04100E] font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-[#C5A028] hover:bg-[#B88E18] text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Calendar className="w-4 h-4" />
               Generate Melaka Itinerary
             </button>
             <button
               onClick={() => onNavigate('missions')}
-              className="px-5 py-2.5 rounded-xl bg-[#04100E] hover:bg-[#0E2925] text-[#F5F5F0] font-semibold text-xs border border-[#D4AF37]/30 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-[#EBF5F0] hover:bg-[#E2EFE9] text-[#0A2F25] font-semibold text-xs border border-teal-900/15 transition-all flex items-center gap-1.5 cursor-pointer"
             >
               Complete Melaka Missions
             </button>
@@ -88,10 +88,10 @@ export const MelakaPage: React.FC<MelakaPageProps> = ({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-serif font-bold text-2xl text-[#F5F5F0]">
+            <h2 className="font-serif font-bold text-2xl text-[#0A2F25]">
               Curated Thematic Trails
             </h2>
-            <p className="text-xs text-[#F5F5F0]/70">
+            <p className="text-xs text-[#0A2F25]/70">
               Select a pre-calculated historical theme to load into the smart planning engine
             </p>
           </div>
@@ -101,27 +101,27 @@ export const MelakaPage: React.FC<MelakaPageProps> = ({
           {collections.map((col) => (
             <div
               key={col.id}
-              className="p-5 rounded-2xl bg-[#0A1F1C]/90 border border-[#D4AF37]/25 shadow-lg hover:border-[#D4AF37] hover:bg-[#0E2925] transition-all flex flex-col justify-between space-y-4"
+              className="p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-teal-900/10 shadow-sm hover:border-[#C5A028] hover:bg-white transition-all flex flex-col justify-between space-y-4"
             >
               <div className="space-y-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#04100E] text-[#E5C05C] border border-[#D4AF37]/30">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#EBF5F0] text-[#B88E18] border border-teal-900/15">
                   {col.theme}
                 </span>
-                <h3 className="font-serif font-bold text-base text-[#F5F5F0]">
+                <h3 className="font-serif font-bold text-base text-[#0A2F25]">
                   {col.title}
                 </h3>
-                <p className="text-xs text-[#F5F5F0]/70 leading-relaxed line-clamp-2">
+                <p className="text-xs text-[#0A2F25]/70 leading-relaxed line-clamp-2">
                   {col.description}
                 </p>
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-[#D4AF37]/15">
-                <span className="text-xs text-[#F5F5F0]/60">
+              <div className="flex items-center justify-between pt-3 border-t border-teal-900/10">
+                <span className="text-xs text-[#0A2F25]/60">
                   ⏱ ~{col.recommendedDurationMinutes} mins
                 </span>
                 <button
                   onClick={() => onLoadCollectionIntoPlanner(col)}
-                  className="text-xs font-bold text-[#E5C05C] hover:text-white flex items-center gap-1 cursor-pointer transition-colors"
+                  className="text-xs font-bold text-[#B88E18] hover:text-[#0A2F25] flex items-center gap-1 cursor-pointer transition-colors"
                 >
                   Load into Planner <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -135,21 +135,21 @@ export const MelakaPage: React.FC<MelakaPageProps> = ({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-serif font-bold text-2xl text-[#F5F5F0]">
+            <h2 className="font-serif font-bold text-2xl text-[#0A2F25]">
               Explore Melaka Heritage Sites
             </h2>
-            <p className="text-xs text-[#F5F5F0]/70">
+            <p className="text-xs text-[#0A2F25]/70">
               Click any map marker or card to inspect its sourced cultural significance and responsible visitor guidelines
             </p>
           </div>
-          <span className="text-xs font-medium text-[#F5F5F0]/60">
+          <span className="text-xs font-medium text-[#0A2F25]/60">
             {melakaPlaces.length} Curated Sites
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column: Interactive Map */}
-          <div className="lg:col-span-7 h-[550px] sticky top-20 rounded-2xl overflow-hidden border border-[#D4AF37]/30 shadow-md">
+          <div className="lg:col-span-7 h-[550px] sticky top-20 rounded-2xl overflow-hidden border border-teal-900/15 shadow-sm">
             <InteractiveMap
               places={melakaPlaces}
               selectedPlaceId={selectedPlaceId}

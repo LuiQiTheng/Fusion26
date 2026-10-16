@@ -50,33 +50,33 @@ export const BadgeShowcaseBar: React.FC<BadgeShowcaseBarProps> = ({
   };
 
   return (
-    <div className="rounded-3xl bg-[#0A1F1C]/90 border border-[#D4AF37]/25 p-6 shadow-lg space-y-6">
+    <div className="rounded-3xl bg-white/80 backdrop-blur-md border border-teal-900/10 p-6 shadow-sm space-y-6">
       {/* Title & Next Level Summary */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#E5C05C]">
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#B88E18]">
+            <Sparkles className="w-4 h-4 text-[#C5A028]" />
             <span>Heritage Progression</span>
           </div>
-          <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#F5F5F0] mt-0.5">
+          <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25] mt-0.5">
             Explorer Badges & Proof-of-Visit
           </h2>
-          <p className="text-xs text-[#F5F5F0]/70 mt-0.5">
+          <p className="text-xs text-[#0A2F25]/70 mt-0.5">
             Visit heritage landmarks, upload photo proof, and complete cultural missions to unlock certified explorer ranks.
           </p>
         </div>
 
         {/* Next badge pill */}
-        <div className="self-start sm:self-auto px-4 py-2 rounded-2xl bg-[#04100E] border border-[#D4AF37]/25 text-xs">
+        <div className="self-start sm:self-auto px-4 py-2 rounded-2xl bg-[#EBF5F0] border border-teal-900/15 text-xs">
           {nextInfo ? (
             <div className="flex items-center gap-2">
-              <span className="font-medium text-[#F5F5F0]/70">Next milestone:</span>
-              <span className="font-bold text-[#E5C05C]">
+              <span className="font-medium text-[#0A2F25]/70">Next milestone:</span>
+              <span className="font-bold text-[#B88E18]">
                 {nextInfo.nextBadge.name} ({nextInfo.remaining} more to go)
               </span>
             </div>
           ) : (
-            <div className="flex items-center gap-1.5 font-bold text-emerald-400">
+            <div className="flex items-center gap-1.5 font-bold text-emerald-700">
               <CheckCircle2 className="w-4 h-4" />
               <span>All Explorer Badges Unlocked!</span>
             </div>
@@ -97,15 +97,15 @@ export const BadgeShowcaseBar: React.FC<BadgeShowcaseBarProps> = ({
               onClick={() => isUnlocked && onBadgeClick?.(badge)}
               className={`relative rounded-2xl p-5 border transition-all duration-300 flex flex-col justify-between overflow-hidden ${
                 isUnlocked
-                  ? 'bg-[#04100E] border-[#D4AF37] shadow-lg hover:shadow-[0_0_15px_rgba(212,175,55,0.25)] hover:-translate-y-0.5 cursor-pointer ring-2 ring-[#D4AF37]/30'
-                  : 'bg-[#04100E]/50 border-[#D4AF37]/15 opacity-60'
+                  ? 'bg-white/90 border-[#C5A028] shadow-md hover:shadow-[0_4px_20px_rgba(197,160,40,0.2)] hover:-translate-y-0.5 cursor-pointer ring-2 ring-[#C5A028]/25'
+                  : 'bg-white/40 border-teal-900/10 opacity-70'
               }`}
             >
               {/* Top Row: Medal Icon & Status */}
               <div className="flex items-start justify-between mb-3">
                 <div
                   className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-md font-bold text-2xl transition-transform ${
-                    isUnlocked ? visuals.activeBg + ' scale-105' : 'bg-[#0A1F1C] text-slate-500'
+                    isUnlocked ? visuals.activeBg + ' scale-105' : 'bg-[#EBF5F0] text-slate-500'
                   }`}
                 >
                   {isUnlocked ? badge.icon : <Lock className="w-5 h-5 text-slate-500" />}
@@ -115,8 +115,8 @@ export const BadgeShowcaseBar: React.FC<BadgeShowcaseBarProps> = ({
                   <span
                     className={`inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full ${
                       isUnlocked
-                        ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40'
-                        : 'bg-[#0E2925] text-[#F5F5F0]/60 border border-[#D4AF37]/20'
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-600/30'
+                        : 'bg-[#EBF5F0] text-[#0A2F25]/60 border border-teal-900/15'
                     }`}
                   >
                     {isUnlocked ? 'Unlocked' : `Requires ${badge.minRequired} Visits`}
@@ -127,33 +127,33 @@ export const BadgeShowcaseBar: React.FC<BadgeShowcaseBarProps> = ({
               {/* Title & Level */}
               <div className="space-y-1 my-1">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[11px] font-semibold text-[#E5C05C] uppercase tracking-wide">
+                  <span className="text-[11px] font-semibold text-[#B88E18] uppercase tracking-wide">
                     {badge.level} Tier
                   </span>
-                  {isUnlocked && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
+                  {isUnlocked && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />}
                 </div>
-                <h3 className="font-serif font-bold text-base text-[#F5F5F0]">
+                <h3 className="font-serif font-bold text-base text-[#0A2F25]">
                   {badge.name}
                 </h3>
-                <p className="text-xs text-[#F5F5F0]/70 leading-relaxed">
+                <p className="text-xs text-[#0A2F25]/70 leading-relaxed">
                   {badge.description}
                 </p>
               </div>
 
               {/* Bottom Progress Bar */}
-              <div className="pt-3 mt-2 border-t border-[#D4AF37]/15 space-y-1.5">
-                <div className="flex items-center justify-between text-[11px] font-medium text-[#F5F5F0]/70">
+              <div className="pt-3 mt-2 border-t border-teal-900/10 space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] font-medium text-[#0A2F25]/70">
                   <span>Requirement:</span>
-                  <span className={isUnlocked ? 'font-bold text-emerald-400' : 'font-semibold text-[#F5F5F0]/80'}>
+                  <span className={isUnlocked ? 'font-bold text-emerald-700' : 'font-semibold text-[#0A2F25]/80'}>
                     {completedCount} / {badge.minRequired} Verified
                   </span>
                 </div>
-                <div className="w-full h-1.5 rounded-full bg-[#0A1F1C] overflow-hidden">
+                <div className="w-full h-1.5 rounded-full bg-teal-900/10 overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
                       isUnlocked
-                        ? 'bg-gradient-to-r from-emerald-400 via-[#00F0FF] to-[#D4AF37]'
-                        : 'bg-[#D4AF37]'
+                        ? 'bg-gradient-to-r from-emerald-500 via-[#087E83] to-[#C5A028]'
+                        : 'bg-[#C5A028]'
                     }`}
                     style={{ width: `${progressPercent}%` }}
                   />

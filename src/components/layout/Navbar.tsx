@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#04100E]/85 backdrop-blur-md border-b border-[#D4AF37]/20 shadow-lg">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-teal-900/10 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -42,21 +42,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 cursor-pointer group"
             onClick={() => handleSelect('home')}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#04100E] via-[#0A1F1C] to-[#174B4D] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] shadow-md shadow-[#04100E]/50 group-hover:scale-105 group-hover:border-[#00F0FF]/60 transition-all">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#E6F3ED] via-[#F4F9F6] to-[#D5EDE2] border border-[#C5A028]/40 flex items-center justify-center text-[#B88E18] shadow-xs group-hover:scale-105 group-hover:border-[#087E83] transition-all">
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C8 7 6 11 6 17c0 3.3 2.7 6 6 6s6-2.7 6-6c0-6-2-10-6-15zm0 17c-1.7 0-3-1.3-3-3 0-2.5 1.5-5 3-7.5 1.5 2.5 3 5 3 7.5 0 1.7-1.3 3-3 3z" />
               </svg>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-serif font-bold text-lg text-[#F5F5F0] tracking-tight">
+                <span className="font-serif font-bold text-lg text-[#0A2F25] tracking-tight">
                   Malaysia Heritage
                 </span>
-                <span className="text-xs uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-[#D4AF37]/20 text-[#E5C05C] border border-[#D4AF37]/35">
+                <span className="text-xs uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-[#C5A028]/15 text-[#996F09] border border-[#C5A028]/30">
                   Explorer
                 </span>
               </div>
-              <p className="text-[11px] text-[#F5F5F0]/60 hidden sm:block">
+              <p className="text-[11px] text-[#0A2F25]/60 hidden sm:block">
                 FUSION 2026 • Heritage in the Loop
               </p>
             </div>
@@ -72,19 +72,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => handleSelect(item.id)}
                   className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-[#D4AF37]/15 text-[#E5C05C] font-bold shadow-xs border border-[#D4AF37]/40'
-                      : 'text-[#F5F5F0]/85 hover:text-white hover:bg-[#0E2925]/70'
+                      ? 'bg-white/90 text-[#0A2F25] font-bold shadow-xs border border-teal-900/10'
+                      : 'text-[#0A2F25]/80 hover:text-[#0A2F25] hover:bg-white/80'
                   }`}
                 >
                   {item.icon}
                   <span>{item.label}</span>
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="ml-1 inline-flex items-center justify-center px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-[#D4AF37] text-slate-950">
+                    <span className="ml-1 inline-flex items-center justify-center px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-[#C5A028] text-white">
                       {item.badge}
                     </span>
                   )}
                   {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#D4AF37] rounded-full shadow-[0_0_8px_#D4AF37]" />
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#C5A028] rounded-full shadow-[0_0_8px_#C5A028]" />
                   )}
                 </button>
               );
@@ -95,9 +95,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           {onSignIn && (
             <button
               onClick={onSignIn}
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-[#F5F5F0] bg-gradient-to-r from-[#0A1F1C] to-[#0E2925] border border-[#D4AF37]/40 hover:border-[#00F0FF] hover:shadow-[0_0_15px_rgba(0,240,255,0.35)] transition-all cursor-pointer"
+              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-[#0A2F25] bg-white/80 border border-teal-900/15 hover:border-[#C5A028] hover:bg-white hover:shadow-xs transition-all cursor-pointer"
             >
-              <LogIn className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <LogIn className="w-4 h-4 text-[#B88E18]" aria-hidden="true" />
               Sign In
             </button>
           )}
@@ -106,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-[#F5F5F0] hover:bg-[#0E2925]/70"
+              className="p-2 rounded-lg text-[#0A2F25] hover:bg-black/5"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[#D4AF37]/25 bg-[#04100E]/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-1">
+        <div className="md:hidden border-b border-teal-900/10 bg-[#F4F9F6]/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-1">
           {navItems.map((item) => {
             const isActive = currentTab === item.id;
             return (
@@ -126,8 +126,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => handleSelect(item.id)}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
                   isActive
-                    ? 'bg-[#D4AF37]/15 text-[#E5C05C] font-bold border border-[#D4AF37]/35'
-                    : 'text-[#F5F5F0]/85 hover:bg-[#0E2925]/70 hover:text-white'
+                    ? 'bg-white text-[#0A2F25] font-bold border border-teal-900/10'
+                    : 'text-[#0A2F25]/80 hover:bg-white/60 hover:text-[#0A2F25]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -135,7 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>{item.label}</span>
                 </div>
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-[#D4AF37] text-slate-950">
+                  <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-[#C5A028] text-white">
                     {item.badge}
                   </span>
                 )}
@@ -148,9 +148,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setMobileMenuOpen(false);
                 onSignIn();
               }}
-              className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl text-sm font-bold text-[#F5F5F0] bg-gradient-to-r from-[#0A1F1C] to-[#0E2925] border border-[#D4AF37]/40 hover:border-[#00F0FF]"
+              className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl text-sm font-bold text-[#0A2F25] bg-white border border-teal-900/15 hover:border-[#C5A028]"
             >
-              <LogIn className="w-4 h-4 text-[#D4AF37]" aria-hidden="true" />
+              <LogIn className="w-4 h-4 text-[#B88E18]" aria-hidden="true" />
               Sign In
             </button>
           )}

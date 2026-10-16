@@ -94,10 +94,10 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
 
       {/* Page Header */}
       <div>
-        <h1 className="font-serif font-bold text-3xl text-[#F5F5F0]">
+        <h1 className="font-serif font-bold text-3xl text-[#0A2F25]">
           Smart Cultural Trip Planner
         </h1>
-        <p className="text-xs text-[#F5F5F0]/70 mt-1">
+        <p className="text-xs text-[#0A2F25]/70 mt-1">
           Constraint-driven cultural route generation balancing user interests, visit feasibility, and transit transparency
         </p>
       </div>
@@ -107,9 +107,9 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
 
       {/* Over-Budget Warning Banner if applicable */}
       {isOverTimeBudget && (
-        <div className="p-4 rounded-2xl bg-[#1a1505] border border-[#D4AF37]/50 text-[#E5C05C] text-xs flex items-center justify-between gap-3">
+        <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-900 text-xs flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-[#D4AF37] shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
             <span>
               <strong>Time Budget Warning: </strong> Total planned duration ({currentItinerary.totalPlannedMinutes} mins) slightly exceeds your target budget ({currentItinerary.availableMinutes} mins). Consider removing a stop to maintain a relaxed pace.
             </span>
@@ -149,11 +149,11 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
           </div>
         </div>
       ) : (
-        <div className="p-12 text-center bg-[#0A1F1C]/80 backdrop-blur-md rounded-3xl border border-dashed border-[#D4AF37]/30 space-y-2">
-          <p className="text-sm font-semibold text-[#F5F5F0]">
+        <div className="p-12 text-center bg-white/80 backdrop-blur-md rounded-3xl border border-dashed border-teal-900/20 space-y-2">
+          <p className="text-sm font-semibold text-[#0A2F25]">
             No active itinerary generated yet
           </p>
-          <p className="text-xs text-[#F5F5F0]/60 max-w-sm mx-auto">
+          <p className="text-xs text-[#0A2F25]/60 max-w-sm mx-auto">
             Use Quick Mode for an instant 3.5-hour Melaka trail or configure your custom time budget and interests above.
           </p>
         </div>
