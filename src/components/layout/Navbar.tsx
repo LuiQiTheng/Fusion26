@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Compass, MapPin, Bookmark, Menu, X, Award, LogIn } from 'lucide-react';
+import { Compass, MapPin, Bookmark, Menu, X, Award, LogIn, User } from 'lucide-react';
 
-export type NavTab = 'home' | 'explore' | 'missions' | 'saved';
+export type NavTab = 'home' | 'explore' | 'missions' | 'saved' | 'profile';
 
 interface NavbarProps {
   currentTab: NavTab;
@@ -25,6 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'explore', label: 'Explore & Plan', icon: <MapPin className="w-4 h-4 text-[#D4AF37]" /> },
     { id: 'missions', label: 'Missions', icon: <Award className="w-4 h-4 text-[#D4AF37]" />, badge: completedMissionsCount },
     { id: 'saved', label: 'Saved Trips', icon: <Bookmark className="w-4 h-4 text-[#D4AF37]" />, badge: favoritesCount },
+    { id: 'profile', label: 'Profile', icon: <User className="w-4 h-4 text-[#D4AF37]" /> },
   ];
 
   const handleSelect = (tab: NavTab) => {
@@ -61,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Clean 4-Column Desktop Nav */}
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
               const isActive = currentTab === item.id;

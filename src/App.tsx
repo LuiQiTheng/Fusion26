@@ -7,6 +7,7 @@ import { MissionsPage } from './pages/MissionsPage';
 import { SavedTripPage } from './pages/SavedTripPage';
 import { AboutDataPage } from './pages/AboutDataPage';
 import { AuthPage, AuthView } from './pages/AuthPage';
+import { ProfilePage } from './profile/ProfilePage';
 
 import { PlaceDetailModal } from './components/places/PlaceDetailModal';
 import { MelakaShowcaseModal } from './components/places/MelakaShowcaseModal';
@@ -259,6 +260,17 @@ export const App: React.FC = () => {
             }}
             onClearAllSaved={handleClearAllSaved}
             proofs={missionProofs}
+          />
+        )}
+
+        {currentTab === 'profile' && (
+          <ProfilePage
+            places={places}
+            favorites={favorites}
+            onNavigate={(tab) => {
+              setCurrentTab(tab);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           />
         )}
       </main>
