@@ -6,12 +6,14 @@ import { loadItinerary } from '../lib/persistence';
 import { TravelRecord } from './types';
 import { configurePlaceLookup, isProfileDataStale, loadProfile } from './profileRepository';
 import { DEFAULT_MEMORIES_VIEW, MemoriesViewState } from './memoryUtils';
+import { DEFAULT_TRAVEL_MAP_VIEW, TravelMapViewState } from './mapUtils';
 import { ProfileOverviewPage, OverviewTarget } from './pages/ProfileOverviewPage';
 import { EditProfilePage } from './pages/EditProfilePage';
 import { RecordFormPage } from './pages/RecordFormPage';
 import { MemoryDetailPage } from './pages/MemoryDetailPage';
 import { MemoriesPage } from './pages/MemoriesPage';
 import { RecycleBinPage } from './pages/RecycleBinPage';
+import { TravelMapPage } from './pages/TravelMapPage';
 import { ConfirmDialog } from './components/ConfirmDialog';
 import { Toast, ToastMessage, ToastTone } from './components/Toast';
 
@@ -21,8 +23,8 @@ interface ProfilePageProps {
   onNavigate: (tab: NavTab) => void;
 }
 
-// Profile subpages. Overview, Edit Profile, the memory pages, Memories and the Recycle Bin
-// exist so far; the others show a placeholder and are replaced in later stages.
+// Profile subpages. Overview, Edit Profile, the memory pages, Memories, the Recycle Bin and
+// the Travel Map exist so far; Settings still shows a placeholder until a later stage.
 type ProfileView =
   | 'overview'
   | 'edit-profile'
@@ -45,8 +47,8 @@ const VIEW_TITLES: Record<Exclude<ProfileView, 'overview'>, string> = {
   'memory-detail': 'Memory',
 };
 
-// Where the user started a memory flow, so Cancel and breadcrumbs can lead back there.
-type FlowOrigin = 'overview' | 'memories';
+// Where the user started a memory flow, so Cancel, delete and breadcrumbs can lead back there.
+type FlowOrigin = 'overview' | 'memories' | 'map';
 
 interface Crumb {
   label: string;
@@ -63,6 +65,14 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
 
   // Memories search, filters, sort and display mode. Kept here so they survive opening a memory.
   const [memoriesView, setMemoriesView] = useState<MemoriesViewState>(DEFAULT_MEMORIES_VIEW);
+
+  // Travel Map date filter, viewport, selected pin and mobile panel state. Kept here for the same reason.
+  const [mapView, setMapView] = useState<TravelMapViewState>(DEFAULT_TRAVEL_MAP_VIEW);
+
+  // Merges a partial update into the latest state, so quick map moves never overwrite other changes.
+  const patchMapView = useCallback((patch: Partial<TravelMapViewState>) => {
+    setMapView((current) => ({ ...current, ...patch }));
+  }, []);
 
   // Give the repository access to the real Fusion26 places. This runs before any child
   // renders, so existing places can be resolved straight away.
@@ -175,9 +185,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
   const handleMemoryDeleted = () => {
     setSelectedRecordId(null);
     showToast('success', 'Memory moved to the Recycle Bin.');
-    if (origin === 'memories') {
+    if (origin === 'memories' || origin === 'map') {
       refresh();
-      goTo('memories');
+      goTo(origin);
     } else {
       goBackToProfile();
     }
@@ -213,9 +223,21 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
     goTo('memory-detail');
   };
 
+  const handleOpenMemoryFromMap = (recordId: string) => {
+    setSelectedRecordId(recordId);
+    setOrigin('map');
+    goTo('memory-detail');
+  };
+
   const handleAddMemoryFromMemories = () => {
     setSelectedRecordId(null);
     setOrigin('memories');
+    goTo('add-memory');
+  };
+
+  const handleAddMemoryFromMap = () => {
+    setSelectedRecordId(null);
+    setOrigin('map');
     goTo('add-memory');
   };
 
@@ -244,19 +266,23 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
   // Breadcrumb items shown after "Profile /". Items with onClick are links.
   const buildCrumbs = (current: Exclude<ProfileView, 'overview'>): Crumb[] => {
     const memoriesLink: Crumb = { label: 'Memories', onClick: () => requestLeaveTo('memories') };
+    const mapLink: Crumb = { label: 'Travel Map', onClick: () => requestLeaveTo('map') };
+    // The page the user started from, if it is not the Overview.
+    const originCrumbs: Crumb[] = origin === 'memories' ? [memoriesLink] : origin === 'map' ? [mapLink] : [];
+
     switch (current) {
       case 'recycle-bin':
         return [memoriesLink, { label: 'Recycle Bin' }];
       case 'memory-detail':
-        return origin === 'memories' ? [memoriesLink, { label: 'Memory' }] : [{ label: 'Memory' }];
+        return [...originCrumbs, { label: 'Memory' }];
       case 'add-memory':
-        return origin === 'memories' ? [memoriesLink, { label: 'Add Memory' }] : [{ label: 'Add Memory' }];
-      case 'edit-memory': {
-        const crumbs: Crumb[] = origin === 'memories' ? [memoriesLink] : [];
-        crumbs.push({ label: 'Memory', onClick: () => requestLeaveTo('memory-detail') });
-        crumbs.push({ label: 'Edit Memory' });
-        return crumbs;
-      }
+        return [...originCrumbs, { label: 'Add Memory' }];
+      case 'edit-memory':
+        return [
+          ...originCrumbs,
+          { label: 'Memory', onClick: () => requestLeaveTo('memory-detail') },
+          { label: 'Edit Memory' },
+        ];
       default:
         return [{ label: VIEW_TITLES[current] }];
     }
@@ -321,6 +347,16 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
         );
       case 'recycle-bin':
         return <RecycleBinPage data={data} onDataChanged={refresh} onNotify={showToast} />;
+      case 'map':
+        return (
+          <TravelMapPage
+            data={data}
+            view={mapView}
+            onViewChange={patchMapView}
+            onOpenMemory={handleOpenMemoryFromMap}
+            onAddMemory={handleAddMemoryFromMap}
+          />
+        );
       default:
         return (
           <div className="rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70 p-8 text-center">
