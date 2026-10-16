@@ -79,9 +79,9 @@
     "imageCredit": "Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "National Heritage Register of Historic Monuments",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://www.heritage.gov.my"
+        "title": "A Famosa Fort (Porta de Santiago) Heritage Dossier",
+        "publisher": "Discover Malaysia UNESCO",
+        "url": "https://discovermalaysia-unesco.com/portfolio/afamosa-fort/"
       }
     ],
     "verificationStatus": "verified",
@@ -91,7 +91,7 @@
     "location_type": "verified_venue",
     "location_name": "A Famosa (Porta de Santiago)",
     "source_urls": [
-      "https://www.heritage.gov.my"
+      "https://discovermalaysia-unesco.com/portfolio/afamosa-fort/"
     ]
   },
   {
@@ -126,6 +126,11 @@
         "title": "The Baba Nyonya Heritage Museum Archival Documentation",
         "publisher": "Baba & Nyonya Heritage Museum",
         "url": "https://babanyonyamuseum.com"
+      },
+      {
+        "title": "Baba & Nyonya Heritage Museum Cultural Profile",
+        "publisher": "Atlas Obscura",
+        "url": "https://www.atlasobscura.com/places/baba-nyonya-heritage-museum-malaysia"
       }
     ],
     "verificationStatus": "verified",
@@ -135,7 +140,8 @@
     "location_type": "verified_venue",
     "location_name": "Baba & Nyonya Heritage Museum",
     "source_urls": [
-      "https://babanyonyamuseum.com"
+      "https://babanyonyamuseum.com",
+      "https://www.atlasobscura.com/places/baba-nyonya-heritage-museum-malaysia"
     ]
   },
   {
@@ -167,9 +173,9 @@
     "imageCredit": "UNESCO Asia-Pacific Heritage Documentation",
     "sources": [
       {
-        "title": "UNESCO Asia-Pacific Awards for Cultural Heritage Conservation: Cheng Hoon Teng",
-        "publisher": "UNESCO Bangkok",
-        "url": "https://bangkok.unesco.org"
+        "title": "Tokong Cheng Hoon Teng Heritage Record",
+        "publisher": "Wikipedia / National Heritage Register",
+        "url": "https://ms.wikipedia.org/wiki/Tokong_Cheng_Hoon_Teng"
       }
     ],
     "verificationStatus": "verified",
@@ -179,7 +185,7 @@
     "location_type": "verified_venue",
     "location_name": "Cheng Hoon Teng Temple",
     "source_urls": [
-      "https://bangkok.unesco.org"
+      "https://ms.wikipedia.org/wiki/Tokong_Cheng_Hoon_Teng"
     ]
   },
   {
@@ -211,9 +217,9 @@
     "imageCredit": "Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "Inventory of Historic Vernacular Mosques in Peninsular Malaysia",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://www.heritage.gov.my"
+        "title": "Kampung Kling Mosque Architectural Dossier",
+        "publisher": "Discover Malaysia UNESCO",
+        "url": "https://discovermalaysia-unesco.com/portfolio/kampung-kling-mosque/"
       }
     ],
     "verificationStatus": "verified",
@@ -223,7 +229,7 @@
     "location_type": "verified_venue",
     "location_name": "Kampung Kling Mosque",
     "source_urls": [
-      "https://www.heritage.gov.my"
+      "https://discovermalaysia-unesco.com/portfolio/kampung-kling-mosque/"
     ]
   },
   {
@@ -256,9 +262,9 @@
     "imageCredit": "Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "A History of Malacca",
-        "publisher": "Malaysian Historical Society",
-        "url": "https://www.arkib.gov.my"
+        "title": "St. Paul's Church Architectural Documentation",
+        "publisher": "Asian Historical Architecture",
+        "url": "https://www.orientalarchitecture.com/sid/508/malaysia/melaka/st-pauls-church"
       }
     ],
     "verificationStatus": "verified",
@@ -268,7 +274,7 @@
     "location_type": "verified_venue",
     "location_name": "St. Paul's Church (Bukit San Pedro)",
     "source_urls": [
-      "https://www.arkib.gov.my"
+      "https://www.orientalarchitecture.com/sid/508/malaysia/melaka/st-pauls-church"
     ]
   },
   {
@@ -300,9 +306,9 @@
     "imageCredit": "Perbadanan Muzium Melaka (PERZIM)",
     "sources": [
       {
-        "title": "The Sejarah Melayu (Malay Annals) and the Architecture of Istana Mansur Shah",
-        "publisher": "Dewan Bahasa dan Pustaka",
-        "url": "https://www.dbp.gov.my"
+        "title": "Malacca Sultanate Palace Museum Overview",
+        "publisher": "Wikipedia / Museum Record",
+        "url": "https://en.wikipedia.org/wiki/Malacca_Sultanate_Palace_Museum"
       }
     ],
     "verificationStatus": "verified",
@@ -312,7 +318,7 @@
     "location_type": "verified_venue",
     "location_name": "Melaka Sultanate Palace Museum",
     "source_urls": [
-      "https://www.dbp.gov.my"
+      "https://en.wikipedia.org/wiki/Malacca_Sultanate_Palace_Museum"
     ]
   },
   {
@@ -344,9 +350,9 @@
     "imageCredit": "Majlis Bandaraya Melaka Bersejarah",
     "sources": [
       {
-        "title": "Melaka World Heritage City Shophouse Conservation Guidelines",
-        "publisher": "Majlis Bandaraya Melaka Bersejarah",
-        "url": "https://www.mbmb.gov.my"
+        "title": "Jonker Walk (Jalan Hang Jebat) Heritage Shophouse Profile",
+        "publisher": "Discover Malaysia UNESCO",
+        "url": "https://discovermalaysia-unesco.com/portfolio/jonker-walk-melaka/"
       }
     ],
     "verificationStatus": "verified",
@@ -356,7 +362,7 @@
     "location_type": "verified_venue",
     "location_name": "Jonker Walk (Jalan Hang Jebat)",
     "source_urls": [
-      "https://www.mbmb.gov.my"
+      "https://discovermalaysia-unesco.com/portfolio/jonker-walk-melaka/"
     ]
   },
   {
@@ -389,9 +395,9 @@
     "imageCredit": "Melaka Chinese Heritage Trust",
     "sources": [
       {
-        "title": "Bukit Cina: The Historic Chinese Hill of Malacca",
-        "publisher": "Malaysian Branch of the Royal Asiatic Society",
-        "url": "https://mbras.org.my"
+        "title": "Bukit Cina & King's Well Heritage Profile",
+        "publisher": "Atlas Obscura",
+        "url": "https://www.atlasobscura.com/places/bukit-cina-chinese-hill"
       }
     ],
     "verificationStatus": "verified",
@@ -401,7 +407,7 @@
     "location_type": "verified_venue",
     "location_name": "Bukit Cina & King's Well",
     "source_urls": [
-      "https://mbras.org.my"
+      "https://www.atlasobscura.com/places/bukit-cina-chinese-hill"
     ]
   },
   {
@@ -434,9 +440,9 @@
     "imageCredit": "George Town World Heritage Incorporated",
     "sources": [
       {
-        "title": "Khoo Kongsi Clan Heritage Dossier",
-        "publisher": "GTWHI",
-        "url": "https://gtwhi.com.my"
+        "title": "The Evolution of Leong San Tong Khoo Kongsi",
+        "publisher": "Leong San Tong Khoo Kongsi Official Archives",
+        "url": "https://www.khookongsi.com.my/history/the-evolution-of-leong-san-tong-khoo-kongsi/"
       }
     ],
     "verificationStatus": "verified",
@@ -446,7 +452,7 @@
     "location_type": "verified_venue",
     "location_name": "Leong San Tong Khoo Kongsi",
     "source_urls": [
-      "https://gtwhi.com.my"
+      "https://www.khookongsi.com.my/history/the-evolution-of-leong-san-tong-khoo-kongsi/"
     ]
   },
   {
@@ -477,9 +483,9 @@
     "imageCredit": "Arkib Negara Malaysia",
     "sources": [
       {
-        "title": "Arkib Negara Malaysia Architectural Documentation",
-        "publisher": "Arkib Negara Malaysia",
-        "url": "http://www.arkib.gov.my"
+        "title": "Sultan Abdul Samad Building Architectural Heritage",
+        "publisher": "Tourism Malaysia Official Portal",
+        "url": "https://www.malaysia.travel/explore/sultan-abdul-samad-building"
       }
     ],
     "verificationStatus": "verified",
@@ -489,7 +495,7 @@
     "location_type": "verified_venue",
     "location_name": "Sultan Abdul Samad Building",
     "source_urls": [
-      "http://www.arkib.gov.my"
+      "https://www.malaysia.travel/explore/sultan-abdul-samad-building"
     ]
   },
   {
@@ -522,9 +528,9 @@
     "imageCredit": "Tourism Selangor",
     "sources": [
       {
-        "title": "Batu Caves Cultural and Geological Significance",
-        "publisher": "Jabatan Muzium Malaysia",
-        "url": "http://www.jmm.gov.my"
+        "title": "Batu Caves History, Cultural Facts and Cave Temple Architecture",
+        "publisher": "Batu Caves Cultural Information Guide",
+        "url": "https://batu-caves-kuala-lumpur.com/history-and-facts/"
       }
     ],
     "verificationStatus": "verified",
@@ -534,7 +540,7 @@
     "location_type": "verified_venue",
     "location_name": "Batu Caves Temple Sanctuary",
     "source_urls": [
-      "http://www.jmm.gov.my"
+      "https://batu-caves-kuala-lumpur.com/history-and-facts/"
     ]
   },
   {
@@ -567,9 +573,9 @@
     "imageCredit": "Sarawak Tourism Board",
     "sources": [
       {
-        "title": "Living Heritage of Sarawak Longhouses",
-        "publisher": "Sarawak Tourism Board",
-        "url": "https://sarawaktourism.com"
+        "title": "Sarawak Cultural Village (Living Museum)",
+        "publisher": "Tourism Malaysia Official Portal",
+        "url": "https://www.malaysia.travel/explore/sarawak-cultural-village"
       }
     ],
     "verificationStatus": "verified",
@@ -579,7 +585,7 @@
     "location_type": "verified_venue",
     "location_name": "Sarawak Cultural Village",
     "source_urls": [
-      "https://sarawaktourism.com"
+      "https://www.malaysia.travel/explore/sarawak-cultural-village"
     ]
   },
   {
@@ -611,9 +617,9 @@
     "imageCredit": "Sabah Tourism Board",
     "sources": [
       {
-        "title": "Oral History and Folklore of the Kadazan-Dusun",
-        "publisher": "Sabah Cultural Board",
-        "url": "https://culture.sabah.gov.my"
+        "title": "Monsopiad Cultural Village Heritage Profile",
+        "publisher": "City MPV Travel Insights",
+        "url": "https://citympvtravel.com/blog/monsopiad-cultural-village/"
       }
     ],
     "verificationStatus": "verified",
@@ -623,7 +629,7 @@
     "location_type": "verified_venue",
     "location_name": "Monsopiad Heritage Village",
     "source_urls": [
-      "https://culture.sabah.gov.my"
+      "https://citympvtravel.com/blog/monsopiad-cultural-village/"
     ]
   },
   {
@@ -654,9 +660,9 @@
     "imageCredit": "Perak Heritage Society",
     "sources": [
       {
-        "title": "Royal Heritage of Kuala Kangsar",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://www.heritage.gov.my"
+        "title": "The History Behind the Construction of Ubudiah Mosque in Bukit Chandan",
+        "publisher": "Orang Perak Heritage Journal",
+        "url": "https://www.orangperak.com/the-history-behind-the-construction-of-ubudiah-mosque-in-bukit-chandan.html?lang=en"
       }
     ],
     "verificationStatus": "verified",
@@ -666,7 +672,7 @@
     "location_type": "verified_venue",
     "location_name": "Ubudiah Mosque & Royal Mausoleum",
     "source_urls": [
-      "https://www.heritage.gov.my"
+      "https://www.orangperak.com/the-history-behind-the-construction-of-ubudiah-mosque-in-bukit-chandan.html?lang=en"
     ]
   },
   {
@@ -698,9 +704,9 @@
     "imageCredit": "Perbadanan Muzium Negeri Kelantan",
     "sources": [
       {
-        "title": "Kelantan Malay Vernacular Architecture",
-        "publisher": "Perbadanan Muzium Negeri Kelantan",
-        "url": "https://muzium.kelantan.gov.my"
+        "title": "Uncovering a Majestic Heritage Gem: Istana Jahar",
+        "publisher": "Attana Hotels & Resorts Heritage Guide",
+        "url": "https://perdana.attanahotels.com/explore/uncovering-a-majestic-heritage-gem/"
       }
     ],
     "verificationStatus": "verified",
@@ -710,7 +716,7 @@
     "location_type": "verified_venue",
     "location_name": "Istana Jahar (Museum of Royal Traditions)",
     "source_urls": [
-      "https://muzium.kelantan.gov.my"
+      "https://perdana.attanahotels.com/explore/uncovering-a-majestic-heritage-gem/"
     ]
   },
   {
@@ -741,9 +747,9 @@
     "imageCredit": "Lembaga Muzium Negeri Sembilan",
     "sources": [
       {
-        "title": "Traditional Vernacular Timber Architecture of Negeri Sembilan",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://www.heritage.gov.my"
+        "title": "Lembaga Muzium Negeri Sembilan: Muzium Diraja Istana Lama Seri Menanti",
+        "publisher": "Lembaga Muzium Negeri Sembilan",
+        "url": "https://lmns.ns.gov.my/"
       }
     ],
     "verificationStatus": "verified",
@@ -753,7 +759,7 @@
     "location_type": "verified_venue",
     "location_name": "Old Palace of Seri Menanti (Istana Lama)",
     "source_urls": [
-      "https://www.heritage.gov.my"
+      "https://lmns.ns.gov.my/"
     ]
   },
   {
@@ -784,9 +790,9 @@
     "imageCredit": "Jabatan Muzium Malaysia",
     "sources": [
       {
-        "title": "Bujang Valley: Early Maritime Trade and Civilization in Southeast Asia",
-        "publisher": "Pusat Penyelidikan Arkeologi Global USM",
-        "url": "https://arkeologi.usm.my"
+        "title": "Lembah Bujang Archaeological Museum",
+        "publisher": "Department of Museums Malaysia (Jabatan Muzium Malaysia)",
+        "url": "https://www.jmm.gov.my/en/content/lembah-bujang-archaeological-museum"
       }
     ],
     "verificationStatus": "verified",
@@ -796,7 +802,7 @@
     "location_type": "verified_venue",
     "location_name": "Bujang Valley Archaeological Museum",
     "source_urls": [
-      "https://arkeologi.usm.my"
+      "https://www.jmm.gov.my/en/content/lembah-bujang-archaeological-museum"
     ]
   },
   {
@@ -828,9 +834,9 @@
     "imageCredit": "Lembaga Muzium Negeri Terengganu",
     "sources": [
       {
-        "title": "Batu Bersurat Terengganu UNESCO Memory of the World Register",
-        "publisher": "UNESCO",
-        "url": "https://en.unesco.org/memoryoftheworld/registry"
+        "title": "Terengganu State Museum Architecture & Cultural Collections",
+        "publisher": "ASEF Culture360",
+        "url": "https://culture360.asef.org/resources/terengganu-state-museum-malaysia/"
       }
     ],
     "verificationStatus": "verified",
@@ -840,7 +846,7 @@
     "location_type": "verified_venue",
     "location_name": "Terengganu State Museum Complex",
     "source_urls": [
-      "https://en.unesco.org/memoryoftheworld/registry"
+      "https://culture360.asef.org/resources/terengganu-state-museum-malaysia/"
     ]
   },
   {
@@ -872,9 +878,9 @@
     "imageCredit": "Perbadanan Muzium Negeri Pahang",
     "sources": [
       {
-        "title": "Perbadanan Muzium Negeri Pahang Cultural Profile",
-        "publisher": "Pahang State Museum Corporation",
-        "url": "https://muzium.pahang.gov.my"
+        "title": "Muzium Masjid Sultan Abdullah Conservation Profile",
+        "publisher": "WHW Design",
+        "url": "https://www.whwdesign.org/muzium-masjid-sultan-abdullah"
       }
     ],
     "verificationStatus": "verified",
@@ -884,7 +890,7 @@
     "location_type": "verified_venue",
     "location_name": "Sultan Abdullah Mosque Museum",
     "source_urls": [
-      "https://muzium.pahang.gov.my"
+      "https://www.whwdesign.org/muzium-masjid-sultan-abdullah"
     ]
   },
   {
@@ -915,9 +921,9 @@
     "imageCredit": "Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "National Heritage Register of Historic Buildings",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://www.heritage.gov.my"
+        "title": "Masjid Alwi Kangar Heritage Profile",
+        "publisher": "MyMuslimTrip Heritage Registry",
+        "url": "https://mymuslimtrip.com/listings/masjid-alwi-kangar/"
       }
     ],
     "verificationStatus": "verified",
@@ -927,7 +933,7 @@
     "location_type": "verified_venue",
     "location_name": "Masjid Alwi (National Heritage Mosque)",
     "source_urls": [
-      "https://www.heritage.gov.my"
+      "https://mymuslimtrip.com/listings/masjid-alwi-kangar/"
     ]
   },
   {
@@ -958,9 +964,9 @@
     "imageCredit": "Perbadanan Putrajaya",
     "sources": [
       {
-        "title": "Perbadanan Putrajaya Heritage & Architecture Guide",
-        "publisher": "Perbadanan Putrajaya",
-        "url": "https://www.ppj.gov.my"
+        "title": "Putra Mosque Architecture & Cultural Guide",
+        "publisher": "Traveling Thru History",
+        "url": "https://www.travelingthruhistory.com/putra-mosque/"
       }
     ],
     "verificationStatus": "verified",
@@ -970,7 +976,7 @@
     "location_type": "verified_venue",
     "location_name": "Putra Mosque",
     "source_urls": [
-      "https://www.ppj.gov.my"
+      "https://www.travelingthruhistory.com/putra-mosque/"
     ]
   },
   {
@@ -1002,9 +1008,9 @@
     "imageCredit": "Jabatan Muzium Malaysia",
     "sources": [
       {
-        "title": "Labuan Museum & Heritage Department",
-        "publisher": "Department of Museums Malaysia",
-        "url": "http://www.jmm.gov.my"
+        "title": "Chimney Museum Labuan",
+        "publisher": "Department of Museums Malaysia (Jabatan Muzium Malaysia)",
+        "url": "https://www.jmm.gov.my/en/content/chimney-museum"
       }
     ],
     "verificationStatus": "verified",
@@ -1014,7 +1020,7 @@
     "location_type": "verified_venue",
     "location_name": "The Chimney of Labuan",
     "source_urls": [
-      "http://www.jmm.gov.my"
+      "https://www.jmm.gov.my/en/content/chimney-museum"
     ]
   },
   {
@@ -1046,9 +1052,9 @@
     "imageCredit": "Yayasan Warisan Johor",
     "sources": [
       {
-        "title": "Yayasan Warisan Johor (Johor Heritage Foundation)",
-        "publisher": "Johor State Government",
-        "url": "https://ywj.gov.my"
+        "title": "Sultan Abu Bakar State Mosque Historical Record",
+        "publisher": "Wikipedia / Johor Heritage Archive",
+        "url": "https://en.wikipedia.org/wiki/Sultan_Abu_Bakar_State_Mosque"
       }
     ],
     "verificationStatus": "verified",
@@ -1058,7 +1064,7 @@
     "location_type": "verified_venue",
     "location_name": "Sultan Abu Bakar State Mosque",
     "source_urls": [
-      "https://ywj.gov.my"
+      "https://en.wikipedia.org/wiki/Sultan_Abu_Bakar_State_Mosque"
     ]
   },
   {
@@ -1088,9 +1094,9 @@
     "imageCredit": "Wikimedia Commons / Tourism Malaysia",
     "sources": [
       {
-        "title": "Koleksi Warisan Makanan Tradisional Negeri Perlis",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Laksa Beras Perlis",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1317"
       }
     ],
     "verificationStatus": "verified",
@@ -1108,7 +1114,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1317"
     ]
   },
   {
@@ -1138,9 +1144,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Profil Budaya Gastronomi Pesisir Perlis",
-        "publisher": "Kerajaan Negeri Perlis",
-        "url": "https://www.perlis.gov.my"
+        "title": "Great Malaysian Dishes: Perlis Ikan Bakar",
+        "publisher": "MyHometown Culinary Guide",
+        "url": "https://myhometown.com.my/kangar/great-malaysian-dishes-perlis-ikan-bakar/"
       }
     ],
     "verificationStatus": "verified",
@@ -1159,7 +1165,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://www.perlis.gov.my"
+      "https://myhometown.com.my/kangar/great-malaysian-dishes-perlis-ikan-bakar/"
     ]
   },
   {
@@ -1189,9 +1195,9 @@
     "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Pekasam",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Pekasam",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1333"
       }
     ],
     "verificationStatus": "verified",
@@ -1210,7 +1216,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1333"
     ]
   },
   {
@@ -1240,9 +1246,14 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Kebangsaan - Laksa Kedah",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Laksa Kedah",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/996"
+      },
+      {
+        "title": "Warisan Seni Budaya - Laksa Beras Kedah",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1017"
       }
     ],
     "verificationStatus": "verified",
@@ -1260,7 +1271,8 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/996",
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1017"
     ]
   },
   {
@@ -1290,9 +1302,9 @@
     "imageCredit": "Wikimedia Commons (CC-BY-SA)",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Asam Laksa",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Penang Assam Laksa Culinary Heritage Guide",
+        "publisher": "Season with Spice",
+        "url": "https://blog.seasonwithspice.com/2011/09/what-is-penang-assam-laksa.html"
       }
     ],
     "verificationStatus": "verified",
@@ -1312,7 +1324,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://blog.seasonwithspice.com/2011/09/what-is-penang-assam-laksa.html"
     ]
   },
   {
@@ -1342,9 +1354,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Makanan - Char Kway Teow",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Char Koay Teow",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1371"
       }
     ],
     "verificationStatus": "verified",
@@ -1363,7 +1375,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1371"
     ]
   },
   {
@@ -1393,9 +1405,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Rendang Tok",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Rendang Tok: A Traditional Perak Delicacy",
+        "publisher": "Munch Malaysia",
+        "url": "https://munchmalaysia.com/malaysian-food/rendang-tok-a-traditional-perak-delicacy/"
       }
     ],
     "verificationStatus": "verified",
@@ -1414,7 +1426,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://munchmalaysia.com/malaysian-food/rendang-tok-a-traditional-perak-delicacy/"
     ]
   },
   {
@@ -1444,9 +1456,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Katalog Warisan Budaya Gastronomi Negeri Perak",
-        "publisher": "Tourism Perak",
-        "url": "https://tourismperakmalaysia.com"
+        "title": "The Story of Sha Hor Fun in Ipoh",
+        "publisher": "IKT Malaysia Culinary Archives",
+        "url": "https://www.iktmalaysia.com/pages/the-story-of-sha-hor-fun"
       }
     ],
     "verificationStatus": "verified",
@@ -1466,7 +1478,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://tourismperakmalaysia.com"
+      "https://www.iktmalaysia.com/pages/the-story-of-sha-hor-fun"
     ]
   },
   {
@@ -1496,9 +1508,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Kebangsaan - Sate",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "History of Sate Kajang and Culinary Heritage",
+        "publisher": "CKM Travel Documentation",
+        "url": "https://ckm-travel.blogspot.com/2018/10/malaysia-kajang-selangor-history-of_13.html"
       }
     ],
     "verificationStatus": "verified",
@@ -1517,7 +1529,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://ckm-travel.blogspot.com/2018/10/malaysia-kajang-selangor-history-of_13.html"
     ]
   },
   {
@@ -1547,9 +1559,9 @@
     "imageCredit": "Wikimedia Commons (CC-BY-SA)",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Nasi Ambeng",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Nasi Ambeng",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/757"
       }
     ],
     "verificationStatus": "verified",
@@ -1567,7 +1579,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/757"
     ]
   },
   {
@@ -1597,9 +1609,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Dokumentasi Masakan Tradisional Negeri Sembilan",
-        "publisher": "Lembaga Muzium Negeri Sembilan",
-        "url": "https://lmns.ns.gov.my"
+        "title": "Masak Lemak Cili Api: The Ultimate Guide to Malaysia's Fiery Coconut Treasure",
+        "publisher": "MyEatLife",
+        "url": "https://myeatlife.com/blog/food-2/masak-lemak-cili-api-the-ultimate-guide-to-malaysias-fiery-coconut-treasure-1288"
       }
     ],
     "verificationStatus": "verified",
@@ -1619,7 +1631,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://lmns.ns.gov.my"
+      "https://myeatlife.com/blog/food-2/masak-lemak-cili-api-the-ultimate-guide-to-malaysias-fiery-coconut-treasure-1288"
     ]
   },
   {
@@ -1649,9 +1661,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Kearifan Tempatan: Kaedah Salai Tradisi Negeri Sembilan",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Daging Salai Masak Lemak: Authentic Negeri Sembilan Smoked Beef",
+        "publisher": "Malaysian Kitchen",
+        "url": "https://malaysiankitchen.home.blog/2019/06/26/daging-salai-masak-lemak-pedas/"
       }
     ],
     "verificationStatus": "verified",
@@ -1670,7 +1682,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my"
+      "https://malaysiankitchen.home.blog/2019/06/26/daging-salai-masak-lemak-pedas/"
     ]
   },
   {
@@ -1700,9 +1712,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Kuih-Muih Tradisional Melaka",
-        "publisher": "Perbadanan Muzium Melaka (PERZIM)",
-        "url": "https://perzim.gov.my"
+        "title": "Warisan Seni Budaya - Kuih Keria",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/senibudaya/detail/966"
       }
     ],
     "verificationStatus": "verified",
@@ -1721,7 +1733,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://perzim.gov.my"
+      "https://pemetaanbudaya.jkkn.gov.my/senibudaya/detail/966"
     ]
   },
   {
@@ -1751,9 +1763,9 @@
     "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Kari Debal",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Kari Debal",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1373"
       }
     ],
     "verificationStatus": "verified",
@@ -1772,7 +1784,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1373"
     ]
   },
   {
@@ -1802,9 +1814,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Makanan Kebangsaan - Laksa Johor",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Laksa Johor",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1384"
       }
     ],
     "verificationStatus": "verified",
@@ -1823,7 +1835,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1384"
     ]
   },
   {
@@ -1853,9 +1865,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Telur Pindang",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Telur Pindang Traditional Heritage Food",
+        "publisher": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Telur_pindang"
       }
     ],
     "verificationStatus": "verified",
@@ -1874,7 +1886,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://en.wikipedia.org/wiki/Telur_pindang"
     ]
   },
   {
@@ -1904,9 +1916,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Gulai Tempoyak Ikan Patin",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Gulai Tempoyak Ikan Patin",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/924"
       }
     ],
     "verificationStatus": "verified",
@@ -1925,7 +1937,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/924"
     ]
   },
   {
@@ -1955,9 +1967,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Puding Diraja",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Puding Raja Warisan Istana Pahang",
+        "publisher": "MyRoyalPudding Documentation",
+        "url": "https://myroyalpudding.blogspot.com/2018/08/puding-raja-majlis-keraian.html"
       }
     ],
     "verificationStatus": "verified",
@@ -1976,7 +1988,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://myroyalpudding.blogspot.com/2018/08/puding-raja-majlis-keraian.html"
     ]
   },
   {
@@ -2006,9 +2018,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Kebangsaan - Nasi Dagang Terengganu",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Nasi Dagang Terengganu",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/724"
       }
     ],
     "verificationStatus": "verified",
@@ -2027,7 +2039,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/724"
     ]
   },
   {
@@ -2057,9 +2069,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Keropok Lekor",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Food Origins: Keropok Lekor Terengganu",
+        "publisher": "Masses Media",
+        "url": "https://masses.com.my/food/food-origins-keropok-lekor/"
       }
     ],
     "verificationStatus": "verified",
@@ -2078,7 +2090,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://masses.com.my/food/food-origins-keropok-lekor/"
     ]
   },
   {
@@ -2108,9 +2120,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Nasi Kerabu",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Nasi Kerabu",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1353"
       }
     ],
     "verificationStatus": "verified",
@@ -2129,7 +2141,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1353"
     ]
   },
   {
@@ -2159,9 +2171,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Akok",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Kuih Akok",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/903"
       }
     ],
     "verificationStatus": "verified",
@@ -2179,7 +2191,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/903"
     ]
   },
   {
@@ -2209,9 +2221,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Muzium Sabah: Etnografi Makanan Tradisi Kadazandusun",
-        "publisher": "Jabatan Muzium Sabah",
-        "url": "https://museum.sabah.gov.my"
+        "title": "Hinava: Traditional Kadazan-Dusun Delicacy",
+        "publisher": "MySabah Cultural Blog",
+        "url": "https://www.mysabah.com/wordpress/hinava/"
       }
     ],
     "verificationStatus": "verified",
@@ -2229,7 +2241,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://museum.sabah.gov.my"
+      "https://www.mysabah.com/wordpress/hinava/"
     ]
   },
   {
@@ -2259,9 +2271,9 @@
     "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Kuih Cincin",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Kuih Cincin: A Delightful Delicacy from Sabah's Tribes",
+        "publisher": "Munch Malaysia",
+        "url": "https://munchmalaysia.com/traditional-food/kuih-cincin-a-delightful-delicacy-from-malaysias-tribes/"
       }
     ],
     "verificationStatus": "verified",
@@ -2280,7 +2292,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://munchmalaysia.com/traditional-food/kuih-cincin-a-delightful-delicacy-from-malaysias-tribes/"
     ]
   },
   {
@@ -2310,9 +2322,9 @@
     "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "Warisan Makanan Kebangsaan - Manok Pansoh",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+        "title": "Warisan Seni Budaya - Manok Pansoh",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/745"
       }
     ],
     "verificationStatus": "verified",
@@ -2332,7 +2344,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/745"
     ]
   },
   {
@@ -2362,9 +2374,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Perbadanan Harta Intelek Malaysia (MyIPO) - Geographical Indication: Kek Lapis Sarawak",
-        "publisher": "MyIPO & Sarawak Tourism Board",
-        "url": "https://sarawaktourism.com"
+        "title": "Warisan Seni Budaya - Kek Lapis Sarawak",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1062"
       }
     ],
     "verificationStatus": "verified",
@@ -2384,7 +2396,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://sarawaktourism.com"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1062"
     ]
   },
   {
@@ -2568,9 +2580,9 @@
     "imageCredit": "Wikimedia Commons / Jabatan Warisan Negara",
     "sources": [
       {
-        "title": "Daftar Warisan Kebangsaan - Wayang Kulit Kelantan",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Warisan Seni Budaya - Wayang Kulit Kelantan",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/695"
       }
     ],
     "verificationStatus": "verified",
@@ -2588,7 +2600,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/695"
     ]
   },
   {
@@ -2618,9 +2630,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Kesenian Zapin Negeri Johor",
-        "publisher": "Yayasan Warisan Johor",
-        "url": "https://ywj.gov.my"
+        "title": "Zapin Dance Heritage Profile",
+        "publisher": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Zapin"
       }
     ],
     "verificationStatus": "verified",
@@ -2639,7 +2651,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://ywj.gov.my"
+      "https://en.wikipedia.org/wiki/Zapin"
     ]
   },
   {
@@ -2669,9 +2681,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Seni Persembahan - Dikir Barat",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Dikir Barat Folk Performance Record",
+        "publisher": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dikir_barat"
       }
     ],
     "verificationStatus": "verified",
@@ -2689,7 +2701,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my"
+      "https://en.wikipedia.org/wiki/Dikir_barat"
     ]
   },
   {
@@ -2719,9 +2731,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Tarian Tradisional Etnik Kadazandusun - Sumazau",
-        "publisher": "Lembaga Kebudayaan Negeri Sabah",
-        "url": "https://culture.sabah.gov.my"
+        "title": "Sumazau: Traditional Ritual Dance of the Kadazandusun",
+        "publisher": "MySabah Cultural Blog",
+        "url": "https://www.mysabah.com/wordpress/sumazau-dance-of-kadazandusun/"
       }
     ],
     "verificationStatus": "verified",
@@ -2739,7 +2751,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://culture.sabah.gov.my"
+      "https://www.mysabah.com/wordpress/sumazau-dance-of-kadazandusun/"
     ]
   },
   {
@@ -2769,9 +2781,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Seni Tari Etnik Iban: Ngajat",
-        "publisher": "Majlis Adat Istiadat Sarawak",
-        "url": "https://nativecustoms.sarawak.gov.my"
+        "title": "Ngajat Dance in Malaysia: Origins and Cultural Significance",
+        "publisher": "DanceUs International Dance Magazine",
+        "url": "https://www.danceus.org/style/ngajat-dance-in-malaysia/"
       }
     ],
     "verificationStatus": "verified",
@@ -2790,7 +2802,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://nativecustoms.sarawak.gov.my"
+      "https://www.danceus.org/style/ngajat-dance-in-malaysia/"
     ]
   },
   {
@@ -2820,9 +2832,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Boria Pulau Pinang",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Warisan Seni Budaya - Boria",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/754"
       }
     ],
     "verificationStatus": "verified",
@@ -2841,7 +2853,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/754"
     ]
   },
   {
@@ -2871,9 +2883,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Kesenian Tradisional Negeri Terengganu: Ulek Mayang",
-        "publisher": "Lembaga Muzium Negeri Terengganu",
-        "url": "https://muzium.terengganu.gov.my"
+        "title": "The Cultural History & Song of Ulek Mayang",
+        "publisher": "SAYS Malaysia Cultural Heritage",
+        "url": "https://says.com/my/lifestyle/true-story-haunted-ulek-mayang-song"
       }
     ],
     "verificationStatus": "verified",
@@ -2891,7 +2903,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://muzium.terengganu.gov.my"
+      "https://says.com/my/lifestyle/true-story-haunted-ulek-mayang-song"
     ]
   },
   {
@@ -2921,9 +2933,14 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Warisan Kebangsaan Objek Warisan Tidak Ketara - Tarian Singa",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Warisan Seni Budaya - Tarian Singa Atas Tiang",
+        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
+        "url": "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1250"
+      },
+      {
+        "title": "Things You Didn't Know About the Malaysian Lion Dance",
+        "publisher": "Going Places (Malaysia Airlines)",
+        "url": "https://goingplaces.malaysiaairlines.com/things-you-didnt-know-about-the-malaysian-lion-dance/"
       }
     ],
     "verificationStatus": "verified",
@@ -2942,7 +2959,8 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my"
+      "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1250",
+      "https://goingplaces.malaysiaairlines.com/things-you-didnt-know-about-the-malaysian-lion-dance/"
     ]
   },
   {
@@ -2972,9 +2990,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Daftar Warisan Muzik Tradisional - Gamelan Melayu",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Malay Gamelan Musical Traditions and Repertoire",
+        "publisher": "Melodigging Traditional Music Archives",
+        "url": "https://www.melodigging.com/genre/malay-gamelan"
       }
     ],
     "verificationStatus": "verified",
@@ -2993,7 +3011,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://heritage.gov.my"
+      "https://www.melodigging.com/genre/malay-gamelan"
     ]
   },
   {
@@ -3074,9 +3092,9 @@
     "imageCredit": "Wikimedia Commons",
     "sources": [
       {
-        "title": "Dokumentasi Seni Persembahan Tradisional Malaysia",
-        "publisher": "Jabatan Kebudayaan dan Kesenian Negara (JKKN)",
-        "url": "https://pemetaanbudaya.jkkn.gov.my"
+        "title": "Bharatanatyam Classical Dance Heritage",
+        "publisher": "iPassio Cultural Arts",
+        "url": "https://www.ipassio.com/wiki/dance/indian-classical-dance/bharatanatyam"
       }
     ],
     "verificationStatus": "verified",
@@ -3095,7 +3113,7 @@
     "location_type": "regional_association",
     "location_name": null,
     "source_urls": [
-      "https://pemetaanbudaya.jkkn.gov.my"
+      "https://www.ipassio.com/wiki/dance/indian-classical-dance/bharatanatyam"
     ]
   },
   {
@@ -3132,9 +3150,14 @@
         "url": "https://kdca.org.my"
       },
       {
-        "title": "Warisan Kebangsaan - Pesta Kaamatan",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Kaamatan: How It's Celebrated Today and Why It's a Cultural Highlight",
+        "publisher": "Borneo Eco Tours",
+        "url": "https://www.borneoecotours.com/v1/blog/kaamatan-how-its-celebrated-today-and-why-its-a-highlight/"
+      },
+      {
+        "title": "History of the Kaamatan Harvest Festival",
+        "publisher": "MITC Cultural Archives",
+        "url": "https://mitcsb.wixsite.com/mitc/post/history-of-keamatan-festival"
       }
     ],
     "verificationStatus": "verified",
@@ -3155,7 +3178,8 @@
     "location_name": "Hongkod Koisaan (KDCA Cultural Centre), Penampang, Sabah",
     "source_urls": [
       "https://kdca.org.my",
-      "https://heritage.gov.my"
+      "https://www.borneoecotours.com/v1/blog/kaamatan-how-its-celebrated-today-and-why-its-a-highlight/",
+      "https://mitcsb.wixsite.com/mitc/post/history-of-keamatan-festival"
     ]
   },
   {
@@ -3187,14 +3211,14 @@
     "imageCredit": "Wikimedia Commons / Sarawak Tourism Board",
     "sources": [
       {
-        "title": "Majlis Adat Istiadat Sarawak: Direktori Adat Gawai Dayak",
-        "publisher": "Kerajaan Negeri Sarawak",
-        "url": "https://nativecustoms.sarawak.gov.my"
+        "title": "Gawai Dayak Festival: A Time of Thanksgiving and Merrymaking",
+        "publisher": "Sarawak Tourism Board",
+        "url": "https://www.sarawaktourism.com/web/stories/story-view/gawai-dayak-festival-a-time-of-thanksgiving-and-merrymaking"
       },
       {
-        "title": "Warisan Kebangsaan - Perayaan Gawai Dayak",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Gawai Dayak Festival Traditions and Rituals",
+        "publisher": "Tourism Malaysia",
+        "url": "https://www.malaysia.travel/events/gawai-dayak-festival-2"
       }
     ],
     "verificationStatus": "verified",
@@ -3215,8 +3239,8 @@
     "location_type": "verified_event_site",
     "location_name": "Sarawak Cultural Village & Traditional Longhouses, Santubong, Sarawak",
     "source_urls": [
-      "https://nativecustoms.sarawak.gov.my",
-      "https://heritage.gov.my"
+      "https://www.sarawaktourism.com/web/stories/story-view/gawai-dayak-festival-a-time-of-thanksgiving-and-merrymaking",
+      "https://www.malaysia.travel/events/gawai-dayak-festival-2"
     ]
   },
   {
@@ -3249,9 +3273,9 @@
     "imageCredit": "Wikimedia Commons (Chingay Johor 2018)",
     "sources": [
       {
-        "title": "Warisan Kebangsaan Tidak Ketara - Perarakan Chingay Johor Bahru",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
+        "title": "Johor Bahru Chingay: Cultural Politics & Heritage",
+        "publisher": "New Naratif",
+        "url": "https://newnaratif.com/https-newnaratif-com-johor-bahru-chingay-cultural-politics/"
       },
       {
         "title": "Persekutuan Tiong-Hua Johor Bahru: Rekod Sejarah Chingay",
@@ -3274,7 +3298,7 @@
     "location_type": "verified_event_site",
     "location_name": "Johor Bahru Old Chinese Temple, Jalan Trus, Johor Bahru",
     "source_urls": [
-      "https://heritage.gov.my",
+      "https://newnaratif.com/https-newnaratif-com-johor-bahru-chingay-cultural-politics/",
       "https://jb-tionghua.org.my"
     ]
   },
@@ -3308,14 +3332,19 @@
     "imageCredit": "Wikimedia Commons / Tourism Selangor",
     "sources": [
       {
-        "title": "Warisan Kebangsaan - Perayaan Thaipusam",
-        "publisher": "Jabatan Warisan Negara",
-        "url": "https://heritage.gov.my"
-      },
-      {
         "title": "Sri Maha Mariamman Temple Dhevasthanam Heritage Archives",
         "publisher": "Batu Caves Temple Management Committee",
         "url": "https://batucaves.org"
+      },
+      {
+        "title": "Why is Thaipusam Celebrated in Batu Caves?",
+        "publisher": "Hauntu Cultural Insights",
+        "url": "https://ihauntu.com/why-is-thaipusam-celebrated-in-batu-caves/"
+      },
+      {
+        "title": "The Multiracial History of Batu Caves",
+        "publisher": "Cilisos Malaysia",
+        "url": "https://cilisos.my/the-multiracial-history-of-batu-caves-that-your-sejarah-lessons-never-taught-you/"
       }
     ],
     "verificationStatus": "verified",
@@ -3335,8 +3364,9 @@
     "location_type": "verified_event_site",
     "location_name": "Batu Caves Sri Subramaniar Swamy Temple, Gombak, Selangor",
     "source_urls": [
-      "https://heritage.gov.my",
-      "https://batucaves.org"
+      "https://batucaves.org",
+      "https://ihauntu.com/why-is-thaipusam-celebrated-in-batu-caves/",
+      "https://cilisos.my/the-multiracial-history-of-batu-caves-that-your-sejarah-lessons-never-taught-you/"
     ]
   }
 ]
