@@ -201,3 +201,23 @@ export interface MissionProof {
   verifiedLabel: string;
 }
 
+export type FoodVerificationStatus = 'verified' | 'needs_review';
+
+export interface TraditionalFoodVendor {
+  id: string;
+  placeId?: string;
+  foodName: string;
+  restaurantName: string;
+  state: string;
+  stateId: string;
+  address: string;
+  latitude: number | null;
+  longitude: number | null;
+  verificationStatus: FoodVerificationStatus;
+  googleMapsUrl: string;
+  notes: string;
+  nearbyAttractionIds?: string[];
+  nearbyAttractionNotes?: string;
+  reviewReason?: string;
+}
+

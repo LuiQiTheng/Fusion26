@@ -17,6 +17,7 @@ import {
   solveNearestNeighborTSP,
 } from './routing';
 import { searchCuratedDirectory } from './geocoding';
+import { vendorByPlaceId } from './foodVendors';
 
 export interface PlannerOptions {
   destinationStateId: string;
@@ -197,6 +198,18 @@ function twoOptSwap(route: number[], i: number, k: number): number[] {
   return [...newRoute, ...reversed, ...remainder];
 }
 
+function createPlaceMap(allPlaces: HeritagePlace[]): Map<string, HeritagePlace> {
+  const map = new Map<string, HeritagePlace>();
+  allPlaces.forEach((p) => {
+    map.set(p.id, p);
+    const vendor = vendorByPlaceId.get(p.id);
+    if (vendor) {
+      map.set(vendor.id, p);
+    }
+  });
+  return map;
+}
+
 /**
  * Re-estimates times when stops are reordered or removed, preserving
  * legitimate transit times between physical stops even when intangible stops intervene.
@@ -260,7 +273,7 @@ export function applyRouteResultToItinerary(
     return { updatedItinerary: itinerary, hasChanges: false };
   }
 
-  const placeMap = new Map<string, HeritagePlace>(allPlaces.map((p) => [p.id, p]));
+  const placeMap = createPlaceMap(allPlaces);
   const physicalStopIndices: number[] = [];
   itinerary.stops.forEach((s, idx) => {
     const p = placeMap.get(s.placeId);

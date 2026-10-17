@@ -14,6 +14,7 @@ import {
 } from '../lib/planner';
 import { OSRMRouteResult, getDefaultTransportMode } from '../lib/routing';
 import { saveItinerary } from '../lib/persistence';
+import { getEnrichedPlacesWithFoodVendors } from '../lib/foodVendors';
 import { ShieldCheck, Compass, Calendar, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface ExplorePageProps {
@@ -136,10 +137,15 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     setVerifiedOnly(false);
   };
 
+  // Combined places array including all verified traditional food vendors
+  const allPlacesWithFoodVendors = useMemo(() => {
+    return getEnrichedPlacesWithFoodVendors(places);
+  }, [places]);
+
   // Add place to itinerary and switch to planner view
   const handleAddToItinerary = (place: HeritagePlace) => {
     if (!currentItinerary || currentItinerary.destinationStateId !== place.stateId) {
-      const defaultMode = getDefaultTransportMode(places, place.stateId);
+      const defaultMode = getDefaultTransportMode(allPlacesWithFoodVendors, place.stateId);
       const newItin = generateItinerary(
         {
           destinationStateId: place.stateId,
@@ -149,33 +155,45 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
           budgetLevel: 'flexible',
           startingPlaceId: place.id,
         },
-        places
+        allPlacesWithFoodVendors
       );
       onUpdateItinerary(newItin);
     } else {
       const alreadyIn = currentItinerary.stops.some((s) => s.placeId === place.id);
       if (!alreadyIn) {
+        const isFood = place.type === 'food';
         const rawNewStops = [
           ...currentItinerary.stops,
           {
             placeId: place.id,
             order: currentItinerary.stops.length + 1,
             visitDurationMinutes: place.visitDurationMinutes || 45,
-            routeDataStatus: 'estimated' as const,
-            reasonSelected: `Added by user from explore view.`,
+            routeDataStatus: (place.latitude && place.longitude ? 'estimated' : 'geographic_only') as any,
+            reasonSelected: isFood
+              ? 'Selected by user from Traditional Food Directory.'
+              : 'Added by user from explore view.',
           },
         ];
         const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
-          recalculateItineraryStops(rawNewStops, places, currentItinerary.transportMode);
+          recalculateItineraryStops(rawNewStops, allPlacesWithFoodVendors, currentItinerary.transportMode);
 
-        onUpdateItinerary({
+        const updatedItinerary = {
           ...currentItinerary,
           stops: updatedStops,
           totalVisitMinutes,
           totalTravelMinutes,
           totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
           isCustomized: true,
-        });
+        };
+
+        onUpdateItinerary(updatedItinerary);
+
+        if (currentItinerary.transportMode === 'car') {
+          optimizeItineraryWithRoadNetwork(updatedItinerary, allPlacesWithFoodVendors).then((optimized) => {
+            onUpdateItinerary(optimized);
+          });
+        }
       }
     }
     setActiveMode('plan');
@@ -183,12 +201,12 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
 
   // Planner handlers
   const handleGenerateItinerary = (options: PlannerOptions) => {
-    const newItin = generateItinerary(options, places);
+    const newItin = generateItinerary(options, allPlacesWithFoodVendors);
     onUpdateItinerary(newItin);
     setIsSavedLocally(false);
 
     if (options.transportMode === 'car') {
-      optimizeItineraryWithRoadNetwork(newItin, places).then((optimized) => {
+      optimizeItineraryWithRoadNetwork(newItin, allPlacesWithFoodVendors).then((optimized) => {
         onUpdateItinerary(optimized);
       });
     }
@@ -198,9 +216,9 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     if (!currentItinerary) return;
     const remainingStops = currentItinerary.stops.filter((s) => s.order !== order);
     const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
-      recalculateItineraryStops(remainingStops, places, currentItinerary.transportMode);
+      recalculateItineraryStops(remainingStops, allPlacesWithFoodVendors, currentItinerary.transportMode);
 
-    onUpdateItinerary({
+    const updatedItinerary = {
       ...currentItinerary,
       stops: updatedStops,
       totalVisitMinutes,
@@ -208,8 +226,16 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
       totalPlannedMinutes,
       updatedAt: new Date().toISOString(),
       isCustomized: true,
-    });
+    };
+
+    onUpdateItinerary(updatedItinerary);
     setIsSavedLocally(false);
+
+    if (currentItinerary.transportMode === 'car') {
+      optimizeItineraryWithRoadNetwork(updatedItinerary, allPlacesWithFoodVendors).then((optimized) => {
+        onUpdateItinerary(optimized);
+      });
+    }
   };
 
   const handleSaveItinerary = () => {
@@ -226,10 +252,10 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     const targetStateId =
       currentItinerary?.destinationStateId ||
       (selectedStateId !== 'ALL' ? selectedStateId : 'MLK');
-    const statePlaces = places.filter((p) => p.stateId === targetStateId);
+    const statePlaces = allPlacesWithFoodVendors.filter((p) => p.stateId === targetStateId);
     if (statePlaces.length > 0) return statePlaces;
-    return places.filter((p) => p.stateId === 'MLK');
-  }, [currentItinerary?.destinationStateId, selectedStateId, places]);
+    return allPlacesWithFoodVendors.filter((p) => p.stateId === 'MLK');
+  }, [currentItinerary?.destinationStateId, selectedStateId, allPlacesWithFoodVendors]);
 
   const routeStopsForMap = currentItinerary?.stops.map((s) => ({
     placeId: s.placeId,
@@ -242,14 +268,14 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
       if (!currentItinerary) return;
       const { updatedItinerary, hasChanges } = applyRouteResultToItinerary(
         currentItinerary,
-        places,
+        allPlacesWithFoodVendors,
         result
       );
       if (hasChanges) {
         onUpdateItinerary(updatedItinerary);
       }
     },
-    [currentItinerary, places, onUpdateItinerary]
+    [currentItinerary, allPlacesWithFoodVendors, onUpdateItinerary]
   );
 
   const isOverTimeBudget =
@@ -452,7 +478,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
           {/* Planner Controls Form */}
           <PlannerForm
             states={states}
-            places={places}
+            places={allPlacesWithFoodVendors}
             onGenerate={handleGenerateItinerary}
             initialStateId={
               selectedStateId !== 'ALL'
@@ -477,13 +503,14 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
               <div className="lg:col-span-7 space-y-6">
                 <ItineraryTimeline
                   itinerary={currentItinerary}
-                  allPlaces={places}
+                  allPlaces={allPlacesWithFoodVendors}
                   onSelectPlace={onSelectPlace}
                   onRemoveStop={handleRemoveStop}
                   onSaveItinerary={handleSaveItinerary}
                   onInspectAI={() => onInspectItineraryAI(currentItinerary)}
                   isSaved={isSavedLocally}
                   onUpdateItinerary={onUpdateItinerary}
+                  onAddPlace={handleAddToItinerary}
                 />
               </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { StateRecord, HeritagePlace, Itinerary } from '../types';
 import { PlannerForm } from '../components/planner/PlannerForm';
 import { ItineraryTimeline } from '../components/planner/ItineraryTimeline';
@@ -12,6 +12,7 @@ import {
 } from '../lib/planner';
 import { OSRMRouteResult } from '../lib/routing';
 import { saveItinerary } from '../lib/persistence';
+import { getEnrichedPlacesWithFoodVendors } from '../lib/foodVendors';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 interface PlannerPageProps {
@@ -34,38 +35,46 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
   const [isSavedLocally, setIsSavedLocally] = useState(false);
   const [saveToast, setSaveToast] = useState(false);
 
+  // Combined places array including all verified traditional food vendors
+  const allPlacesWithFoodVendors = useMemo(() => {
+    return getEnrichedPlacesWithFoodVendors(places);
+  }, [places]);
+
   // Generate Itinerary Handler
   const handleGenerate = (options: PlannerOptions) => {
-    const newItin = generateItinerary(options, places);
+    const newItin = generateItinerary(options, allPlacesWithFoodVendors);
     onUpdateItinerary(newItin);
     setIsSavedLocally(false);
 
     if (options.transportMode === 'car') {
-      optimizeItineraryWithRoadNetwork(newItin, places).then((optimized) => {
+      optimizeItineraryWithRoadNetwork(newItin, allPlacesWithFoodVendors).then((optimized) => {
         onUpdateItinerary(optimized);
       });
     }
   };
 
-  // Add Place to Itinerary Handler
+  // Add Place to Itinerary Handler (Supports both heritage places and food vendors)
   const handleAddPlace = (place: HeritagePlace) => {
     if (!currentItinerary) return;
     if (currentItinerary.stops.some((s) => s.placeId === place.id)) return;
 
     const visit = place.visitDurationMinutes || 45;
+    const isFood = place.type === 'food';
     const rawStops = [
       ...currentItinerary.stops,
       {
         placeId: place.id,
         order: currentItinerary.stops.length + 1,
         visitDurationMinutes: visit,
-        routeDataStatus: 'estimated' as const,
-        reasonSelected: 'Added by user via Add Places modal.',
+        routeDataStatus: (place.latitude && place.longitude ? 'estimated' : 'geographic_only') as any,
+        reasonSelected: isFood
+          ? 'Selected by user from Traditional Food Directory.'
+          : 'Added by user via Add Places modal.',
       },
     ];
 
     const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
-      recalculateItineraryStops(rawStops, places, currentItinerary.transportMode);
+      recalculateItineraryStops(rawStops, allPlacesWithFoodVendors, currentItinerary.transportMode);
 
     const updatedItinerary: Itinerary = {
       ...currentItinerary,
@@ -79,15 +88,21 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
 
     onUpdateItinerary(updatedItinerary);
     setIsSavedLocally(false);
+
+    if (currentItinerary.transportMode === 'car') {
+      optimizeItineraryWithRoadNetwork(updatedItinerary, allPlacesWithFoodVendors).then((optimized) => {
+        onUpdateItinerary(optimized);
+      });
+    }
   };
 
-  // Remove Stop Handler
+  // Remove Stop Handler (Removes food stop immediately and cleans up markers)
   const handleRemoveStop = (order: number) => {
     if (!currentItinerary) return;
 
     const remainingStops = currentItinerary.stops.filter((s) => s.order !== order);
     const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
-      recalculateItineraryStops(remainingStops, places, currentItinerary.transportMode);
+      recalculateItineraryStops(remainingStops, allPlacesWithFoodVendors, currentItinerary.transportMode);
 
     const updatedItinerary: Itinerary = {
       ...currentItinerary,
@@ -114,10 +129,14 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
     }
   };
 
-  // Active places for map
-  const activePlacesForMap = currentItinerary
-    ? places.filter((p) => currentItinerary.stops.some((s) => s.placeId === p.id))
-    : places.filter((p) => p.stateId === 'MLK');
+  // Active places for map: only places present in current itinerary stops (or default state)
+  const activePlacesForMap = useMemo(() => {
+    if (currentItinerary && currentItinerary.stops.length > 0) {
+      const stopIds = new Set(currentItinerary.stops.map((s) => s.placeId));
+      return allPlacesWithFoodVendors.filter((p) => stopIds.has(p.id));
+    }
+    return allPlacesWithFoodVendors.filter((p) => p.stateId === 'MLK');
+  }, [currentItinerary, allPlacesWithFoodVendors]);
 
   const routeStopsForMap = currentItinerary?.stops.map((s) => ({
     placeId: s.placeId,
@@ -130,14 +149,14 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
       if (!currentItinerary) return;
       const { updatedItinerary, hasChanges } = applyRouteResultToItinerary(
         currentItinerary,
-        places,
+        allPlacesWithFoodVendors,
         result
       );
       if (hasChanges) {
         onUpdateItinerary(updatedItinerary);
       }
     },
-    [currentItinerary, places, onUpdateItinerary]
+    [currentItinerary, allPlacesWithFoodVendors, onUpdateItinerary]
   );
 
   const isOverTimeBudget =
@@ -165,7 +184,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
       </div>
 
       {/* Planner Controls Form */}
-      <PlannerForm states={states} places={places} onGenerate={handleGenerate} />
+      <PlannerForm states={states} places={allPlacesWithFoodVendors} onGenerate={handleGenerate} />
 
       {/* Over-Budget Warning Banner if applicable */}
       {isOverTimeBudget && (
@@ -186,7 +205,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
           <div className="lg:col-span-7 space-y-6">
             <ItineraryTimeline
               itinerary={currentItinerary}
-              allPlaces={places}
+              allPlaces={allPlacesWithFoodVendors}
               onSelectPlace={onSelectPlace}
               onRemoveStop={handleRemoveStop}
               onSaveItinerary={handleSave}
@@ -217,8 +236,11 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
               center={
                 currentItinerary?.startingCoordinates
                   ? currentItinerary.startingCoordinates
-                  : activePlacesForMap[0]?.latitude
-                  ? [activePlacesForMap[0].latitude, activePlacesForMap[0].longitude!]
+                  : activePlacesForMap.find((p) => p.latitude && p.longitude)
+                  ? [
+                      activePlacesForMap.find((p) => p.latitude && p.longitude)!.latitude!,
+                      activePlacesForMap.find((p) => p.latitude && p.longitude)!.longitude!,
+                    ]
                   : [2.1950, 102.2490]
               }
               zoom={15}
