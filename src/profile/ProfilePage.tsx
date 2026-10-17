@@ -24,6 +24,8 @@ import { Toast, ToastMessage, ToastTone } from './components/Toast';
 interface ProfilePageProps {
   places: HeritagePlace[];
   favorites: string[]; // existing Favorites from App.tsx
+  // Lets App.tsx know when a Profile form has unsaved changes. Pass a stable state setter.
+  onUnsavedChange?: (hasUnsavedChanges: boolean) => void;
   tripPlaceIds: string[]; // places in the current trip
   onWishlistRemove: (placeId: string) => WishlistActionResult;
   onWishlistAddToTrip: (place: HeritagePlace) => WishlistActionResult;
@@ -77,6 +79,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   onWishlistRemove,
   onWishlistAddToTrip,
   onViewPlace,
+  onUnsavedChange,
   onNavigate,
 }) => {
   const [view, setView] = useState<ProfileView>('overview');
@@ -115,6 +118,17 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
   const [pendingDest, setPendingDest] = useState<ProfileView | null>(null);
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  // Tell App.tsx whether a form has unsaved changes, so it can warn before the user switches
+  // navbar tabs or opens Sign In. App passes a stable state setter, so this does not loop.
+  useEffect(() => {
+    onUnsavedChange?.(isFormDirty);
+  }, [isFormDirty, onUnsavedChange]);
+
+  // When Profile closes, nothing is unsaved any more.
+  useEffect(() => {
+    return () => onUnsavedChange?.(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const showToast = (tone: ToastTone, text: string) => {
     setToast({ id: Date.now(), tone, text });
