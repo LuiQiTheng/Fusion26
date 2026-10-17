@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Sliders, Footprints, Car, Bus, Bike, Clock, Compass, AlertCircle } from 'lucide-react';
+import { Sparkles, Footprints, Car, Bus, Clock, AlertCircle } from 'lucide-react';
 import { StateRecord, HeritagePlace, TransportMode, BudgetLevel } from '../../types';
 import { PlannerOptions } from '../../lib/planner';
 import { isCompactDistrict, getDefaultTransportMode } from '../../lib/routing';
@@ -21,8 +21,6 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
   initialStateId,
   initialTransportMode,
 }) => {
-  const [modeTab, setModeTab] = useState<'quick' | 'custom'>('quick');
-
   // Destination State
   const [destinationStateId, setDestinationStateId] = useState(() => {
     return initialStateId && initialStateId !== 'ALL' ? initialStateId : 'MLK';
@@ -33,9 +31,10 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
 
   // Initialize transport mode based on geographic spread of physical attractions
   const [transportMode, setTransportMode] = useState<TransportMode>(() => {
-    if (initialTransportMode) return initialTransportMode;
+    if (initialTransportMode && initialTransportMode !== 'mixed') return initialTransportMode;
     const targetState = initialStateId && initialStateId !== 'ALL' ? initialStateId : 'MLK';
-    return getDefaultTransportMode(places, targetState);
+    const def = getDefaultTransportMode(places, targetState);
+    return def === 'mixed' ? 'walking' : def;
   });
 
   // When initialStateId changes from external controls
@@ -44,7 +43,8 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
       setDestinationStateId(initialStateId);
       // Only adjust mode if user has NOT explicitly made an active selection
       if (!userSelectedMode) {
-        setTransportMode(getDefaultTransportMode(places, initialStateId));
+        const def = getDefaultTransportMode(places, initialStateId);
+        setTransportMode(def === 'mixed' ? 'walking' : def);
       }
     }
   }, [initialStateId, places, userSelectedMode]);
@@ -53,7 +53,8 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
     setDestinationStateId(newStateId);
     // Keep user's explicit choice if set; otherwise default based on state's geographic density
     if (!userSelectedMode) {
-      setTransportMode(getDefaultTransportMode(places, newStateId));
+      const def = getDefaultTransportMode(places, newStateId);
+      setTransportMode(def === 'mixed' ? 'walking' : def);
     }
   };
 
@@ -95,21 +96,36 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
     }
   };
 
-  const handleQuickSubmit = () => {
-    const quickMode = userSelectedMode
-      ? transportMode
-      : getDefaultTransportMode(places, activeState ? activeState.id : 'MLK');
+  // Accurate time budget formatting helper
+  const formatTimeBudget = (hours: number) => {
+    const totalMinutes = Math.round(hours * 60);
+    const h = Math.floor(totalMinutes / 60);
+    const m = totalMinutes % 60;
+    if (m === 0) {
+      return `${h} ${h === 1 ? 'hour' : 'hours'} (${totalMinutes} mins)`;
+    }
+    return `${h} ${h === 1 ? 'hr' : 'hrs'} ${m} mins (${totalMinutes} mins)`;
+  };
 
-    onGenerate({
-      destinationStateId: activeState ? activeState.id : 'MLK',
-      availableMinutes: 210, // 3.5 hours
-      interests:
-        activeState && activeState.culturalThemes.length > 0
-          ? activeState.culturalThemes.slice(0, 3)
-          : ['Living Tradition', 'Architecture', 'Colonial'],
-      transportMode: quickMode,
-      budgetLevel: 'flexible',
-    });
+  // Map between hours and slider percentage (0 to 100) so that 4.0h is exactly at the middle (50%) of the bar
+  const hoursToSliderPos = (h: number): number => {
+    if (h <= 1.5) return 0;
+    if (h <= 4.0) {
+      return ((h - 1.5) / 2.5) * 50;
+    }
+    return 50 + ((h - 4.0) / 4.0) * 50;
+  };
+
+  const sliderPosToHours = (pos: number): number => {
+    if (pos <= 0) return 1.5;
+    if (pos >= 100) return 8.0;
+    if (pos <= 50) {
+      const raw = 1.5 + (pos / 50) * 2.5;
+      return Math.round(raw * 2) / 2;
+    } else {
+      const raw = 4.0 + ((pos - 50) / 50) * 4.0;
+      return Math.round(raw * 2) / 2;
+    }
   };
 
   const handleCustomSubmit = (e: React.FormEvent) => {
@@ -125,98 +141,18 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
 
   return (
     <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-teal-900/10 shadow-md shadow-teal-900/5">
-      {/* Tab Switcher: Quick vs Custom */}
-      <div className="flex items-center justify-between pb-6 border-b border-teal-900/10 mb-6">
-        <div>
-          <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25]">
-            Smart Cultural Itinerary Planner
-          </h2>
-          <p className="text-xs text-[#0A2F25]/70 mt-1">
-            Explainable constraint-based routing adhering to authentic heritage time budgets
-          </p>
-        </div>
-
-        <div className="flex bg-white p-1 rounded-xl border border-teal-900/10 shadow-xs">
-          <button
-            type="button"
-            onClick={() => setModeTab('quick')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-              modeTab === 'quick'
-                ? 'bg-[#0A2F25] text-white shadow-xs'
-                : 'text-[#0A2F25]/70 hover:text-[#0A2F25]'
-            }`}
-          >
-            <Sparkles className={`w-3.5 h-3.5 ${modeTab === 'quick' ? 'text-[#E5C05C]' : 'text-[#B88E18]'}`} />
-            Quick Mode
-          </button>
-          <button
-            type="button"
-            onClick={() => setModeTab('custom')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-              modeTab === 'custom'
-                ? 'bg-[#0A2F25] text-white shadow-xs'
-                : 'text-[#0A2F25]/70 hover:text-[#0A2F25]'
-            }`}
-          >
-            <Sliders className={`w-3.5 h-3.5 ${modeTab === 'custom' ? 'text-[#E5C05C]' : 'text-[#B88E18]'}`} />
-            Custom Plan
-          </button>
-        </div>
+      {/* Header */}
+      <div className="pb-6 border-b border-teal-900/10 mb-6">
+        <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25]">
+          Smart Cultural Itinerary Planner
+        </h2>
+        <p className="text-xs text-[#0A2F25]/70 mt-1">
+          Explainable constraint-based routing adhering to authentic heritage time budgets
+        </p>
       </div>
 
-      {modeTab === 'quick' ? (
-        /* Quick Mode Banner */
-        <div className="space-y-6">
-          <div className="p-5 rounded-2xl bg-white/90 border border-teal-900/10 shadow-sm">
-            <div className="flex items-start gap-4">
-              <div className="p-3 rounded-2xl bg-[#E6F3ED] text-[#B88E18] border border-teal-900/10 shadow-xs">
-                <Compass className="w-6 h-6" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-serif font-bold text-base text-[#0A2F25]">
-                  {activeState?.name || 'Malaysia'} Heritage Starter Trail
-                </h3>
-                <p className="text-xs text-[#0A2F25]/80 leading-relaxed">
-                  {userSelectedMode
-                    ? `Generates an optimal 3.5-hour curated ${transportMode} itinerary connecting top heritage monuments and local traditions in ${activeState?.name || 'the state'}.`
-                    : isCompact
-                    ? `Generates an optimal 3.5-hour curated walking loop connecting top heritage monuments, cultural landmarks, and local traditions in ${activeState?.name || 'the state'}.`
-                    : `Generates an optimal 3.5-hour scenic heritage road route connecting top monuments, cultural landmarks, and regional traditions in ${activeState?.name || 'the state'}.`}
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2 text-[11px] font-semibold text-[#0A2F25]">
-                  <span className="px-2 py-0.5 rounded-md bg-[#EBF5F0] border border-teal-900/10">
-                    ⏱ 3.5 Hours Total
-                  </span>
-                  <span className="px-2 py-0.5 rounded-md bg-[#EBF5F0] border border-teal-900/10">
-                    {(userSelectedMode ? transportMode : (isCompact ? 'walking' : 'car')) === 'walking'
-                      ? '🚶 100% Pedestrian Walking'
-                      : (userSelectedMode ? transportMode : (isCompact ? 'walking' : 'car')) === 'car'
-                      ? '🚗 Scenic Heritage Drive'
-                      : '🚌 Transit Cultural Route'}
-                  </span>
-                  <span className="px-2 py-0.5 rounded-md bg-[#EBF5F0] border border-teal-900/10">
-                    🏛 Curated Sourced Monuments
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleQuickSubmit}
-            disabled={isLoading}
-            className="w-full py-3.5 px-6 rounded-2xl bg-[#0A2F25] hover:bg-[#0E3D31] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            <Sparkles className="w-4 h-4 text-[#E5C05C]" />
-            {isLoading
-              ? 'Synthesizing Itinerary...'
-              : `Generate Instant ${activeState?.name || 'Heritage'} Itinerary`}
-          </button>
-        </div>
-      ) : (
-        /* Custom Planning Form */
-        <form onSubmit={handleCustomSubmit} className="space-y-6">
+      {/* Custom Planning Form */}
+      <form onSubmit={handleCustomSubmit} className="space-y-6">
           {/* Destination & Time Budget */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
@@ -246,16 +182,16 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                 </label>
                 <span className="text-xs font-bold text-[#087E83] flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" />
-                  {availableHours} hours ({Math.round(availableHours * 60)} mins)
+                  {formatTimeBudget(availableHours)}
                 </span>
               </div>
               <input
                 type="range"
-                min="1.5"
-                max="8.0"
-                step="0.5"
-                value={availableHours}
-                onChange={(e) => setAvailableHours(parseFloat(e.target.value))}
+                min="0"
+                max="100"
+                step="1"
+                value={hoursToSliderPos(availableHours)}
+                onChange={(e) => setAvailableHours(sliderPosToHours(parseFloat(e.target.value)))}
                 className="w-full accent-[#0A2F25] cursor-pointer"
               />
               <div className="flex justify-between text-[10px] text-[#0A2F25]/50 mt-1">
@@ -299,50 +235,42 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               <label className="block text-xs font-bold text-[#0A2F25] uppercase tracking-wider mb-2">
                 Transport Mode
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 <button
                   type="button"
                   onClick={() => handleSelectMode('walking')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
+                  className={`py-3 px-2 rounded-xl text-xs font-medium border flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all cursor-pointer text-center ${
                     transportMode === 'walking'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
                       : 'border-teal-900/10 bg-white text-[#0A2F25]/70 hover:bg-[#EBF5F0]'
                   }`}
                 >
-                  <Footprints className="w-4 h-4 text-[#B88E18]" /> Walking
+                  <Footprints className="w-4 h-4 text-[#B88E18] shrink-0" />
+                  <span>Walking</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectMode('car')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
+                  className={`py-3 px-2 rounded-xl text-xs font-medium border flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all cursor-pointer text-center ${
                     transportMode === 'car'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
                       : 'border-teal-900/10 bg-white text-[#0A2F25]/70 hover:bg-[#EBF5F0]'
                   }`}
                 >
-                  <Car className="w-4 h-4 text-[#B88E18]" /> Car / Ride
+                  <Car className="w-4 h-4 text-[#B88E18] shrink-0" />
+                  <span>Car / Ride</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectMode('public_transport')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
+                  className={`py-3 px-2 rounded-xl text-xs font-medium border flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all cursor-pointer text-center ${
                     transportMode === 'public_transport'
                       ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
                       : 'border-teal-900/10 bg-white text-[#0A2F25]/70 hover:bg-[#EBF5F0]'
                   }`}
                 >
-                  <Bus className="w-4 h-4 text-[#B88E18]" /> Public Transit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleSelectMode('mixed')}
-                  className={`p-2.5 rounded-xl text-xs font-medium border flex items-center gap-2 transition-all cursor-pointer ${
-                    transportMode === 'mixed'
-                      ? 'border-[#0A2F25] bg-[#EBF5F0] text-[#0A2F25] font-semibold ring-1 ring-[#0A2F25]/30'
-                      : 'border-teal-900/10 bg-white text-[#0A2F25]/70 hover:bg-[#EBF5F0]'
-                  }`}
-                >
-                  <Bike className="w-4 h-4 text-[#B88E18]" /> Mixed
+                  <Bus className="w-4 h-4 text-[#B88E18] shrink-0" />
+                  <span>Transit</span>
                 </button>
               </div>
 
@@ -408,7 +336,6 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
             {isLoading ? 'Optimizing Itinerary...' : 'Generate Customized Itinerary'}
           </button>
         </form>
-      )}
     </div>
   );
 };

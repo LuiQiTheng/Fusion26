@@ -47,6 +47,40 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
     }
   };
 
+  // Add Place to Itinerary Handler
+  const handleAddPlace = (place: HeritagePlace) => {
+    if (!currentItinerary) return;
+    if (currentItinerary.stops.some((s) => s.placeId === place.id)) return;
+
+    const visit = place.visitDurationMinutes || 45;
+    const rawStops = [
+      ...currentItinerary.stops,
+      {
+        placeId: place.id,
+        order: currentItinerary.stops.length + 1,
+        visitDurationMinutes: visit,
+        routeDataStatus: 'estimated' as const,
+        reasonSelected: 'Added by user via Add Places modal.',
+      },
+    ];
+
+    const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
+      recalculateItineraryStops(rawStops, places, currentItinerary.transportMode);
+
+    const updatedItinerary: Itinerary = {
+      ...currentItinerary,
+      stops: updatedStops,
+      totalVisitMinutes,
+      totalTravelMinutes,
+      totalPlannedMinutes,
+      updatedAt: new Date().toISOString(),
+      isCustomized: true,
+    };
+
+    onUpdateItinerary(updatedItinerary);
+    setIsSavedLocally(false);
+  };
+
   // Remove Stop Handler
   const handleRemoveStop = (order: number) => {
     if (!currentItinerary) return;
@@ -158,6 +192,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
               onSaveItinerary={handleSave}
               onInspectAI={() => onInspectItineraryAI(currentItinerary)}
               isSaved={isSavedLocally}
+              onAddPlace={handleAddPlace}
             />
           </div>
 
@@ -184,7 +219,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
             No active itinerary generated yet
           </p>
           <p className="text-xs text-[#0A2F25]/60 max-w-sm mx-auto">
-            Use Quick Mode for an instant 3.5-hour Melaka trail or configure your custom time budget and interests above.
+            Configure your destination, time budget, and cultural interests above to generate a custom itinerary.
           </p>
         </div>
       )}

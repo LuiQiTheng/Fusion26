@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Clock,
   Sparkles,
@@ -11,9 +11,11 @@ import {
   ShieldCheck,
   AlertCircle,
   Printer,
+  Plus,
 } from 'lucide-react';
 import { Itinerary, HeritagePlace } from '../../types';
 import { isCompactDistrict, calculateHaversineDistanceKm } from '../../lib/routing';
+import { AddPlaceModal } from './AddPlaceModal';
 
 interface ItineraryTimelineProps {
   itinerary: Itinerary;
@@ -23,6 +25,7 @@ interface ItineraryTimelineProps {
   onSaveItinerary: () => void;
   onInspectAI: () => void;
   isSaved?: boolean;
+  onAddPlace?: (place: HeritagePlace) => void;
 }
 
 export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
@@ -33,7 +36,9 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   onSaveItinerary,
   onInspectAI,
   isSaved = false,
+  onAddPlace,
 }) => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const placeMap = new Map<string, HeritagePlace>(allPlaces.map((p) => [p.id, p]));
 
   // Map physical places to consecutive 1-indexed pin numbers matching the map markers exactly
@@ -109,7 +114,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={onInspectAI}
             className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#087E83]/10 text-[#087E83] hover:bg-[#087E83]/20 border border-[#087E83]/30 flex items-center gap-1.5 transition-colors cursor-pointer"
@@ -420,6 +425,20 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
             </div>
           );
         })}
+
+        {/* Add More Places to Route Action Card */}
+        {onAddPlace && (
+          <div className="pt-2 pl-12">
+            <button
+              type="button"
+              onClick={() => setIsAddModalOpen(true)}
+              className="w-full py-3.5 px-4 rounded-2xl border-2 border-dashed border-[#087E83]/30 hover:border-[#087E83] bg-white/70 hover:bg-[#EBF5F0] text-[#0A2F25] text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer group shadow-xs"
+            >
+              <Plus className="w-4 h-4 text-[#087E83] group-hover:scale-125 transition-transform" />
+              <span>Add More Places & Culinary Stops to Itinerary</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Assumptions and Transparency Footer */}
@@ -434,6 +453,21 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
           ))}
         </ul>
       </div>
+
+      {/* Add Place Modal */}
+      <AddPlaceModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        destinationStateId={itinerary.destinationStateId}
+        allPlaces={allPlaces}
+        currentItineraryStops={itinerary.stops}
+        onAddPlace={(place) => {
+          if (onAddPlace) {
+            onAddPlace(place);
+          }
+        }}
+        onSelectPlaceDetail={onSelectPlace}
+      />
     </div>
   );
 };

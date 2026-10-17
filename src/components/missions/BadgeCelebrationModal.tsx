@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import confetti from 'canvas-confetti';
 import { X, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { ExplorerBadge } from '../../types';
@@ -43,6 +44,16 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
     }
   }, [isOpen, badge]);
 
+  // Support closing with Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen || !badge) return null;
 
   const getTierVisuals = () => {
@@ -74,18 +85,31 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
 
   const visuals = getTierVisuals();
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-teal-900/15 text-center animate-in zoom-in-95 duration-300 text-[#0A2F25]">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[100] overflow-y-auto bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div
+        className="relative bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-teal-900/15 text-center animate-in zoom-in-95 duration-200 text-[#0A2F25] my-auto"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="badge-celebration-title"
+      >
         {/* Glow ambient circle */}
         <div className={`absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full blur-3xl pointer-events-none ${visuals.glowColor}`} />
 
         {/* Top Header Banner */}
         <div className={`p-6 bg-gradient-to-br ${visuals.bannerBg} text-white relative`}>
           <button
+            type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/80 transition-colors cursor-pointer"
-            aria-label="Close"
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-colors cursor-pointer"
+            aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
           </button>
@@ -105,7 +129,7 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
             </div>
           </div>
 
-          <h2 className="font-serif font-extrabold text-2xl sm:text-3xl text-white mt-3">
+          <h2 id="badge-celebration-title" className="font-serif font-extrabold text-2xl sm:text-3xl text-white mt-3">
             {badge.name}
           </h2>
           <p className="text-xs text-amber-200/90 font-medium mt-1">
@@ -129,8 +153,9 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
           {/* Action CTAs */}
           <div className="space-y-2">
             <button
+              type="button"
               onClick={onClose}
-              className="w-full py-3.5 px-5 rounded-2xl bg-[#C5A028] hover:bg-[#B88E18] text-white font-bold text-sm shadow-md shadow-[#C5A028]/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3.5 px-5 rounded-2xl bg-[#C5A028] hover:bg-[#B88E18] text-white font-bold text-sm shadow-md shadow-[#C5A028]/20 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
               <span>Awesome! Keep Exploring</span>
               <ArrowRight className="w-4 h-4" />
@@ -138,6 +163,7 @@ export const BadgeCelebrationModal: React.FC<BadgeCelebrationModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

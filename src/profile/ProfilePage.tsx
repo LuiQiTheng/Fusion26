@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, ArrowLeft, RefreshCw } from 'lucide-react';
-import { HeritagePlace } from '../types';
+import { HeritagePlace, Itinerary, CulturalMission, MissionProof } from '../types';
 import { NavTab } from '../components/layout/Navbar';
 import { loadItinerary } from '../lib/persistence';
 import { TravelRecord } from './types';
@@ -16,12 +16,13 @@ import { RecycleBinPage } from './pages/RecycleBinPage';
 import { TravelMapPage } from './pages/TravelMapPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { MyTripsPage } from './pages/MyTripsPage';
+import { SavedTripPage } from '../pages/SavedTripPage';
 import { WishlistPage } from './pages/WishlistPage';
 import type { WishlistActionResult } from './pages/WishlistPage';
 import { ConfirmDialog } from './components/ConfirmDialog';
 import { Toast, ToastMessage, ToastTone } from './components/Toast';
 
-interface ProfilePageProps {
+export interface ProfilePageProps {
   places: HeritagePlace[];
   favorites: string[]; // existing Favorites from App.tsx
   // Lets App.tsx know when a Profile form has unsaved changes. Pass a stable state setter.
@@ -31,6 +32,14 @@ interface ProfilePageProps {
   onWishlistAddToTrip: (place: HeritagePlace) => WishlistActionResult;
   onViewPlace: (place: HeritagePlace) => void;
   onNavigate: (tab: NavTab) => void;
+  // Saved trips & missions integration
+  savedItinerary?: Itinerary | null;
+  completedMissionIds?: string[];
+  missions?: CulturalMission[];
+  onToggleFavorite?: (id: string) => void;
+  onInspectAI?: (place: HeritagePlace) => void;
+  onClearAllSaved?: () => void;
+  proofs?: Record<string, MissionProof>;
 }
 
 // Profile subpages. Overview, Edit Profile, the memory pages, Memories, the Recycle Bin and
@@ -81,6 +90,13 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   onViewPlace,
   onUnsavedChange,
   onNavigate,
+  savedItinerary,
+  completedMissionIds,
+  missions,
+  onToggleFavorite,
+  onInspectAI,
+  onClearAllSaved,
+  proofs,
 }) => {
   const [view, setView] = useState<ProfileView>('overview');
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
@@ -244,7 +260,6 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   };
 
   const handleOverviewNavigate = (target: OverviewTarget) => {
-    // Wishlist and My Trips reuse the existing Saved Trips page until Stage 7.
     if (target === 'add-memory') {
       setSelectedRecordId(null);
       setOrigin('overview');
@@ -423,10 +438,19 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         );
       case 'my-trips':
         return (
-          <MyTripsPage
+          <SavedTripPage
+            savedItinerary={savedItinerary ?? loadItinerary()}
+            favorites={favorites}
             places={places}
-            onOpenSavedTrips={() => onNavigate('saved')}
-            onExplore={() => onNavigate('explore')}
+            completedMissionIds={completedMissionIds ?? []}
+            missions={missions ?? []}
+            onToggleFavorite={onToggleFavorite ?? (() => {})}
+            onSelectPlace={onViewPlace}
+            onInspectAI={onInspectAI ?? (() => {})}
+            onNavigate={onNavigate}
+            onClearAllSaved={onClearAllSaved ?? (() => {})}
+            proofs={proofs ?? {}}
+            onBack={() => requestLeaveTo('overview')}
           />
         );
       case 'map':

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavTab, Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { HomePage } from './pages/HomePage';
-import { ExplorePage } from './pages/ExplorePage';
+import { PlannerPage } from './pages/PlannerPage';
 import { MissionsPage } from './pages/MissionsPage';
 import { SavedTripPage } from './pages/SavedTripPage';
 import { AboutDataPage } from './pages/AboutDataPage';
@@ -396,29 +396,30 @@ export const App: React.FC = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onSelectPlace={setDetailPlace}
-            onSelectState={(stId) => {
-              setSelectedStateId(stId);
-              setCurrentTab('explore');
-            }}
-            onOpenMelakaShowcase={() => setIsMelakaShowcaseOpen(true)}
-          />
-        )}
-
-        {currentTab === 'explore' && (
-          <ExplorePage
-            states={states}
-            places={places}
-            selectedStateId={selectedStateId}
             onSelectState={setSelectedStateId}
+            onOpenMelakaShowcase={() => setIsMelakaShowcaseOpen(true)}
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}
-            onSelectPlace={setDetailPlace}
             onInspectAI={handleInspectPlaceAI}
+            selectedStateId={selectedStateId}
             currentItinerary={currentItinerary}
             onUpdateItinerary={(itin) => {
               setCurrentItinerary(itin);
               if (itin) setSavedItinerary(itin);
             }}
+          />
+        )}
+
+        {currentTab === 'explore' && (
+          <PlannerPage
+            states={states}
+            places={places}
+            currentItinerary={currentItinerary}
+            onUpdateItinerary={(itin) => {
+              setCurrentItinerary(itin);
+              if (itin) setSavedItinerary(itin);
+            }}
+            onSelectPlace={setDetailPlace}
             onInspectItineraryAI={handleInspectItineraryAI}
           />
         )}
@@ -476,6 +477,13 @@ export const App: React.FC = () => {
               setCurrentTab(tab);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
+            savedItinerary={currentItinerary}
+            completedMissionIds={completedMissionIds}
+            missions={missions}
+            onToggleFavorite={handleToggleFavorite}
+            onInspectAI={handleInspectPlaceAI}
+            onClearAllSaved={handleClearAllSaved}
+            proofs={missionProofs}
           />
         )}
       </main>

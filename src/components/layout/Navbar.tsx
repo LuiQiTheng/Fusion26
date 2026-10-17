@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, MapPin, Bookmark, Menu, X, Award, LogIn, User } from 'lucide-react';
+import { Compass, MapPin, Menu, X, Award, LogIn, User } from 'lucide-react';
 
 export type NavTab = 'home' | 'explore' | 'missions' | 'saved' | 'profile';
 
@@ -22,10 +22,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navItems: { id: NavTab; label: string; icon: React.ReactNode; badge?: number }[] = [
     { id: 'home', label: 'Home', icon: <Compass className="w-4 h-4 text-[#D4AF37]" /> },
-    { id: 'explore', label: 'Explore & Plan', icon: <MapPin className="w-4 h-4 text-[#D4AF37]" /> },
-    { id: 'missions', label: 'Missions', icon: <Award className="w-4 h-4 text-[#D4AF37]" />, badge: completedMissionsCount },
-    { id: 'saved', label: 'Saved Trips', icon: <Bookmark className="w-4 h-4 text-[#D4AF37]" />, badge: favoritesCount },
-    { id: 'profile', label: 'Profile', icon: <User className="w-4 h-4 text-[#D4AF37]" /> },
+    { id: 'explore', label: 'Trip Planner', icon: <MapPin className="w-4 h-4 text-[#D4AF37]" /> },
+    { id: 'missions', label: 'Missions', icon: <Award className="w-4 h-4 text-[#D4AF37]" /> },
+    { id: 'profile', label: 'Profile', icon: <User className="w-4 h-4 text-[#D4AF37]" />, badge: favoritesCount > 0 ? favoritesCount : undefined },
   ];
 
   const handleSelect = (tab: NavTab) => {
@@ -65,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
-              const isActive = currentTab === item.id;
+              const isActive = currentTab === item.id || (item.id === 'profile' && currentTab === 'saved');
               return (
                 <button
                   key={item.id}
@@ -119,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-teal-900/10 bg-[#F4F9F6]/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-1">
           {navItems.map((item) => {
-            const isActive = currentTab === item.id;
+            const isActive = currentTab === item.id || (item.id === 'profile' && currentTab === 'saved');
             return (
               <button
                 key={item.id}
@@ -142,6 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             );
           })}
+
           {onSignIn && (
             <button
               onClick={() => {

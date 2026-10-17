@@ -61,7 +61,10 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
       <BadgeCelebrationModal
         badge={celebrationBadge}
         isOpen={isCelebrationOpen}
-        onClose={() => setIsCelebrationOpen(false)}
+        onClose={() => {
+          setIsCelebrationOpen(false);
+          setCelebrationBadge(null);
+        }}
       />
 
       {/* Header Banner */}

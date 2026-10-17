@@ -1,9 +1,8 @@
 import React from 'react';
 import { Itinerary, HeritagePlace, CulturalMission, MissionProof } from '../types';
 import { PlaceCard } from '../components/places/PlaceCard';
-import { Bookmark, Calendar, Trash2, ArrowRight, Camera, CheckCircle2 } from 'lucide-react';
+import { Bookmark, Calendar, Trash2, ArrowRight, ArrowLeft, Camera, CheckCircle2 } from 'lucide-react';
 import { NavTab } from '../components/layout/Navbar';
-import { getUnlockedBadges } from '../lib/badges';
 
 interface SavedTripPageProps {
   savedItinerary: Itinerary | null;
@@ -17,6 +16,7 @@ interface SavedTripPageProps {
   onNavigate: (tab: NavTab) => void;
   onClearAllSaved: () => void;
   proofs?: Record<string, MissionProof>;
+  onBack?: () => void;
 }
 
 export const SavedTripPage: React.FC<SavedTripPageProps> = ({
@@ -31,10 +31,10 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
   onNavigate,
   onClearAllSaved,
   proofs = {},
+  onBack,
 }) => {
   const favoritePlaces = places.filter((p) => favorites.includes(p.id));
   const completedMissions = missions.filter((m) => completedMissionIds.includes(m.id));
-  const unlockedBadges = getUnlockedBadges(completedMissionIds.length);
   const proofList = Object.values(proofs);
 
   const hasAnySaved =
@@ -44,22 +44,22 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
     proofList.length > 0;
 
   return (
-    <div className="space-y-8 min-h-[60vh] w-full">
+    <div className="space-y-6 min-h-[60vh] w-full">
       {/* Title & Clear Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-teal-900/10">
         <div>
           <h1 className="font-serif font-bold text-3xl text-[#0A2F25]">
-            Saved Trips & Explorer Passport
+            My Saved Trips
           </h1>
           <p className="text-xs text-[#0A2F25]/70 mt-1">
-            Persisted locally in your browser storage. Your verified badges, field photos, and saved itineraries
+            Persisted locally in your browser storage. Your custom scheduled itineraries, field photos, and bookmarked places.
           </p>
         </div>
 
         {hasAnySaved && (
           <button
             onClick={() => {
-              if (window.confirm('Are you sure you want to clear all locally saved itineraries, bookmarks, and badges?')) {
+              if (window.confirm('Are you sure you want to clear all locally saved itineraries, bookmarks, and field photos?')) {
                 onClearAllSaved();
               }
             }}
@@ -71,79 +71,37 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
       </div>
 
       {!hasAnySaved ? (
-        <div className="p-12 text-center bg-white/80 backdrop-blur-md rounded-3xl border border-teal-900/10 shadow-sm space-y-4 w-full">
-          <div className="w-14 h-14 rounded-2xl bg-[#EBF5F0] text-[#B88E18] flex items-center justify-center mx-auto border border-teal-900/15">
-            <Bookmark className="w-7 h-7" />
-          </div>
-          <div className="space-y-1.5 max-w-md mx-auto">
-            <h3 className="font-serif font-bold text-xl text-[#0A2F25]">
-              No Saved Cultural Data Yet
-            </h3>
-            <p className="text-xs text-[#0A2F25]/70 leading-relaxed">
-              Explore heritage places or generate a personalized itinerary to save trips, bookmark favorite locations, and earn verified explorer badges.
-            </p>
-          </div>
-          <div className="flex justify-center gap-3 pt-2">
-            <button
-              onClick={() => onNavigate('explore')}
-              className="px-5 py-2.5 rounded-xl bg-[#C5A028] text-white font-bold text-xs shadow-xs hover:bg-[#B88E18] cursor-pointer transition-colors"
-            >
-              Generate Itinerary
-            </button>
-            <button
-              onClick={() => onNavigate('missions')}
-              className="px-5 py-2.5 rounded-xl bg-[#EBF5F0] text-[#0A2F25] font-semibold text-xs hover:bg-[#E2EFE9] border border-teal-900/15 cursor-pointer transition-colors"
-            >
-              Explore Missions
-            </button>
+        <div className="space-y-8">
+          <div className="p-12 text-center bg-white/80 backdrop-blur-md rounded-3xl border border-teal-900/10 shadow-sm space-y-4 w-full">
+            <div className="w-14 h-14 rounded-2xl bg-[#EBF5F0] text-[#B88E18] flex items-center justify-center mx-auto border border-teal-900/15">
+              <Bookmark className="w-7 h-7" />
+            </div>
+            <div className="space-y-1.5 max-w-md mx-auto">
+              <h3 className="font-serif font-bold text-xl text-[#0A2F25]">
+                No Saved Cultural Data Yet
+              </h3>
+              <p className="text-xs text-[#0A2F25]/70 leading-relaxed">
+                Explore heritage places or generate a personalized itinerary to save trips and bookmark favorite locations.
+              </p>
+            </div>
+            <div className="flex justify-center gap-3 pt-2">
+              <button
+                onClick={() => onNavigate('explore')}
+                className="px-5 py-2.5 rounded-xl bg-[#C5A028] text-white font-bold text-xs shadow-xs hover:bg-[#B88E18] cursor-pointer transition-colors"
+              >
+                Generate Itinerary
+              </button>
+              <button
+                onClick={() => onNavigate('missions')}
+                className="px-5 py-2.5 rounded-xl bg-[#EBF5F0] text-[#0A2F25] font-semibold text-xs hover:bg-[#E2EFE9] border border-teal-900/15 cursor-pointer transition-colors"
+              >
+                Explore Missions
+              </button>
+            </div>
           </div>
         </div>
       ) : (
         <div className="space-y-8">
-          {/* Unlocked Badges Showcase Banner */}
-          {unlockedBadges.length > 0 && (
-            <div className="p-6 rounded-3xl bg-white/80 backdrop-blur-md text-[#0A2F25] shadow-sm space-y-4 border border-teal-900/10">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#C5A028] text-white">
-                    Official Recognition
-                  </span>
-                  <h2 className="font-serif font-bold text-2xl text-[#0A2F25] mt-1">
-                    Your Cultural Explorer Badges ({unlockedBadges.length} Earned)
-                  </h2>
-                </div>
-                <button
-                  onClick={() => onNavigate('missions')}
-                  className="text-xs font-bold text-[#B88E18] hover:text-[#087E83] transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
-                >
-                  View All Missions & Badges →
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                {unlockedBadges.map((badge) => (
-                  <div
-                    key={badge.id}
-                    className="p-4 rounded-2xl bg-[#EBF5F0] backdrop-blur-md border border-teal-900/15 flex items-center gap-3.5"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-teal-900/15 text-2xl flex items-center justify-center shrink-0">
-                      {badge.icon}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <h4 className="font-serif font-bold text-sm text-[#0A2F25]">{badge.name}</h4>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#087E83]" />
-                      </div>
-                      <p className="text-[11px] text-[#B88E18] leading-tight mt-0.5">
-                        {badge.level} Rank • Verified on-site
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Verified Field Photos Gallery */}
           {proofList.length > 0 && (
             <div className="space-y-4">
