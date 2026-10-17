@@ -50,6 +50,38 @@ export const AIReasoningModal: React.FC<AIReasoningModalProps> = ({
 
         {/* Body */}
         <div className="p-6 overflow-y-auto space-y-6 text-sm text-[#0A2F25]">
+          {/* Explainable AI (XAI) Route Optimization Rationale */}
+          {inspection.xaiRationale && (
+            <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-50 via-[#EBF5F0] to-teal-50 border border-teal-900/15">
+              <div className="flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-[#087E83] mt-0.5 shrink-0" />
+                <div className="space-y-2 flex-1">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <h4 className="font-bold text-[#0A2F25] text-xs uppercase tracking-wider">
+                      Explainable AI (XAI) Route Optimization Rationale
+                    </h4>
+                    <span className="text-[10px] font-bold text-[#087E83] bg-[#087E83]/10 px-2 py-0.5 rounded-full border border-[#087E83]/20">
+                      Smart TSP Engine
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#0A2F25]/85 leading-relaxed font-medium">
+                    {inspection.xaiRationale}
+                  </p>
+                  {inspection.xaiDetails && inspection.xaiDetails.length > 0 && (
+                    <div className="mt-2.5 pt-2.5 border-t border-teal-900/10 text-xs text-[#0A2F25]/80 space-y-1.5">
+                      {inspection.xaiDetails.map((detail, idx) => (
+                        <p key={idx} className="flex items-start gap-1.5">
+                          <span className="text-[#087E83] font-bold shrink-0">•</span>
+                          <span>{detail}</span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Grounding Status Card */}
           <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-600/30 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-[#087E83] mt-0.5 shrink-0" />

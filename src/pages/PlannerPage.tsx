@@ -193,6 +193,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
               onInspectAI={() => onInspectItineraryAI(currentItinerary)}
               isSaved={isSavedLocally}
               onAddPlace={handleAddPlace}
+              onUpdateItinerary={onUpdateItinerary}
             />
           </div>
 
@@ -204,8 +205,19 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
               transportMode={currentItinerary?.transportMode || 'walking'}
               onRouteCalculated={handleRouteCalculated}
               onSelectPlace={onSelectPlace}
+              startingPoint={
+                currentItinerary?.startingPointName || currentItinerary?.startingCoordinates || currentItinerary?.startingPlaceId
+                  ? {
+                      name: (currentItinerary.startingPointName || 'Starting Point').replace(/^(🏨|📍|🏠|🚩)\s*/, ''),
+                      placeId: currentItinerary.startingPlaceId,
+                      coordinates: currentItinerary.startingCoordinates,
+                    }
+                  : undefined
+              }
               center={
-                activePlacesForMap[0]?.latitude
+                currentItinerary?.startingCoordinates
+                  ? currentItinerary.startingCoordinates
+                  : activePlacesForMap[0]?.latitude
                   ? [activePlacesForMap[0].latitude, activePlacesForMap[0].longitude!]
                   : [2.1950, 102.2490]
               }

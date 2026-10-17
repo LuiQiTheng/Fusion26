@@ -171,7 +171,13 @@ export const SavedTripPage: React.FC<SavedTripPageProps> = ({
                   <div className="flex items-center gap-3 text-xs text-[#0A2F25]/80 bg-[#EBF5F0] px-3.5 py-2 rounded-xl border border-teal-900/15">
                     <span>⏱ {savedItinerary.totalPlannedMinutes} mins</span>
                     <span>🏛 {savedItinerary.stops.length} stops</span>
-                    <span className="capitalize">🚶 {savedItinerary.transportMode}</span>
+                    <span className="capitalize">
+                      {savedItinerary.transportMode === 'car'
+                        ? '🚗 Car'
+                        : savedItinerary.transportMode === 'public_transport'
+                        ? '🚌 Transit'
+                        : '🚶 Walking'}
+                    </span>
                   </div>
                 </div>
 

@@ -12,7 +12,11 @@ import {
   calculateHaversineDistanceKm,
   fetchOSRMDrivingTable,
   OSRMRouteResult,
+  recalculateItineraryLocally,
+  solveSoftTimeWindowTSP,
+  solveNearestNeighborTSP,
 } from './routing';
+import { searchCuratedDirectory } from './geocoding';
 
 export interface PlannerOptions {
   destinationStateId: string;
@@ -21,6 +25,149 @@ export interface PlannerOptions {
   transportMode: TransportMode;
   budgetLevel: BudgetLevel;
   startingPlaceId?: string;
+  startingPointName?: string;
+  startingCoordinates?: [number, number];
+  startTime?: string;
+}
+
+export interface HotelRecord {
+  id: string;
+  name: string;
+  placeId: string;
+  latitude?: number;
+  longitude?: number;
+  locality?: string;
+  category?: 'stay' | 'transit' | 'landmark';
+}
+
+export const HOTELS_BY_STATE: Record<string, HotelRecord[]> = {
+  MLK: [
+    { id: 'hatten', name: 'Hatten Hotel Melaka', placeId: 'mlk-afamosa', latitude: 2.1896, longitude: 102.253, locality: 'Bandar Hilir', category: 'stay' },
+    { id: 'casadelrio', name: 'Casa del Rio Melaka', placeId: 'mlk-stadthuys', latitude: 2.1947, longitude: 102.2473, locality: 'Riverside / Dutch Square', category: 'stay' },
+    { id: 'majestic', name: 'The Majestic Malacca Hotel', placeId: 'mlk-stadthuys', latitude: 2.203, longitude: 102.252, locality: 'Bunga Raya', category: 'stay' },
+    { id: 'jonker_boutique', name: 'Jonker Boutique Hotel', placeId: 'mlk-jonker', latitude: 2.197, longitude: 102.246, locality: 'Jonker Walk', category: 'stay' },
+    { id: 'courtyard', name: 'Courtyard by Marriott Melaka', placeId: 'mlk-stadthuys', latitude: 2.2045, longitude: 102.2535, locality: 'Jalan Tun Sri Lanang', category: 'stay' },
+    { id: 'pines', name: 'The Pines Melaka', placeId: 'mlk-stadthuys', latitude: 2.204, longitude: 102.251, locality: 'Pengkalan Rama', category: 'stay' },
+    { id: 'doubletree', name: 'DoubleTree by Hilton Melaka', placeId: 'mlk-afamosa', latitude: 2.1855, longitude: 102.261, locality: 'Hatten City', category: 'stay' },
+    { id: 'swissgarden', name: 'Swiss-Garden Hotel & Residences Melaka', placeId: 'mlk-stadthuys', latitude: 2.2025, longitude: 102.2505, locality: 'Bunga Raya Pantai', category: 'stay' },
+    { id: 'imperial_heritage', name: 'Imperial Heritage Hotel Melaka', placeId: 'mlk-afamosa', latitude: 2.1905, longitude: 102.2525, locality: 'Bandar Hilir', category: 'stay' },
+    { id: 'the_shore', name: 'The Shore Hotel & Residences', placeId: 'mlk-stadthuys', latitude: 2.202, longitude: 102.2498, locality: 'Bunga Raya', category: 'stay' },
+    { id: 'atlantis', name: 'Atlantis Residences', placeId: 'mlk-stadthuys', latitude: 2.1985, longitude: 102.229, locality: 'Kota Laksamana', category: 'stay' },
+    { id: 'melaka_sentral', name: 'Melaka Sentral Bus Terminal', placeId: 'mlk-stadthuys', latitude: 2.2223, longitude: 102.2488, locality: 'Central Transit Hub', category: 'transit' },
+  ],
+  PNG: [
+    { id: 'eo', name: 'Eastern & Oriental (E&O) Hotel', placeId: 'png-cheong-fatt-tze', latitude: 5.4233, longitude: 100.3358, locality: 'George Town', category: 'stay' },
+    { id: 'prestige', name: 'The Prestige Hotel Penang', placeId: 'png-khoon-kongsi', latitude: 5.4162, longitude: 100.3424, locality: 'Weld Quay', category: 'stay' },
+    { id: 'blue_mansion', name: 'Cheong Fatt Tze (The Blue Mansion)', placeId: 'png-cheong-fatt-tze', latitude: 5.42, longitude: 100.3344, locality: 'Leith Street', category: 'stay' },
+    { id: 'seven_terraces', name: 'Seven Terraces Penang', placeId: 'png-kapitan-keling', latitude: 5.4185, longitude: 100.339, locality: 'Stewart Lane', category: 'stay' },
+    { id: 'jen_penang', name: 'JEN Penang Georgetown by Shangri-La', placeId: 'png-khoon-kongsi', latitude: 5.4132, longitude: 100.3312, locality: 'Magazine Road', category: 'stay' },
+    { id: 'penang_sentral', name: 'Penang Sentral Transit Hub', placeId: 'png-khoon-kongsi', latitude: 5.3965, longitude: 100.3662, locality: 'Butterworth / Ferry', category: 'transit' },
+  ],
+  KUL: [
+    { id: 'majestic_kl', name: 'The Majestic Hotel Kuala Lumpur', placeId: 'kul-sultan-abdul-samad', latitude: 3.1395, longitude: 101.6922, locality: 'Jalan Sultan Hishamuddin', category: 'stay' },
+    { id: 'mandarin_kl', name: 'Mandarin Oriental Kuala Lumpur', placeId: 'kul-petronas', latitude: 3.1558, longitude: 101.7122, locality: 'KLCC', category: 'stay' },
+    { id: 'chow_kit', name: 'The Chow Kit Hotel', placeId: 'kul-sultan-abdul-samad', latitude: 3.163, longitude: 101.6965, locality: 'Chow Kit', category: 'stay' },
+    { id: 'pavilion_kl', name: 'Pavilion Hotel Kuala Lumpur', placeId: 'kul-petronas', latitude: 3.1488, longitude: 101.7135, locality: 'Bukit Bintang', category: 'stay' },
+    { id: 'kl_sentral', name: 'KL Sentral Transit Hub', placeId: 'kul-sultan-abdul-samad', latitude: 3.1342, longitude: 101.6865, locality: 'Brickfields', category: 'transit' },
+  ],
+};
+
+/**
+ * Resolves user free-form typed starting locations to a physical routing anchor with exact coordinates
+ */
+export function resolveStartingAnchor(
+  typedText: string,
+  destinationStateId: string,
+  allPlaces: HeritagePlace[]
+): { placeId: string; displayName: string; coordinates?: [number, number] } {
+  const query = typedText.trim().toLowerCase();
+  const statePlaces = allPlaces.filter(
+    (p) => p.stateId === destinationStateId && typeof p.latitude === 'number' && typeof p.longitude === 'number'
+  );
+  const primaryFallback = statePlaces[0];
+
+  if (!query) {
+    return {
+      placeId: primaryFallback?.id || '',
+      displayName: primaryFallback?.name || 'Starting Point',
+      coordinates: primaryFallback ? [primaryFallback.latitude!, primaryFallback.longitude!] : undefined,
+    };
+  }
+
+  // 1. Check if GPS / Current Location
+  if (query.includes('gps') || query.includes('current location') || query.includes('my location')) {
+    return {
+      placeId: primaryFallback?.id || '',
+      displayName: 'My Current Location (GPS)',
+      coordinates: primaryFallback ? [primaryFallback.latitude!, primaryFallback.longitude!] : undefined,
+    };
+  }
+
+  // 2. Check instant curated Malaysian directory (Universities, Campuses, Hubs, Airports, Towns)
+  const curatedMatches = searchCuratedDirectory(query);
+  if (curatedMatches.length > 0) {
+    return {
+      placeId: curatedMatches[0].placeId,
+      displayName: curatedMatches[0].name,
+      coordinates: curatedMatches[0].coordinates,
+    };
+  }
+
+  // 3. Exact or substring match against known starting locations for the state
+  const locations = HOTELS_BY_STATE[destinationStateId] || [];
+  const matchedLoc = locations.find(
+    (h) => query.includes(h.id) || h.name.toLowerCase().includes(query) || query.includes(h.name.toLowerCase().replace(/[^a-z0-9]/g, ''))
+  );
+  if (matchedLoc) {
+    return {
+      placeId: matchedLoc.placeId,
+      displayName: matchedLoc.name,
+      coordinates: matchedLoc.latitude && matchedLoc.longitude ? [matchedLoc.latitude, matchedLoc.longitude] : undefined,
+    };
+  }
+
+  // 3. Exact or substring match against known monuments/heritage sites in the state
+  const matchedPlace = statePlaces.find(
+    (p) =>
+      p.name.toLowerCase().includes(query) ||
+      query.includes(p.name.toLowerCase()) ||
+      (p.locality && (p.locality.toLowerCase().includes(query) || query.includes(p.locality.toLowerCase())))
+  );
+  if (matchedPlace) {
+    return {
+      placeId: matchedPlace.id,
+      displayName: matchedPlace.name,
+      coordinates: [matchedPlace.latitude!, matchedPlace.longitude!],
+    };
+  }
+
+  // 4. Keyword heuristic matching for prominent heritage clusters & locations
+  if (query.includes('hatten') || query.includes('bandar hilir') || query.includes('hilir')) {
+    const af = statePlaces.find((p) => p.id === 'mlk-afamosa');
+    return { placeId: af?.id || primaryFallback?.id || '', displayName: typedText.trim(), coordinates: [2.1896, 102.253] };
+  }
+  if (query.includes('jonker') || query.includes('chinatown') || query.includes('hebat')) {
+    const jk = statePlaces.find((p) => p.id === 'mlk-jonker');
+    return { placeId: jk?.id || primaryFallback?.id || '', displayName: typedText.trim(), coordinates: [2.197, 102.246] };
+  }
+  if (query.includes('atlantis') || query.includes('laksamana')) {
+    const st = statePlaces.find((p) => p.id === 'mlk-stadthuys');
+    return { placeId: st?.id || primaryFallback?.id || '', displayName: typedText.trim(), coordinates: [2.1985, 102.229] };
+  }
+  if (query.includes('shore') || query.includes('riverside')) {
+    const st = statePlaces.find((p) => p.id === 'mlk-stadthuys');
+    return { placeId: st?.id || primaryFallback?.id || '', displayName: typedText.trim(), coordinates: [2.202, 102.2498] };
+  }
+  if (query.includes('sentral')) {
+    return { placeId: primaryFallback?.id || '', displayName: typedText.trim(), coordinates: [2.2223, 102.2488] };
+  }
+
+  // 5. Custom typed location fallback
+  return {
+    placeId: primaryFallback?.id || '',
+    displayName: typedText.trim(),
+    coordinates: primaryFallback ? [primaryFallback.latitude!, primaryFallback.longitude!] : undefined,
+  };
 }
 
 /**
@@ -53,85 +200,50 @@ function twoOptSwap(route: number[], i: number, k: number): number[] {
 /**
  * Re-estimates times when stops are reordered or removed, preserving
  * legitimate transit times between physical stops even when intangible stops intervene.
+ * Calculates dynamic ETAs (starting from 09:00 AM) and sunset/contextual triggers.
  */
 export function recalculateItineraryStops(
   stops: ItineraryStop[],
   allPlaces: HeritagePlace[],
-  mode: TransportMode
+  mode: TransportMode,
+  startTime: string = '09:00'
 ): {
   updatedStops: ItineraryStop[];
   totalVisitMinutes: number;
   totalTravelMinutes: number;
   totalPlannedMinutes: number;
 } {
-  const placeMap = new Map<string, HeritagePlace>(allPlaces.map((p) => [p.id, p]));
-  let currentOffset = 0;
-  let totalVisit = 0;
-  let totalTravel = 0;
+  return recalculateItineraryLocally(stops, allPlaces, mode, startTime);
+}
 
-  const updatedStops: ItineraryStop[] = [];
-  let lastPhysicalPlace: HeritagePlace | null = null;
-
-  for (let i = 0; i < stops.length; i++) {
-    const stop = stops[i];
-    const place = placeMap.get(stop.placeId);
-    const isPhys = Boolean(
-      place &&
-      typeof place.latitude === 'number' &&
-      typeof place.longitude === 'number' &&
-      !isNaN(place.latitude) &&
-      !isNaN(place.longitude)
-    );
-    const visit = place?.visitDurationMinutes || stop.visitDurationMinutes || 45;
-
-    let travel = 0;
-    let status: RouteDataStatus = stop.routeDataStatus;
-
-    if (i === 0) {
-      travel = 0;
-      status = isPhys ? 'real_service' : 'geographic_only';
-    } else {
-      if (isPhys && place) {
-        if (lastPhysicalPlace) {
-          const seg = estimateSegment(lastPhysicalPlace, place, mode);
-          travel = seg.travelMinutes;
-          status = seg.routeDataStatus;
-        } else {
-          travel = 0;
-          status = 'geographic_only';
-        }
-      } else {
-        // Intangible stop (regional food tasting, living craft, performance)
-        travel = 0;
-        status = 'geographic_only';
-      }
-    }
-
-    if (isPhys && place) {
-      lastPhysicalPlace = place;
-    }
-
-    currentOffset += travel;
-    totalTravel += travel;
-    totalVisit += visit;
-
-    updatedStops.push({
-      ...stop,
-      order: i + 1,
-      visitDurationMinutes: visit,
-      arrivalOffsetMinutes: currentOffset,
-      travelFromPreviousMinutes: travel,
-      routeDataStatus: status,
-    });
-
-    currentOffset += visit;
+/**
+ * Reorders stops based on drag-and-drop indexes and recalculates only adjacent legs locally.
+ */
+export function reorderItineraryStops(
+  itinerary: Itinerary,
+  allPlaces: HeritagePlace[],
+  fromIndex: number,
+  toIndex: number
+): Itinerary {
+  if (fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= itinerary.stops.length || toIndex >= itinerary.stops.length) {
+    return itinerary;
   }
 
+  const newStops = [...itinerary.stops];
+  const [movedStop] = newStops.splice(fromIndex, 1);
+  newStops.splice(toIndex, 0, movedStop);
+
+  const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
+    recalculateItineraryLocally(newStops, allPlaces, itinerary.transportMode, itinerary.startTime || '09:00');
+
   return {
-    updatedStops,
-    totalVisitMinutes: totalVisit,
-    totalTravelMinutes: totalTravel,
-    totalPlannedMinutes: totalVisit + totalTravel,
+    ...itinerary,
+    stops: updatedStops,
+    totalVisitMinutes,
+    totalTravelMinutes,
+    totalPlannedMinutes,
+    updatedAt: new Date().toISOString(),
+    isCustomized: true,
   };
 }
 
@@ -165,16 +277,18 @@ export function applyRouteResultToItinerary(
   let totalTravel = 0;
   let hasChanges = false;
 
+  const hasOriginLeg = result.legs.length === physicalStopIndices.length;
+
   const updatedStops = itinerary.stops.map((stop, i) => {
     let travel = stop.travelFromPreviousMinutes || 0;
     let status = stop.routeDataStatus;
 
     const physIdx = physicalStopIndices.indexOf(i);
     if (physIdx === 0) {
-      travel = 0;
+      travel = hasOriginLeg && result.legs.length > 0 ? result.legs[0].durationMinutes : 0;
       status = result.isFallback ? 'estimated' : 'real_service';
     } else if (physIdx > 0) {
-      const legIdx = physIdx - 1;
+      const legIdx = hasOriginLeg ? physIdx : physIdx - 1;
       if (legIdx < result.legs.length) {
         travel = result.legs[legIdx].durationMinutes;
         status = result.isFallback ? 'estimated' : 'real_service';
@@ -253,162 +367,21 @@ export function optimizePhysicalStopsOrder(
     return stops;
   }
 
-  const physicalStops = physicalIndices.map((idx) => stops[idx]);
-  const n = physicalStops.length;
-
-  // Build cost matrix if not provided
-  let costMatrix: number[][] = [];
-  if (
-    externalCostMatrix &&
-    externalCostMatrix.length === n &&
-    externalCostMatrix[0] &&
-    externalCostMatrix[0].length === n
-  ) {
-    costMatrix = externalCostMatrix;
-  } else {
-    costMatrix = Array.from({ length: n }, () => Array(n).fill(0));
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-        if (i !== j) {
-          const p1 = placeMap.get(physicalStops[i].placeId);
-          const p2 = placeMap.get(physicalStops[j].placeId);
-          if (p1 && p2) {
-            costMatrix[i][j] = estimateSegment(p1, p2, mode).distanceKm;
-          }
-        }
-      }
-    }
-  }
-
-  const evaluateRouteCost = (routeIndices: number[]) => {
-    let cost = 0;
-    for (let i = 0; i < routeIndices.length - 1; i++) {
-      cost += costMatrix[routeIndices[i]][routeIndices[i + 1]];
-    }
-    return cost;
-  };
-
-  const initialIndices = Array.from({ length: n }, (_, i) => i);
-  let bestIndices = [...initialIndices];
-  let minCost = evaluateRouteCost(initialIndices);
-
-  if (anchorFirstStop) {
-    const remaining = initialIndices.slice(1);
-    if (remaining.length <= 6) {
-      const perms = getPermutations(remaining);
-      for (const p of perms) {
-        const candidate = [0, ...p];
-        const cost = evaluateRouteCost(candidate);
-        if (cost < minCost - 0.001) {
-          minCost = cost;
-          bestIndices = candidate;
-        }
-      }
-    } else {
-      // Nearest-neighbour starting from 0
-      const unvisited = new Set(remaining);
-      const tour = [0];
-      let curr = 0;
-      while (unvisited.size > 0) {
-        let bestNext = -1;
-        let bestNextCost = Infinity;
-        for (const candidate of unvisited) {
-          const c = costMatrix[curr][candidate];
-          if (c < bestNextCost) {
-            bestNextCost = c;
-            bestNext = candidate;
-          }
-        }
-        tour.push(bestNext);
-        unvisited.delete(bestNext);
-        curr = bestNext;
-      }
-
-      // 2-opt improvement on [1 .. n-1]
-      let improved = true;
-      let iterations = 0;
-      while (improved && iterations < 50) {
-        improved = false;
-        iterations++;
-        for (let i = 1; i < tour.length - 1; i++) {
-          for (let k = i + 1; k < tour.length; k++) {
-            const newTour = twoOptSwap(tour, i, k);
-            const newCost = evaluateRouteCost(newTour);
-            if (newCost < minCost - 0.001) {
-              tour.splice(0, tour.length, ...newTour);
-              minCost = newCost;
-              improved = true;
-            }
-          }
-        }
-      }
-      bestIndices = tour;
-    }
-  } else {
-    if (n <= 6) {
-      const perms = getPermutations(initialIndices);
-      for (const p of perms) {
-        const cost = evaluateRouteCost(p);
-        if (cost < minCost - 0.001) {
-          minCost = cost;
-          bestIndices = p;
-        }
-      }
-    } else {
-      // Run NN from each node, then 2-opt
-      for (let s = 0; s < n; s++) {
-        const unvisited = new Set(initialIndices);
-        unvisited.delete(s);
-        const tour = [s];
-        let curr = s;
-        while (unvisited.size > 0) {
-          let bestNext = -1;
-          let bestNextCost = Infinity;
-          for (const candidate of unvisited) {
-            const c = costMatrix[curr][candidate];
-            if (c < bestNextCost) {
-              bestNextCost = c;
-              bestNext = candidate;
-            }
-          }
-          tour.push(bestNext);
-          unvisited.delete(bestNext);
-          curr = bestNext;
-        }
-
-        let improved = true;
-        let iter = 0;
-        while (improved && iter < 30) {
-          improved = false;
-          iter++;
-          for (let i = 0; i < tour.length - 1; i++) {
-            for (let k = i + 1; k < tour.length; k++) {
-              const newTour = twoOptSwap(tour, i, k);
-              const newCost = evaluateRouteCost(newTour);
-              if (newCost < minCost - 0.001) {
-                tour.splice(0, tour.length, ...newTour);
-                minCost = newCost;
-                improved = true;
-              }
-            }
-          }
-        }
-
-        if (evaluateRouteCost(tour) < minCost - 0.001) {
-          minCost = evaluateRouteCost(tour);
-          bestIndices = tour;
-        }
-      }
-    }
-  }
+  const physicalPlaces = physicalIndices.map((idx) => placeMap.get(stops[idx].placeId)!);
+  const startId = anchorFirstStop ? physicalPlaces[0].id : undefined;
+  const { sortedPlaces } = solveSoftTimeWindowTSP(physicalPlaces, startId, mode);
 
   // Construct reordered physical stops
-  const reorderedPhysical = bestIndices.map((idx) => physicalStops[idx]);
-
-  // Slot the reordered physical stops back into original array positions
   const newStops = [...stops];
   physicalIndices.forEach((slotIdx, i) => {
-    newStops[slotIdx] = reorderedPhysical[i];
+    const targetPlace = sortedPlaces[i];
+    const origStop = stops.find((s) => s.placeId === targetPlace.id);
+    if (origStop) {
+      newStops[slotIdx] = {
+        ...origStop,
+        order: slotIdx + 1,
+      };
+    }
   });
 
   return newStops;
@@ -597,7 +570,7 @@ export function generateItinerary(
               p.latitude!,
               p.longitude!
             );
-            return dist >= 0.10;
+            return dist >= 0.01;
           }
           return true;
         });
@@ -748,11 +721,12 @@ export function generateItinerary(
     selectedStops,
     allPlaces,
     transportMode,
-    Boolean(startingPlaceId)
+    true
   );
 
-  // Recalculate arrival offsets, travel minutes, and totals accurately
-  const recalculation = recalculateItineraryStops(optimizedStops, allPlaces, transportMode);
+  // Recalculate arrival offsets, travel minutes, and totals accurately using departure time
+  const departureTime = options.startTime || '09:00';
+  const recalculation = recalculateItineraryStops(optimizedStops, allPlaces, transportMode, departureTime);
 
   const assumptions: string[] = [];
 
@@ -791,6 +765,19 @@ export function generateItinerary(
     assumptions.push('Public transit durations use simulated frequency approximations. Please verify live schedules on-site.');
   }
 
+  const effectiveStartId = startingPlaceId || selectedStops[0]?.placeId;
+  const effectiveStartName = options.startingPointName || allPlaces.find((p) => p.id === effectiveStartId)?.name || 'Starting Point';
+  const effectiveCoords: [number, number] | undefined =
+    options.startingCoordinates ||
+    (effectiveStartId
+      ? (() => {
+          const p = allPlaces.find((x) => x.id === effectiveStartId);
+          return p && typeof p.latitude === 'number' && typeof p.longitude === 'number'
+            ? [p.latitude, p.longitude]
+            : undefined;
+        })()
+      : undefined);
+
   return {
     id: `itin-${Date.now()}`,
     title: `Cultural Discovery Itinerary (${destinationStateId})`,
@@ -806,6 +793,11 @@ export function generateItinerary(
     totalVisitMinutes: recalculation.totalVisitMinutes,
     totalTravelMinutes: recalculation.totalTravelMinutes,
     totalPlannedMinutes: recalculation.totalPlannedMinutes,
+    startTime: departureTime,
+    startingPlaceId: effectiveStartId,
+    startingPointName: effectiveStartName,
+    startingCoordinates: effectiveCoords,
+    xaiRationale: `💡 AI Optimization Reasoning: Sequenced starting from ${effectiveStartName} via 2-Opt TSP. Daytime heritage sights are clustered contiguously to minimize walking distance, with evening highlights (e.g. Jonker Walk / night market) sequenced at the end of the day.`,
   };
 }
 

@@ -483,6 +483,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                   onSaveItinerary={handleSaveItinerary}
                   onInspectAI={() => onInspectItineraryAI(currentItinerary)}
                   isSaved={isSavedLocally}
+                  onUpdateItinerary={onUpdateItinerary}
                 />
               </div>
 
@@ -493,8 +494,19 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                   transportMode={currentItinerary?.transportMode || 'walking'}
                   onSelectPlace={onSelectPlace}
                   onRouteCalculated={handleRouteCalculated}
+                  startingPoint={
+                    currentItinerary?.startingPointName || currentItinerary?.startingCoordinates || currentItinerary?.startingPlaceId
+                      ? {
+                          name: (currentItinerary.startingPointName || 'Starting Point').replace(/^(🏨|📍|🏠|🚩)\s*/, ''),
+                          placeId: currentItinerary.startingPlaceId,
+                          coordinates: currentItinerary.startingCoordinates,
+                        }
+                      : undefined
+                  }
                   center={
-                    activePlacesForMap.find((p) => p.latitude && p.longitude)
+                    currentItinerary?.startingCoordinates
+                      ? currentItinerary.startingCoordinates
+                      : activePlacesForMap.find((p) => p.latitude && p.longitude)
                       ? [
                           activePlacesForMap.find((p) => p.latitude && p.longitude)!.latitude!,
                           activePlacesForMap.find((p) => p.latitude && p.longitude)!.longitude!,

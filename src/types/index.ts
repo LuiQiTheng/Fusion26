@@ -79,6 +79,7 @@ export interface HeritagePlace {
   location_type?: LocationType;
   location_name?: string | null;
   source_urls?: string[];
+  preferredTimeWindow?: TimeWindow;
 }
 
 export interface StateRecord {
@@ -94,6 +95,11 @@ export interface StateRecord {
   imageUrl?: string;
 }
 
+export type TimeWindow = 'morning' | 'afternoon' | 'night' | 'anytime';
+
+export type TransportMode = 'walking' | 'public_transport' | 'car' | 'mixed';
+export type BudgetLevel = 'low' | 'moderate' | 'flexible';
+
 export interface ItineraryStop {
   placeId: string;
   order: number;
@@ -102,10 +108,12 @@ export interface ItineraryStop {
   travelFromPreviousMinutes?: number;
   routeDataStatus: RouteDataStatus;
   reasonSelected: string;
+  preferredTimeWindow?: TimeWindow;
+  etaTime?: string;
+  contextualTrigger?: string;
+  xaiRationale?: string;
+  segmentTransportMode?: TransportMode;
 }
-
-export type TransportMode = 'walking' | 'public_transport' | 'car' | 'mixed';
-export type BudgetLevel = 'low' | 'moderate' | 'flexible';
 
 export interface Itinerary {
   id: string;
@@ -123,6 +131,11 @@ export interface Itinerary {
   totalTravelMinutes: number;
   totalPlannedMinutes: number;
   isCustomized?: boolean;
+  startTime?: string;
+  xaiRationale?: string;
+  startingPlaceId?: string;
+  startingPointName?: string;
+  startingCoordinates?: [number, number];
 }
 
 export type MissionType = 'notice' | 'learn' | 'reflect' | 'connect';
@@ -162,6 +175,8 @@ export interface AIReasoningInspection {
   culturalCareGuidelines: string[];
   excludedAssumptions: string[];
   hallucinationCheckPassed: boolean;
+  xaiRationale?: string;
+  xaiDetails?: string[];
 }
 
 export type BadgeTierId = 'bronze' | 'silver' | 'gold';

@@ -2,7 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { HeritagePlace, RouteDataStatus, TransportMode } from '../../types';
 import { fetchOSRMRoute, OSRMRouteResult } from '../../lib/routing';
+import { searchCuratedDirectory } from '../../lib/geocoding';
 import { AlertCircle, Layers, Navigation, Loader2, Footprints } from 'lucide-react';
+
+export interface MapStartingPoint {
+  name: string;
+  coordinates?: [number, number];
+  placeId?: string;
+}
 
 interface InteractiveMapProps {
   places: HeritagePlace[];
@@ -13,6 +20,7 @@ interface InteractiveMapProps {
   center?: [number, number];
   zoom?: number;
   onRouteCalculated?: (result: OSRMRouteResult) => void;
+  startingPoint?: MapStartingPoint;
 }
 
 export const InteractiveMap: React.FC<InteractiveMapProps> = ({
@@ -24,6 +32,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   center = [2.1950, 102.2490], // Default Melaka center
   zoom = 15,
   onRouteCalculated,
+  startingPoint,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -157,6 +166,67 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
       validCoordinates.push([place.latitude, place.longitude]);
     });
 
+    // Render Starting Point Marker (Labelled "S")
+    let startCoord: [number, number] | undefined = undefined;
+    if (
+      startingPoint?.coordinates &&
+      startingPoint.coordinates.length === 2 &&
+      typeof startingPoint.coordinates[0] === 'number' &&
+      !isNaN(startingPoint.coordinates[0])
+    ) {
+      startCoord = [startingPoint.coordinates[0], startingPoint.coordinates[1]];
+    } else if (startingPoint?.placeId) {
+      const sp = places.find((p) => p.id === startingPoint.placeId);
+      if (sp && typeof sp.latitude === 'number' && typeof sp.longitude === 'number') {
+        startCoord = [sp.latitude, sp.longitude];
+      }
+    }
+
+    // Fallback: check curated directory if coordinates missing but name exists
+    if (!startCoord && startingPoint?.name) {
+      const curated = searchCuratedDirectory(startingPoint.name);
+      if (curated.length > 0) {
+        startCoord = curated[0].coordinates;
+      }
+    }
+
+    if (startCoord) {
+      const startMarkerHtml = `
+        <div class="relative flex items-center justify-center transition-transform hover:scale-125 cursor-pointer">
+          <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black shadow-xl border-2 bg-emerald-600 border-white text-white z-50 ring-4 ring-emerald-400/70">
+            S
+          </div>
+          <div class="absolute -bottom-1 w-2.5 h-2.5 bg-emerald-600 rotate-45 border-r-2 border-b-2 border-white"></div>
+        </div>
+      `;
+
+      const startCustomIcon = L.divIcon({
+        className: 'custom-div-icon starting-point-marker',
+        html: startMarkerHtml,
+        iconSize: [32, 32],
+        iconAnchor: [16, 20],
+      });
+
+      const startMarker = L.marker(startCoord, {
+        icon: startCustomIcon,
+        zIndexOffset: 2500, // Always render on top of destination pins
+      });
+      startMarker.bindTooltip(
+        `<strong>🚩 Starting Point: ${startingPoint?.name || 'Tour Origin'}</strong><br/><span style="font-size:10px;color:#059669;font-weight:700;">Starting Point (S)</span>`,
+        {
+          direction: 'top',
+          offset: [0, -18],
+        }
+      );
+      startMarker.on('click', () => {
+        if (startCoord) {
+          map.setView(startCoord, 15, { animate: true });
+        }
+      });
+      markersGroup.addLayer(startMarker);
+      validCoordinates.push(startCoord);
+    }
+
     let isSubscribed = true;
 
     // Draw route polyline via OSRM if route stops exist
@@ -164,13 +234,27 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
       const placeMap = new Map<string, HeritagePlace>(places.map((p) => [p.id, p]));
       const waypoints: { latitude: number; longitude: number }[] = [];
 
+      // Prepend Starting Point to route waypoints if available
+      if (startCoord) {
+        waypoints.push({ latitude: startCoord[0], longitude: startCoord[1] });
+      }
+
       routeStops
         .slice()
         .sort((a, b) => a.order - b.order)
         .forEach((s) => {
           const p = placeMap.get(s.placeId);
           if (p && typeof p.latitude === 'number' && typeof p.longitude === 'number') {
-            waypoints.push({ latitude: p.latitude, longitude: p.longitude });
+            // Avoid duplicate point if starting point is at the exact same location as stop 1
+            if (
+              waypoints.length === 1 &&
+              Math.abs(waypoints[0].latitude - p.latitude) < 0.0001 &&
+              Math.abs(waypoints[0].longitude - p.longitude) < 0.0001
+            ) {
+              // Same location, don't duplicate
+            } else {
+              waypoints.push({ latitude: p.latitude, longitude: p.longitude });
+            }
           }
         });
 
@@ -198,9 +282,9 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               if (result.coordinates.length > 0) {
                 const isWalk = transportMode === 'walking';
                 const polyline = L.polyline(result.coordinates, {
-                  color: isWalk ? '#0284c7' : '#4f46e5', // Sky-600 for pedestrian corridor, Indigo-600 for vehicular road
+                  color: isWalk ? '#0284c7' : '#4f46e5', // Sky-600 for pedestrian, Indigo-600 for vehicular road
                   weight: isWalk ? 3.5 : 5,
-                  opacity: isWalk ? 0.85 : 0.85,
+                  opacity: 0.85,
                   dashArray: isWalk ? '6, 8' : (result.isFallback ? '8, 8' : undefined),
                 }).addTo(map);
 
@@ -281,7 +365,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
     return () => {
       isSubscribed = false;
     };
-  }, [places, selectedPlaceId, routeStops, transportMode]);
+  }, [places, selectedPlaceId, routeStops, transportMode, startingPoint]);
 
   const pinnedCount = places.filter((p) => p.latitude !== undefined && p.longitude !== undefined).length;
   const regionalCount = places.length - pinnedCount;
@@ -303,6 +387,14 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
           {regionalCount > 0 && (
             <span className="hidden sm:inline font-medium text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50">
               {regionalCount} Regional Traditions in Grid View
+            </span>
+          )}
+          {startingPoint && (
+            <span className="flex items-center gap-1 font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+              <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white font-black text-[9px] flex items-center justify-center shadow-xs">
+                S
+              </span>
+              <span>Starting Point</span>
             </span>
           )}
           <span className="hidden md:flex items-center gap-1">

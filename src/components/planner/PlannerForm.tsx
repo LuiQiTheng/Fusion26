@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, Footprints, Car, Bus, Clock, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Sparkles, Footprints, Car, Bus, Clock, AlertCircle, MapPin, Navigation, Search, X, Loader2 } from 'lucide-react';
 import { StateRecord, HeritagePlace, TransportMode, BudgetLevel } from '../../types';
-import { PlannerOptions } from '../../lib/planner';
-import { isCompactDistrict, getDefaultTransportMode } from '../../lib/routing';
+import { PlannerOptions, HOTELS_BY_STATE, resolveStartingAnchor } from '../../lib/planner';
+import { isCompactDistrict, getDefaultTransportMode, calculateHaversineDistanceKm } from '../../lib/routing';
+import {
+  searchCuratedDirectory,
+  searchLiveNominatim,
+  reverseGeocode,
+  checkStartingPointState,
+  StateValidationResult,
+  GeocodeLocation,
+} from '../../lib/geocoding';
+import { StartingPointMismatchModal } from './StartingPointMismatchModal';
 
 interface PlannerFormProps {
   states: StateRecord[];
@@ -25,6 +34,23 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
   const [destinationStateId, setDestinationStateId] = useState(() => {
     return initialStateId && initialStateId !== 'ALL' ? initialStateId : 'MLK';
   });
+
+  // Starting Point & Departure Time
+  const [startingInputText, setStartingInputText] = useState<string>('');
+  const [startingPlaceId, setStartingPlaceId] = useState<string>('');
+  const [startingPointName, setStartingPointName] = useState<string>('');
+  const [startingCoordinates, setStartingCoordinates] = useState<[number, number] | undefined>(undefined);
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState<boolean>(false);
+  const [departureTime, setDepartureTime] = useState<string>('09:00');
+  const [isLocating, setIsLocating] = useState<boolean>(false);
+  const [liveSuggestions, setLiveSuggestions] = useState<GeocodeLocation[]>([]);
+  const [isLiveSearching, setIsLiveSearching] = useState<boolean>(false);
+
+  // Mismatch Notification Modal State
+  const [isMismatchModalOpen, setIsMismatchModalOpen] = useState<boolean>(false);
+  const [mismatchValidation, setMismatchValidation] = useState<StateValidationResult | null>(null);
+  const [pendingSubmitOptions, setPendingSubmitOptions] = useState<PlannerOptions | null>(null);
+  const startingInputRef = React.useRef<HTMLInputElement | null>(null);
 
   // Track whether the user has explicitly selected a transport mode
   const [userSelectedMode, setUserSelectedMode] = useState<boolean>(false);
@@ -128,15 +154,266 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
     }
   };
 
+  const stateHotels = HOTELS_BY_STATE[destinationStateId] || [];
+  const stateHeritagePlaces = places.filter(
+    (p) => p.stateId === destinationStateId && p.latitude && p.longitude
+  );
+
+  // Debounced live geocoding search using OpenStreetMap Nominatim for any arbitrary Malaysian location
+  useEffect(() => {
+    const q = startingInputText.trim();
+    if (q.length < 2) {
+      setLiveSuggestions([]);
+      setIsLiveSearching(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = setTimeout(async () => {
+      setIsLiveSearching(true);
+      try {
+        const results = await searchLiveNominatim(q, controller.signal);
+        setLiveSuggestions(results);
+      } catch {
+        // Ignore aborted requests
+      } finally {
+        setIsLiveSearching(false);
+      }
+    }, 320);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [startingInputText]);
+
+  const matchingSuggestions = useMemo(() => {
+    const q = startingInputText.trim().toLowerCase();
+    const results: GeocodeLocation[] = [];
+    const seenCoords = new Set<string>();
+
+    const addUnique = (item: GeocodeLocation) => {
+      const key = `${item.coordinates[0].toFixed(4)},${item.coordinates[1].toFixed(4)}`;
+      if (!seenCoords.has(key)) {
+        seenCoords.add(key);
+        results.push(item);
+      }
+    };
+
+    // If query is empty, show top curated starting recommendations for this state
+    if (!q) {
+      stateHotels.slice(0, 3).forEach((h) => {
+        if (h.latitude && h.longitude) {
+          addUnique({
+            name: h.name,
+            subtitle: `${h.locality || 'Starting Location'} • ${h.category === 'transit' ? 'Transit Hub' : 'Accommodation'}`,
+            placeId: h.placeId,
+            category: (h.category as any) || 'stay',
+            coordinates: [h.latitude, h.longitude],
+          });
+        }
+      });
+      stateHeritagePlaces.slice(0, 2).forEach((p) => {
+        addUnique({
+          name: p.name,
+          subtitle: `${p.locality || 'Central Core'} • Heritage Landmark`,
+          placeId: p.id,
+          category: 'landmark',
+          coordinates: [p.latitude!, p.longitude!],
+        });
+      });
+      return results;
+    }
+
+    // 1. Instant Curated Directory (UTeM, UPM, UKM, UM, airports, major hubs)
+    const curated = searchCuratedDirectory(q);
+    curated.forEach((c) => addUnique(c));
+
+    // 2. Filter state hotels
+    stateHotels.forEach((h) => {
+      if (h.latitude && h.longitude) {
+        if (
+          h.name.toLowerCase().includes(q) ||
+          h.id.includes(q) ||
+          (h.locality && h.locality.toLowerCase().includes(q))
+        ) {
+          addUnique({
+            name: h.name,
+            subtitle: `${h.locality || 'Starting Location'} • ${h.category === 'transit' ? 'Transit Hub' : 'Accommodation'}`,
+            placeId: h.placeId,
+            category: (h.category as any) || 'stay',
+            coordinates: [h.latitude, h.longitude],
+          });
+        }
+      }
+    });
+
+    // 3. Filter state heritage places
+    stateHeritagePlaces.forEach((p) => {
+      if (
+        p.name.toLowerCase().includes(q) ||
+        (p.locality && p.locality.toLowerCase().includes(q)) ||
+        (p.malayName && p.malayName.toLowerCase().includes(q))
+      ) {
+        addUnique({
+          name: p.name,
+          subtitle: `${p.locality || 'Heritage Area'} • Historic Site`,
+          placeId: p.id,
+          category: 'landmark',
+          coordinates: [p.latitude!, p.longitude!],
+        });
+      }
+    });
+
+    // 4. Live OpenStreetMap Nominatim Geocoding results
+    liveSuggestions.forEach((item) => addUnique(item));
+
+    return results.slice(0, 8);
+  }, [startingInputText, stateHotels, stateHeritagePlaces, liveSuggestions]);
+
+  const handleUseGPS = () => {
+    if ('geolocation' in navigator) {
+      setIsLocating(true);
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          setIsLocating(false);
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          let closestId = '';
+          let minDist = Infinity;
+          stateHeritagePlaces.forEach((p) => {
+            if (p.latitude && p.longitude) {
+              const d = calculateHaversineDistanceKm(lat, lng, p.latitude, p.longitude);
+              if (d < minDist) {
+                minDist = d;
+                closestId = p.id;
+              }
+            }
+          });
+          const pickedId = closestId || stateHeritagePlaces[0]?.id || '';
+          setStartingPlaceId(pickedId);
+          setStartingCoordinates([lat, lng]);
+
+          // Reverse-geocode coordinates to real Malaysian address
+          let displayName = 'My Current Location (GPS)';
+          let addressFull = 'My Current Location (GPS Detected)';
+          try {
+            const geo = await reverseGeocode(lat, lng);
+            if (geo) {
+              displayName = geo.primaryName;
+              addressFull = geo.fullAddress;
+            }
+          } catch {}
+
+          setStartingInputText(displayName);
+          setStartingPointName(addressFull);
+          setIsSuggestionsOpen(false);
+
+          // Check if detected GPS location is outside the destination state
+          const validation = checkStartingPointState(
+            [lat, lng],
+            displayName,
+            destinationStateId,
+            stateHeritagePlaces
+          );
+          if (validation.isOutsideState) {
+            setMismatchValidation(validation);
+            setIsMismatchModalOpen(true);
+          }
+        },
+        () => {
+          setIsLocating(false);
+          const fallback = stateHeritagePlaces[0];
+          const fallbackId = fallback?.id || '';
+          setStartingPlaceId(fallbackId);
+          if (fallback?.latitude && fallback?.longitude) {
+            setStartingCoordinates([fallback.latitude, fallback.longitude]);
+          }
+          setStartingInputText('Current Location');
+          setStartingPointName('Current Location (Central Core)');
+          setIsSuggestionsOpen(false);
+        },
+        { timeout: 8000 }
+      );
+    }
+  };
+
+  const handleReselectStartingPoint = () => {
+    setIsMismatchModalOpen(false);
+    setStartingInputText('');
+    setStartingPlaceId('');
+    setStartingPointName('');
+    setStartingCoordinates(undefined);
+    setTimeout(() => {
+      startingInputRef.current?.focus();
+      setIsSuggestionsOpen(true);
+    }, 100);
+  };
+
+  const handleSwitchStateFromMismatch = (newStateId: string) => {
+    handleDestinationStateChange(newStateId);
+    setIsMismatchModalOpen(false);
+  };
+
+  const handleProceedAnyway = () => {
+    setIsMismatchModalOpen(false);
+    if (pendingSubmitOptions) {
+      onGenerate(pendingSubmitOptions);
+    }
+  };
+
   const handleCustomSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onGenerate({
+
+    let finalStartId = startingPlaceId;
+    let finalStartName = startingPointName || startingInputText.trim();
+    let finalCoords = startingCoordinates;
+
+    // If user typed freely without clicking a dropdown recommendation:
+    if (!finalCoords && startingInputText.trim()) {
+      const curated = searchCuratedDirectory(startingInputText.trim());
+      if (curated.length > 0) {
+        finalStartId = curated[0].placeId;
+        finalStartName = curated[0].name;
+        finalCoords = curated[0].coordinates;
+      } else {
+        const resolved = resolveStartingAnchor(startingInputText, destinationStateId, places);
+        finalStartId = finalStartId || resolved.placeId;
+        finalStartName = finalStartName || resolved.displayName;
+        finalCoords = finalCoords || resolved.coordinates;
+      }
+    }
+
+    const options: PlannerOptions = {
       destinationStateId,
       availableMinutes: Math.round(availableHours * 60),
       interests: selectedInterests,
       transportMode,
       budgetLevel,
-    });
+      startingPlaceId: finalStartId || undefined,
+      startingPointName: finalStartName || undefined,
+      startingCoordinates: finalCoords,
+      startTime: departureTime,
+    };
+
+    // Verify if selected starting point is outside destination state
+    if (finalStartName && finalStartName !== 'Default State Core') {
+      const validation = checkStartingPointState(
+        finalCoords,
+        finalStartName,
+        destinationStateId,
+        stateHeritagePlaces
+      );
+
+      if (validation.isOutsideState) {
+        setMismatchValidation(validation);
+        setPendingSubmitOptions(options);
+        setIsMismatchModalOpen(true);
+        return;
+      }
+    }
+
+    onGenerate(options);
   };
 
   return (
@@ -153,8 +430,8 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
 
       {/* Custom Planning Form */}
       <form onSubmit={handleCustomSubmit} className="space-y-6">
-          {/* Destination & Time Budget */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Destination, Starting Point, Departure Time & Time Budget */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-xs font-bold text-[#0A2F25] uppercase tracking-wider mb-2">
                 Destination State
@@ -162,7 +439,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               <select
                 value={destinationStateId}
                 onChange={(e) => handleDestinationStateChange(e.target.value)}
-                className="w-full p-3 rounded-xl border border-teal-900/15 text-sm font-medium text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-teal-900/15 text-xs font-medium text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] cursor-pointer"
               >
                 <option value="MLK">Melaka (Primary Showcase)</option>
                 {states
@@ -175,10 +452,162 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               </select>
             </div>
 
+            {/* Departure Time */}
+            <div>
+              <label className="block text-xs font-bold text-[#0A2F25] uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-[#087E83]" /> Departure Time
+                </span>
+                <span className="text-[10px] text-[#087E83] font-semibold">Start Hour</span>
+              </label>
+              <select
+                value={departureTime}
+                onChange={(e) => setDepartureTime(e.target.value)}
+                className="w-full p-2.5 rounded-xl border border-teal-900/15 text-xs font-semibold text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] cursor-pointer"
+              >
+                <option value="07:00">07:00 AM (Early Explorer)</option>
+                <option value="08:00">08:00 AM (Cool Morning)</option>
+                <option value="08:30">08:30 AM</option>
+                <option value="09:00">09:00 AM (Standard Departure)</option>
+                <option value="09:30">09:30 AM</option>
+                <option value="10:00">10:00 AM (Mid-Morning)</option>
+                <option value="10:30">10:30 AM</option>
+                <option value="11:00">11:00 AM (Late Morning)</option>
+                <option value="12:00">12:00 PM (Noon / Lunch Start)</option>
+                <option value="13:00">01:00 PM (Afternoon Tour)</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM (Late Afternoon)</option>
+                <option value="17:00">05:00 PM (Sunset / Night Showcase)</option>
+              </select>
+            </div>
+
+            {/* Starting Point (Free Input with Live Recommendations) */}
+            <div className="relative">
+              <label className="block text-xs font-bold text-[#0A2F25] uppercase tracking-wider mb-2 flex items-center justify-between">
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-[#B88E18]" /> Starting Point
+                </span>
+                <span className="text-[10px] text-[#087E83] font-semibold">
+                  {isLocating ? 'Locating...' : 'Tour Origin (S)'}
+                </span>
+              </label>
+
+              <div className="relative">
+                <div className="flex items-center rounded-xl border border-teal-900/15 bg-white overflow-hidden shadow-xs focus-within:border-[#C5A028] focus-within:ring-1 focus-within:ring-[#C5A028]">
+                  <div className="pl-3 pr-2 text-slate-400 shrink-0">
+                    <Search className="w-3.5 h-3.5 text-[#087E83]" />
+                  </div>
+                  <input
+                    ref={startingInputRef}
+                    type="text"
+                    value={startingInputText}
+                    onChange={(e) => {
+                      setStartingInputText(e.target.value);
+                      setIsSuggestionsOpen(true);
+                      setStartingPlaceId('');
+                      setStartingPointName('');
+                      setStartingCoordinates(undefined);
+                    }}
+                    onFocus={() => setIsSuggestionsOpen(true)}
+                    placeholder="Type university, campus, or address (e.g. UTeM, UPM, Hatten, Sentral)..."
+                    className="w-full py-2.5 pr-2 text-xs font-medium text-[#0A2F25] bg-transparent focus:outline-hidden truncate"
+                  />
+                  {startingInputText && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStartingInputText('');
+                        setStartingPlaceId('');
+                        setStartingPointName('');
+                        setStartingCoordinates(undefined);
+                        setIsSuggestionsOpen(false);
+                      }}
+                      className="p-1 text-slate-400 hover:text-slate-600 mr-1 cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleUseGPS}
+                    title="Use my current GPS location as starting point"
+                    className="px-2.5 py-2.5 text-[#087E83] hover:bg-[#EBF5F0] border-l border-teal-900/10 flex items-center gap-1 text-[11px] font-bold cursor-pointer shrink-0"
+                  >
+                    <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin' : ''}`} />
+                    <span className="hidden sm:inline">GPS</span>
+                  </button>
+                </div>
+
+                {/* Inline Mismatch Hint if recognized outside destination state */}
+                {startingInputText && !isSuggestionsOpen && (() => {
+                  const check = checkStartingPointState(
+                    startingCoordinates,
+                    startingPointName || startingInputText,
+                    destinationStateId,
+                    stateHeritagePlaces
+                  );
+                  if (check.isOutsideState) {
+                    return (
+                      <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-amber-800 bg-amber-50 border border-amber-200/90 px-2 py-1 rounded-lg">
+                        <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                        <span>
+                          Outside {check.destinationStateName}{' '}
+                          {check.detectedStateName ? `(in ${check.detectedStateName})` : ''} • ~{check.distanceKm} km away
+                        </span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+
+                {/* Autocomplete Suggestions dropdown */}
+                {isSuggestionsOpen && matchingSuggestions.length > 0 && (
+                  <div className="absolute left-0 right-0 top-full mt-1 bg-white rounded-xl border border-teal-900/15 shadow-xl max-h-56 overflow-y-auto z-50 py-1 divide-y divide-teal-900/5">
+                    <div className="px-3 py-1 bg-slate-50 text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                      <span>{startingInputText ? 'Recommendations' : 'Suggested Starting Points'}</span>
+                      {isLiveSearching && (
+                        <span className="flex items-center gap-1 text-[10px] text-[#087E83] font-normal normal-case">
+                          <Loader2 className="w-3 h-3 animate-spin" /> Searching...
+                        </span>
+                      )}
+                    </div>
+                    {matchingSuggestions.map((item, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setStartingInputText(item.name);
+                          setStartingPlaceId(item.placeId);
+                          setStartingPointName(item.name);
+                          setStartingCoordinates(item.coordinates);
+                          setIsSuggestionsOpen(false);
+                        }}
+                        className="w-full px-3 py-2 text-left text-xs text-[#0A2F25] hover:bg-[#EBF5F0] flex items-center gap-2.5 cursor-pointer transition-colors"
+                      >
+                        <div className="w-6 h-6 rounded-lg bg-teal-900/5 flex items-center justify-center shrink-0">
+                          {item.category === 'campus' && <span className="text-xs" title="University / Campus">🎓</span>}
+                          {item.category === 'stay' && <span className="text-xs" title="Accommodation">🏢</span>}
+                          {item.category === 'transit' && <span className="text-xs" title="Transit Station">🚆</span>}
+                          {item.category === 'landmark' && <span className="text-xs" title="Heritage Landmark">🏛️</span>}
+                          {item.category === 'address' && <span className="text-xs" title="Address Location">📍</span>}
+                          {item.category === 'gps' && <span className="text-xs" title="GPS Location">🛰️</span>}
+                        </div>
+                        <div className="min-w-0 flex-1 truncate">
+                          <span className="font-semibold block truncate text-[#0A2F25]">{item.name}</span>
+                          <span className="text-[10px] text-slate-400 block truncate">{item.subtitle}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Time Budget */}
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="text-xs font-bold text-[#0A2F25] uppercase tracking-wider">
-                  Available Time Budget
+                  Time Budget
                 </label>
                 <span className="text-xs font-bold text-[#087E83] flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" />
@@ -195,9 +624,9 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
                 className="w-full accent-[#0A2F25] cursor-pointer"
               />
               <div className="flex justify-between text-[10px] text-[#0A2F25]/50 mt-1">
-                <span>1.5h (Express)</span>
-                <span>4.0h (Half-Day)</span>
-                <span>8.0h (Full Day)</span>
+                <span>1.5h</span>
+                <span>4.0h</span>
+                <span>8.0h</span>
               </div>
             </div>
           </div>
@@ -235,7 +664,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
               <label className="block text-xs font-bold text-[#0A2F25] uppercase tracking-wider mb-2">
                 Transport Mode
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <button
                   type="button"
                   onClick={() => handleSelectMode('walking')}
@@ -336,6 +765,16 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
             {isLoading ? 'Optimizing Itinerary...' : 'Generate Customized Itinerary'}
           </button>
         </form>
+
+      {/* Starting Point State Mismatch Modal Notification */}
+      <StartingPointMismatchModal
+        isOpen={isMismatchModalOpen}
+        validation={mismatchValidation}
+        onReselect={handleReselectStartingPoint}
+        onSwitchState={handleSwitchStateFromMismatch}
+        onProceedAnyway={handleProceedAnyway}
+        onClose={() => setIsMismatchModalOpen(false)}
+      />
     </div>
   );
 };

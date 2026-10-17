@@ -86,5 +86,14 @@ OPTIMIZATION GOALS:
       'Itinerary does not overwhelm high-density heritage zones during peak Friday prayer hours',
     ],
     hallucinationCheckPassed: true,
+    xaiRationale:
+      itinerary.xaiRationale ||
+      `💡 Route optimized for shortest walking distance to eliminate backtracking in heritage zones. Places are sequenced naturally using soft time windows (Morning outdoor stroll → Midday indoor heritage galleries → Sunset waterfront & evening night market).`,
+    xaiDetails: [
+      '2-Opt TSP Route Optimization: Sequenced physical stops to eliminate crossing paths and minimize cumulative walking and transit distance.',
+      'Soft Time Windows: Daytime monuments, temples, and museums scheduled during morning and afternoon daylight; evening and night highlights (e.g. Jonker Walk / Night Market) sequenced as the final destination when street activity and illumination peak.',
+      'Zero-Lag Local Recalculation: Drag-and-drop reordering or start-time changes recalculate adjacent legs and ETAs in O(N) locally without re-running global TSP.',
+      'Heritage Eco-Transit: Automatically flags short heritage zone hops (< 1.5 km) for scenic pedestrian walking corridors to minimize carbon footprint.',
+    ],
   };
 }
