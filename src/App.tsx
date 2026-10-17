@@ -30,7 +30,7 @@ import {
 
 import {
   loadFavourites,
-  toggleFavourite,
+  saveFavourites,
   loadItinerary,
   saveItinerary,
   loadCompletedMissions,
@@ -45,6 +45,7 @@ import {
 
 import { inspectPlaceReasoning, inspectItineraryReasoning } from './lib/aiReasoning';
 import { generateItinerary } from './lib/planner';
+import type { WishlistActionResult } from './profile/pages/WishlistPage';
 import { calculateHaversineDistanceKm } from './lib/routing';
 import { X } from 'lucide-react';
 
@@ -67,6 +68,9 @@ export const App: React.FC = () => {
   const [currentItinerary, setCurrentItinerary] = useState<Itinerary | null>(null);
   const [completedMissionIds, setCompletedMissionIds] = useState<string[]>([]);
   const [missionProofs, setMissionProofs] = useState<Record<string, MissionProof>>({});
+  // Places added to the trip from the Wishlist but not yet saved with the planner's Save button.
+  // Kept in memory only, like the unsaved trip itself, so a refresh clears both together.
+  const [pendingWishlistTripIds, setPendingWishlistTripIds] = useState<string[]>([]);
 
   // Modals
   const [detailPlace, setDetailPlace] = useState<HeritagePlace | null>(null);
@@ -137,10 +141,135 @@ export const App: React.FC = () => {
     setMissionProofs(loadMissionProofs());
   }, []);
 
+    // After the planner's Save, remove Wishlist places that are now in the stored trip.
+  useEffect(() => {
+    if (pendingWishlistTripIds.length === 0) return;
+
+    const saved = loadItinerary();
+    const savedIds = new Set(saved ? saved.stops.map((s) => s.placeId) : []);
+    const currentIds = new Set(currentItinerary ? currentItinerary.stops.map((s) => s.placeId) : []);
+
+    // Pending places were not in the stored trip when they were added,
+    // so finding one there now means a Save has written it.
+    const persisted = pendingWishlistTripIds.filter((id) => savedIds.has(id));
+    // Places taken out of the trip before saving are no longer pending.
+    const stillPending = pendingWishlistTripIds.filter((id) => !savedIds.has(id) && currentIds.has(id));
+
+    const toRemove = persisted.filter((id) => favorites.includes(id));
+    if (toRemove.length > 0) {
+      const remaining = favorites.filter((id) => !toRemove.includes(id));
+      // If this fails, change nothing and try again at the next check.
+      if (!saveFavourites(remaining)) return;
+      setFavorites(remaining);
+    }
+    if (persisted.length > 0 || stillPending.length !== pendingWishlistTripIds.length) {
+      setPendingWishlistTripIds(stillPending);
+    }
+  }, [currentTab, currentItinerary, pendingWishlistTripIds, favorites]);
+
   // Handlers
+    // Hearts on Home and Explore: same behaviour as before, but the list is only updated
+  // after it was really saved, so the screen never shows a favorite that was not stored.
   const handleToggleFavorite = (placeId: string) => {
-    const updated = toggleFavourite(placeId);
+    const updated = favorites.includes(placeId)
+      ? favorites.filter((id) => id !== placeId)
+      : [...favorites, placeId];
+    if (!saveFavourites(updated)) {
+      window.alert('Your favorites could not be saved in this browser, so nothing was changed. Please try again.');
+      return;
+    }
     setFavorites(updated);
+  };
+
+  // ---------- Profile > Wishlist ----------
+
+  const handleWishlistRemove = (placeId: string): WishlistActionResult => {
+    const updated = favorites.filter((id) => id !== placeId);
+    if (!saveFavourites(updated)) {
+      return { ok: false, error: 'Your favorites could not be saved in this browser.' };
+    }
+    setFavorites(updated);
+    const name = places.find((p) => p.id === placeId)?.name;
+    return { ok: true, message: name ? `"${name}" removed from your Wishlist.` : 'Removed from your Wishlist.' };
+  };
+
+  // Works out the trip that would result from adding a place. It changes no state.
+  const planAddPlaceToTrip = (place: HeritagePlace): { itinerary: Itinerary } | { error: string } => {
+    let next: Itinerary;
+
+    if (!currentItinerary || (currentItinerary.destinationStateId !== place.stateId && !currentItinerary.isCustomized)) {
+      // No trip yet, or an untouched trip for another state: start a new one, as the details view does.
+      next = generateItinerary(
+        {
+          destinationStateId: place.stateId,
+          availableMinutes: 240,
+          interests: place.culturalThemes,
+          transportMode: 'walking',
+          budgetLevel: 'flexible',
+          startingPlaceId: place.id,
+        },
+        places
+      );
+    } else if (currentItinerary.destinationStateId !== place.stateId) {
+      // The current trip has the user's own changes: never throw them away silently.
+      return {
+        error:
+          'Your current trip has your own changes and is for another state. Save it or finish it in Explore first.',
+      };
+    } else if (currentItinerary.stops.some((s) => s.placeId === place.id)) {
+      return { error: 'This place is already in your current trip.' };
+    } else {
+      const visit = place.visitDurationMinutes || 45;
+      next = {
+        ...currentItinerary,
+        stops: [
+          ...currentItinerary.stops,
+          {
+            placeId: place.id,
+            order: currentItinerary.stops.length + 1,
+            visitDurationMinutes: visit,
+            routeDataStatus: 'estimated' as const,
+            reasonSelected: 'Added by user from Wishlist.',
+          },
+        ],
+        totalPlannedMinutes: currentItinerary.totalPlannedMinutes + visit + 10,
+        totalVisitMinutes: currentItinerary.totalVisitMinutes + visit,
+        totalTravelMinutes: currentItinerary.totalTravelMinutes + 10,
+        isCustomized: true,
+      };
+    }
+
+    // Only count it as added if the place is genuinely in the resulting trip.
+    if (!next.stops.some((s) => s.placeId === place.id)) {
+      return { error: 'The trip planner could not include this place.' };
+    }
+    return { itinerary: next };
+  };
+
+  const handleWishlistAddToTrip = (place: HeritagePlace): WishlistActionResult => {
+    const plan = planAddPlaceToTrip(place);
+    if ('error' in plan) return { ok: false, error: plan.error };
+
+    // A place that is already part of the stored trip must never be mistaken later for a trip
+    // that was just saved, so it is not marked as pending.
+    const stored = loadItinerary();
+    const alreadyStored = stored ? stored.stops.some((s) => s.placeId === place.id) : false;
+
+    // Only the in-memory trip changes. The favorite stays until the trip is saved.
+    setCurrentItinerary(plan.itinerary);
+
+    if (alreadyStored) {
+      return {
+        ok: true,
+        message: `"${place.name}" added to your current trip. It is already part of your saved trip, so it stays in your Wishlist. Use Remove if you no longer need it there.`,
+      };
+    }
+
+    setPendingWishlistTripIds((current) => (current.includes(place.id) ? current : [...current, place.id]));
+    return {
+      ok: true,
+      message: `"${place.name}" added to your current trip. It stays in your Wishlist until you press Save in the trip planner.`,
+    };
   };
 
   const handleCompleteMission = (missionId: string) => {
@@ -305,6 +434,10 @@ export const App: React.FC = () => {
         {currentTab === 'profile' && (
           <ProfilePage
             places={places}
+            tripPlaceIds={currentItinerary ? currentItinerary.stops.map((s) => s.placeId) : []}
+            onWishlistRemove={handleWishlistRemove}
+            onWishlistAddToTrip={handleWishlistAddToTrip}
+            onViewPlace={setDetailPlace}
             favorites={favorites}
             onNavigate={(tab) => {
               setCurrentTab(tab);

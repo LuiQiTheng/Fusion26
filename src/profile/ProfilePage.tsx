@@ -14,12 +14,20 @@ import { MemoryDetailPage } from './pages/MemoryDetailPage';
 import { MemoriesPage } from './pages/MemoriesPage';
 import { RecycleBinPage } from './pages/RecycleBinPage';
 import { TravelMapPage } from './pages/TravelMapPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { MyTripsPage } from './pages/MyTripsPage';
+import { WishlistPage } from './pages/WishlistPage';
+import type { WishlistActionResult } from './pages/WishlistPage';
 import { ConfirmDialog } from './components/ConfirmDialog';
 import { Toast, ToastMessage, ToastTone } from './components/Toast';
 
 interface ProfilePageProps {
   places: HeritagePlace[];
   favorites: string[]; // existing Favorites from App.tsx
+  tripPlaceIds: string[]; // places in the current trip
+  onWishlistRemove: (placeId: string) => WishlistActionResult;
+  onWishlistAddToTrip: (place: HeritagePlace) => WishlistActionResult;
+  onViewPlace: (place: HeritagePlace) => void;
   onNavigate: (tab: NavTab) => void;
 }
 
@@ -29,6 +37,8 @@ type ProfileView =
   | 'overview'
   | 'edit-profile'
   | 'settings'
+  | 'my-trips'
+  | 'wishlist'
   | 'map'
   | 'memories'
   | 'recycle-bin'
@@ -39,6 +49,8 @@ type ProfileView =
 const VIEW_TITLES: Record<Exclude<ProfileView, 'overview'>, string> = {
   'edit-profile': 'Edit Profile',
   settings: 'Settings',
+  'my-trips': 'My Trips',
+  wishlist: 'Wishlist',
   map: 'Travel Map',
   memories: 'Memories',
   'recycle-bin': 'Recycle Bin',
@@ -48,7 +60,7 @@ const VIEW_TITLES: Record<Exclude<ProfileView, 'overview'>, string> = {
 };
 
 // Where the user started a memory flow, so Cancel, delete and breadcrumbs can lead back there.
-type FlowOrigin = 'overview' | 'memories' | 'map';
+type FlowOrigin = 'overview' | 'memories' | 'map' | 'settings';
 
 interface Crumb {
   label: string;
@@ -56,9 +68,17 @@ interface Crumb {
 }
 
 const FOCUS =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
 
-export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onNavigate }) => {
+export const ProfilePage: React.FC<ProfilePageProps> = ({
+  places,
+  favorites,
+  tripPlaceIds,
+  onWishlistRemove,
+  onWishlistAddToTrip,
+  onViewPlace,
+  onNavigate,
+}) => {
   const [view, setView] = useState<ProfileView>('overview');
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
   const [origin, setOrigin] = useState<FlowOrigin>('overview');
@@ -193,6 +213,17 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
     }
   };
 
+  // After Reset Profile finished: forget remembered Memories and Travel Map state, then show the Overview.
+  const handleResetDone = () => {
+    setMemoriesView(DEFAULT_MEMORIES_VIEW);
+    setMapView(DEFAULT_TRAVEL_MAP_VIEW);
+    setSelectedRecordId(null);
+    setOrigin('overview');
+    setIsFormDirty(false);
+    showToast('success', 'Profile reset.');
+    goBackToProfile();
+  };
+
   const handleEditMemory = (recordId: string) => {
     setSelectedRecordId(recordId);
     goTo('edit-memory');
@@ -200,10 +231,6 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
 
   const handleOverviewNavigate = (target: OverviewTarget) => {
     // Wishlist and My Trips reuse the existing Saved Trips page until Stage 7.
-    if (target === 'wishlist' || target === 'my-trips') {
-      onNavigate('saved');
-      return;
-    }
     if (target === 'add-memory') {
       setSelectedRecordId(null);
       setOrigin('overview');
@@ -272,7 +299,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
 
     switch (current) {
       case 'recycle-bin':
-        return [memoriesLink, { label: 'Recycle Bin' }];
+        return origin === 'settings'
+          ? [{ label: 'Settings', onClick: () => requestLeaveTo('settings') }, { label: 'Recycle Bin' }]
+          : [memoriesLink, { label: 'Recycle Bin' }];
       case 'memory-detail':
         return [...originCrumbs, { label: 'Memory' }];
       case 'add-memory':
@@ -342,11 +371,50 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
             recycleBinCount={recycleBinCount}
             onOpenMemory={handleOpenMemoryFromMemories}
             onAddMemory={handleAddMemoryFromMemories}
-            onOpenRecycleBin={() => goTo('recycle-bin')}
+            onOpenRecycleBin={() => {
+              setOrigin('memories');
+              goTo('recycle-bin');
+            }}
           />
         );
       case 'recycle-bin':
         return <RecycleBinPage data={data} onDataChanged={refresh} onNotify={showToast} />;
+      case 'settings':
+        return (
+          <SettingsPage
+            data={data}
+            recycleBinCount={recycleBinCount}
+            onEditProfile={() => goTo('edit-profile')}
+            onOpenRecycleBin={() => {
+              setOrigin('settings');
+              goTo('recycle-bin');
+            }}
+            onDataChanged={refresh}
+            onResetDone={handleResetDone}
+          />
+        );
+      case 'wishlist':
+        return (
+          <WishlistPage
+            places={places}
+            favorites={favorites}
+            tripPlaceIds={tripPlaceIds}
+            onRemove={onWishlistRemove}
+            onAddToTrip={onWishlistAddToTrip}
+            onViewPlace={onViewPlace}
+            onExplore={() => onNavigate('explore')}
+            onOpenTrips={() => goTo('my-trips')}
+            onNotify={showToast}
+          />
+        );
+      case 'my-trips':
+        return (
+          <MyTripsPage
+            places={places}
+            onOpenSavedTrips={() => onNavigate('saved')}
+            onExplore={() => onNavigate('explore')}
+          />
+        );
       case 'map':
         return (
           <TravelMapPage
@@ -406,12 +474,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
             <button
               type="button"
               onClick={() => requestLeaveTo('overview')}
-              className={`inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-[#D4AF37]/40 px-3 font-semibold text-[#E5C05C] hover:border-[#00F0FF] cursor-pointer ${FOCUS}`}
+              className={`inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-[#087E83]/30 bg-white px-3 font-semibold text-[#0A2F25] hover:border-[#087E83] hover:bg-[#E6F3ED] cursor-pointer ${FOCUS}`}
             >
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               Back to Profile
             </button>
-            <p className="flex flex-wrap items-center gap-x-2 text-[#F5F5F0]/70">
+            <p className="flex flex-wrap items-center gap-x-2 text-[#45665C]">
               <span>Profile</span>
               {buildCrumbs(view).map((crumb, index) => (
                 <React.Fragment key={`${crumb.label}-${index}`}>
@@ -420,12 +488,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ places, favorites, onN
                     <button
                       type="button"
                       onClick={crumb.onClick}
-                      className={`inline-flex min-h-[44px] items-center rounded px-1 font-semibold text-[#E5C05C] underline-offset-2 hover:underline cursor-pointer ${FOCUS}`}
+                      className={`inline-flex min-h-[44px] items-center rounded px-1 font-semibold text-[#087E83] underline-offset-2 hover:text-[#0A2F25] hover:underline cursor-pointer ${FOCUS}`}
                     >
                       {crumb.label}
                     </button>
                   ) : (
-                    <span aria-current="page" className="font-semibold text-[#F5F5F0]">
+                    <span aria-current="page" className="font-semibold text-[#0A2F25]">
                       {crumb.label}
                     </span>
                   )}

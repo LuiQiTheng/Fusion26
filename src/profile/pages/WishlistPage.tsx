@@ -136,8 +136,9 @@ export const WishlistPage: React.FC<WishlistPageProps> = ({
       <div className="flex items-start gap-3 rounded-xl border border-[#087E83]/25 bg-[#E6F3ED] p-4 text-sm text-[#0A2F25]">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#087E83]" aria-hidden="true" />
         <p>
-          Adding a place to your trip changes your current trip only. Press Save in the trip planner to keep the
-          change.
+          Adding a place to your trip changes your current trip only, and the place stays in your Wishlist. Press
+          Save in the trip planner to keep the trip. After saving, the place leaves your Wishlist the next
+          time you switch pages.
         </p>
       </div>
 
