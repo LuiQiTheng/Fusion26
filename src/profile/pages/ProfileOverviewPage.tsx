@@ -10,6 +10,7 @@ import {
   Calendar,
   Plus,
   ChevronRight,
+  Users,
 } from 'lucide-react';
 import { ProfileData, TravelRecord } from '../types';
 import { getRecentRecords, getVisitedPlaceCount, resolvePlace } from '../profileRepository';
@@ -24,7 +25,8 @@ export type OverviewTarget =
   | 'my-trips'
   | 'map'
   | 'memories'
-  | 'add-memory';
+  | 'add-memory'
+  | 'friends';
 
 interface ProfileOverviewPageProps {
   data: ProfileData;
@@ -175,6 +177,12 @@ const FEATURE_CARDS: {
     title: 'Memories',
     description: 'Photos and notes from your travels',
     icon: <Camera className="h-6 w-6" aria-hidden="true" />,
+  },
+  {
+    target: 'friends',
+    title: 'Friends',
+    description: 'Connect with fellow travellers',
+    icon: <Users className="h-6 w-6" aria-hidden="true" />,
   },
 ];
 

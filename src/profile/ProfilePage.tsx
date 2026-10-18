@@ -21,6 +21,7 @@ import { WishlistPage } from './pages/WishlistPage';
 import type { WishlistActionResult } from './pages/WishlistPage';
 import { ConfirmDialog } from './components/ConfirmDialog';
 import { Toast, ToastMessage, ToastTone } from './components/Toast';
+import { FriendsPage } from './friends/FriendsPage';
 
 export interface ProfilePageProps {
   places: HeritagePlace[];
@@ -55,7 +56,8 @@ type ProfileView =
   | 'recycle-bin'
   | 'add-memory'
   | 'edit-memory'
-  | 'memory-detail';
+  | 'memory-detail'
+  | 'friends';
 
 const VIEW_TITLES: Record<Exclude<ProfileView, 'overview'>, string> = {
   'edit-profile': 'Edit Profile',
@@ -68,6 +70,7 @@ const VIEW_TITLES: Record<Exclude<ProfileView, 'overview'>, string> = {
   'add-memory': 'Add Memory',
   'edit-memory': 'Edit Memory',
   'memory-detail': 'Memory',
+  friends: 'Friends',
 };
 
 // Where the user started a memory flow, so Cancel, delete and breadcrumbs can lead back there.
@@ -453,6 +456,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             onBack={() => requestLeaveTo('overview')}
           />
         );
+
       case 'map':
         return (
           <TravelMapPage
@@ -463,7 +467,15 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             onAddMemory={handleAddMemoryFromMap}
           />
         );
+      case 'friends':
+        return (
+          <FriendsPage
+            profile={data.profile}
+            places={places}
+          />
+        );
       default:
+
         return (
           <div className="rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70 p-8 text-center">
             <h1 className="font-serif text-2xl font-bold text-[#F5F5F0]">{VIEW_TITLES[current]}</h1>

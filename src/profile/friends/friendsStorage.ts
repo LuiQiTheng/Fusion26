@@ -19,11 +19,23 @@ export interface FriendsLoadOutcome {
   data: FriendsData;
   status: FriendsLoadStatus; // fresh = nothing saved yet; recovered = stored data was damaged
   message?: string;
+  // Only set when status is 'recovered'.
+  // true  = the clean data was saved and the damaged original is safely backed up.
+  // false = the clean data exists only in memory and the stored original was left untouched,
+  //         so the same recovery will happen again on the next load.
+  recoveryPersisted?: boolean;
 }
 
 interface Tally {
   dropped: number;
 }
+
+// A second backup slot. The first slot (FRIENDS_BACKUP_KEY) keeps the first damaged copy and
+// is never overwritten; a newer, different damaged copy goes here.
+const FRIENDS_BACKUP_LATEST_KEY = `${FRIENDS_BACKUP_KEY}_latest`;
+
+const NOT_CLEANED_NOTE =
+  ' The damaged data could not be replaced yet, so this notice may appear again.';
 
 // ---------- Checks (stored data is untrusted) ----------
 
@@ -91,17 +103,84 @@ function sanitizeLinks(value: unknown, tally: Tally): FriendLink[] {
   return [...byPair.values()];
 }
 
+// Returns the data when the stored text is fully valid, or null when it is damaged in any way.
+// Uses the same checks as loadFriendsData, so "damaged" means the same thing in both places.
+function parseCleanData(raw: string): FriendsData | null {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+  if (!isObject(parsed) || parsed.version !== 1) return null;
+
+  const tally: Tally = { dropped: 0 };
+  const links = sanitizeLinks(parsed.links, tally);
+  if (tally.dropped > 0) return null;
+
+  return {
+    version: 1,
+    links,
+    updatedAt: isValidTimestamp(parsed.updatedAt) ? parsed.updatedAt : new Date().toISOString(),
+  };
+}
+
 // ---------- Backup of damaged data ----------
 
-// Keeps the first damaged copy, so a bad read can never silently destroy user data.
-function backupRawData(raw: string): void {
+// Returns true only when this exact damaged text is safely kept in a backup slot.
+// The first slot is never overwritten. If it already holds a different copy, the second
+// slot is used, so a newer damaged copy can always be backed up without losing the first.
+function backupRawData(raw: string): boolean {
   try {
-    if (localStorage.getItem(FRIENDS_BACKUP_KEY) === null) {
+    const first = localStorage.getItem(FRIENDS_BACKUP_KEY);
+    if (first === null) {
       localStorage.setItem(FRIENDS_BACKUP_KEY, raw);
+      return localStorage.getItem(FRIENDS_BACKUP_KEY) === raw;
     }
+    if (first === raw) return true;
+
+    if (localStorage.getItem(FRIENDS_BACKUP_LATEST_KEY) !== raw) {
+      localStorage.setItem(FRIENDS_BACKUP_LATEST_KEY, raw);
+    }
+    return localStorage.getItem(FRIENDS_BACKUP_LATEST_KEY) === raw;
   } catch (err) {
     console.error('Could not back up damaged friends data:', err);
+    return false;
   }
+}
+
+// Stored damaged text may only be replaced once it is safely backed up. This runs before
+// every save, so no caller can overwrite damaged data without a verified backup.
+function checkSafeToOverwrite(): Result<void> {
+  let raw: string | null;
+  try {
+    raw = localStorage.getItem(FRIENDS_STORAGE_KEY);
+  } catch (err) {
+    console.error('Local storage is unavailable:', err);
+    return fail('Your browser storage is unavailable, so your change could not be saved.');
+  }
+
+  if (raw === null || parseCleanData(raw) !== null) return ok(undefined);
+  if (backupRawData(raw)) return ok(undefined);
+
+  return fail(
+    'Saved friends data is damaged and could not be backed up first, so nothing was changed. Please try again.',
+  );
+}
+
+// Tries to store the clean recovered data. saveFriendsData backs up the damaged original first
+// and refuses to replace it if it cannot, so recoveryPersisted is only true when both worked.
+function recoveredOutcome(data: FriendsData, message: string): Result<FriendsLoadOutcome> {
+  const result = saveFriendsData(data);
+  if (result.ok) {
+    return ok({ data: result.value, status: 'recovered', message, recoveryPersisted: true });
+  }
+  return ok({
+    data,
+    status: 'recovered',
+    message: message + NOT_CLEANED_NOTE,
+    recoveryPersisted: false,
+  });
 }
 
 // ---------- Public API ----------
@@ -124,21 +203,17 @@ export function loadFriendsData(): Result<FriendsLoadOutcome> {
     parsed = JSON.parse(raw);
   } catch (err) {
     console.error('Stored friends data is not valid JSON:', err);
-    backupRawData(raw);
-    return ok({
-      data: createEmptyFriendsData(),
-      status: 'recovered',
-      message: 'Saved friends data was damaged and could not be read. A fresh friends list was started.',
-    });
+    return recoveredOutcome(
+      createEmptyFriendsData(),
+      'Saved friends data was damaged and could not be read. A fresh friends list was started.',
+    );
   }
 
   if (!isObject(parsed) || parsed.version !== 1) {
-    backupRawData(raw);
-    return ok({
-      data: createEmptyFriendsData(),
-      status: 'recovered',
-      message: 'Saved friends data was in an unknown format. A fresh friends list was started.',
-    });
+    return recoveredOutcome(
+      createEmptyFriendsData(),
+      'Saved friends data was in an unknown format. A fresh friends list was started.',
+    );
   }
 
   const tally: Tally = { dropped: 0 };
@@ -149,20 +224,22 @@ export function loadFriendsData(): Result<FriendsLoadOutcome> {
   };
 
   if (tally.dropped > 0) {
-    backupRawData(raw);
-    return ok({
+    return recoveredOutcome(
       data,
-      status: 'recovered',
-      message: `${tally.dropped} damaged or duplicate item(s) in your saved friends data were ignored.`,
-    });
+      `${tally.dropped} damaged or duplicate item(s) in your saved friends data were ignored.`,
+    );
   }
 
   return ok({ data, status: 'ok' });
 }
 
 // Writes everything in one setItem call, then reads it back, so success is only reported when
-// the browser really kept the data. Returns the saved data with its new updatedAt stamp.
+// the browser really kept the data. Damaged stored text is backed up first (see above).
+// Returns the saved data with its new updatedAt stamp.
 export function saveFriendsData(data: FriendsData): Result<FriendsData> {
+  const safe = checkSafeToOverwrite();
+  if (!safe.ok) return safe;
+
   const stamped: FriendsData = { ...data, updatedAt: new Date().toISOString() };
   const json = JSON.stringify(stamped);
 
@@ -181,11 +258,13 @@ export function saveFriendsData(data: FriendsData): Result<FriendsData> {
   }
 }
 
-// Removes ONLY the Friends demo keys. Not used yet: the reset stage will decide when to call it.
+// Removes ONLY the Friends demo keys, including both backup slots.
+// Not used yet: the reset stage will decide when to call it.
 export function removeFriendsData(): Result<void> {
   try {
     localStorage.removeItem(FRIENDS_STORAGE_KEY);
     localStorage.removeItem(FRIENDS_BACKUP_KEY);
+    localStorage.removeItem(FRIENDS_BACKUP_LATEST_KEY);
     return ok(undefined);
   } catch (err) {
     console.error('Failed to remove friends data:', err);
