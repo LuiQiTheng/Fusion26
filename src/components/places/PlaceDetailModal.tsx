@@ -268,14 +268,20 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Right Column: 3D Model with Pedestal on white background (z-25 above photo overlay, non-interactive) */}
+        {/* Right Column: 3D Model brought to the most front layer (z-[25]) with 100% transparent background */}
         {has3DModel && modelUrl && (
           <div
             ref={modelViewerRef}
-            className="relative z-25 w-full xl:w-[480px] 2xl:w-[560px] shrink-0 flex items-center justify-center p-4 xl:p-6 pb-16 xl:pb-20 min-h-[380px] sm:min-h-[460px] xl:min-h-0 pointer-events-none select-none"
+            className="relative z-[25] w-full xl:w-[480px] 2xl:w-[560px] shrink-0 flex items-center justify-center p-4 xl:p-6 pb-16 xl:pb-20 min-h-[380px] sm:min-h-[460px] xl:min-h-0 pointer-events-none"
           >
             <BuildingModelViewer
               modelUrl={modelUrl}
+              isFood={
+                place.type === 'food' ||
+                place.id.startsWith('food-') ||
+                place.id === 'food-melaka-kuih-keria' ||
+                place.id === 'food-melaka-kari-debal'
+              }
               className="w-full h-full min-h-[380px] sm:min-h-[440px]"
             />
           </div>
@@ -302,12 +308,8 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
           </button>
         </div>
 
-        {/* FRONT LAYER: Photo overlay with 14% transparency across the detail info section */}
-        <div
-          className={`absolute inset-0 pointer-events-none z-20 overflow-hidden rounded-[2.5rem] ${
-            has3DModel ? 'xl:right-[480px] 2xl:right-[560px]' : ''
-          }`}
-        >
+        {/* FRONT LAYER: Photo overlay with 14% transparency across entire modal */}
+        <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden rounded-[2.5rem]">
           <img
             src={place.imageUrl || '/images/places/mlk-stadthuys.jpg'}
             alt=""

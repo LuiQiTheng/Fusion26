@@ -5,11 +5,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 interface BuildingModelViewerProps {
   modelUrl: string;
+  isFood?: boolean;
   className?: string;
 }
 
 export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
   modelUrl,
+  isFood = false,
   className = '',
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -19,6 +21,14 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
   const modelGroupRef = useRef<THREE.Group | null>(null);
   const animFrameIdRef = useRef<number | null>(null);
 
+  const isFoodItem =
+    isFood ||
+    modelUrl.includes('kuih-keria') ||
+    modelUrl.includes('kari-debal') ||
+    modelUrl.includes('kuihkeria') ||
+    modelUrl.includes('kari') ||
+    modelUrl.includes('food');
+
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
@@ -27,31 +37,24 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
     setLoading(true);
     setLoadProgress(0);
 
-    const isFood =
-      modelUrl.toLowerCase().includes('kuih-keria') ||
-      modelUrl.toLowerCase().includes('kuihkeria') ||
-      modelUrl.toLowerCase().includes('kari-debal') ||
-      modelUrl.toLowerCase().includes('kari');
-
     // 1. Scene
     const scene = new THREE.Scene();
 
-    // 2. Camera setup: for food items, increase Y axis value (elevated angle) so the dish is clearly visible
+    // 2. Camera setup: for food, increase Y axis value (elevated angle ~31° to view top of dish); buildings stay at eye level (y=1.1)
     const width = container.clientWidth || 400;
     const height = container.clientHeight || 450;
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    const camY = isFood ? 2.3 : 1.1;
-    const camZ = isFood ? 5.2 : 5.8;
-    camera.position.set(0, camY, camZ);
-    camera.lookAt(0, 0, 0);
+    const cameraY = isFoodItem ? 3.0 : 1.1;
+    const cameraZ = isFoodItem ? 5.0 : 5.8;
+    camera.position.set(0, cameraY, cameraZ);
 
-    // 3. Renderer with transparent background to let the modal's white backdrop show through
+    // 3. Renderer with 100% transparent background
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
       powerPreference: 'high-performance',
     });
-    renderer.setClearColor(0x000000, 0); // Transparent canvas
+    renderer.setClearColor(0x000000, 0); // 100% Transparent canvas
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -60,12 +63,17 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
 
     container.appendChild(renderer.domElement);
 
-    // 4. OrbitControls: completely disable user rotation, panning, and zooming
+    // 4. OrbitControls: auto-rotate; user cannot move, drag, or rotate model
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enabled = false;
-    controls.enableRotate = false;
-    controls.enableZoom = false;
-    controls.enablePan = false;
+    controls.target.set(0, 0, 0);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.enableZoom = false; // Disable user zoom
+    controls.enableRotate = false; // Disable user rotation
+    controls.enablePan = false; // Disable user panning/moving
+    controls.autoRotate = true;
+    // Food rotates anticlockwise (-1.5), building rotates clockwise (1.5)
+    controls.autoRotateSpeed = isFoodItem ? -1.5 : 1.5;
 
     // 5. Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
@@ -97,24 +105,6 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
 
         const model = gltf.scene;
 
-        // Traverse all meshes to guarantee 100% opacity (no transparency)
-        model.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
-            const mesh = child as THREE.Mesh;
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-            if (mesh.material) {
-              const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-              materials.forEach((mat) => {
-                mat.transparent = false;
-                mat.opacity = 1.0;
-                mat.depthWrite = true;
-                mat.needsUpdate = true;
-              });
-            }
-          }
-        });
-
         // Center model geometry at (0, 0, 0)
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
@@ -131,7 +121,7 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
 
         modelGroup.add(model);
 
-        // Circular display pedestal (solid opaque, dynamically sized to model footprint)
+        // Circular display pedestal (dynamically sized to model footprint)
         const halfX = (size.x * 0.5) * targetScale;
         const halfZ = (size.z * 0.5) * targetScale;
         const footprintRadius = Math.sqrt(halfX * halfX + halfZ * halfZ);
@@ -142,28 +132,28 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
           color: 0x24322e,
           metalness: 0.85,
           roughness: 0.25,
-          transparent: false,
-          opacity: 1.0,
+          transparent: true,
+          opacity: 0.65,
         });
         const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
         const buildingBottom = (-size.y * 0.5) * targetScale;
         pedestal.position.y = buildingBottom - 0.06;
         modelGroup.add(pedestal);
 
-        // Solid accent ring on the pedestal
+        // Subtle glowing accent ring on the pedestal
         const ringGeo = new THREE.RingGeometry(pedestalRadius * 0.95, pedestalRadius * 1.0, 64);
         const ringMat = new THREE.MeshBasicMaterial({
           color: 0x00f0ff,
           side: THREE.DoubleSide,
-          transparent: false,
-          opacity: 1.0,
+          transparent: true,
+          opacity: 0.45,
         });
         const ring = new THREE.Mesh(ringGeo, ringMat);
         ring.rotation.x = -Math.PI / 2;
         ring.position.y = buildingBottom + 0.002;
         modelGroup.add(ring);
 
-        // Ensure 0 angle along all axes initially
+        // Ensure 0 angle along all axes
         modelGroup.rotation.set(0, 0, 0);
 
         setLoading(false);
@@ -183,24 +173,10 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
       }
     );
 
-    // 8. Animation loop:
-    // For Kuih Keria and Kari Debal: increase Y-axis value to rotate anticlockwise
-    // For buildings: rotate clockwise
-    const rotateSpeed = 0.0075; // Smooth automatic rotation matching speed 1.5
-
+    // 8. Animation loop: auto-rotate via OrbitControls (autoRotateSpeed 1.5)
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
-
-      if (modelGroupRef.current) {
-        if (isFood) {
-          // Increase Y axis value to rotate anticlockwise:
-          modelGroupRef.current.rotation.y += rotateSpeed;
-        } else {
-          // Rotate clockwise for buildings:
-          modelGroupRef.current.rotation.y -= rotateSpeed;
-        }
-      }
-
+      controls.update();
       renderer.render(scene, camera);
     };
     animate();
@@ -244,12 +220,12 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
         renderer.domElement.parentNode.removeChild(renderer.domElement);
       }
     };
-  }, [modelUrl]);
+  }, [modelUrl, isFoodItem]);
 
   return (
-    <div className={`relative flex items-center justify-center bg-transparent select-none pointer-events-none ${className}`}>
-      {/* WebGL Canvas on transparent background - locked so user cannot move or rotate */}
-      <div ref={mountRef} className="w-full h-full select-none pointer-events-none cursor-default bg-transparent" />
+    <div className={`relative flex items-center justify-center bg-transparent pointer-events-none select-none ${className}`}>
+      {/* WebGL Canvas on 100% transparent background with user interaction disabled */}
+      <div ref={mountRef} className="w-full h-full cursor-default select-none pointer-events-none bg-transparent" />
 
       {/* Elegant loading indicator matching white background */}
       {loading && (
