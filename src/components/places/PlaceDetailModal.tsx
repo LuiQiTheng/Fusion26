@@ -43,6 +43,10 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
       ? '/models/stadthuys.glb'
       : place.id === 'mlk-baba-nyonya'
       ? '/models/baba-nyonya.glb'
+      : place.id === 'food-melaka-kuih-keria'
+      ? '/models/kuih-keria.glb'
+      : place.id === 'food-melaka-kari-debal'
+      ? '/models/kari-debal.glb'
       : undefined);
   const has3DModel = Boolean(modelUrl);
 
