@@ -40,12 +40,12 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
     // 1. Scene
     const scene = new THREE.Scene();
 
-    // 2. Camera setup: for food, increase Y axis value (elevated angle ~31° to view top of dish); buildings stay at eye level (y=1.1)
+    // 2. Camera setup: for food, elevated view angle (~30°) and zoomed in closer (Y = 2.2, Z = 3.8); buildings stay at eye level (Y = 1.1, Z = 5.8)
     const width = container.clientWidth || 400;
     const height = container.clientHeight || 450;
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    const cameraY = isFoodItem ? 3.0 : 1.1;
-    const cameraZ = isFoodItem ? 5.0 : 5.8;
+    const cameraY = isFoodItem ? 2.2 : 1.1;
+    const cameraZ = isFoodItem ? 3.8 : 5.8;
     camera.position.set(0, cameraY, cameraZ);
 
     // 3. Renderer with 100% transparent background
