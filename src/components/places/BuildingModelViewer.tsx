@@ -72,8 +72,8 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
     controls.enableRotate = false; // Disable user rotation
     controls.enablePan = false; // Disable user panning/moving
     controls.autoRotate = true;
-    // Food rotates anticlockwise (-1.5), building rotates clockwise (1.5)
-    controls.autoRotateSpeed = isFoodItem ? -1.5 : 1.5;
+    // Building rotates clockwise same with food (-1.5)
+    controls.autoRotateSpeed = -1.5;
 
     // 5. Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
