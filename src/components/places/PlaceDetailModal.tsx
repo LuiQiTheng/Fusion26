@@ -9,7 +9,6 @@ import {
   ExternalLink,
   BookOpen,
   Compass,
-  Box,
 } from 'lucide-react';
 import { HeritagePlace } from '../../types';
 import { BuildingModelViewer } from './BuildingModelViewer';
@@ -120,16 +119,6 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               </span>
             </div>
 
-            {/* 3D Model badge pill */}
-            {has3DModel && (
-              <div>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#009E96] text-white shadow-xs inline-flex items-center gap-1.5">
-                  <Box className="w-3.5 h-3.5" />
-                  <span>3D Model</span>
-                </span>
-              </div>
-            )}
-
             {/* Title & Malay name */}
             <div className="space-y-0.5">
               <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1a2e26] tracking-tight">
@@ -148,7 +137,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
             </div>
 
             {/* Practical Metrics Frosted Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 !mt-2.5">
               <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-[#B88E18] shrink-0" />
                 <div>
@@ -183,7 +172,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
             </div>
 
             {/* Cultural & Historical Significance */}
-            <div className="pt-2">
+            <div className="!mt-3">
               <h3 className="font-serif font-bold text-xl text-[#0A2F25] mb-2">
                 Cultural & Historical Significance
               </h3>
