@@ -48,7 +48,8 @@
     "source_urls": [
       "https://perzim.gov.my",
       "https://whc.unesco.org/en/list/1223"
-    ]
+    ],
+    "modelUrl": "/models/stadthuys.glb"
   },
   {
     "id": "mlk-afamosa",

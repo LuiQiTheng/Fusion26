@@ -80,6 +80,7 @@ export interface HeritagePlace {
   location_name?: string | null;
   source_urls?: string[];
   preferredTimeWindow?: TimeWindow;
+  modelUrl?: string;
 }
 
 export interface StateRecord {
