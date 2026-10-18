@@ -73,7 +73,8 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   // STRICT REQUIREMENT: Only display food vendor markers when those vendors
   // are present in the current itinerary's selected food stops!
   const selectedFoodVendors = useMemo(() => {
-    if (selectedFoodVendorIds) {
+    if (selectedFoodVendorIds !== undefined) {
+      if (selectedFoodVendorIds.length === 0) return [];
       const set = new Set(selectedFoodVendorIds);
       return allFoodCatalogue.filter((v) => set.has(v.id) || (v.placeId && set.has(v.placeId)));
     }
@@ -283,12 +284,9 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
     places.forEach((place) => {
       if (place.latitude === undefined || place.longitude === undefined) return;
 
-      // Food stops are rendered exclusively by foodMarkersGroup, and ONLY when added to itinerary
+      // Food stops are rendered exclusively as location references by foodMarkersGroup
       const isFood = place.type === 'food' || place.categories.includes('Food') || isFoodVendorStopId(place.id);
       if (isFood) {
-        if (selectedFoodPlaceIds.has(place.id)) {
-          validCoordinates.push([place.latitude, place.longitude]);
-        }
         return;
       }
 
@@ -426,8 +424,13 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         .slice()
         .sort((a, b) => a.order - b.order)
         .forEach((s) => {
+          // EXCLUDE food vendors from itinerary route line waypoints
+          if (isFoodVendorStopId(s.placeId)) return;
+
           const p = placeMap.get(s.placeId);
-          if (p && typeof p.latitude === 'number' && typeof p.longitude === 'number') {
+          if (p && p.type === 'food') return;
+
+          if (p && typeof p.latitude === 'number' && typeof p.longitude === 'number' && !isNaN(p.latitude) && !isNaN(p.longitude)) {
             // Avoid duplicate point if starting point is at the exact same location as stop 1
             if (
               waypoints.length === 1 &&
@@ -437,12 +440,6 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               // Same location, don't duplicate
             } else {
               waypoints.push({ latitude: p.latitude, longitude: p.longitude });
-            }
-          } else {
-            // Also check selected food vendors
-            const v = selectedFoodVendors.find((f) => f.id === s.placeId || f.placeId === s.placeId);
-            if (v && typeof v.latitude === 'number' && typeof v.longitude === 'number') {
-              waypoints.push({ latitude: v.latitude, longitude: v.longitude });
             }
           }
         });
@@ -593,7 +590,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
             </span>
           )}
 
-          {/* Traditional Food Toggle Button (Displayed ONLY when food stops are in the itinerary) */}
+          {/* Traditional Food Toggle Button */}
           {pinnedFoodCount > 0 && (
             <button
               type="button"
@@ -603,7 +600,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
                   ? 'bg-rose-50 text-rose-700 border-rose-300 hover:bg-rose-100 shadow-xs'
                   : 'bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200 opacity-80'
               }`}
-              title={showFood ? 'Click to hide selected food stops' : 'Click to show selected food stops'}
+              title={showFood ? 'Click to hide food stops' : 'Click to show food stops'}
             >
               <Utensils className={`w-3 h-3 ${showFood ? 'text-rose-600' : 'text-slate-400'}`} />
               <span>Food Stops ({pinnedFoodCount})</span>

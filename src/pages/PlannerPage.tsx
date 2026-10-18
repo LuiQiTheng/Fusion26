@@ -12,7 +12,7 @@ import {
 } from '../lib/planner';
 import { OSRMRouteResult } from '../lib/routing';
 import { saveItinerary } from '../lib/persistence';
-import { getEnrichedPlacesWithFoodVendors } from '../lib/foodVendors';
+import { getEnrichedPlacesWithFoodVendors, isFoodVendorStopId } from '../lib/foodVendors';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 interface PlannerPageProps {
@@ -129,20 +129,30 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
     }
   };
 
-  // Active places for map: only places present in current itinerary stops (or default state)
+  // Active places for map: destination state places for geographic and cultural context
   const activePlacesForMap = useMemo(() => {
-    if (currentItinerary && currentItinerary.stops.length > 0) {
-      const stopIds = new Set(currentItinerary.stops.map((s) => s.placeId));
-      return allPlacesWithFoodVendors.filter((p) => stopIds.has(p.id));
-    }
+    const targetStateId = currentItinerary?.destinationStateId || 'MLK';
+    const statePlaces = allPlacesWithFoodVendors.filter((p) => p.stateId === targetStateId);
+    if (statePlaces.length > 0) return statePlaces;
     return allPlacesWithFoodVendors.filter((p) => p.stateId === 'MLK');
-  }, [currentItinerary, allPlacesWithFoodVendors]);
+  }, [currentItinerary?.destinationStateId, allPlacesWithFoodVendors]);
 
   const routeStopsForMap = currentItinerary?.stops.map((s) => ({
     placeId: s.placeId,
     order: s.order,
     routeDataStatus: s.routeDataStatus,
   }));
+
+  const selectedFoodVendorIds = useMemo(() => {
+    if (!currentItinerary || !currentItinerary.stops) return [];
+    return currentItinerary.stops
+      .filter(
+        (s) =>
+          isFoodVendorStopId(s.placeId) ||
+          allPlacesWithFoodVendors.find((p) => p.id === s.placeId)?.type === 'food'
+      )
+      .map((s) => s.placeId);
+  }, [currentItinerary?.stops, allPlacesWithFoodVendors]);
 
   const handleRouteCalculated = useCallback(
     (result: OSRMRouteResult) => {
@@ -221,6 +231,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
             <InteractiveMap
               places={activePlacesForMap}
               routeStops={routeStopsForMap}
+              selectedFoodVendorIds={selectedFoodVendorIds}
               transportMode={currentItinerary?.transportMode || 'walking'}
               onRouteCalculated={handleRouteCalculated}
               onSelectPlace={onSelectPlace}

@@ -1280,7 +1280,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
                         </button>
                       )}
 
-                      {itinerary.stops.length > 1 && (
+                      {(itinerary.stops.length > 1 || isFood) && (
                         <button
                           onClick={() => onRemoveStop(stop.order)}
                           className="p-1 rounded-lg text-rose-500 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer"
@@ -1310,16 +1310,26 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
                 const toPin = physicalPinMap.get(toPlace.id);
                 const toIsFood = isFoodVendorStopId(nextStop.placeId) || toPlace.type === 'food';
 
-                if (toIsPhys && (toPin || toIsFood)) {
-                  // Find previous physical place for geographic distance calculation
+                if (toIsPhys && toPin) {
+                  // Find previous physical heritage place for geographic distance calculation
                   let originPhys: HeritagePlace | null =
-                    fromPlace && typeof fromPlace.latitude === 'number' && typeof fromPlace.longitude === 'number'
+                    fromPlace &&
+                    fromPlace.type !== 'food' &&
+                    !isFoodVendorStopId(fromPlace.id) &&
+                    typeof fromPlace.latitude === 'number' &&
+                    typeof fromPlace.longitude === 'number'
                       ? fromPlace
                       : null;
                   if (!originPhys) {
                     for (let j = idx - 1; j >= 0; j--) {
                       const p = allPlaces.find((x) => x.id === itinerary.stops[j].placeId);
-                      if (p && typeof p.latitude === 'number' && typeof p.longitude === 'number') {
+                      if (
+                        p &&
+                        p.type !== 'food' &&
+                        !isFoodVendorStopId(p.id) &&
+                        typeof p.latitude === 'number' &&
+                        typeof p.longitude === 'number'
+                      ) {
                         originPhys = p;
                         break;
                       }

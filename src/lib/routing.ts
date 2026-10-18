@@ -629,6 +629,7 @@ export function recalculateItineraryLocally(
     const place = placeMap.get(stop.placeId);
     const isPhys = Boolean(
       place &&
+      place.type !== 'food' &&
       typeof place.latitude === 'number' &&
       typeof place.longitude === 'number' &&
       !isNaN(place.latitude) &&

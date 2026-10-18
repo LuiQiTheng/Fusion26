@@ -14,7 +14,7 @@ import {
 } from '../lib/planner';
 import { OSRMRouteResult, getDefaultTransportMode } from '../lib/routing';
 import { saveItinerary } from '../lib/persistence';
-import { getEnrichedPlacesWithFoodVendors } from '../lib/foodVendors';
+import { getEnrichedPlacesWithFoodVendors, isFoodVendorStopId } from '../lib/foodVendors';
 import { ShieldCheck, Compass, Calendar, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface ExplorePageProps {
@@ -262,6 +262,17 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
     order: s.order,
     routeDataStatus: s.routeDataStatus,
   }));
+
+  const selectedFoodVendorIds = useMemo(() => {
+    if (!currentItinerary || !currentItinerary.stops) return [];
+    return currentItinerary.stops
+      .filter(
+        (s) =>
+          isFoodVendorStopId(s.placeId) ||
+          allPlacesWithFoodVendors.find((p) => p.id === s.placeId)?.type === 'food'
+      )
+      .map((s) => s.placeId);
+  }, [currentItinerary?.stops, allPlacesWithFoodVendors]);
 
   const handleRouteCalculated = useCallback(
     (result: OSRMRouteResult) => {
@@ -518,6 +529,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({
                 <InteractiveMap
                   places={activePlacesForMap}
                   routeStops={routeStopsForMap}
+                  selectedFoodVendorIds={selectedFoodVendorIds}
                   transportMode={currentItinerary?.transportMode || 'walking'}
                   onSelectPlace={onSelectPlace}
                   onRouteCalculated={handleRouteCalculated}

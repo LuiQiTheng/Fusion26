@@ -277,7 +277,8 @@ export function applyRouteResultToItinerary(
   const physicalStopIndices: number[] = [];
   itinerary.stops.forEach((s, idx) => {
     const p = placeMap.get(s.placeId);
-    if (p && typeof p.latitude === 'number' && typeof p.longitude === 'number' && !isNaN(p.latitude) && !isNaN(p.longitude)) {
+    const isFood = p?.type === 'food' || vendorByPlaceId.has(s.placeId);
+    if (!isFood && p && typeof p.latitude === 'number' && typeof p.longitude === 'number' && !isNaN(p.latitude) && !isNaN(p.longitude)) {
       physicalStopIndices.push(idx);
     }
   });
@@ -364,7 +365,9 @@ export function optimizePhysicalStopsOrder(
 
   stops.forEach((s, idx) => {
     const p = placeMap.get(s.placeId);
+    const isFood = p?.type === 'food' || vendorByPlaceId.has(s.placeId);
     if (
+      !isFood &&
       p &&
       typeof p.latitude === 'number' &&
       typeof p.longitude === 'number' &&
@@ -413,8 +416,9 @@ export async function optimizeItineraryWithRoadNetwork(
 
   const placeMap = new Map<string, HeritagePlace>(allPlaces.map((p) => [p.id, p]));
   const physicalStops = itinerary.stops
+    .filter((s) => !vendorByPlaceId.has(s.placeId))
     .map((s) => placeMap.get(s.placeId))
-    .filter((p): p is HeritagePlace => !!p && typeof p.latitude === 'number' && typeof p.longitude === 'number');
+    .filter((p): p is HeritagePlace => !!p && p.type !== 'food' && typeof p.latitude === 'number' && typeof p.longitude === 'number');
 
   if (physicalStops.length < 3) {
     return itinerary;
@@ -464,8 +468,13 @@ export function generateItinerary(
     startingPlaceId,
   } = options;
 
-  // Filter places belonging to the destination state
-  const destinationPlaces = allPlaces.filter((p) => p.stateId === destinationStateId);
+  // Filter places belonging to the destination state (exclude food vendors by default from automated itinerary generation)
+  let destinationPlaces = allPlaces.filter(
+    (p) => p.stateId === destinationStateId && p.type !== 'food' && !vendorByPlaceId.has(p.id)
+  );
+  if (destinationPlaces.length === 0) {
+    destinationPlaces = allPlaces.filter((p) => p.stateId === destinationStateId);
+  }
 
   if (destinationPlaces.length === 0) {
     return {

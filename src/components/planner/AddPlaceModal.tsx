@@ -60,8 +60,11 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
 
   // Reset or apply initialTab whenever modal opens
   useEffect(() => {
-    if (isOpen && initialTab) {
-      setActiveTab(initialTab);
+    if (isOpen) {
+      setAddedIds(new Set());
+      if (initialTab) {
+        setActiveTab(initialTab);
+      }
     }
   }, [isOpen, initialTab]);
 
