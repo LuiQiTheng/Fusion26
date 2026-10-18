@@ -37,7 +37,13 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
 
   if (!isOpen || !place) return null;
 
-  const modelUrl = place.modelUrl || (place.id === 'mlk-stadthuys' ? '/models/stadthuys.glb' : undefined);
+  const modelUrl =
+    place.modelUrl ||
+    (place.id === 'mlk-stadthuys'
+      ? '/models/stadthuys.glb'
+      : place.id === 'mlk-baba-nyonya'
+      ? '/models/baba-nyonya.glb'
+      : undefined);
   const has3DModel = Boolean(modelUrl);
 
   return (

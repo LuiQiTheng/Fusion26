@@ -107,8 +107,12 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
 
         modelGroup.add(model);
 
-        // Circular display pedestal (as seen in reference design)
-        const pedestalRadius = 1.45;
+        // Circular display pedestal (dynamically sized to model footprint)
+        const halfX = (size.x * 0.5) * targetScale;
+        const halfZ = (size.z * 0.5) * targetScale;
+        const footprintRadius = Math.sqrt(halfX * halfX + halfZ * halfZ);
+        const pedestalRadius = Math.max(1.45, footprintRadius * 1.08);
+
         const pedestalGeo = new THREE.CylinderGeometry(pedestalRadius, pedestalRadius + 0.05, 0.12, 64);
         const pedestalMat = new THREE.MeshStandardMaterial({
           color: 0x24322e,

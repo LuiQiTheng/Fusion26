@@ -143,7 +143,8 @@
     "source_urls": [
       "https://babanyonyamuseum.com",
       "https://www.atlasobscura.com/places/baba-nyonya-heritage-museum-malaysia"
-    ]
+    ],
+    "modelUrl": "/models/baba-nyonya.glb"
   },
   {
     "id": "mlk-cheng-hoon-teng",
