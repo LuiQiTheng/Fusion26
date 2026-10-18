@@ -85,7 +85,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         {/* Left Column: Place Detail Information */}
         <div className="relative z-10 flex-1 flex flex-col overflow-hidden min-w-0">
           {/* Scrollable content body */}
-          <div className="p-6 sm:p-8 overflow-y-auto overflow-x-hidden space-y-4 text-[#0A2F25] [scrollbar-width:thin] [scrollbar-color:rgba(10,47,37,0.2)_transparent]">
+          <div className="p-6 sm:p-8 overflow-y-auto overflow-x-hidden space-y-3.5 text-[#0A2F25]">
             {/* Header Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#D4A346] text-white shadow-xs">
@@ -136,35 +136,45 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               )}
             </div>
 
-            {/* Practical Metrics Frosted Cards - Fixed to one grid row with reduced top & bottom gaps */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-2.5 !my-2">
-              <div className="p-2.5 sm:p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <Clock className="w-4 h-4 text-[#B88E18] shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold truncate">Suggested Time</p>
-                  <p className="text-xs font-bold text-[#0A2F25] truncate">{place.visitDurationMinutes || 45} mins</p>
+            {/* Practical Metrics Frosted Card (Single compact grid without horizontal scroll) */}
+            <div className="p-3.5 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs space-y-2.5 my-1.5">
+              {/* Row 1: Suggested Time & Estimated Cost */}
+              <div className="grid grid-cols-2 gap-3 min-w-0">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-1.5 rounded-xl bg-amber-500/10 text-[#B88E18] shrink-0">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Suggested Time</p>
+                    <p className="text-xs font-bold text-[#0A2F25] truncate">{place.visitDurationMinutes || 45} mins</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-1.5 rounded-xl bg-emerald-500/10 text-emerald-700 shrink-0">
+                    <DollarSign className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Estimated Cost</p>
+                    <p className="text-xs font-bold text-[#0A2F25] truncate">
+                      {place.estimatedCostMYR === 0
+                        ? 'Free / Public'
+                        : place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined
+                        ? `RM ${place.estimatedCostMYR}`
+                        : 'Cost unverified'}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="p-2.5 sm:p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <DollarSign className="w-4 h-4 text-emerald-700 shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold truncate">Estimated Cost</p>
-                  <p className="text-xs font-bold text-[#0A2F25] truncate">
-                    {place.estimatedCostMYR === 0
-                      ? 'Free / Public'
-                      : place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined
-                      ? `RM ${place.estimatedCostMYR}`
-                      : 'Cost unverified'}
-                  </p>
+              {/* Row 2: Availability & Hours text placed below instead of being deleted/truncated */}
+              <div className="pt-2 border-t border-teal-900/10 flex items-start gap-2.5 min-w-0">
+                <div className="p-1.5 rounded-xl bg-teal-500/10 text-[#087E83] shrink-0 mt-0.5">
+                  <Compass className="w-4 h-4" />
                 </div>
-              </div>
-
-              <div className="p-2.5 sm:p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <Compass className="w-4 h-4 text-[#087E83] shrink-0" />
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold truncate">Availability</p>
-                  <p className="text-xs font-medium text-[#0A2F25] truncate" title={place.openingHoursText || 'Flexible / Seasonal availability'}>
+                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Availability & Hours</p>
+                  <p className="text-xs font-medium text-[#0A2F25] leading-relaxed break-words whitespace-normal mt-0.5">
                     {place.openingHoursText || 'Flexible / Seasonal availability'}
                   </p>
                 </div>
@@ -236,8 +246,8 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               </h4>
               <div className="space-y-1.5">
                 {place.sources.map((s, idx) => (
-                  <div key={idx} className="text-xs text-[#0A2F25]/80 flex items-center justify-between gap-2">
-                    <span className="min-w-0 break-words flex-1">
+                  <div key={idx} className="text-xs text-[#0A2F25]/80 flex items-center justify-between">
+                    <span>
                       • <strong className="text-[#0A2F25]">{s.title}</strong> — {s.publisher}
                     </span>
                     {s.url && (
