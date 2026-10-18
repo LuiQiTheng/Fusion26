@@ -121,37 +121,39 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
 
         modelGroup.add(model);
 
-        // Circular display pedestal (dynamically sized to model footprint)
-        const halfX = (size.x * 0.5) * targetScale;
-        const halfZ = (size.z * 0.5) * targetScale;
-        const footprintRadius = Math.sqrt(halfX * halfX + halfZ * halfZ);
-        const pedestalRadius = Math.max(1.45, footprintRadius * 1.08);
+        // Circular display pedestal (for buildings only; food stage/pedestal is omitted)
+        if (!isFoodItem) {
+          const halfX = (size.x * 0.5) * targetScale;
+          const halfZ = (size.z * 0.5) * targetScale;
+          const footprintRadius = Math.sqrt(halfX * halfX + halfZ * halfZ);
+          const pedestalRadius = Math.max(1.45, footprintRadius * 1.08);
 
-        const pedestalGeo = new THREE.CylinderGeometry(pedestalRadius, pedestalRadius + 0.05, 0.12, 64);
-        const pedestalMat = new THREE.MeshStandardMaterial({
-          color: 0x24322e,
-          metalness: 0.85,
-          roughness: 0.25,
-          transparent: true,
-          opacity: 0.65,
-        });
-        const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
-        const buildingBottom = (-size.y * 0.5) * targetScale;
-        pedestal.position.y = buildingBottom - 0.06;
-        modelGroup.add(pedestal);
+          const pedestalGeo = new THREE.CylinderGeometry(pedestalRadius, pedestalRadius + 0.05, 0.12, 64);
+          const pedestalMat = new THREE.MeshStandardMaterial({
+            color: 0x24322e,
+            metalness: 0.85,
+            roughness: 0.25,
+            transparent: true,
+            opacity: 0.65,
+          });
+          const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+          const buildingBottom = (-size.y * 0.5) * targetScale;
+          pedestal.position.y = buildingBottom - 0.06;
+          modelGroup.add(pedestal);
 
-        // Subtle glowing accent ring on the pedestal
-        const ringGeo = new THREE.RingGeometry(pedestalRadius * 0.95, pedestalRadius * 1.0, 64);
-        const ringMat = new THREE.MeshBasicMaterial({
-          color: 0x00f0ff,
-          side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0.45,
-        });
-        const ring = new THREE.Mesh(ringGeo, ringMat);
-        ring.rotation.x = -Math.PI / 2;
-        ring.position.y = buildingBottom + 0.002;
-        modelGroup.add(ring);
+          // Subtle glowing accent ring on the pedestal
+          const ringGeo = new THREE.RingGeometry(pedestalRadius * 0.95, pedestalRadius * 1.0, 64);
+          const ringMat = new THREE.MeshBasicMaterial({
+            color: 0x00f0ff,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.45,
+          });
+          const ring = new THREE.Mesh(ringGeo, ringMat);
+          ring.rotation.x = -Math.PI / 2;
+          ring.position.y = buildingBottom + 0.002;
+          modelGroup.add(ring);
+        }
 
         // Ensure 0 angle along all axes
         modelGroup.rotation.set(0, 0, 0);
