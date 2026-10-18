@@ -44,7 +44,7 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
     const width = container.clientWidth || 400;
     const height = container.clientHeight || 450;
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    const cameraY = isFoodItem ? 2.2 : 1.1;
+    const cameraY = isFoodItem ? 4 : 1.1;
     const cameraZ = isFoodItem ? 3.8 : 5.8;
     camera.position.set(0, cameraY, cameraZ);
 
