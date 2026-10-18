@@ -85,7 +85,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         {/* Left Column: Place Detail Information */}
         <div className="relative z-10 flex-1 flex flex-col overflow-hidden min-w-0">
           {/* Scrollable content body */}
-          <div className="p-6 sm:p-8 overflow-y-auto space-y-5 text-[#0A2F25]">
+          <div className="p-6 sm:p-8 overflow-y-auto overflow-x-hidden space-y-4 text-[#0A2F25] [scrollbar-width:thin] [scrollbar-color:rgba(10,47,37,0.2)_transparent]">
             {/* Header Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#D4A346] text-white shadow-xs">
@@ -136,21 +136,21 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               )}
             </div>
 
-            {/* Practical Metrics Frosted Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 !mt-2.5">
-              <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
+            {/* Practical Metrics Frosted Cards - Fixed to one grid row with reduced top & bottom gaps */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-2.5 !my-2">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2 sm:gap-2.5 min-w-0">
                 <Clock className="w-4 h-4 text-[#B88E18] shrink-0" />
-                <div>
-                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Suggested Time</p>
-                  <p className="text-xs font-bold text-[#0A2F25]">{place.visitDurationMinutes || 45} mins</p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold truncate">Suggested Time</p>
+                  <p className="text-xs font-bold text-[#0A2F25] truncate">{place.visitDurationMinutes || 45} mins</p>
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2 sm:gap-2.5 min-w-0">
                 <DollarSign className="w-4 h-4 text-emerald-700 shrink-0" />
-                <div>
-                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Estimated Cost</p>
-                  <p className="text-xs font-bold text-[#0A2F25]">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold truncate">Estimated Cost</p>
+                  <p className="text-xs font-bold text-[#0A2F25] truncate">
                     {place.estimatedCostMYR === 0
                       ? 'Free / Public'
                       : place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined
@@ -160,11 +160,11 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2 sm:gap-2.5 min-w-0">
                 <Compass className="w-4 h-4 text-[#087E83] shrink-0" />
-                <div>
-                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Availability & Hours</p>
-                  <p className="text-xs font-medium text-[#0A2F25] truncate">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold truncate">Availability</p>
+                  <p className="text-xs font-medium text-[#0A2F25] truncate" title={place.openingHoursText || 'Flexible / Seasonal availability'}>
                     {place.openingHoursText || 'Flexible / Seasonal availability'}
                   </p>
                 </div>
@@ -172,7 +172,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
             </div>
 
             {/* Cultural & Historical Significance */}
-            <div className="!mt-3">
+            <div>
               <h3 className="font-serif font-bold text-xl text-[#0A2F25] mb-2">
                 Cultural & Historical Significance
               </h3>
@@ -236,8 +236,8 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               </h4>
               <div className="space-y-1.5">
                 {place.sources.map((s, idx) => (
-                  <div key={idx} className="text-xs text-[#0A2F25]/80 flex items-center justify-between">
-                    <span>
+                  <div key={idx} className="text-xs text-[#0A2F25]/80 flex items-center justify-between gap-2">
+                    <span className="min-w-0 break-words flex-1">
                       • <strong className="text-[#0A2F25]">{s.title}</strong> — {s.publisher}
                     </span>
                     {s.url && (
