@@ -9,7 +9,6 @@ import {
   ExternalLink,
   BookOpen,
   Compass,
-  Box,
 } from 'lucide-react';
 import { HeritagePlace } from '../../types';
 import { BuildingModelViewer } from './BuildingModelViewer';
@@ -86,7 +85,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         {/* Left Column: Place Detail Information */}
         <div className="relative z-10 flex-1 flex flex-col overflow-hidden min-w-0">
           {/* Scrollable content body */}
-          <div className="p-6 sm:p-8 overflow-y-auto space-y-5 text-[#0A2F25]">
+          <div className="p-6 sm:p-8 overflow-y-auto overflow-x-hidden space-y-5 text-[#0A2F25]">
             {/* Header Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#D4A346] text-white shadow-xs">
@@ -120,16 +119,6 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               </span>
             </div>
 
-            {/* 3D Model badge pill */}
-            {has3DModel && (
-              <div>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#009E96] text-white shadow-xs inline-flex items-center gap-1.5">
-                  <Box className="w-3.5 h-3.5" />
-                  <span>3D Model</span>
-                </span>
-              </div>
-            )}
-
             {/* Title & Malay name */}
             <div className="space-y-0.5">
               <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1a2e26] tracking-tight">
@@ -147,9 +136,9 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               )}
             </div>
 
-            {/* Practical Metrics Frosted Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
-              <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
+            {/* Practical Metrics in One Unified Grid */}
+            <div className="-mt-2.5 -mb-1 p-2.5 sm:p-3 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 shadow-xs grid grid-cols-1 sm:grid-cols-[auto_auto_1fr] gap-2.5 sm:gap-2 items-center min-w-0">
+              <div className="flex items-center gap-2 shrink-0">
                 <Clock className="w-4 h-4 text-[#B88E18] shrink-0" />
                 <div>
                   <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Suggested Time</p>
@@ -157,7 +146,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
+              <div className="flex items-center gap-2 shrink-0 sm:border-l sm:border-teal-900/10 sm:pl-2.5">
                 <DollarSign className="w-4 h-4 text-emerald-700 shrink-0" />
                 <div>
                   <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Estimated Cost</p>
@@ -171,11 +160,11 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-white/50 backdrop-blur-md border border-white/70 shadow-xs flex items-center gap-2.5">
+              <div className="flex items-center gap-2 min-w-0 sm:border-l sm:border-teal-900/10 sm:pl-2.5">
                 <Compass className="w-4 h-4 text-[#087E83] shrink-0" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Availability & Hours</p>
-                  <p className="text-xs font-medium text-[#0A2F25] truncate">
+                  <p className="text-xs font-medium text-[#0A2F25] leading-snug break-words">
                     {place.openingHoursText || 'Flexible / Seasonal availability'}
                   </p>
                 </div>
@@ -183,7 +172,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
             </div>
 
             {/* Cultural & Historical Significance */}
-            <div className="pt-2">
+            <div>
               <h3 className="font-serif font-bold text-xl text-[#0A2F25] mb-2">
                 Cultural & Historical Significance
               </h3>
