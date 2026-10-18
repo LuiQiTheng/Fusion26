@@ -85,7 +85,7 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         {/* Left Column: Place Detail Information */}
         <div className="relative z-10 flex-1 flex flex-col overflow-hidden min-w-0">
           {/* Scrollable content body */}
-          <div className="p-6 sm:p-8 overflow-y-auto overflow-x-hidden space-y-5 text-[#0A2F25]">
+          <div className="p-6 sm:p-8 overflow-y-auto overflow-x-hidden space-y-4 text-[#0A2F25]">
             {/* Header Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#D4A346] text-white shadow-xs">
@@ -119,8 +119,11 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               </span>
             </div>
 
-            {/* Title & Malay name */}
-            <div className="space-y-0.5">
+            {/* Title & Malay name (adjust marginBottom / marginBlockEnd below to manually control the gap below Photo credit) */}
+            <div
+              style={{ marginBottom: '0px', marginBlockEnd: '0px' }}
+              className="space-y-0.5"
+            >
               <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1a2e26] tracking-tight">
                 {place.name}
               </h2>
@@ -136,21 +139,24 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
               )}
             </div>
 
-            {/* Practical Metrics in One Unified Grid */}
-            <div className="-mt-2.5 -mb-1 p-2.5 sm:p-3 rounded-2xl bg-white/60 backdrop-blur-md border border-white/80 shadow-xs grid grid-cols-1 sm:grid-cols-[auto_auto_1fr] gap-2.5 sm:gap-2 items-center min-w-0">
-              <div className="flex items-center gap-2 shrink-0">
+            {/* Practical Metrics: Clean grid without enclosing card box */}
+            <div
+              style={{ marginTop: '0px', marginBlockStart: '0px', marginBottom: '8px', marginBlockEnd: '8px' }}
+              className="grid grid-cols-1 sm:grid-cols-12 gap-y-2.5 sm:gap-y-0 sm:gap-x-16 items-center"
+            >
+              <div className="sm:col-span-3 flex items-center gap-2 min-w-0">
                 <Clock className="w-4 h-4 text-[#B88E18] shrink-0" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Suggested Time</p>
-                  <p className="text-xs font-bold text-[#0A2F25]">{place.visitDurationMinutes || 45} mins</p>
+                  <p className="text-xs font-bold text-[#0A2F25] truncate">{place.visitDurationMinutes || 45} mins</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0 sm:border-l sm:border-teal-900/10 sm:pl-2.5">
+              <div className="sm:col-span-3 flex items-center gap-2 min-w-0">
                 <DollarSign className="w-4 h-4 text-emerald-700 shrink-0" />
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Estimated Cost</p>
-                  <p className="text-xs font-bold text-[#0A2F25]">
+                  <p className="text-xs font-bold text-[#0A2F25] truncate">
                     {place.estimatedCostMYR === 0
                       ? 'Free / Public'
                       : place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined
@@ -160,11 +166,11 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 min-w-0 sm:border-l sm:border-teal-900/10 sm:pl-2.5">
-                <Compass className="w-4 h-4 text-[#087E83] shrink-0" />
+              <div className="sm:col-span-6 flex items-start sm:items-center gap-2 min-w-0">
+                <Compass className="w-4 h-4 text-[#087E83] shrink-0 mt-0.5 sm:mt-0" />
                 <div className="min-w-0 flex-1">
                   <p className="text-[10px] text-[#8a7040] uppercase tracking-wider font-semibold">Availability & Hours</p>
-                  <p className="text-xs font-medium text-[#0A2F25] leading-snug break-words">
+                  <p className="text-xs font-medium text-[#0A2F25] break-words whitespace-normal leading-snug">
                     {place.openingHoursText || 'Flexible / Seasonal availability'}
                   </p>
                 </div>
