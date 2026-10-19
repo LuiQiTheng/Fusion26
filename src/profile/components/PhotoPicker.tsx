@@ -309,15 +309,15 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
   return (
     <section aria-labelledby="photo-picker-heading" className="space-y-4">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 id="photo-picker-heading" className="font-serif text-lg font-bold text-[#F5F5F0]">
-          Photos <span className="text-sm font-normal text-[#F5F5F0]/60">(optional)</span>
+        <h2 id="photo-picker-heading" className="font-serif text-lg font-bold text-[#0A2F25]">
+          Photos <span className="text-sm font-normal text-[#52665F]">(optional)</span>
         </h2>
-        <p className="text-xs text-[#F5F5F0]/60">
+        <p className="text-xs text-[#52665F]">
           {total}/{LIMITS.PHOTOS_PER_RECORD}
         </p>
       </div>
 
-      <p className="text-xs text-[#F5F5F0]/60">
+     <p className="text-xs text-[#52665F]">
         JPG, JPEG, PNG or WebP, up to 10 MB each. The first photo is the cover.
       </p>
 
@@ -327,7 +327,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={addDisabled}
-          className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+          className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
         >
           <ImagePlus className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
           Choose photos

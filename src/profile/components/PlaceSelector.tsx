@@ -198,13 +198,13 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
 
   return (
     <div className="space-y-3">
-      <label htmlFor={searchId} className="block text-sm font-semibold text-[#F5F5F0]">
+      <label htmlFor={searchId} className="block text-sm font-semibold text-[#0A2F25]">
         Place <span className="text-[#E5C05C]">*</span>
       </label>
 
       <div className="relative">
         <Search
-          className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#F5F5F0]/50"
+          className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#52665F]"
           aria-hidden="true"
         />
         <input
@@ -222,8 +222,8 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
           autoComplete="off"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className={`w-full min-h-[44px] rounded-xl border bg-[#04100E] py-2 pl-10 pr-4 text-sm text-[#F5F5F0] placeholder:text-[#F5F5F0]/40 ${
-            error ? 'border-red-400' : 'border-[#D4AF37]/30 focus:border-[#00F0FF]'
+          className={`w-full min-h-[44px] rounded-xl border bg-white py-2 pl-10 pr-4 text-sm text-[#0A2F25] placeholder:text-[#52665F]/70 ${
+            error ? 'border-red-500' : 'border-[#087E83]/30 focus:border-[#087E83]'
           } ${FOCUS}`}
         />
       </div>
@@ -243,7 +243,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
       </p>
 
       {query === '' && matchingCustom.length === 0 && (
-        <p className="text-xs text-[#F5F5F0]/60">Start typing to find a place.</p>
+        <p className="text-xs text-[#52665F]">Start typing to find a place.</p>
       )}
 
       {matchingCustom.length > 0 && (
@@ -256,11 +256,12 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
                   type="button"
                   onClick={() => chooseCustom(place)}
                   disabled={disabled}
-                  className={`flex min-h-[44px] w-full items-center gap-3 rounded-xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70 px-4 py-2 text-left hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+                  className={`flex min-h-[44px] w-full items-center gap-3 rounded-xl border border-[#087E83]/20 bg-white px-4 py-2 text-left hover:border-[#087E83]/50 hover:bg-[#E6F3ED] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
                 >
                   <MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" aria-hidden="true" />
                   <span className="min-w-0 flex-1">
-                    <span className="block break-words text-sm font-semibold text-[#F5F5F0]">{place.name}</span>
+                    <span className="block break-words text-sm font-semibold text-[#0A2F25]">
+                      {place.name}</span>
                     <span className="block text-xs text-[#F5F5F0]/60">
                       Custom place · {place.lat.toFixed(4)}, {place.lng.toFixed(4)}
                     </span>
@@ -284,11 +285,12 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
                     type="button"
                     onClick={() => chooseExisting(place)}
                     disabled={disabled || !valid}
-                    className={`flex min-h-[44px] w-full items-center gap-3 rounded-xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70 px-4 py-2 text-left hover:border-[#D4AF37]/60 hover:bg-[#0E2925]/80 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer ${FOCUS}`}
+                    className={`flex min-h-[44px] w-full items-center gap-3 rounded-xl border border-[#087E83]/20 bg-white px-4 py-2 text-left hover:border-[#087E83]/50 hover:bg-[#E6F3ED] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer ${FOCUS}`}
                   >
                     <MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" aria-hidden="true" />
                     <span className="min-w-0 flex-1">
-                      <span className="block break-words text-sm font-semibold text-[#F5F5F0]">{place.name}</span>
+                      <span className="block break-words text-sm font-semibold text-[#0A2F25]">
+{place.name}</span>
                       <span className="block text-xs text-[#F5F5F0]/60">
                         {valid ? place.locality ?? 'Fusion26 place' : 'No valid map location, so it cannot be used'}
                       </span>
@@ -313,7 +315,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
           type="button"
           onClick={() => setMapOpen(true)}
           disabled={disabled}
-          className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+          className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#087E83] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
         >
           <Plus className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
           Can't find it? Choose a location on the map

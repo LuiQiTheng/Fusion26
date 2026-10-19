@@ -260,28 +260,6 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
         </div>
       </section>
 
-      {/* Statistics */}
-      <section aria-label="Statistics" className="grid grid-cols-3 gap-3 sm:gap-4">
-        <StatButton
-          label="Visited Places"
-          value={visitedCount}
-          icon={<MapPin className="h-5 w-5" aria-hidden="true" />}
-          onClick={() => onNavigate('map')}
-        />
-        <StatButton
-          label="Saved Places"
-          value={savedPlacesCount}
-          icon={<Heart className="h-5 w-5" aria-hidden="true" />}
-          onClick={() => onNavigate('wishlist')}
-        />
-        <StatButton
-          label="Trips"
-          value={tripsCount}
-          icon={<Briefcase className="h-5 w-5" aria-hidden="true" />}
-          onClick={() => onNavigate('my-trips')}
-        />
-      </section>
-
       {/* Feature entry cards */}
       <section aria-label="Profile features" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {FEATURE_CARDS.map((card) => (

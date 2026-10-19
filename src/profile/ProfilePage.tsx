@@ -118,7 +118,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
   // Give the repository access to the real Fusion26 places. This runs before any child
   // renders, so existing places can be resolved straight away.
-  useMemo(() => {
+  useEffect(() => {
     const byId = new Map(places.map((place) => [place.id, place]));
     configurePlaceLookup((placeId) => {
       const place = byId.get(placeId);
