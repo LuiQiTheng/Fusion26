@@ -23,7 +23,7 @@ const NAME_MAX = 100;
 const FOCUS =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]';
 const INPUT =
-  'w-full min-h-[44px] rounded-xl border bg-[#04100E] px-4 py-2 text-sm text-[#F5F5F0] placeholder:text-[#F5F5F0]/40';
+  'w-full min-h-[44px] rounded-xl border bg-white px-4 py-2 text-sm text-[#0A2F25] placeholder:text-[#52665F]/70';
 
 function parseCoordinate(text: string, min: number, max: number): number | null {
   const trimmed = text.trim();
@@ -181,14 +181,14 @@ export const LocationPickerMap: React.FC<LocationPickerMapProps> = ({ initial, o
   return (
     <section
       aria-labelledby={`${ids}-heading`}
-      className="space-y-4 rounded-2xl border border-[#D4AF37]/25 bg-[#0A1F1C]/70 p-5 sm:p-6"
+      className="space-y-4 rounded-2xl border border-[#087E83]/20 bg-[#F4F9F6] p-5 sm:p-6"
     >
       <div className="space-y-1">
-        <h2 id={`${ids}-heading`} className="flex items-center gap-2 font-serif text-lg font-bold text-[#F5F5F0]">
+        <h2 id={`${ids}-heading`} className="flex items-center gap-2 font-serif text-lg font-bold text-[#0A2F25]">
           <MapPin className="h-5 w-5 text-[#D4AF37]" aria-hidden="true" />
           Choose a location on the map
         </h2>
-        <p className="text-xs text-[#F5F5F0]/60">
+        <p className="text-xs text-[#52665F]">
           Click the map to drop a pin, and drag it to adjust. You can also type the coordinates below.
         </p>
       </div>
@@ -196,20 +196,20 @@ export const LocationPickerMap: React.FC<LocationPickerMapProps> = ({ initial, o
       <div
         role="region"
         aria-label="Map. Click to place a pin. Keyboard users can type coordinates in the fields below."
-        className="relative isolate h-72 w-full overflow-hidden rounded-xl border border-[#D4AF37]/30 sm:h-96"
+        className="relative isolate h-72 w-full overflow-hidden rounded-xl border border-[#087E83]/25 sm:h-96"
       >
         <div ref={containerRef} className="h-full w-full" />
       </div>
 
       {tileError && (
-        <p className="flex items-start gap-2 rounded-lg border border-[#D4AF37]/40 bg-[#D4AF37]/10 p-3 text-xs text-[#F5F5F0]">
+        <p className="flex items-start gap-2 rounded-lg border border-[#087E83]/20 bg-white p-3 text-xs text-[#0A2F25]">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#E5C05C]" aria-hidden="true" />
           Map tiles are loading slowly or you are offline. You can still enter the coordinates below.
         </p>
       )}
 
       <div className="space-y-1.5">
-        <label htmlFor={nameId} className="block text-sm font-semibold text-[#F5F5F0]">
+        <label htmlFor={nameId} className="block text-sm font-semibold text-[#0A2F25]">
           Place name <span className="text-[#E5C05C]">*</span>
         </label>
         <input
@@ -231,7 +231,7 @@ export const LocationPickerMap: React.FC<LocationPickerMapProps> = ({ initial, o
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
-          <label htmlFor={latId} className="block text-sm font-semibold text-[#F5F5F0]">
+          <label htmlFor={latId} className="block text-sm font-semibold text-[#0A2F25]">
             Latitude
           </label>
           <input
@@ -247,7 +247,7 @@ export const LocationPickerMap: React.FC<LocationPickerMapProps> = ({ initial, o
           />
         </div>
         <div className="space-y-1.5">
-          <label htmlFor={lngId} className="block text-sm font-semibold text-[#F5F5F0]">
+          <label htmlFor={lngId} className="block text-sm font-semibold text-[#0A2F25]">
             Longitude
           </label>
           <input
@@ -264,7 +264,7 @@ export const LocationPickerMap: React.FC<LocationPickerMapProps> = ({ initial, o
         </div>
       </div>
 
-      <p role="status" className="text-xs text-[#F5F5F0]/60">
+      <p role="status" className="text-xs text-[#52665F]">
         {hasPin
           ? `Pin placed at ${point.lat.toFixed(6)}, ${point.lng.toFixed(6)}.`
           : 'No pin yet. Click the map or enter coordinates.'}
@@ -280,14 +280,14 @@ export const LocationPickerMap: React.FC<LocationPickerMapProps> = ({ initial, o
         <button
           type="button"
           onClick={onCancel}
-          className={`min-h-[44px] rounded-xl border border-[#D4AF37]/40 px-5 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] cursor-pointer ${FOCUS}`}
+          className={`min-h-[44px] rounded-xl border border-[#087E83]/30 bg-white px-5 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#087E83] hover:bg-[#E6F3ED] cursor-pointer ${FOCUS}`}
         >
           Cancel
         </button>
         <button
           type="button"
           onClick={handleConfirm}
-          className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#D4AF37] px-5 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
+          className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#ffd447] px-5 py-2 text-sm font-bold text-slate-950 hover:bg-[#E5C05C] cursor-pointer ${FOCUS}`}
         >
           <Check className="h-4 w-4" aria-hidden="true" />
           Confirm location
