@@ -434,7 +434,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             onRemove={onWishlistRemove}
             onAddToTrip={onWishlistAddToTrip}
             onViewPlace={onViewPlace}
-            onExplore={() => onNavigate('explore')}
+            onExplore={() => onNavigate('home')}
             onOpenTrips={() => goTo('my-trips')}
             onNotify={showToast}
           />

@@ -16,7 +16,8 @@ interface TravelMapViewProps {
   className?: string;
 }
 
-const MALAYSIA_CENTER: [number, number] = [4.2105, 101.9758];
+const MALAYSIA_CENTER: [number, number] = [4.5, 111.0];
+const MALAYSIA_ZOOM = 5;
 
 const PIN_SVG =
   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
@@ -43,17 +44,19 @@ function markerTitle(place: VisitedPlace): string {
 
 function fitToPlaces(map: L.Map, places: VisitedPlace[]): void {
   map.invalidateSize();
-  if (places.length === 0) {
-    map.setView(MALAYSIA_CENTER, 6, { animate: false });
-    return;
+    if (places.length === 0) {
+      map.setView(MALAYSIA_CENTER, MALAYSIA_ZOOM, { animate: false });
+      return;
+    }
+
+    if (places.length === 1) {
+      map.setView(MALAYSIA_CENTER, MALAYSIA_ZOOM, { animate: false });
+      return;
+    }
+
+    // Keep the full Malaysia view instead of zooming tightly into visited pins.
+    map.setView(MALAYSIA_CENTER, MALAYSIA_ZOOM, { animate: false });
   }
-  if (places.length === 1) {
-    map.setView([places[0].lat, places[0].lng], 14, { animate: false });
-    return;
-  }
-  const bounds = L.latLngBounds(places.map((place) => [place.lat, place.lng] as L.LatLngTuple));
-  map.fitBounds(bounds, { padding: [48, 48], maxZoom: 15, animate: false });
-}
 
 export const TravelMapView: React.FC<TravelMapViewProps> = ({
   places,
@@ -93,7 +96,7 @@ export const TravelMapView: React.FC<TravelMapViewProps> = ({
     const start = initialViewportRef.current;
     const map = L.map(container, {
       center: start ? [start.lat, start.lng] : MALAYSIA_CENTER,
-      zoom: start ? start.zoom : 6,
+      zoom: start ? start.zoom : MALAYSIA_ZOOM,
       zoomControl: false,
     });
     L.control.zoom({ position: 'bottomright' }).addTo(map);

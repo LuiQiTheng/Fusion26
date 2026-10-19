@@ -31,6 +31,8 @@ interface HomePageProps {
   selectedStateId?: string;
   currentItinerary?: Itinerary | null;
   onUpdateItinerary?: (itinerary: Itinerary | null) => void;
+  scrollToExplore?: boolean;
+  onExploreScrollComplete?: () => void;
 }
 
 interface ShowcaseArtifact {
@@ -409,6 +411,8 @@ export const HomePage: React.FC<HomePageProps> = ({
   selectedStateId = 'ALL',
   currentItinerary,
   onUpdateItinerary,
+  scrollToExplore = false,
+  onExploreScrollComplete,
 }) => {
   // 3D Showcase Cycling State
   const [activeArtifactIdx, setActiveArtifactIdx] = useState(0);
@@ -426,6 +430,21 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const statesSectionRef = useRef<HTMLElement>(null);
   const exploreSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!scrollToExplore) return;
+
+    const handle = window.setTimeout(() => {
+      exploreSectionRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+
+      onExploreScrollComplete?.();
+    }, 150);
+
+    return () => window.clearTimeout(handle);
+  }, [scrollToExplore, onExploreScrollComplete]);
 
   const categories = useMemo(
     () => [

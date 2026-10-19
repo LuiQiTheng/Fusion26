@@ -52,6 +52,7 @@ import { X } from 'lucide-react';
 export const App: React.FC = () => {
   // Navigation: Only 4 simplified tabs
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
+  const [scrollHomeToExplore, setScrollHomeToExplore] = useState(false);
   const [selectedStateId, setSelectedStateId] = useState<string>('ALL');
   // Frontend-only auth screens (null = normal website). Existing tab/page state is kept while open.
   const [authView, setAuthView] = useState<AuthView | null>(null);
@@ -391,6 +392,8 @@ export const App: React.FC = () => {
             states={states}
             places={places}
             collections={collections}
+            scrollToExplore={scrollHomeToExplore}
+            onExploreScrollComplete={() => setScrollHomeToExplore(false)}
             onNavigate={(tab) => {
               setCurrentTab(tab);
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -474,8 +477,15 @@ export const App: React.FC = () => {
            onNavigate={(tab) => {
               if (tab !== currentTab && !confirmLeaveProfile()) return;
 
+              if (tab === 'home') {
+                setScrollHomeToExplore(true);
+              }
+
               setCurrentTab(tab);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+
+              if (tab !== 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }}
             savedItinerary={currentItinerary}
             completedMissionIds={completedMissionIds}

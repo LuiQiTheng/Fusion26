@@ -173,14 +173,8 @@ const FEATURE_CARDS: {
     icon: <MapIcon className="h-6 w-6" aria-hidden="true" />,
   },
   {
-    target: 'memories',
-    title: 'Memories',
-    description: 'Photos and notes from your travels',
-    icon: <Camera className="h-6 w-6" aria-hidden="true" />,
-  },
-  {
     target: 'friends',
-    title: 'Friends',
+    title: 'Add Friend',
     description: 'Connect with fellow travellers',
     icon: <Users className="h-6 w-6" aria-hidden="true" />,
   },
@@ -286,21 +280,35 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
 
       {/* Recent memories */}
       <section aria-labelledby="recent-memories-heading" className="space-y-4">
-        <div className="flex items-center justify-between gap-3">
-          <h2 id="recent-memories-heading" className="font-serif text-xl font-bold text-[#0A2F25]">
-            Recent Memories
-          </h2>
-          {recentRecords.length > 0 && (
-            <button
-              type="button"
-              onClick={() => onNavigate('memories')}
-              className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[#087E83] hover:text-[#0A2F25] cursor-pointer ${FOCUS}`}
-            >
-              View all
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-            </button>
-          )}
-        </div>
+        
+<div className="flex flex-wrap items-center justify-between gap-3">
+  <h2 id="recent-memories-heading" className="font-serif text-xl font-bold text-[#0A2F25]">
+    Recent Memories
+  </h2>
+
+  <div className="flex flex-wrap items-center gap-2">
+    {recentRecords.length > 0 && (
+      <button
+        type="button"
+        onClick={() => onNavigate('memories')}
+        className={`inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[#087E83] hover:text-[#0A2F25] cursor-pointer ${FOCUS}`}
+      >
+        View all
+        <ChevronRight className="h-4 w-4" aria-hidden="true" />
+      </button>
+    )}
+
+    <button
+      type="button"
+      onClick={() => onNavigate('add-memory')}
+      className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-4 py-2 text-sm font-bold text-white transition-all hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
+    >
+      <Plus className="h-4 w-4" aria-hidden="true" />
+      Add Memory
+    </button>
+  </div>
+</div>
+
 
         {recentRecords.length === 0 ? (
           <div className={`${CARD} flex flex-col items-center gap-4 px-6 py-10 text-center`}>
@@ -311,14 +319,6 @@ export const ProfileOverviewPage: React.FC<ProfileOverviewPageProps> = ({
                 Record a place you have visited, with an optional date, notes and photos.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => onNavigate('add-memory')}
-              className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-[#087E83] px-5 py-2 text-sm font-bold text-white transition-all hover:bg-[#0A2F25] cursor-pointer ${FOCUS}`}
-            >
-              <Plus className="h-4 w-4" aria-hidden="true" />
-              Add First Memory
-            </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">

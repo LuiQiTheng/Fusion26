@@ -522,7 +522,7 @@ export const FriendsPage: React.FC<FriendsPageProps> = ({ profile, places }) => 
   const tabs: { id: Tab; label: string; count: number | null }[] = [
     { id: 'discover', label: 'Discover people', count: null },
     { id: 'requests', label: 'Friend requests', count: incoming.length },
-    { id: 'friends', label: 'My friends', count: acceptedFriends.length },
+    { id: 'friends', label: 'My friends', count: null },
   ];
 
   const backLabel =
