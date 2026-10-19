@@ -132,7 +132,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
           <button
             type="button"
             onClick={onEditProfile}
-            className={`${BTN} bg-[#D4AF37] text-slate-950 hover:bg-[#E5C05C] ${FOCUS}`}
+            className={`${BTN} bg-[#ffd447] text-slate-950 hover:bg-[#E5C05C] ${FOCUS}`}
           >
             <Pencil className="h-4 w-4" aria-hidden="true" />
             Edit Profile
