@@ -162,28 +162,28 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
   if (!isChoosing && value && selected) {
     return (
       <div className="space-y-2">
-        <p className="block text-sm font-semibold text-[#F5F5F0]">
-          Place <span className="text-[#E5C05C]">*</span>
+        <p className="block text-sm font-semibold text-[#0A2F25]">
+          Place <span className="text-red-600">*</span>
         </p>
-        <div className="flex items-center gap-3 rounded-xl border border-[#D4AF37]/35 bg-[#04100E] p-4">
+        <div className="flex items-center gap-3 rounded-xl border border-[#087E83]/20 bg-white p-4">
           <MapPin className="h-5 w-5 shrink-0 text-[#D4AF37]" aria-hidden="true" />
           <div className="min-w-0 flex-1">
-            <p className="break-words font-semibold text-[#F5F5F0]">{selected.name}</p>
-            {selected.detail && <p className="text-xs text-[#F5F5F0]/60">{selected.detail}</p>}
+            <p className="break-words font-semibold text-[#0A2F25]">{selected.name}</p>
+            {selected.detail && <p className="text-xs text-[#52665F]">{selected.detail}</p>}
           </div>
           <button
             ref={changeButtonRef}
             type="button"
             onClick={() => setChanging(true)}
             disabled={disabled}
-            className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-lg border border-[#D4AF37]/40 px-3 text-sm font-semibold text-[#F5F5F0] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-lg border border-[#087E83]/30 bg-white px-3 text-sm font-semibold text-[#0A2F25] hover:border-[#087E83] hover:bg-[#E6F3ED] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
           >
             <Pencil className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
             Change
           </button>
         </div>
         {(selected.problem || error) && (
-          <p role="alert" className="flex items-start gap-2 text-xs text-red-300">
+          <p role="alert" className="flex items-start gap-2 text-xs text-red-600">
             <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {selected.problem ?? error}
           </p>
@@ -199,7 +199,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
   return (
     <div className="space-y-3">
       <label htmlFor={searchId} className="block text-sm font-semibold text-[#0A2F25]">
-        Place <span className="text-[#E5C05C]">*</span>
+        Place <span className="text-red-600">*</span>
       </label>
 
       <div className="relative">
@@ -229,7 +229,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
       </div>
 
       {error && (
-        <p id={errorId} role="alert" className="text-xs text-red-300">
+        <p id={errorId} role="alert" className="text-xs text-red-600">
           {error}
         </p>
       )}
@@ -248,7 +248,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
 
       {matchingCustom.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-[#F5F5F0]/70">Your custom places</p>
+          <p className="text-xs font-semibold text-[#0A2F25]/70">Your custom places</p>
           <ul className="space-y-2">
             {matchingCustom.map((place) => (
               <li key={place.id}>
@@ -262,7 +262,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
                   <span className="min-w-0 flex-1">
                     <span className="block break-words text-sm font-semibold text-[#0A2F25]">
                       {place.name}</span>
-                    <span className="block text-xs text-[#F5F5F0]/60">
+                    <span className="block text-xs text-[#52665F]">
                       Custom place · {place.lat.toFixed(4)}, {place.lng.toFixed(4)}
                     </span>
                   </span>
@@ -275,7 +275,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
 
       {visiblePlaces.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-[#F5F5F0]/70">Fusion26 places</p>
+          <p className="text-xs font-semibold text-[#0A2F25]/70">Fusion26 places</p>
           <ul className="space-y-2">
             {visiblePlaces.map((place) => {
               const valid = hasValidCoordinates(place);
@@ -291,7 +291,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
                     <span className="min-w-0 flex-1">
                       <span className="block break-words text-sm font-semibold text-[#0A2F25]">
 {place.name}</span>
-                      <span className="block text-xs text-[#F5F5F0]/60">
+                      <span className="block text-xs text-[#52665F]">
                         {valid ? place.locality ?? 'Fusion26 place' : 'No valid map location, so it cannot be used'}
                       </span>
                     </span>
@@ -301,14 +301,14 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
             })}
           </ul>
           {hiddenCount > 0 && (
-            <p className="text-xs text-[#F5F5F0]/60">
+            <p className="text-xs text-[#52665F]">
               Showing the first {MAX_RESULTS} of {matchingPlaces.length} places. Keep typing to narrow the list.
             </p>
           )}
         </div>
       )}
 
-      {noResults && <p className="text-sm text-[#F5F5F0]/70">No places match "{search.trim()}".</p>}
+      {noResults && <p className="text-sm text-[#0A2F25]/70">No places match "{search.trim()}".</p>}
 
       <div className="flex flex-wrap items-center gap-3 border-t border-[#D4AF37]/15 pt-3">
         <button
@@ -327,7 +327,7 @@ export const PlaceSelector: React.FC<PlaceSelectorProps> = ({
               setChanging(false);
               setSearch('');
             }}
-            className={`min-h-[44px] rounded-lg px-3 text-sm font-semibold text-[#E5C05C] hover:text-[#D4AF37] cursor-pointer ${FOCUS}`}
+            className={`min-h-[44px] rounded-lg px-3 text-sm font-semibold text-[#087E83] hover:text-[#0A2F25] cursor-pointer ${FOCUS}`}
           >
             Keep current place
           </button>

@@ -175,9 +175,9 @@ const PhotoLightbox: React.FC<LightboxProps> = ({ items, urls, missing, index, o
         aria-label={`Photo ${index + 1} of ${total}`}
         className="flex max-h-full w-full max-w-3xl flex-col gap-3"
       >
-        <div className="flex items-center justify-between gap-3 text-sm text-[#F5F5F0]">
+        <div className="flex items-center justify-between gap-3 text-sm text-[#0A2F25]">
           <p className="min-w-0 truncate">
-            {index === 0 && <span className="mr-2 font-semibold text-[#E5C05C]">Cover</span>}
+            {index === 0 && <span className="mr-2 font-semibold text-[#52665F]">Cover</span>}
             {item.name}
           </p>
           <button
@@ -210,7 +210,7 @@ const PhotoLightbox: React.FC<LightboxProps> = ({ items, urls, missing, index, o
                 className="max-h-[70vh] max-w-full rounded-lg object-contain"
               />
             ) : (
-              <p className="flex items-center gap-2 text-sm text-[#F5F5F0]/70">
+              <p className="flex items-center gap-2 text-sm text-[#0A2F25]/70">
                 <ImageOff className="h-5 w-5" aria-hidden="true" />
                 {missing[item.key] ? 'This photo could not be loaded.' : 'Loading photo...'}
               </p>
@@ -228,7 +228,7 @@ const PhotoLightbox: React.FC<LightboxProps> = ({ items, urls, missing, index, o
           </button>
         </div>
 
-        <p className="text-center text-xs text-[#F5F5F0]/60">
+        <p className="text-center text-xs text-[#0A2F25]/60">
           {index + 1} / {total}
         </p>
       </div>
@@ -327,7 +327,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={addDisabled}
-          className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+          className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#087E83]/30 bg-white px-4 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#087E83] hover:bg-[#E6F3ED] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
         >
           <ImagePlus className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
           Choose photos
@@ -337,7 +337,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
             type="button"
             onClick={() => cameraInputRef.current?.click()}
             disabled={addDisabled}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-4 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#087E83]/30 bg-white px-4 py-2 text-sm font-bold text-[#0A2F25] hover:border-[#087E83] hover:bg-[#E6F3ED] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${FOCUS}`}
           >
             <Camera className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
             Take photo
@@ -366,29 +366,29 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
       </div>
 
       {atLimit && (
-        <p className="text-xs text-[#E5C05C]">
+        <p className="text-xs text-[#52665F]">
           You have reached the limit of {LIMITS.PHOTOS_PER_RECORD} photos. Remove one to add another.
         </p>
       )}
 
       {notice && (
-        <p role="status" className="text-xs text-[#E5C05C]">
+        <p role="status" className="text-xs text-[#52665F]">
           {notice}
         </p>
       )}
 
       {rejected.length > 0 && (
-        <div role="alert" className="rounded-xl border border-red-400/50 bg-red-950/40 p-4 text-sm text-[#F5F5F0]">
+        <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
           <div className="flex items-start justify-between gap-3">
             <p className="flex items-start gap-2 font-semibold">
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-300" aria-hidden="true" />
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" aria-hidden="true" />
               {rejected.length === 1 ? '1 file was not added:' : `${rejected.length} files were not added:`}
             </p>
             <button
               type="button"
               onClick={() => setRejected([])}
               aria-label="Dismiss file errors"
-              className={`-m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[#F5F5F0]/70 hover:text-white cursor-pointer ${FOCUS}`}
+              className={`-m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-red-700 hover:bg-red-100 hover:text-red-900 cursor-pointer ${FOCUS}`}
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -422,7 +422,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <span className="flex h-full w-full flex-col items-center justify-center gap-1 px-2 text-center text-xs text-[#F5F5F0]/60">
+                    <span className="flex h-full w-full flex-col items-center justify-center gap-1 px-2 text-center text-xs text-[#0A2F25]/60">
                       <ImageOff className="h-5 w-5" aria-hidden="true" />
                       {missing[item.key] ? 'Photo unavailable' : 'Loading...'}
                     </span>
@@ -435,7 +435,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
                   </span>
                 )}
                 {item.file && (
-                  <span className="pointer-events-none absolute bottom-2 left-2 rounded-full bg-[#04100E]/85 px-2 py-0.5 text-[10px] font-semibold text-[#E5C05C]">
+                  <span className="pointer-events-none absolute bottom-2 left-2 rounded-full bg-white/95 px-2 py-0.5 text-[10px] font-semibold text-[#0A2F25]">
                     Not saved yet
                   </span>
                 )}
@@ -447,7 +447,7 @@ export const PhotoPicker: React.FC<PhotoPickerProps> = ({
                   aria-label={`Remove photo ${index + 1}: ${item.name}`}
                   className={`absolute right-0 top-0 flex h-11 w-11 items-center justify-center cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`}
                 >
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#D4AF37]/50 bg-[#04100E]/85 text-[#F5F5F0] hover:bg-red-700">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full border border-red-200 bg-white text-red-700 hover:bg-red-50">
                     <X className="h-4 w-4" aria-hidden="true" />
                   </span>
                 </button>
