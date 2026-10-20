@@ -174,7 +174,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
     currentItinerary.totalPlannedMinutes > currentItinerary.availableMinutes;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {/* Toast */}
       {saveToast && (
         <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 border border-emerald-500/30 animate-in fade-in">
@@ -183,15 +183,6 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
         </div>
       )}
 
-      {/* Page Header */}
-      <div>
-        <h1 className="font-serif font-bold text-3xl text-[#0A2F25]">
-          Smart Cultural Trip Planner
-        </h1>
-        <p className="text-xs text-[#0A2F25]/70 mt-1">
-          Constraint-driven cultural route generation balancing user interests, visit feasibility, and transit transparency
-        </p>
-      </div>
 
       {/* Planner Controls Form */}
       <PlannerForm states={states} places={allPlacesWithFoodVendors} onGenerate={handleGenerate} />
@@ -210,9 +201,9 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
 
       {/* Generated Itinerary & Map Layout */}
       {currentItinerary && currentItinerary.stops.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Itinerary Timeline */}
-          <div className="lg:col-span-7 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Left Column: Itinerary Timeline (Strictly Constrained Scrollable Container) */}
+          <div className="lg:col-span-7 h-[65vh] min-h-[520px] max-h-[700px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 rounded-3xl">
             <ItineraryTimeline
               itinerary={currentItinerary}
               allPlaces={allPlacesWithFoodVendors}
@@ -226,8 +217,8 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
             />
           </div>
 
-          {/* Right Column: Route Map */}
-          <div className="lg:col-span-5 h-[600px] sticky top-20">
+          {/* Right Column: Sticky Route Map & Legend (Matching Height Constraint) */}
+          <div className="lg:col-span-5 h-[65vh] min-h-[520px] max-h-[700px] sticky top-20 flex flex-col">
             <InteractiveMap
               places={activePlacesForMap}
               routeStops={routeStopsForMap}

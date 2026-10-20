@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { AlertTriangle, MapPin, ArrowRightLeft, Check, X, Compass, ExternalLink } from 'lucide-react';
 import { StateValidationResult } from '../../lib/geocoding';
 
@@ -29,7 +30,7 @@ export const StartingPointMismatchModal: React.FC<StartingPointMismatchModalProp
     distanceKm = 0,
   } = validation;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-sm animate-in fade-in duration-200">
       <div
         className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-amber-300/60 overflow-hidden transform transition-all scale-100"
@@ -149,6 +150,7 @@ export const StartingPointMismatchModal: React.FC<StartingPointMismatchModalProp
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

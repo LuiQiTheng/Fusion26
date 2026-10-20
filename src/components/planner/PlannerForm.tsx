@@ -433,9 +433,9 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-teal-900/10 shadow-md shadow-teal-900/5">
+    <div className="bg-white/80 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-teal-900/10 shadow-md shadow-teal-900/5">
       {/* Header */}
-      <div className="pb-6 border-b border-teal-900/10 mb-6">
+      <div className="pb-4 border-b border-teal-900/10 mb-5">
         <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25]">
           Smart Cultural Itinerary Planner
         </h2>
@@ -445,7 +445,7 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
       </div>
 
       {/* Custom Planning Form */}
-      <form onSubmit={handleCustomSubmit} className="space-y-6">
+      <form onSubmit={handleCustomSubmit} className="space-y-5">
         {/* Row 1: Destination State & Departure Time */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
           <div>

@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   Search,
@@ -22,6 +23,7 @@ import {
 interface AddPlaceModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onDone?: () => void;
   destinationStateId: string;
   destinationStateName?: string;
   allPlaces: HeritagePlace[];
@@ -44,6 +46,7 @@ const CATEGORY_OPTIONS = [
 export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
   isOpen,
   onClose,
+  onDone,
   destinationStateId,
   destinationStateName,
   allPlaces,
@@ -57,15 +60,23 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [foodStateScope, setFoodStateScope] = useState<'state' | 'all'>('state');
   const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
+  const [addedCount, setAddedCount] = useState<number>(0);
 
-  // Reset or apply initialTab whenever modal opens
+  // Prevent background scroll and reset state whenever modal opens
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = 'hidden';
       setAddedIds(new Set());
+      setAddedCount(0);
       if (initialTab) {
         setActiveTab(initialTab);
       }
+    } else {
+      document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen, initialTab]);
 
   // Existing stop IDs in itinerary
@@ -167,6 +178,7 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
 
   const handleAddPlace = (place: HeritagePlace) => {
     onAddPlace(place);
+    setAddedCount((c) => c + 1);
     setAddedIds((prev) => {
       const next = new Set(prev);
       next.add(place.id);
@@ -185,6 +197,7 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
       const place = convertFoodVendorToPlace(vendor);
       onAddPlace(place);
     }
+    setAddedCount((c) => c + 1);
     setAddedIds((prev) => {
       const next = new Set(prev);
       next.add(vendor.id);
@@ -202,15 +215,36 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
     );
   };
 
+  const handleDoneClick = () => {
+    if (onDone) {
+      onDone();
+    } else {
+      onClose();
+    }
+  };
+
+  const handleCloseClick = () => {
+    if (addedCount > 0 && onDone) {
+      onDone();
+    } else {
+      onClose();
+    }
+  };
+
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-teal-950/40 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-teal-950/60 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          handleCloseClick();
+        }
+      }}
     >
-      <div className="relative w-full max-w-3xl max-h-[88vh] flex flex-col bg-white rounded-3xl shadow-2xl border border-teal-900/10 overflow-hidden">
+      <div className="relative w-full max-w-3xl max-h-[88vh] flex flex-col bg-white rounded-3xl shadow-2xl border border-teal-900/10 overflow-hidden animate-in zoom-in-95 duration-150">
         {/* Modal Header */}
         <div className="px-6 py-5 border-b border-teal-900/10 flex items-center justify-between bg-gradient-to-r from-[#F4F9F6] to-white">
           <div>
@@ -233,7 +267,7 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
           </div>
 
           <button
-            onClick={onClose}
+            onClick={handleCloseClick}
             className="p-2 rounded-xl text-[#0A2F25]/60 hover:text-[#0A2F25] hover:bg-black/5 transition-colors cursor-pointer"
             aria-label="Close modal"
           >
@@ -611,20 +645,25 @@ export const AddPlaceModal: React.FC<AddPlaceModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-4 border-t border-teal-900/10 bg-[#F4F9F6] flex items-center justify-between">
+        <div className="px-6 py-4 border-t border-teal-900/10 bg-[#F4F9F6] flex items-center justify-between gap-4">
           <p className="text-xs text-[#0A2F25]/70">
-            {activeTab === 'places'
+            {addedCount > 0
+              ? `✨ ${addedCount} stop${addedCount > 1 ? 's' : ''} added! Click "Done" to automatically optimize the route sequence.`
+              : activeTab === 'places'
               ? 'Added places automatically integrate into your itinerary and route timeline.'
               : 'Added food vendors place a marker on the map and calculate travel time into your itinerary.'}
           </p>
           <button
-            onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-white hover:bg-black/5 text-[#0A2F25] text-xs font-bold border border-teal-900/15 shadow-xs cursor-pointer"
+            type="button"
+            onClick={handleDoneClick}
+            className="px-5 py-2.5 rounded-xl bg-[#0A2F25] hover:bg-[#0E3D31] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
           >
-            Done
+            <Sparkles className="w-3.5 h-3.5 text-[#E5C05C]" />
+            <span>{addedCount > 0 ? `Done & Optimize Route (${addedCount})` : 'Done'}</span>
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

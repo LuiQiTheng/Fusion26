@@ -13,7 +13,6 @@ import {
   Printer,
   Plus,
   GripVertical,
-  ChevronUp,
   ChevronDown,
   Sun,
   Sunset,
@@ -85,6 +84,22 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   const [isLocatingGPS, setIsLocatingGPS] = useState(false);
   const [timelineLiveSuggestions, setTimelineLiveSuggestions] = useState<GeocodeLocation[]>([]);
   const [isTimelineSearching, setIsTimelineSearching] = useState(false);
+  const [isOptimizingRoute, setIsOptimizingRoute] = useState(false);
+
+  // Collapsible Accordion State for Itinerary Cards (Independent local state, Collapsed by default)
+  const [expandedStopIds, setExpandedStopIds] = useState<Set<string>>(new Set());
+
+  const toggleStopExpanded = (stopKey: string) => {
+    setExpandedStopIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(stopKey)) {
+        next.delete(stopKey);
+      } else {
+        next.add(stopKey);
+      }
+      return next;
+    });
+  };
 
   // Mismatch Modal State
   const [isMismatchModalOpen, setIsMismatchModalOpen] = useState(false);
@@ -244,14 +259,6 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
     setDragOverIndex(null);
   };
 
-  // Move Up / Move Down buttons for accessible / touch reordering
-  const handleMoveStop = (fromIdx: number, toIdx: number) => {
-    if (toIdx < 0 || toIdx >= itinerary.stops.length) return;
-    const updated = reorderItineraryStops(itinerary, allPlaces, fromIdx, toIdx);
-    if (onUpdateItinerary) {
-      onUpdateItinerary(updated);
-    }
-  };
 
   // Global Transport Mode change handler (Local recalculation)
   const handleGlobalTransportModeChange = (newMode: TransportMode) => {
@@ -611,7 +618,34 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
 
     if (itineraryPlaces.length <= 1) return;
 
-    const startId = itinerary.startingPlaceId || itinerary.stops[0]?.placeId || itineraryPlaces[0].id;
+    // Check if designated starting place is in itineraryPlaces; if not, find the nearest stop to starting anchor
+    let startId = itinerary.startingPlaceId;
+    if (!startId || !itineraryPlaces.some((p) => p.id === startId)) {
+      let startCoords = itinerary.startingCoordinates;
+      if (!startCoords && itinerary.startingPlaceId) {
+        const sp = placeMap.get(itinerary.startingPlaceId);
+        if (sp?.latitude && sp?.longitude) {
+          startCoords = [sp.latitude, sp.longitude];
+        }
+      }
+      if (startCoords) {
+        let minDist = Infinity;
+        let closestId = itineraryPlaces[0].id;
+        itineraryPlaces.forEach((p) => {
+          if (p.latitude && p.longitude) {
+            const d = calculateHaversineDistanceKm(startCoords![0], startCoords![1], p.latitude, p.longitude);
+            if (d < minDist) {
+              minDist = d;
+              closestId = p.id;
+            }
+          }
+        });
+        startId = closestId;
+      } else {
+        startId = itinerary.stops[0]?.placeId || itineraryPlaces[0].id;
+      }
+    }
+
     const { sortedPlaces, xaiRationale } = solveSoftTimeWindowTSP(
       itineraryPlaces,
       startId,
@@ -638,8 +672,9 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
     if (onUpdateItinerary) {
       onUpdateItinerary({
         ...itinerary,
-        startingPlaceId: startId,
-        startingPointName: placeMap.get(startId)?.name,
+        startingPlaceId: itinerary.startingPlaceId || startId,
+        startingPointName: itinerary.startingPointName || placeMap.get(startId)?.name,
+        startingCoordinates: itinerary.startingCoordinates,
         stops: updatedStops,
         totalVisitMinutes,
         totalTravelMinutes,
@@ -649,6 +684,18 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         isCustomized: true,
       });
     }
+  };
+
+  // Auto-optimize route and time sequence when user finishes adding places in the modal
+  const handleDoneAddModal = () => {
+    setIsAddModalOpen(false);
+    setIsOptimizingRoute(true);
+    setTimeout(() => {
+      handleAutoOptimizeTSP();
+      setTimeout(() => {
+        setIsOptimizingRoute(false);
+      }, 450);
+    }, 200);
   };
 
   // Dynamic Time Budget metrics
@@ -664,45 +711,30 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
     : 20;
 
   return (
-    <div className="bg-white/85 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-teal-900/10 shadow-md shadow-teal-900/5 space-y-6">
-      {/* Top Header & Metrics Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-teal-900/10">
-        <div>
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EBF5F0] text-[#0A2F25] border border-teal-900/10">
-              {itinerary.destinationStateId} Cultural Plan
-            </span>
-            <span className="flex items-center gap-1 text-xs text-[#087E83] font-semibold bg-[#087E83]/10 px-2 py-0.5 rounded-full border border-[#087E83]/20">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#087E83]" /> Smart TSP Engine
-            </span>
-            {itinerary.isCustomized && (
-              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-100/70 text-amber-800 border border-amber-300">
-                Customized Order
-              </span>
-            )}
-          </div>
-          <h2 className="font-serif font-bold text-2xl text-[#0A2F25]">
-            {itinerary.title}
-          </h2>
-          <p className="text-xs text-[#0A2F25]/70 mt-1">
-            Optimized route balancing cultural authenticity, visit depth, and road transit feasibility
-          </p>
-        </div>
+    <div className="bg-white/85 backdrop-blur-md rounded-3xl p-4 sm:p-5 border border-teal-900/10 shadow-md shadow-teal-900/5 space-y-4">
+      {/* Top Header & Horizontal Action Row */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-teal-900/10">
+        <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25]">
+          {itinerary.title}
+        </h2>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2">
+        {/* Action Buttons (Horizontal Row) */}
+        <div className="flex flex-row items-center gap-2 sm:gap-2.5 flex-wrap">
           {/* Auto-Optimize Route Action */}
           <button
+            type="button"
             onClick={handleAutoOptimizeTSP}
-            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#EBF5F0] text-[#0A2F25] hover:bg-emerald-100/80 border border-teal-900/15 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer group"
+            className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#EBF5F0] text-[#0A2F25] hover:bg-emerald-100/80 border border-teal-900/15 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer group shrink-0"
             title="Sort places using Nearest Neighbor TSP & Soft Time Windows (Morning → Afternoon → Night)"
           >
-            <Compass className="w-4 h-4 text-[#087E83] group-hover:rotate-45 transition-transform" />
+            <Compass className="w-3.5 h-3.5 text-[#087E83] group-hover:rotate-45 transition-transform" />
             <span>Auto-Optimize Route</span>
           </button>
+
           <button
+            type="button"
             onClick={onInspectAI}
-            className="px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#087E83]/10 text-[#087E83] hover:bg-[#087E83]/20 border border-[#087E83]/30 flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#087E83]/10 text-[#087E83] hover:bg-[#087E83]/20 border border-[#087E83]/30 flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
             title="Inspect cultural constraints and excluded assumptions"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#087E83]" />
@@ -710,16 +742,9 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
           </button>
 
           <button
-            onClick={() => window.print()}
-            className="p-2 text-xs font-semibold rounded-xl bg-white hover:bg-black/5 text-[#0A2F25] border border-teal-900/15 transition-colors cursor-pointer"
-            title="Print Itinerary"
-          >
-            <Printer className="w-4 h-4 text-[#0A2F25]/70" />
-          </button>
-
-          <button
+            type="button"
             onClick={onSaveItinerary}
-            className={`px-4 py-2 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0 ${
               isSaved
                 ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
                 : 'bg-[#0A2F25] text-white hover:bg-[#0E3D31]'
@@ -728,11 +753,20 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
             <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'text-emerald-700' : 'text-[#E5C05C]'}`} />
             <span>{isSaved ? 'Saved to Browser' : 'Save Itinerary'}</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="p-1.5 text-xs font-semibold rounded-xl bg-white hover:bg-black/5 text-[#0A2F25] border border-teal-900/15 transition-colors cursor-pointer shrink-0"
+            title="Print Itinerary"
+          >
+            <Printer className="w-3.5 h-3.5 text-[#0A2F25]/70" />
+          </button>
         </div>
       </div>
 
       {/* Dynamic Time Budgeting & Multi-Mode Transport Bar */}
-      <div className="p-5 rounded-2xl bg-white border border-teal-900/10 shadow-xs space-y-4">
+      <div className="p-4 rounded-2xl bg-white border border-teal-900/10 shadow-xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
@@ -792,20 +826,6 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
             >
               <Car className="w-3.5 h-3.5" />
               <span>Car</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleGlobalTransportModeChange('public_transport')}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                itinerary.transportMode === 'public_transport'
-                  ? 'bg-[#0A2F25] text-white shadow-xs'
-                  : 'text-[#0A2F25]/70 hover:text-[#0A2F25] hover:bg-white'
-              }`}
-              title="Public Transit (14 km/h + 8 min wait headway)"
-            >
-              <Bus className="w-3.5 h-3.5" />
-              <span>Transit</span>
             </button>
           </div>
         </div>
@@ -1130,171 +1150,205 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
               )}
 
               {/* Stop Card */}
-              <div
-                className={`p-5 rounded-2xl bg-white border transition-all ${
-                  isDropTarget
-                    ? 'border-[#087E83] ring-2 ring-[#087E83]/20 shadow-md'
-                    : isFood
-                    ? 'border-rose-200 hover:border-rose-400 shadow-xs'
-                    : 'border-teal-900/10 shadow-xs hover:border-[#C5A028]'
-                }`}
-              >
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                  <div className="space-y-1.5 flex-1">
-                    {/* Header Pills: Map Pin, Time Window, ETA, Visit duration */}
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <div className="flex items-center text-slate-400 hover:text-slate-700 cursor-grab active:cursor-grabbing p-0.5 -ml-1">
-                        <GripVertical className="w-4 h-4 text-[#087E83]/60" />
-                      </div>
+              {(() => {
+                const stopKey = `${stop.placeId}-${idx}`;
+                const isExpanded = expandedStopIds.has(stopKey);
 
-                      {isFood ? (
-                        <>
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 flex items-center gap-1">
-                            <Utensils className="w-3 h-3 text-rose-600" /> Traditional Food Stop
-                          </span>
-                          {isPhys && (
-                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-100 text-rose-900 border border-rose-300">
-                              Food Marker on Map
+                return (
+                  <div
+                    className={`p-3 rounded-2xl bg-white border transition-all ${
+                      isDropTarget
+                        ? 'border-[#087E83] ring-2 ring-[#087E83]/20 shadow-md'
+                        : isFood
+                        ? 'border-rose-200 hover:border-rose-400 shadow-xs'
+                        : 'border-teal-900/10 shadow-xs hover:border-[#C5A028]'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        {/* Header Pills: Map Pin, Time Window, ETA, Visit duration */}
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <div className="flex items-center text-slate-400 hover:text-slate-700 cursor-grab active:cursor-grabbing p-0.5 -ml-1">
+                            <GripVertical className="w-3.5 h-3.5 text-[#087E83]/60" />
+                          </div>
+
+                          {isFood ? (
+                            <>
+                              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-200 flex items-center gap-1">
+                                <Utensils className="w-3 h-3 text-rose-600" /> Traditional Food
+                              </span>
+                              {isPhys && (
+                                <span className="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-rose-100 text-rose-900 border border-rose-300">
+                                  Food Pin
+                                </span>
+                              )}
+                            </>
+                          ) : isPhys && pinNumber ? (
+                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#EBF5F0] text-[#0A2F25] border border-teal-900/10">
+                              Pin {pinNumber} on Map
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                              Living Heritage
                             </span>
                           )}
-                        </>
-                      ) : isPhys && pinNumber ? (
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#EBF5F0] text-[#0A2F25] border border-teal-900/10">
-                          Pin {pinNumber} on Map
-                        </span>
-                      ) : (
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                          Living Heritage
-                        </span>
-                      )}
 
-                      {/* Soft Time Window Tag */}
-                      {getTimeWindowBadge(stop.preferredTimeWindow)}
+                          {/* Soft Time Window Tag */}
+                          {getTimeWindowBadge(stop.preferredTimeWindow)}
 
-                      {/* Calculated Dynamic ETA */}
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-50 text-[#087E83] border border-teal-200">
-                        <Clock className="w-3 h-3 text-[#087E83]" />
-                        ETA: {stop.etaTime || `+${formatMinutes(stop.arrivalOffsetMinutes || 0)}`}
-                      </span>
+                          {/* Calculated Dynamic ETA */}
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-50 text-[#087E83] border border-teal-200">
+                            <Clock className="w-3 h-3 text-[#087E83]" />
+                            ETA: {stop.etaTime || `+${formatMinutes(stop.arrivalOffsetMinutes || 0)}`}
+                          </span>
 
-                      <span className="text-xs font-semibold text-[#996F09]">
-                        Stay: {stop.visitDurationMinutes} mins
-                      </span>
-                    </div>
+                          <span className="text-[11px] font-semibold text-[#996F09]">
+                            Stay: {stop.visitDurationMinutes} mins
+                          </span>
+                        </div>
 
-                    {/* Place Name and Locality */}
-                    <div>
-                      <h3
-                        onClick={() => onSelectPlace(place)}
-                        className={`font-serif font-bold text-lg hover:text-[#087E83] cursor-pointer transition-colors ${
-                          isFood ? 'text-rose-950' : 'text-[#0A2F25]'
-                        }`}
-                      >
-                        {place.name}
-                      </h3>
-                      {place.locality && (
-                        <p className="text-xs text-[#0A2F25]/60">{place.locality}</p>
-                      )}
-                    </div>
+                        {/* Title with reduced gap directly below top metadata */}
+                        <div className="mt-1">
+                          <h3
+                            onClick={() => toggleStopExpanded(stopKey)}
+                            className={`font-serif font-bold text-base hover:text-[#087E83] cursor-pointer transition-colors leading-snug flex items-center gap-1.5 group select-none ${
+                              isFood ? 'text-rose-950' : 'text-[#0A2F25]'
+                            }`}
+                            title={isExpanded ? 'Click to collapse card' : 'Click to expand card'}
+                          >
+                            <span>{place.name}</span>
+                            <ChevronDown
+                              className={`w-3.5 h-3.5 text-slate-400 group-hover:text-[#087E83] transition-transform duration-300 sm:hidden ${
+                                isExpanded ? 'rotate-180 text-[#087E83]' : ''
+                              }`}
+                            />
+                          </h3>
+                        </div>
 
-                    {/* Contextual Time Trigger (e.g., Sunset Golden Hour Photography) */}
-                    {stop.contextualTrigger && (
-                      <div className="mt-2 p-2.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-rose-500/10 border border-amber-300 text-xs text-amber-950 flex items-start gap-2 shadow-xs">
-                        <Camera className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                        <div>
-                          <strong className="text-amber-900 block font-bold text-[11px]">
-                            Contextual Time Trigger:
-                          </strong>
-                          <span>{stop.contextualTrigger}</span>
+                        {/* Address and Inlined Action Buttons row */}
+                        <div className="flex items-center justify-between gap-2 flex-wrap mt-1">
+                          {place.locality ? (
+                            <p className="text-xs text-[#0A2F25]/60 truncate max-w-[180px] sm:max-w-[260px]">
+                              {place.locality}
+                            </p>
+                          ) : (
+                            <span />
+                          )}
+
+                          {/* Action Buttons Horizontally Inlined with Address */}
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              onClick={() => onSelectPlace(place)}
+                              className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-[#F4F9F6] text-[#0A2F25] hover:bg-[#EBF5F0] transition-colors cursor-pointer border border-teal-900/10"
+                            >
+                              Details
+                            </button>
+
+                            {/* Set as Start Anchor Button */}
+                            {idx > 0 ? (
+                              <button
+                                type="button"
+                                onClick={() => handleSetStartingPoint(stop.placeId)}
+                                className="px-2 py-0.5 rounded-md text-[10px] font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 flex items-center gap-1 cursor-pointer transition-colors"
+                                title="Set as Tour Starting Anchor & Re-Sequence from here"
+                              >
+                                <MapPin className="w-2.5 h-2.5 text-amber-700" />
+                                <span>Start Here</span>
+                              </button>
+                            ) : (
+                              <span className="px-2 py-0.5 rounded-md text-[10px] font-extrabold text-emerald-900 bg-emerald-100 border border-emerald-300 flex items-center gap-1">
+                                <MapPin className="w-2.5 h-2.5 text-emerald-700" />
+                                <span>Start</span>
+                              </span>
+                            )}
+
+                            {/* Accordion Expand / Collapse Arrow Button */}
+                            <button
+                              type="button"
+                              onClick={() => toggleStopExpanded(stopKey)}
+                              className={`p-1 rounded-md border transition-all cursor-pointer flex items-center justify-center ${
+                                isExpanded
+                                  ? 'bg-[#EBF5F0] text-[#087E83] border-[#087E83]/40 shadow-2xs'
+                                  : 'text-[#0A2F25]/70 hover:text-[#0A2F25] hover:bg-[#EBF5F0] border-teal-900/10'
+                              }`}
+                              title={isExpanded ? 'Collapse card details' : 'Expand card details'}
+                              aria-expanded={isExpanded}
+                            >
+                              <ChevronDown
+                                className={`w-3 h-3 transition-transform duration-300 ${
+                                  isExpanded ? 'rotate-180 text-[#087E83]' : 'text-[#0A2F25]/70'
+                                }`}
+                              />
+                            </button>
+
+                            {(itinerary.stops.length > 1 || isFood) && (
+                              <button
+                                type="button"
+                                onClick={() => onRemoveStop(stop.order)}
+                                className="p-1 rounded-md text-rose-500 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer"
+                                title="Remove stop from plan"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    )}
 
-                    <p className="text-xs text-[#0A2F25]/80 pt-1 leading-relaxed">
-                      {place.shortDescription}
-                    </p>
-
-                    {/* Why this stop is included */}
-                    <div className="pt-2 text-[11px] text-[#0A2F25]/60 flex items-center gap-1.5">
-                      <span className="font-semibold text-[#996F09]">Planning Reason:</span>
-                      <span>{stop.reasonSelected}</span>
-                    </div>
-                  </div>
-
-                  {/* Thumbnail, Quick Move Buttons, and Remove Action */}
-                  <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 shrink-0">
-                    <img
-                      src={place.imageUrl}
-                      alt={place.name}
-                      className="w-16 h-16 rounded-xl object-cover cursor-pointer hover:opacity-90 border border-teal-900/10"
-                      onClick={() => onSelectPlace(place)}
-                    />
-
-                    <div className="flex items-center gap-1">
-                      <button
+                      {/* Thumbnail on the far right */}
+                      <img
+                        src={place.imageUrl}
+                        alt={place.name}
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover cursor-pointer hover:opacity-90 border border-teal-900/10 shadow-2xs shrink-0"
                         onClick={() => onSelectPlace(place)}
-                        className="px-2 py-1 rounded-lg text-[10px] font-semibold bg-[#F4F9F6] text-[#0A2F25] hover:bg-[#EBF5F0] transition-colors cursor-pointer border border-teal-900/10"
-                      >
-                        Details
-                      </button>
+                        title="Click to view attraction details"
+                      />
+                    </div>
 
-                      {/* Set as Start Anchor Button */}
-                      {idx > 0 ? (
-                        <button
-                          type="button"
-                          onClick={() => handleSetStartingPoint(stop.placeId)}
-                          className="px-2 py-1 rounded-lg text-[10px] font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 flex items-center gap-1 cursor-pointer transition-colors"
-                          title="Set as Tour Starting Anchor & Re-Sequence from here"
-                        >
-                          <MapPin className="w-3 h-3 text-amber-700" />
-                          <span className="hidden sm:inline">Start Here</span>
-                        </button>
-                      ) : (
-                        <span className="px-2 py-1 rounded-lg text-[10px] font-extrabold text-emerald-900 bg-emerald-100 border border-emerald-300 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-emerald-700" />
-                          <span>Start</span>
-                        </span>
-                      )}
+                    {/* Accordion Collapsible Content: Smooth Grid Transition */}
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isExpanded
+                          ? 'grid-rows-[1fr] opacity-100 mt-2.5 pt-2.5 border-t border-teal-900/10'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden space-y-2">
+                        {/* Contextual Time Trigger (e.g., Sunset Golden Hour Photography) */}
+                        {stop.contextualTrigger && (
+                          <div className="p-2.5 rounded-xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-rose-500/10 border border-amber-300 text-xs text-amber-950 flex items-start gap-2 shadow-xs">
+                            <Camera className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                            <div>
+                              <strong className="text-amber-900 block font-bold text-[11px]">
+                                Contextual Time Trigger:
+                              </strong>
+                              <span>{stop.contextualTrigger}</span>
+                            </div>
+                          </div>
+                        )}
 
-                      {/* Move Up Button */}
-                      {idx > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => handleMoveStop(idx, idx - 1)}
-                          className="p-1 rounded-lg text-[#0A2F25]/70 hover:text-[#0A2F25] hover:bg-[#EBF5F0] border border-teal-900/10 cursor-pointer"
-                          title="Move stop up"
-                        >
-                          <ChevronUp className="w-3.5 h-3.5" />
-                        </button>
-                      )}
+                        {/* Main Description */}
+                        {place.shortDescription && (
+                          <p className="text-xs text-[#0A2F25]/80 leading-relaxed">
+                            {place.shortDescription}
+                          </p>
+                        )}
 
-                      {/* Move Down Button */}
-                      {idx < itinerary.stops.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={() => handleMoveStop(idx, idx + 1)}
-                          className="p-1 rounded-lg text-[#0A2F25]/70 hover:text-[#0A2F25] hover:bg-[#EBF5F0] border border-teal-900/10 cursor-pointer"
-                          title="Move stop down"
-                        >
-                          <ChevronDown className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-
-                      {(itinerary.stops.length > 1 || isFood) && (
-                        <button
-                          onClick={() => onRemoveStop(stop.order)}
-                          className="p-1 rounded-lg text-rose-500 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer"
-                          title="Remove stop from plan"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      )}
+                        {/* Planning Reason */}
+                        {stop.reasonSelected && (
+                          <div className="pt-0.5 text-[11px] text-[#0A2F25]/60 flex items-start gap-1.5">
+                            <span className="font-semibold text-[#996F09] shrink-0">Planning Reason:</span>
+                            <span>{stop.reasonSelected}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                );
+              })()}
 
-              {/* Transit Connector between stops */}
+              {/* Merged Single Low-Profile Transit Connector between stops */}
               {idx < itinerary.stops.length - 1 && (() => {
                 const nextStop = itinerary.stops[idx + 1];
                 const fromPlace = allPlaces.find((p) => p.id === stop.placeId);
@@ -1354,79 +1408,67 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
                   const travelMins = nextStop.travelFromPreviousMinutes || 4;
 
                   return (
-                    <div className="my-3 space-y-2">
-                      {/* Standard Transit Bar */}
-                      <div className="py-2 px-3.5 rounded-xl bg-[#EBF5F0] text-[#0A2F25] text-xs flex flex-wrap items-center justify-between gap-2 border border-teal-900/10">
-                        <div className="flex items-center gap-2">
+                    <div className="my-1.5 py-1.5 px-3 rounded-xl bg-slate-50/70 border border-teal-900/10 text-xs flex flex-col gap-1 transition-all">
+                      {/* Row 1: Transit Info on Left, Leg Mode Switcher on Right */}
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5 min-w-0">
                           {getTransportIcon(activeSegmentMode)}
-                          <span className="font-semibold text-[#0A2F25]">
+                          <span className="font-bold text-[#0A2F25] text-xs">
                             {travelMins} min {activeSegmentMode === 'walking' ? 'walk' : activeSegmentMode === 'car' ? 'drive' : 'transfer'}
                           </span>
-                          <span className="text-[11px] text-[#0A2F25]/70">
+                          <span className="text-[11px] text-[#0A2F25]/70 truncate">
                             to {toIsFood ? 'Food Stop: ' : `Pin ${toPin}: `}{toPlace.name} {distLabel && `(${distLabel})`}
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-2">
-                          {activeSegmentMode === 'walking' && (
-                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-sky-50 text-sky-800 border border-sky-300">
-                              🚶 Pedestrian Walk • 0g CO2
-                            </span>
-                          )}
-                          {activeSegmentMode === 'car' && (
-                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
-                              🚗 Vehicular Drive
-                            </span>
-                          )}
+                        {/* Switch this leg toggle */}
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <span className="text-[10px] text-[#0A2F25]/60 font-medium hidden sm:inline">
+                            Switch leg:
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleSegmentModeChange(idx + 1, 'walking')}
+                            className={`px-2 py-0.5 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                              activeSegmentMode === 'walking'
+                                ? 'bg-[#087E83] text-white shadow-2xs'
+                                : 'bg-white text-[#087E83] hover:bg-teal-50 border border-teal-200'
+                            }`}
+                            title="Switch to Scenic Walk"
+                          >
+                            <Footprints className="w-2.5 h-2.5" />
+                            <span>Walk</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleSegmentModeChange(idx + 1, 'car')}
+                            className={`px-2 py-0.5 rounded-md text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                              activeSegmentMode === 'car'
+                                ? 'bg-[#0A2F25] text-white shadow-2xs'
+                                : 'bg-white text-[#0A2F25] hover:bg-slate-100 border border-slate-300'
+                            }`}
+                            title="Switch to Vehicular Drive"
+                          >
+                            <Car className="w-2.5 h-2.5" />
+                            <span>Car</span>
+                          </button>
                         </div>
                       </div>
 
-                      {/* Heritage Transit Integration: Revealed when stops are < 1.5 km in historic zones */}
-                      {isHeritageDenseLeg && (
-                        <div className="p-3 rounded-xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border border-amber-300/80 text-xs space-y-2">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-1.5 text-amber-900 font-bold text-[11px]">
-                              <Leaf className="w-3.5 h-3.5 text-emerald-600" />
-                              <span>Heritage Transit Zone Detected (&lt; 1.5 km in UNESCO Core)</span>
-                            </div>
-                            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded-full border border-emerald-200">
-                              Cultural Eco-Transit
+                      {/* Row 2: Eco-Transit & Heritage Dense Alert Badge */}
+                      {(isHeritageDenseLeg || activeSegmentMode === 'walking') && (
+                        <div className="flex items-center gap-2 flex-wrap text-[10px]">
+                          {isHeritageDenseLeg && (
+                            <span className="inline-flex items-center gap-1 font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/50">
+                              <Leaf className="w-2.5 h-2.5 text-emerald-600" />
+                              <span>Heritage Transit Zone (&lt; 1.5 km in UNESCO Core) • Cultural Eco-Transit</span>
                             </span>
-                          </div>
-
-                          <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                            <span className="text-[11px] text-[#0A2F25]/75">
-                              Switch this leg:
+                          )}
+                          {activeSegmentMode === 'walking' && !isHeritageDenseLeg && (
+                            <span className="inline-flex items-center gap-1 font-semibold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200/50">
+                              <span>🚶 Pedestrian Walk • 0g CO2</span>
                             </span>
-
-                            {/* Walking Option */}
-                            <button
-                              type="button"
-                              onClick={() => handleSegmentModeChange(idx + 1, 'walking')}
-                              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                                activeSegmentMode === 'walking'
-                                  ? 'bg-[#087E83] text-white shadow-xs'
-                                  : 'bg-white text-[#087E83] hover:bg-teal-50 border border-teal-300'
-                              }`}
-                            >
-                              <Footprints className="w-3 h-3" />
-                              <span>Scenic Walk</span>
-                            </button>
-
-                            {/* Car Option */}
-                            <button
-                              type="button"
-                              onClick={() => handleSegmentModeChange(idx + 1, 'car')}
-                              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                                activeSegmentMode === 'car'
-                                  ? 'bg-[#0A2F25] text-white shadow-xs'
-                                  : 'bg-white text-[#0A2F25] hover:bg-slate-100 border border-slate-300'
-                              }`}
-                            >
-                              <Car className="w-3 h-3" />
-                              <span>Car</span>
-                            </button>
-                          </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -1490,6 +1532,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
       <AddPlaceModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
+        onDone={handleDoneAddModal}
         destinationStateId={itinerary.destinationStateId}
         allPlaces={allPlaces}
         currentItineraryStops={itinerary.stops}
@@ -1510,6 +1553,17 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         onProceedAnyway={handleProceedAnywayTimeline}
         onClose={() => setIsMismatchModalOpen(false)}
       />
+
+      {/* Route Auto-Optimization In-Progress Floating Toast */}
+      {isOptimizingRoute && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] bg-[#0A2F25] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-[#E5C05C]/50 animate-in fade-in slide-in-from-top-4 duration-200 pointer-events-none">
+          <Sparkles className="w-4 h-4 text-[#E5C05C] animate-spin shrink-0" />
+          <div className="flex flex-col">
+            <span className="text-xs font-bold tracking-wide text-white">✨ Optimizing route & time windows...</span>
+            <span className="text-[10px] text-emerald-200/80">Sequencing stops to minimize backtracking loops</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

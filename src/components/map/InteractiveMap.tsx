@@ -563,26 +563,64 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   const regionalCount = places.length - pinnedHeritageCount - selectedFoodVendors.length;
 
   return (
-    <div className="relative w-full h-full min-h-[420px] rounded-3xl overflow-hidden shadow-md border border-slate-200">
-      <div ref={mapContainerRef} className="w-full h-full z-0 min-h-[420px]" />
+    <div className="flex flex-col w-full h-full min-h-0">
+      {/* Map Canvas Container */}
+      <div className="relative flex-1 w-full min-h-[300px] rounded-3xl overflow-hidden shadow-md border border-teal-900/10">
+        <div ref={mapContainerRef} className="w-full h-full z-0 min-h-[300px]" />
 
-      {/* Floating Status & Legend Bar */}
-      <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-sm border border-slate-200 text-xs flex flex-wrap items-center gap-3 max-w-[94%]">
-        <span className="flex items-center gap-1.5 font-semibold text-slate-800">
-          <Layers className="w-3.5 h-3.5 text-amber-600" />
-          <span>Interactive Cultural Map</span>
-        </span>
-        <div className="flex items-center gap-2 border-l border-slate-200 pl-2 text-[11px] text-slate-600 flex-wrap">
-          <span className="font-medium text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/50">
-            {pinnedHeritageCount} Heritage Pins
-          </span>
-          {regionalCount > 0 && (
-            <span className="hidden sm:inline font-medium text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50">
-              {regionalCount} Regional in Grid
+        {/* Route Status Pill */}
+        {(routeStatusText || isRoutingLoading) && (
+          <div className="absolute bottom-4 left-3 z-10 max-w-[92%] sm:max-w-md bg-white/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-md border border-indigo-200 text-xs flex items-center gap-2.5">
+            {isRoutingLoading ? (
+              <Loader2 className="w-4 h-4 text-indigo-600 animate-spin shrink-0" />
+            ) : transportMode === 'walking' ? (
+              <Footprints className="w-4 h-4 text-sky-600 shrink-0" />
+            ) : (
+              <Navigation className={`w-4 h-4 shrink-0 ${isFallbackRoute ? 'text-amber-600' : 'text-indigo-600'}`} />
+            )}
+            <span className="text-slate-800 font-medium truncate">
+              {isRoutingLoading
+                ? transportMode === 'car'
+                  ? 'Calculating vehicular road route via OSRM...'
+                  : 'Calculating pedestrian route estimate...'
+                : routeStatusText}
             </span>
-          )}
+          </div>
+        )}
+
+        {/* Tile Fallback Notice */}
+        {tileError && (
+          <div className="absolute bottom-3 left-3 z-10 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl text-xs text-amber-900 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-amber-600" />
+            <span>Map tiles loading slowly or offline. Place list and planning remain fully functional.</span>
+          </div>
+        )}
+      </div>
+
+      {/* Re-styled Map Legend: Clean White Card Component */}
+      <div className="bg-white rounded-xl shadow-xs border border-teal-900/10 p-3 sm:p-3.5 mt-3 w-full flex flex-col gap-2 shrink-0">
+        {/* Row 1: Interactive Cultural Map Title & Pin Count */}
+        <div className="flex items-center justify-between pb-1.5 border-b border-teal-900/10">
+          <div className="flex items-center gap-1.5 font-bold text-xs text-[#0A2F25]">
+            <Layers className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <span>Interactive Cultural Map</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/50 text-[10px]">
+              {pinnedHeritageCount} Heritage Pins
+            </span>
+            {regionalCount > 0 && (
+              <span className="hidden sm:inline font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/50 text-[10px]">
+                {regionalCount} Regional
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Row 2: Legend Pins and Food Filter Toggle */}
+        <div className="flex flex-row flex-wrap items-center gap-2 text-[11px] text-slate-700">
           {startingPoint && (
-            <span className="flex items-center gap-1 font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+            <span className="flex items-center gap-1.5 font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
               <span className="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white font-black text-[9px] flex items-center justify-center shadow-xs">
                 S
               </span>
@@ -590,15 +628,20 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
             </span>
           )}
 
+          <span className="flex items-center gap-1.5 font-semibold text-indigo-900 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200/60">
+            <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block" />
+            <span>Route Stop</span>
+          </span>
+
           {/* Traditional Food Toggle Button */}
           {pinnedFoodCount > 0 && (
             <button
               type="button"
               onClick={() => setShowFood((prev) => !prev)}
-              className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-semibold transition-all cursor-pointer border ${
+              className={`flex items-center gap-1.5 px-2 py-0.5 rounded-md font-semibold transition-all cursor-pointer border ${
                 showFood
-                  ? 'bg-rose-50 text-rose-700 border-rose-300 hover:bg-rose-100 shadow-xs'
-                  : 'bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200 opacity-80'
+                  ? 'bg-rose-50 text-rose-700 border-rose-300 hover:bg-rose-100'
+                  : 'bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100'
               }`}
               title={showFood ? 'Click to hide food stops' : 'Click to show food stops'}
             >
@@ -609,47 +652,15 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               />
             </button>
           )}
-          <span className="hidden md:flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-600 inline-block" /> Selected
-          </span>
-          <span className="hidden md:flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block" /> Route Stop
-          </span>
+
           {showFood && pinnedFoodCount > 0 && (
-            <span className="hidden md:flex items-center gap-1 text-rose-700 font-medium">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-600 inline-block" /> Food Stop
+            <span className="flex items-center gap-1.5 text-rose-700 font-semibold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/60">
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-600 inline-block" />
+              <span>Food Stop</span>
             </span>
           )}
         </div>
       </div>
-
-      {/* Route Status Pill */}
-      {(routeStatusText || isRoutingLoading) && (
-        <div className="absolute bottom-4 left-3 z-10 max-w-[92%] sm:max-w-md bg-white/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-md border border-indigo-200 text-xs flex items-center gap-2.5">
-          {isRoutingLoading ? (
-            <Loader2 className="w-4 h-4 text-indigo-600 animate-spin shrink-0" />
-          ) : transportMode === 'walking' ? (
-            <Footprints className="w-4 h-4 text-sky-600 shrink-0" />
-          ) : (
-            <Navigation className={`w-4 h-4 shrink-0 ${isFallbackRoute ? 'text-amber-600' : 'text-indigo-600'}`} />
-          )}
-          <span className="text-slate-800 font-medium truncate">
-            {isRoutingLoading
-              ? transportMode === 'car'
-                ? 'Calculating vehicular road route via OSRM...'
-                : 'Calculating pedestrian route estimate...'
-              : routeStatusText}
-          </span>
-        </div>
-      )}
-
-      {/* Tile Fallback Notice */}
-      {tileError && (
-        <div className="absolute bottom-3 left-3 z-10 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl text-xs text-amber-900 flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-amber-600" />
-          <span>Map tiles loading slowly or offline. Place list and planning remain fully functional.</span>
-        </div>
-      )}
     </div>
   );
 };
