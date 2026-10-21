@@ -2,42 +2,22 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { Music } from 'lucide-react';
 
 interface GamelanModelViewerProps {
   modelUrl?: string;
   className?: string;
 }
 
-// 7 pentatonic pitch names in traditional Malay Gamelan
-const GAMELAN_PITCHES = [
-  { index: 1, name: 'Barang', key: '1', bonangKey: 'Q' },
-  { index: 2, name: 'Gulu', key: '2', bonangKey: 'W' },
-  { index: 3, name: 'Dhadha', key: '3', bonangKey: 'E' },
-  { index: 4, name: 'Pelog', key: '4', bonangKey: 'R' },
-  { index: 5, name: 'Lima', key: '5', bonangKey: 'T' },
-  { index: 6, name: 'Nem', key: '6', bonangKey: 'Y' },
-  { index: 7, name: 'Barang Alit', key: '7', bonangKey: 'U' },
-];
-
 const BONANG_SHORTCUTS = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U'];
-const HIGH_SHORTCUTS = ['1', '2', '3', '4', '5', '6', '7'];
-
-interface ActiveStrike {
-  category: 'gong' | 'bonang' | 'high';
-  noteIndex?: number;
-}
 
 export const GamelanModelViewer: React.FC<GamelanModelViewerProps> = ({
   modelUrl = '/models/gamelan.glb',
   className = '',
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const [loading, setLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
-  const [activeStrike, setActiveStrike] = useState<ActiveStrike | null>(null);
 
   // Audio & 3D References
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -159,7 +139,7 @@ export const GamelanModelViewer: React.FC<GamelanModelViewerProps> = ({
     }
   }, []);
 
-  // Play instrument (Audio + 3D shockwave + Soundboard active feedback)
+  // Play instrument (Audio + 3D shockwave)
   const playInstrument = useCallback(
     (category: 'gong' | 'bonang' | 'high', noteIndex?: number, hitWorldPos?: THREE.Vector3) => {
       const audioKey = category === 'gong' ? 'gong' : `${category}${noteIndex || 1}`;
@@ -198,12 +178,6 @@ export const GamelanModelViewer: React.FC<GamelanModelViewerProps> = ({
       if (finalWorldPos) {
         spawnVisualShockwave(finalWorldPos, colorHex);
       }
-
-      // 3. Soundboard active state highlight
-      setActiveStrike({ category, noteIndex });
-      setTimeout(() => {
-        setActiveStrike(null);
-      }, 200);
     },
     [getInstrumentLocalPosition, spawnVisualShockwave]
   );
@@ -252,7 +226,7 @@ export const GamelanModelViewer: React.FC<GamelanModelViewerProps> = ({
 
     // Camera
     const width = container.clientWidth || 500;
-    const height = container.clientHeight || 400;
+    const height = container.clientHeight || 450;
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
     camera.position.set(0, 1.8, 3.2);
     cameraRef.current = camera;
@@ -493,109 +467,21 @@ export const GamelanModelViewer: React.FC<GamelanModelViewerProps> = ({
   }, [modelUrl, playInstrument]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative flex flex-col items-center justify-between bg-transparent select-none w-full h-full ${className}`}
-    >
+    <div className={`relative flex items-center justify-center bg-transparent select-none w-full h-full ${className}`}>
       {/* 3D WebGL Canvas Viewport (100% Transparent, identical to food and building) */}
-      <div className="relative w-full flex-1 min-h-[300px] sm:min-h-[380px] bg-transparent">
-        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing bg-transparent" />
+      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing bg-transparent select-none" />
 
-        {/* Loading Indicator matching food/building style */}
-        {loading && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/70 backdrop-blur-xs pointer-events-none z-30">
-            <div className="px-4 py-2.5 rounded-2xl bg-[#EBF5F0] border border-teal-900/15 text-[#0A2F25] flex items-center gap-2.5 shadow-md">
-              <div className="w-4 h-4 rounded-full border-2 border-[#C5A028] border-t-transparent animate-spin" />
-              <span className="text-xs font-mono font-medium">
-                Loading 3D Model {loadProgress > 0 ? `${loadProgress}%` : ''}
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Virtual Soundboard Only (Kept clean on transparent background) */}
-      <div className="relative z-30 w-full p-2.5 sm:p-3 bg-white/80 backdrop-blur-md border border-teal-900/15 rounded-2xl shadow-md text-[#0A2F25] flex flex-col gap-2 mt-auto">
-        <div className="flex items-center justify-between text-xs px-0.5">
-          <span className="font-bold text-[#0A2F25] flex items-center gap-1.5 text-[11px] sm:text-xs">
-            <Music className="w-3.5 h-3.5 text-[#C5A028]" />
-            Virtual Soundboard
-          </span>
-          <span className="text-[10px] text-[#788880] font-mono hidden sm:inline">
-            Space: Gong • Q-U: Bonang • 1-7: High
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
-          {/* 1. Gong Ageng */}
-          <div className="sm:col-span-3 flex justify-center">
-            <button
-              onClick={() => playInstrument('gong')}
-              className={`w-full py-2 px-3 rounded-xl flex items-center justify-center gap-2 border transition-all cursor-pointer ${
-                activeStrike?.category === 'gong'
-                  ? 'bg-[#C5A028] text-white border-[#C5A028] ring-3 ring-[#C5A028]/40 scale-105 shadow-md'
-                  : 'bg-gradient-to-r from-[#D4A346] to-[#C5A028] hover:from-[#c5963b] hover:to-[#b5901c] text-white border-amber-600/30 shadow-xs'
-              }`}
-              title="Strike Gong Ageng [Space / G]"
-            >
-              <div className="w-4 h-4 rounded-full border border-white/60 bg-white/20 flex items-center justify-center font-bold text-[9px]">
-                G
-              </div>
-              <div className="text-left">
-                <div className="text-xs font-bold leading-tight">Gong Ageng</div>
-              </div>
-            </button>
-          </div>
-
-          {/* 2. Bonang Pots (1 to 7) */}
-          <div className="sm:col-span-9 grid grid-cols-7 gap-1">
-            {GAMELAN_PITCHES.map((p, idx) => {
-              const isActive = activeStrike?.category === 'bonang' && activeStrike.noteIndex === p.index;
-              return (
-                <button
-                  key={`bonang-${p.index}`}
-                  onClick={() => playInstrument('bonang', p.index)}
-                  className={`py-1.5 px-0.5 rounded-lg flex flex-col items-center justify-center transition-all cursor-pointer border ${
-                    isActive
-                      ? 'bg-[#C5A028] text-white border-[#C5A028] ring-2 ring-[#C5A028]/40 scale-105 shadow-sm'
-                      : 'bg-[#F8F4EC] hover:bg-[#F0E8D8] text-[#5C4518] border-[#D4A346]/40 shadow-xs'
-                  }`}
-                  title={`Bonang #${p.index} (${p.name}) [Key: ${BONANG_SHORTCUTS[idx]}]`}
-                >
-                  <span className="text-[10px] font-bold leading-none">{p.index}</span>
-                  <span className="text-[8px] opacity-70 font-mono leading-none mt-0.5">
-                    {BONANG_SHORTCUTS[idx]}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* 3. High Saron Keys (1 to 7) */}
-          <div className="sm:col-span-12 grid grid-cols-7 gap-1 pt-0.5 border-t border-teal-900/10">
-            {GAMELAN_PITCHES.map((p, idx) => {
-              const isActive = activeStrike?.category === 'high' && activeStrike.noteIndex === p.index;
-              return (
-                <button
-                  key={`high-${p.index}`}
-                  onClick={() => playInstrument('high', p.index)}
-                  className={`py-1.5 px-0.5 rounded-lg flex flex-col items-center justify-center transition-all cursor-pointer border ${
-                    isActive
-                      ? 'bg-[#087E83] text-white border-[#087E83] ring-2 ring-[#087E83]/40 scale-105 shadow-sm'
-                      : 'bg-[#EBF5F0] hover:bg-[#E0F0E8] text-[#0A2F25] border-teal-900/15 shadow-xs'
-                  }`}
-                  title={`High Saron #${p.index} (${p.name}) [Key: ${HIGH_SHORTCUTS[idx]}]`}
-                >
-                  <span className="text-[10px] font-bold leading-none">{p.index}</span>
-                  <span className="text-[8px] opacity-70 font-mono leading-none mt-0.5">
-                    {HIGH_SHORTCUTS[idx]}
-                  </span>
-                </button>
-              );
-            })}
+      {/* Loading Indicator matching food/building style */}
+      {loading && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/70 backdrop-blur-xs pointer-events-none z-30">
+          <div className="px-4 py-2.5 rounded-2xl bg-[#EBF5F0] border border-teal-900/15 text-[#0A2F25] flex items-center gap-2.5 shadow-md">
+            <div className="w-4 h-4 rounded-full border-2 border-[#C5A028] border-t-transparent animate-spin" />
+            <span className="text-xs font-mono font-medium">
+              Loading 3D Model {loadProgress > 0 ? `${loadProgress}%` : ''}
+            </span>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
