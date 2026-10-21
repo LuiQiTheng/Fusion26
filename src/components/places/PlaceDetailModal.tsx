@@ -2,6 +2,7 @@ import React from 'react';
 import {
   X,
   Bookmark,
+  Sparkles,
   Clock,
   DollarSign,
   ShieldCheck,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react';
 import { HeritagePlace } from '../../types';
 import { BuildingModelViewer } from './BuildingModelViewer';
+import { GamelanModelViewer } from './GamelanModelViewer';
 
 interface PlaceDetailModalProps {
   place: HeritagePlace | null;
@@ -46,8 +48,11 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
       ? '/models/kuih-keria.glb'
       : place.id === 'food-melaka-kari-debal'
       ? '/models/kari-debal.glb'
+      : place.id === 'perf-gamelan-melayu'
+      ? '/models/gamelan.glb'
       : undefined);
   const has3DModel = Boolean(modelUrl);
+  const isGamelan = place.id === 'perf-gamelan-melayu' || Boolean(modelUrl && modelUrl.includes('gamelan'));
 
   return (
     <div
@@ -138,6 +143,26 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
                 </p>
               )}
             </div>
+
+            {/* Interactive Gamelan Guidance Banner */}
+            {isGamelan && (
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-teal-500/10 to-amber-500/15 border border-amber-600/30 flex items-center gap-3 shadow-xs">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-800 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5 text-amber-700" />
+                </div>
+                <div className="text-xs space-y-0.5">
+                  <div className="font-bold text-[#0A2F25] flex items-center gap-1.5">
+                    Interactive Virtual Gamelan (iPlay Stage)
+                  </div>
+                  <p className="text-[#0A2F25]/80">
+                    Click the 3D Gong, Bonang pots, and High Saron keys on the right, or press{' '}
+                    <span className="font-mono font-bold text-amber-800">1-7</span>,{' '}
+                    <span className="font-mono font-bold text-amber-800">Q-U</span>, or{' '}
+                    <span className="font-mono font-bold text-amber-800">Space</span> to play live!
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Practical Metrics: Clean grid without enclosing card box */}
             <div
@@ -267,18 +292,27 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
         {has3DModel && modelUrl && (
           <div
             ref={modelViewerRef}
-            className="relative z-[25] w-full xl:w-[480px] 2xl:w-[560px] shrink-0 flex items-center justify-center p-4 xl:p-6 pb-16 xl:pb-20 min-h-[380px] sm:min-h-[460px] xl:min-h-0 pointer-events-none"
+            className={`relative z-[25] w-full ${
+              isGamelan ? 'xl:w-[540px] 2xl:w-[620px] pointer-events-auto' : 'xl:w-[480px] 2xl:w-[560px] pointer-events-none'
+            } shrink-0 flex items-center justify-center p-4 xl:p-6 pb-16 xl:pb-20 min-h-[380px] sm:min-h-[460px] xl:min-h-0`}
           >
-            <BuildingModelViewer
-              modelUrl={modelUrl}
-              isFood={
-                place.type === 'food' ||
-                place.id.startsWith('food-') ||
-                place.id === 'food-melaka-kuih-keria' ||
-                place.id === 'food-melaka-kari-debal'
-              }
-              className="w-full h-full min-h-[380px] sm:min-h-[440px]"
-            />
+            {isGamelan ? (
+              <GamelanModelViewer
+                modelUrl={modelUrl}
+                className="w-full h-full min-h-[400px] sm:min-h-[460px] shadow-2xl"
+              />
+            ) : (
+              <BuildingModelViewer
+                modelUrl={modelUrl}
+                isFood={
+                  place.type === 'food' ||
+                  place.id.startsWith('food-') ||
+                  place.id === 'food-melaka-kuih-keria' ||
+                  place.id === 'food-melaka-kari-debal'
+                }
+                className="w-full h-full min-h-[380px] sm:min-h-[440px]"
+              />
+            )}
           </div>
         )}
 

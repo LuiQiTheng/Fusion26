@@ -2989,6 +2989,7 @@
     "openingHoursVerified": true,
     "accessibilityNotes": "Indoor royal galleries and concert halls.",
     "culturalCareNotes": "Bronze instruments are traditionally treated with great respect; do not step across instruments.",
+    "modelUrl": "/models/gamelan.glb",
     "imageUrl": "/images/cultural/perf-gamelan-melayu.jpg",
     "imageAlt": "Set of bronze Malay Gamelan instruments with woodcarved casings",
     "imageCredit": "Wikimedia Commons",

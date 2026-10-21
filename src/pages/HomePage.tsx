@@ -52,6 +52,20 @@ interface ShowcaseArtifact {
 
 const SHOWCASE_ITEMS: ShowcaseArtifact[] = [
   {
+    id: 'gamelan-melayu',
+    name: 'Gamelan Melayu Diraja',
+    subtitle: 'Royal Bronze Percussion Ensemble',
+    category: 'Royal Court Music & Percussion',
+    stateId: 'TRG',
+    origin: 'Terengganu & Pahang',
+    shaderType: 'Interactive Virtual Acoustics',
+    shaderDesc: 'Resonant bronze alloy × carved Istana woodwork',
+    description: 'An interactive virtual gamelan featuring gong ageng, keromong bonang kettles, and saron metallophone keys tuned to the royal Malay pentatonic scale.',
+    image: '/images/cultural/perf-gamelan-melayu.jpg',
+    accentColor: '#C5A028',
+    visualType: 'framed',
+  },
+  {
     id: 'wayang-kulit',
     name: 'Wayang Kulit Kelantan',
     subtitle: 'Living Shadow Puppetry Tradition',
