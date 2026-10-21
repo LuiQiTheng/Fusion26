@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Compass, MapPin, Menu, X, Award, LogIn, User } from 'lucide-react';
+import { SupportedLanguage, TRANSLATIONS } from '../../lib/i18n';
 
 export type NavTab = 'home' | 'explore' | 'missions' | 'saved' | 'profile';
 
@@ -9,6 +10,7 @@ interface NavbarProps {
   favoritesCount: number;
   completedMissionsCount: number;
   onSignIn?: () => void;
+  currentLanguage?: SupportedLanguage;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,14 +19,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   favoritesCount,
   completedMissionsCount,
   onSignIn,
+  currentLanguage = 'en',
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = TRANSLATIONS[currentLanguage];
 
   const navItems: { id: NavTab; label: string; icon: React.ReactNode; badge?: number }[] = [
-    { id: 'home', label: 'Home', icon: <Compass className="w-4 h-4 text-[#D4AF37]" /> },
-    { id: 'explore', label: 'Trip Planner', icon: <MapPin className="w-4 h-4 text-[#D4AF37]" /> },
-    { id: 'missions', label: 'Missions', icon: <Award className="w-4 h-4 text-[#D4AF37]" /> },
-    { id: 'profile', label: 'Profile', icon: <User className="w-4 h-4 text-[#D4AF37]" />, badge: favoritesCount > 0 ? favoritesCount : undefined },
+    { id: 'home', label: t.navHome, icon: <Compass className="w-4 h-4 text-[#D4AF37]" /> },
+    { id: 'explore', label: t.navPlanner, icon: <MapPin className="w-4 h-4 text-[#D4AF37]" /> },
+    { id: 'missions', label: t.navMissions, icon: <Award className="w-4 h-4 text-[#D4AF37]" /> },
+    { id: 'profile', label: t.navProfile, icon: <User className="w-4 h-4 text-[#D4AF37]" />, badge: favoritesCount > 0 ? favoritesCount : undefined },
   ];
 
   const handleSelect = (tab: NavTab) => {
@@ -33,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-teal-900/10 shadow-xs">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-teal-900/10 shadow-xs print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

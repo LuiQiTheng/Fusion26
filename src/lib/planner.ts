@@ -29,6 +29,9 @@ export interface PlannerOptions {
   startingPointName?: string;
   startingCoordinates?: [number, number];
   startTime?: string;
+  startDate?: string;
+  endDate?: string;
+  totalDays?: number;
 }
 
 export interface HotelRecord {
@@ -800,6 +803,60 @@ export function generateItinerary(
         })()
       : undefined);
 
+  const totalDays = Math.max(1, options.totalDays || 1);
+  const daysStops: Record<number, ItineraryStop[]> = {};
+  daysStops[1] = recalculation.updatedStops.map((s) => ({ ...s, day: 1 }));
+
+  // If multi-day: partition or select curated places for subsequent days
+  if (totalDays > 1) {
+    const unvisited = destinationPlaces.filter((p) => !visitedPlaceIds.has(p.id));
+    for (let day = 2; day <= totalDays; day++) {
+      const dayRawStops: ItineraryStop[] = [];
+      let dayRemainingTime = availableMinutes;
+      let dayOffset = 0;
+
+      const candidates = unvisited.length > 0 ? unvisited : destinationPlaces;
+      for (const cand of candidates) {
+        if (dayRawStops.some((s) => s.placeId === cand.id)) continue;
+        const dur = cand.visitDurationMinutes || 45;
+        if (dur <= dayRemainingTime || dayRawStops.length === 0) {
+          dayRawStops.push({
+            placeId: cand.id,
+            order: dayRawStops.length + 1,
+            visitDurationMinutes: dur,
+            arrivalOffsetMinutes: dayOffset,
+            travelFromPreviousMinutes: dayRawStops.length === 0 ? 0 : 8,
+            routeDataStatus: (cand.latitude && cand.longitude ? 'estimated' : 'geographic_only') as any,
+            reasonSelected: `Curated for Day ${day} exploration of ${cand.name}.`,
+            day,
+          });
+          dayRemainingTime -= dur + 8;
+          dayOffset += dur + 8;
+          const unvisIdx = unvisited.findIndex((u) => u.id === cand.id);
+          if (unvisIdx !== -1) unvisited.splice(unvisIdx, 1);
+          if (dayRawStops.length >= 4) break;
+        }
+      }
+
+      if (dayRawStops.length === 0 && destinationPlaces.length > 0) {
+        const cand = destinationPlaces[(day - 1) % destinationPlaces.length];
+        dayRawStops.push({
+          placeId: cand.id,
+          order: 1,
+          visitDurationMinutes: cand.visitDurationMinutes || 45,
+          arrivalOffsetMinutes: 0,
+          travelFromPreviousMinutes: 0,
+          routeDataStatus: (cand.latitude && cand.longitude ? 'estimated' : 'geographic_only') as any,
+          reasonSelected: `Curated highlight for Day ${day}.`,
+          day,
+        });
+      }
+
+      const dayRecalc = recalculateItineraryStops(dayRawStops, allPlaces, transportMode, departureTime);
+      daysStops[day] = dayRecalc.updatedStops.map((s) => ({ ...s, day }));
+    }
+  }
+
   return {
     id: `itin-${Date.now()}`,
     title: `Cultural Discovery Itinerary (${destinationStateId})`,
@@ -819,6 +876,10 @@ export function generateItinerary(
     startingPlaceId: effectiveStartId,
     startingPointName: effectiveStartName,
     startingCoordinates: effectiveCoords,
+    startDate: options.startDate,
+    endDate: options.endDate,
+    totalDays,
+    daysStops,
     xaiRationale: `💡 AI Optimization Reasoning: Sequenced starting from ${effectiveStartName} via 2-Opt TSP. Daytime heritage sights are clustered contiguously to minimize walking distance, with evening highlights (e.g. Jonker Walk / night market) sequenced at the end of the day.`,
   };
 }

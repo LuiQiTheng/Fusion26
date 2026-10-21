@@ -28,6 +28,8 @@ import {
   X,
   Loader2,
   Utensils,
+  Volume2,
+  Calendar,
 } from 'lucide-react';
 import { Itinerary, HeritagePlace, TransportMode, TimeWindow } from '../../types';
 import {
@@ -49,6 +51,8 @@ import {
 import { AddPlaceModal } from './AddPlaceModal';
 import { StartingPointMismatchModal } from './StartingPointMismatchModal';
 import { isFoodVendorStopId, vendorByPlaceId } from '../../lib/foodVendors';
+import { TTSMiniPlayer } from './TTSMiniPlayer';
+import { PrintableItinerary } from './PrintableItinerary';
 
 interface ItineraryTimelineProps {
   itinerary: Itinerary;
@@ -60,6 +64,8 @@ interface ItineraryTimelineProps {
   isSaved?: boolean;
   onAddPlace?: (place: HeritagePlace) => void;
   onUpdateItinerary?: (itinerary: Itinerary) => void;
+  activeDay?: number;
+  onSelectDay?: (day: number) => void;
 }
 
 export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
@@ -72,7 +78,17 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   isSaved = false,
   onAddPlace,
   onUpdateItinerary,
+  activeDay = 1,
+  onSelectDay,
 }) => {
+  const [internalActiveDay, setInternalActiveDay] = useState<number>(1);
+  const currentDay = activeDay !== undefined ? activeDay : internalActiveDay;
+  const handleSelectDay = (day: number) => {
+    if (onSelectDay) onSelectDay(day);
+    setInternalActiveDay(day);
+  };
+
+  const [isTTSOpen, setIsTTSOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [initialAddModalTab, setInitialAddModalTab] = useState<'places' | 'food'>('places');
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -158,10 +174,18 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   }, [allPlaces]);
   const startTime = itinerary.startTime || '09:00';
 
+  // Active stops for the current day
+  const activeStops = useMemo(() => {
+    if (itinerary.daysStops && itinerary.daysStops[currentDay]) {
+      return itinerary.daysStops[currentDay];
+    }
+    return itinerary.stops || [];
+  }, [itinerary.daysStops, itinerary.stops, currentDay]);
+
   // Map physical places to consecutive 1-indexed pin numbers matching map markers
   const physicalPinMap = new Map<string, number>();
   let physicalPinCounter = 1;
-  itinerary.stops.forEach((stop) => {
+  activeStops.forEach((stop) => {
     const p = placeMap.get(stop.placeId);
     if (
       p &&
@@ -182,7 +206,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   // Calculate admission total
   let totalAdmissionCost = 0;
   let hasUnverifiedFees = false;
-  itinerary.stops.forEach((stop) => {
+  activeStops.forEach((stop) => {
     const place = placeMap.get(stop.placeId);
     if (place) {
       if (place.estimatedCostMYR !== null && place.estimatedCostMYR !== undefined) {
@@ -251,37 +275,69 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
       setDragOverIndex(null);
       return;
     }
-    const updated = reorderItineraryStops(itinerary, allPlaces, draggedIndex, targetIdx);
+    const updated = reorderItineraryStops(
+      { ...itinerary, stops: activeStops },
+      allPlaces,
+      draggedIndex,
+      targetIdx
+    );
     if (onUpdateItinerary) {
-      onUpdateItinerary(updated);
+      if (itinerary.daysStops) {
+        onUpdateItinerary({
+          ...updated,
+          stops: currentDay === 1 ? updated.stops : itinerary.stops,
+          daysStops: {
+            ...itinerary.daysStops,
+            [currentDay]: updated.stops,
+          },
+        });
+      } else {
+        onUpdateItinerary(updated);
+      }
     }
     setDraggedIndex(null);
     setDragOverIndex(null);
   };
 
-
   // Global Transport Mode change handler (Local recalculation)
   const handleGlobalTransportModeChange = (newMode: TransportMode) => {
     const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
-      recalculateItineraryLocally(itinerary.stops, allPlaces, newMode, startTime);
+      recalculateItineraryLocally(activeStops, allPlaces, newMode, startTime);
 
     if (onUpdateItinerary) {
-      onUpdateItinerary({
-        ...itinerary,
-        transportMode: newMode,
-        stops: updatedStops,
-        totalVisitMinutes,
-        totalTravelMinutes,
-        totalPlannedMinutes,
-        updatedAt: new Date().toISOString(),
-        isCustomized: true,
-      });
+      if (itinerary.daysStops) {
+        onUpdateItinerary({
+          ...itinerary,
+          transportMode: newMode,
+          stops: currentDay === 1 ? updatedStops : itinerary.stops,
+          daysStops: {
+            ...itinerary.daysStops,
+            [currentDay]: updatedStops,
+          },
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      } else {
+        onUpdateItinerary({
+          ...itinerary,
+          transportMode: newMode,
+          stops: updatedStops,
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      }
     }
   };
 
   // Segment-specific Transport Mode override (e.g., Walk or Drive for a heritage leg)
   const handleSegmentModeChange = (stopIndex: number, mode: TransportMode) => {
-    const newStops = [...itinerary.stops];
+    const newStops = [...activeStops];
     newStops[stopIndex] = {
       ...newStops[stopIndex],
       segmentTransportMode: mode,
@@ -291,34 +347,67 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
       recalculateItineraryLocally(newStops, allPlaces, itinerary.transportMode, startTime);
 
     if (onUpdateItinerary) {
-      onUpdateItinerary({
-        ...itinerary,
-        stops: updatedStops,
-        totalVisitMinutes,
-        totalTravelMinutes,
-        totalPlannedMinutes,
-        updatedAt: new Date().toISOString(),
-        isCustomized: true,
-      });
+      if (itinerary.daysStops) {
+        onUpdateItinerary({
+          ...itinerary,
+          stops: currentDay === 1 ? updatedStops : itinerary.stops,
+          daysStops: {
+            ...itinerary.daysStops,
+            [currentDay]: updatedStops,
+          },
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      } else {
+        onUpdateItinerary({
+          ...itinerary,
+          stops: updatedStops,
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      }
     }
   };
 
   // Handle start / departure time change with zero-lag local recalculation
   const handleStartTimeChange = (newStartTime: string) => {
     const { updatedStops, totalVisitMinutes, totalTravelMinutes, totalPlannedMinutes } =
-      recalculateItineraryLocally(itinerary.stops, allPlaces, itinerary.transportMode, newStartTime);
+      recalculateItineraryLocally(activeStops, allPlaces, itinerary.transportMode, newStartTime);
 
     if (onUpdateItinerary) {
-      onUpdateItinerary({
-        ...itinerary,
-        startTime: newStartTime,
-        stops: updatedStops,
-        totalVisitMinutes,
-        totalTravelMinutes,
-        totalPlannedMinutes,
-        updatedAt: new Date().toISOString(),
-        isCustomized: true,
-      });
+      if (itinerary.daysStops) {
+        onUpdateItinerary({
+          ...itinerary,
+          startTime: newStartTime,
+          stops: currentDay === 1 ? updatedStops : itinerary.stops,
+          daysStops: {
+            ...itinerary.daysStops,
+            [currentDay]: updatedStops,
+          },
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      } else {
+        onUpdateItinerary({
+          ...itinerary,
+          startTime: newStartTime,
+          stops: updatedStops,
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      }
     }
   };
 
@@ -612,7 +701,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
 
   // 2-Opt TSP Auto-Optimization starting from anchored location
   const handleAutoOptimizeTSP = () => {
-    const itineraryPlaces = itinerary.stops
+    const itineraryPlaces = activeStops
       .map((s) => placeMap.get(s.placeId))
       .filter((p): p is HeritagePlace => !!p);
 
@@ -642,7 +731,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         });
         startId = closestId;
       } else {
-        startId = itinerary.stops[0]?.placeId || itineraryPlaces[0].id;
+        startId = activeStops[0]?.placeId || itineraryPlaces[0].id;
       }
     }
 
@@ -654,7 +743,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
 
     // Map sorted places back into ItineraryStop objects
     const reorderedStops = sortedPlaces.map((p, idx) => {
-      const existing = itinerary.stops.find((s) => s.placeId === p.id);
+      const existing = activeStops.find((s) => s.placeId === p.id);
       return {
         placeId: p.id,
         order: idx + 1,
@@ -670,19 +759,39 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
       recalculateItineraryLocally(reorderedStops, allPlaces, itinerary.transportMode, startTime);
 
     if (onUpdateItinerary) {
-      onUpdateItinerary({
-        ...itinerary,
-        startingPlaceId: itinerary.startingPlaceId || startId,
-        startingPointName: itinerary.startingPointName || placeMap.get(startId)?.name,
-        startingCoordinates: itinerary.startingCoordinates,
-        stops: updatedStops,
-        totalVisitMinutes,
-        totalTravelMinutes,
-        totalPlannedMinutes,
-        xaiRationale,
-        updatedAt: new Date().toISOString(),
-        isCustomized: true,
-      });
+      if (itinerary.daysStops) {
+        onUpdateItinerary({
+          ...itinerary,
+          startingPlaceId: itinerary.startingPlaceId || startId,
+          startingPointName: itinerary.startingPointName || placeMap.get(startId)?.name,
+          startingCoordinates: itinerary.startingCoordinates,
+          stops: currentDay === 1 ? updatedStops : itinerary.stops,
+          daysStops: {
+            ...itinerary.daysStops,
+            [currentDay]: updatedStops,
+          },
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          xaiRationale,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      } else {
+        onUpdateItinerary({
+          ...itinerary,
+          startingPlaceId: itinerary.startingPlaceId || startId,
+          startingPointName: itinerary.startingPointName || placeMap.get(startId)?.name,
+          startingCoordinates: itinerary.startingCoordinates,
+          stops: updatedStops,
+          totalVisitMinutes,
+          totalTravelMinutes,
+          totalPlannedMinutes,
+          xaiRationale,
+          updatedAt: new Date().toISOString(),
+          isCustomized: true,
+        });
+      }
     }
   };
 
@@ -711,59 +820,117 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
     : 20;
 
   return (
-    <div className="bg-white/85 backdrop-blur-md rounded-3xl p-4 sm:p-5 border border-teal-900/10 shadow-md shadow-teal-900/5 space-y-4">
-      {/* Top Header & Horizontal Action Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-teal-900/10">
-        <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25]">
-          {itinerary.title}
-        </h2>
+    <>
+      <div className="bg-white/85 backdrop-blur-md rounded-3xl p-4 sm:p-5 border border-teal-900/10 shadow-md shadow-teal-900/5 space-y-4 print:hidden">
+        {/* Top Header & Horizontal Action Row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-teal-900/10">
+          <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#0A2F25]">
+            {itinerary.title}
+          </h2>
 
-        {/* Action Buttons (Horizontal Row) */}
-        <div className="flex flex-row items-center gap-2 sm:gap-2.5 flex-wrap">
-          {/* Auto-Optimize Route Action */}
-          <button
-            type="button"
-            onClick={handleAutoOptimizeTSP}
-            className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#EBF5F0] text-[#0A2F25] hover:bg-emerald-100/80 border border-teal-900/15 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer group shrink-0"
-            title="Sort places using Nearest Neighbor TSP & Soft Time Windows (Morning → Afternoon → Night)"
-          >
-            <Compass className="w-3.5 h-3.5 text-[#087E83] group-hover:rotate-45 transition-transform" />
-            <span>Auto-Optimize Route</span>
-          </button>
+          {/* Action Buttons (Horizontal Row) */}
+          <div className="flex flex-row items-center gap-2 sm:gap-2.5 flex-wrap">
+            {/* Auto-Optimize Route Action */}
+            <button
+              type="button"
+              onClick={handleAutoOptimizeTSP}
+              className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#EBF5F0] text-[#0A2F25] hover:bg-emerald-100/80 border border-teal-900/15 flex items-center gap-1.5 transition-all shadow-xs cursor-pointer group shrink-0"
+              title="Sort places using Nearest Neighbor TSP & Soft Time Windows (Morning → Afternoon → Night)"
+            >
+              <Compass className="w-3.5 h-3.5 text-[#087E83] group-hover:rotate-45 transition-transform" />
+              <span>Auto-Optimize Route</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={onInspectAI}
-            className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#087E83]/10 text-[#087E83] hover:bg-[#087E83]/20 border border-[#087E83]/30 flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
-            title="Inspect cultural constraints and excluded assumptions"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#087E83]" />
-            <span>Inspect AI Reasoning</span>
-          </button>
+            <button
+              type="button"
+              onClick={onInspectAI}
+              className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#087E83]/10 text-[#087E83] hover:bg-[#087E83]/20 border border-[#087E83]/30 flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+              title="Inspect cultural constraints and excluded assumptions"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#087E83]" />
+              <span>Inspect AI Reasoning</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={onSaveItinerary}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0 ${
-              isSaved
-                ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                : 'bg-[#0A2F25] text-white hover:bg-[#0E3D31]'
-            }`}
-          >
-            <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'text-emerald-700' : 'text-[#E5C05C]'}`} />
-            <span>{isSaved ? 'Saved to Browser' : 'Save Itinerary'}</span>
-          </button>
+            {/* Read Aloud TTS Action Button */}
+            <button
+              type="button"
+              onClick={() => setIsTTSOpen((prev) => !prev)}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-xl border flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
+                isTTSOpen
+                  ? 'bg-[#087E83] text-white border-[#087E83] shadow-xs'
+                  : 'bg-white hover:bg-slate-50 text-[#0A2F25] border-teal-900/15'
+              }`}
+              title="Read itinerary aloud with speech narration"
+            >
+              <Volume2 className={`w-3.5 h-3.5 ${isTTSOpen ? 'animate-pulse text-[#E5C05C]' : 'text-[#087E83]'}`} />
+              <span>{isTTSOpen ? 'Audio Playing' : 'Read Aloud'}</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="p-1.5 text-xs font-semibold rounded-xl bg-white hover:bg-black/5 text-[#0A2F25] border border-teal-900/15 transition-colors cursor-pointer shrink-0"
-            title="Print Itinerary"
-          >
-            <Printer className="w-3.5 h-3.5 text-[#0A2F25]/70" />
-          </button>
+            <button
+              type="button"
+              onClick={onSaveItinerary}
+              className={`px-3 py-1.5 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0 ${
+                isSaved
+                  ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                  : 'bg-[#0A2F25] text-white hover:bg-[#0E3D31]'
+              }`}
+            >
+              <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'text-emerald-700' : 'text-[#E5C05C]'}`} />
+              <span>{isSaved ? 'Saved to Browser' : 'Save Itinerary'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="p-1.5 text-xs font-semibold rounded-xl bg-white hover:bg-black/5 text-[#0A2F25] border border-teal-900/15 transition-colors cursor-pointer shrink-0"
+              title="Print Itinerary"
+            >
+              <Printer className="w-3.5 h-3.5 text-[#0A2F25]/70" />
+            </button>
+          </div>
         </div>
-      </div>
+
+        {/* Multi-Day Tabs: Day 1 | Day 2 | Day 3 */}
+        {itinerary.totalDays && itinerary.totalDays > 1 && (
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
+            {Array.from({ length: itinerary.totalDays }, (_, i) => i + 1).map((dayNum) => {
+              const isDayActive = currentDay === dayNum;
+              const dayDateText = itinerary.startDate
+                ? (() => {
+                    const d = new Date(itinerary.startDate);
+                    d.setDate(d.getDate() + (dayNum - 1));
+                    return d.toLocaleDateString('en-MY', { month: 'short', day: 'numeric' });
+                  })()
+                : `Day ${dayNum}`;
+              const stopCount =
+                itinerary.daysStops?.[dayNum]?.length ??
+                (dayNum === 1 ? itinerary.stops.length : 0);
+
+              return (
+                <button
+                  key={dayNum}
+                  type="button"
+                  onClick={() => handleSelectDay(dayNum)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shrink-0 border ${
+                    isDayActive
+                      ? 'bg-[#0A2F25] text-white border-[#0A2F25] shadow-xs ring-2 ring-[#C5A028]/40'
+                      : 'bg-white hover:bg-slate-50 text-[#0A2F25]/80 border-teal-900/15'
+                  }`}
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[#C5A028]" />
+                  <span>Day {dayNum}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${
+                      isDayActive ? 'bg-[#C5A028] text-white' : 'bg-slate-100 text-slate-600'
+                    }`}
+                  >
+                    {dayDateText} • {stopCount} stops
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
       {/* Dynamic Time Budgeting & Multi-Mode Transport Bar */}
       <div className="p-4 rounded-2xl bg-white border border-teal-900/10 shadow-xs space-y-3">
@@ -1066,7 +1233,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
 
       {/* Timeline Stops with Drag-and-Drop */}
       <div className="space-y-6 relative before:absolute before:left-5 before:top-4 before:bottom-4 before:w-0.5 before:bg-teal-900/15">
-        {itinerary.stops.map((stop, idx) => {
+        {activeStops.map((stop, idx) => {
           const place = placeMap.get(stop.placeId);
           if (!place) return null;
 
@@ -1535,7 +1702,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         onDone={handleDoneAddModal}
         destinationStateId={itinerary.destinationStateId}
         allPlaces={allPlaces}
-        currentItineraryStops={itinerary.stops}
+        currentItineraryStops={activeStops}
         onAddPlace={(place) => {
           if (onAddPlace) {
             onAddPlace(place);
@@ -1565,5 +1732,21 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
         </div>
       )}
     </div>
+
+    {/* TTS Audio Player Modal (Trip Planner Read Aloud) */}
+    <TTSMiniPlayer
+      itinerary={itinerary}
+      allPlaces={allPlaces}
+      isOpen={isTTSOpen}
+      onClose={() => setIsTTSOpen(false)}
+      activeDay={currentDay}
+    />
+
+    {/* Hyper-Minimalist Printable Itinerary (Shown only during window.print()) */}
+    <PrintableItinerary
+      itinerary={itinerary}
+      allPlaces={allPlaces}
+    />
+  </>
   );
 };

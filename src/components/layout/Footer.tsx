@@ -7,7 +7,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenEthicsModal }) => {
   return (
-    <footer className="bg-white/60 text-[#0A2F25]/70 border-t border-teal-900/10 py-5 backdrop-blur-md">
+    <footer className="bg-white/60 text-[#0A2F25]/70 border-t border-teal-900/10 py-5 backdrop-blur-md print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
           <span className="font-serif font-bold text-[#0A2F25] text-sm">

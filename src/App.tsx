@@ -48,8 +48,12 @@ import { generateItinerary } from './lib/planner';
 import type { WishlistActionResult } from './profile/pages/WishlistPage';
 import { calculateHaversineDistanceKm } from './lib/routing';
 import { X } from 'lucide-react';
+import { SupportedLanguage } from './lib/i18n';
 
 export const App: React.FC = () => {
+  // Global Language state (switched via Voice UI on Home Tab)
+  const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>('en');
+
   // Navigation: Only 4 simplified tabs
   const [currentTab, setCurrentTab] = useState<NavTab>('home');
   const [scrollHomeToExplore, setScrollHomeToExplore] = useState(false);
@@ -379,6 +383,7 @@ export const App: React.FC = () => {
         }}
         favoritesCount={favorites.length}
         completedMissionsCount={completedMissionIds.length}
+        currentLanguage={currentLanguage}
         onSignIn={() => {
           if (!confirmLeaveProfile()) return;
           openAuth('login');
@@ -386,7 +391,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Page Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-6 sm:pb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-6 sm:pb-8 print:p-0 print:m-0 print:max-w-none print:w-full">
         {currentTab === 'home' && (
           <HomePage
             states={states}
@@ -410,6 +415,8 @@ export const App: React.FC = () => {
               setCurrentItinerary(itin);
               if (itin) setSavedItinerary(itin);
             }}
+            currentLanguage={currentLanguage}
+            onLanguageChange={setCurrentLanguage}
           />
         )}
 

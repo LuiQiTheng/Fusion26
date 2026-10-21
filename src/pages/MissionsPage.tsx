@@ -3,7 +3,7 @@ import { CulturalMission, HeritagePlace, MissionProof, ExplorerBadge } from '../
 import { MissionCard } from '../components/missions/MissionCard';
 import { BadgeShowcaseBar } from '../components/missions/BadgeShowcaseBar';
 import { BadgeCelebrationModal } from '../components/missions/BadgeCelebrationModal';
-import { Award, RotateCcw } from 'lucide-react';
+import { Award, RotateCcw, ChevronDown } from 'lucide-react';
 import { checkNewlyUnlockedBadge } from '../lib/badges';
 
 interface MissionsPageProps {
@@ -30,6 +30,10 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
   const completedCount = completedMissionIds.length;
   const totalCount = missions.length;
   const progressPercent = Math.round((completedCount / totalCount) * 100);
+
+  // Pagination state: By default, show first 2 mission cards
+  const [isMissionsExpanded, setIsMissionsExpanded] = useState(false);
+  const displayedMissions = isMissionsExpanded ? missions : missions.slice(0, 2);
 
   // Badge Celebration modal state
   const [celebrationBadge, setCelebrationBadge] = useState<ExplorerBadge | null>(null);
@@ -114,7 +118,7 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
       {/* Controls & Reset */}
       <div className="flex items-center justify-between pt-2">
         <div className="text-xs text-[#0A2F25]/70">
-          Showing {missions.length} curated educational missions with photo verification
+          Showing {displayedMissions.length} of {missions.length} curated educational missions with photo verification
         </div>
         {completedCount > 0 && (
           <button
@@ -128,7 +132,7 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
 
       {/* Missions Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {missions.map((mission) => (
+        {displayedMissions.map((mission) => (
           <MissionCard
             key={mission.id}
             mission={mission}
@@ -141,6 +145,24 @@ export const MissionsPage: React.FC<MissionsPageProps> = ({
           />
         ))}
       </div>
+
+      {/* Show More / Show Less Missions Button */}
+      {missions.length > 2 && (
+        <div className="flex justify-center pt-3 pb-2">
+          <button
+            type="button"
+            onClick={() => setIsMissionsExpanded((prev) => !prev)}
+            className="px-5 py-2.5 rounded-2xl bg-white hover:bg-slate-50 text-[#0A2F25] border border-teal-900/15 shadow-xs hover:shadow-md transition-all font-bold text-xs flex items-center gap-2 cursor-pointer group"
+          >
+            <span>{isMissionsExpanded ? 'Show Less Missions' : `Show More Missions (${missions.length - 2} more)`}</span>
+            <ChevronDown
+              className={`w-4 h-4 text-[#087E83] transition-transform duration-200 ${
+                isMissionsExpanded ? 'rotate-180' : 'group-hover:translate-y-0.5'
+              }`}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

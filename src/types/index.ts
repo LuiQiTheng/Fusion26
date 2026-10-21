@@ -114,6 +114,7 @@ export interface ItineraryStop {
   contextualTrigger?: string;
   xaiRationale?: string;
   segmentTransportMode?: TransportMode;
+  day?: number;
 }
 
 export interface Itinerary {
@@ -137,6 +138,10 @@ export interface Itinerary {
   startingPlaceId?: string;
   startingPointName?: string;
   startingCoordinates?: [number, number];
+  startDate?: string;
+  endDate?: string;
+  totalDays?: number;
+  daysStops?: Record<number, ItineraryStop[]>;
 }
 
 export type MissionType = 'notice' | 'learn' | 'reflect' | 'connect';

@@ -1,5 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Sparkles, Footprints, Car, Clock, AlertCircle, MapPin, Navigation, Search, X, Loader2 } from 'lucide-react';
+import {
+  Sparkles,
+  Footprints,
+  Car,
+  Clock,
+  AlertCircle,
+  MapPin,
+  Navigation,
+  Search,
+  X,
+  Loader2,
+  Calendar,
+} from 'lucide-react';
 import { StateRecord, HeritagePlace, TransportMode, BudgetLevel } from '../../types';
 import { PlannerOptions, HOTELS_BY_STATE, resolveStartingAnchor } from '../../lib/planner';
 import { isCompactDistrict, getDefaultTransportMode, calculateHaversineDistanceKm } from '../../lib/routing';
@@ -12,6 +24,8 @@ import {
   GeocodeLocation,
 } from '../../lib/geocoding';
 import { StartingPointMismatchModal } from './StartingPointMismatchModal';
+import { findOverlappingFestivals, CulturalFestival } from '../../data/festivals';
+import { FestivalSuggestionBanner } from './FestivalSuggestionBanner';
 
 interface PlannerFormProps {
   states: StateRecord[];
@@ -34,6 +48,52 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
   const [destinationStateId, setDestinationStateId] = useState(() => {
     return initialStateId && initialStateId !== 'ALL' ? initialStateId : 'MLK';
   });
+
+  // Multi-Day Date Range State (Strict Future Dates Only)
+  const todayStr = useMemo(() => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }, []);
+
+  const [startDate, setStartDate] = useState<string>(todayStr);
+  const [endDate, setEndDate] = useState<string>(todayStr);
+
+  const tripDays = useMemo(() => {
+    if (!startDate || !endDate) return 1;
+    const s = new Date(startDate);
+    const e = new Date(endDate);
+    const diff = Math.round((e.getTime() - s.getTime()) / (1000 * 3600 * 24)) + 1;
+    return Math.max(1, diff);
+  }, [startDate, endDate]);
+
+  const handleStartDateChange = (val: string) => {
+    if (val < todayStr) return;
+    setStartDate(val);
+    if (endDate < val) {
+      setEndDate(val);
+    }
+  };
+
+  const handleEndDateChange = (val: string) => {
+    if (val < startDate) return;
+    setEndDate(val);
+  };
+
+  // Festival Collision State
+  const [dismissedFestivalIds, setDismissedFestivalIds] = useState<string[]>([]);
+  const [addedFestivalIds, setAddedFestivalIds] = useState<string[]>([]);
+
+  const activeCollidingFestival = useMemo(() => {
+    const overlapping = findOverlappingFestivals(destinationStateId, startDate, endDate);
+    return (
+      overlapping.find(
+        (f) => !dismissedFestivalIds.includes(f.id) && !addedFestivalIds.includes(f.id)
+      ) || null
+    );
+  }, [destinationStateId, startDate, endDate, dismissedFestivalIds, addedFestivalIds]);
 
   // Starting Point & Departure Time
   const [startingInputText, setStartingInputText] = useState<string>('');
@@ -410,6 +470,9 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
       startingPointName: finalStartName || undefined,
       startingCoordinates: finalCoords,
       startTime: departureTime,
+      startDate,
+      endDate,
+      totalDays: tripDays,
     };
 
     // Verify if selected starting point is outside destination state
@@ -446,7 +509,48 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
 
       {/* Custom Planning Form */}
       <form onSubmit={handleCustomSubmit} className="space-y-5">
-        {/* Row 1: Destination State & Departure Time */}
+        {/* Section 1: Multi-Day Date Range Picker (Strict Future Dates Only) */}
+        <div className="p-4 rounded-2xl bg-[#F4F9F6] border border-teal-900/10 space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-bold text-[#0A2F25] uppercase tracking-wider flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-[#087E83]" />
+              <span>Trip Dates & Duration</span>
+            </label>
+            <span className="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#0A2F25] text-white shadow-xs">
+              {tripDays} {tripDays === 1 ? 'Day Trip' : 'Days Cultural Itinerary'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                From (Start Date):
+              </label>
+              <input
+                type="date"
+                min={todayStr}
+                value={startDate}
+                onChange={(e) => handleStartDateChange(e.target.value)}
+                className="w-full h-11 px-3.5 rounded-xl border border-teal-900/15 text-xs sm:text-sm font-semibold text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] focus:ring-1 focus:ring-[#C5A028] shadow-xs cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                Until (End Date):
+              </label>
+              <input
+                type="date"
+                min={startDate}
+                value={endDate}
+                onChange={(e) => handleEndDateChange(e.target.value)}
+                className="w-full h-11 px-3.5 rounded-xl border border-teal-900/15 text-xs sm:text-sm font-semibold text-[#0A2F25] bg-white focus:outline-hidden focus:border-[#C5A028] focus:ring-1 focus:ring-[#C5A028] shadow-xs cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Section 2: Destination State & Departure Time */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
           <div>
             <label className="block text-xs font-bold text-[#0A2F25] uppercase tracking-wider mb-2">
@@ -497,6 +601,23 @@ export const PlannerForm: React.FC<PlannerFormProps> = ({
             </select>
           </div>
         </div>
+
+        {/* Smart Festival Collision Banner if date overlaps with local festival */}
+        {activeCollidingFestival && (
+          <FestivalSuggestionBanner
+            festival={activeCollidingFestival}
+            targetDayNumber={1}
+            onAddToPlan={(fest) => {
+              setAddedFestivalIds((prev) => [...prev, fest.id]);
+              if (!selectedInterests.includes('Cultural Festival') && !selectedInterests.includes('Living Tradition')) {
+                setSelectedInterests((prev) => [...prev, 'Living Tradition']);
+              }
+            }}
+            onDismiss={() => {
+              setDismissedFestivalIds((prev) => [...prev, activeCollidingFestival.id]);
+            }}
+          />
+        )}
 
         {/* Row 2: Starting Point & Time Budget */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">

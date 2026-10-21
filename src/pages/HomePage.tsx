@@ -8,6 +8,7 @@ import {
   ChevronDown,
   Compass,
   ArrowRight,
+  Mic,
 } from 'lucide-react';
 import { StateRecord, HeritagePlace, CuratedCollection, Itinerary } from '../types';
 import { NavTab } from '../components/layout/Navbar';
@@ -16,6 +17,12 @@ import { PlaceCard } from '../components/places/PlaceCard';
 import { InteractiveMap } from '../components/map/InteractiveMap';
 import { getDefaultTransportMode } from '../lib/routing';
 import { generateItinerary, recalculateItineraryStops } from '../lib/planner';
+import {
+  SupportedLanguage,
+  SUPPORTED_LANGUAGES,
+  TRANSLATIONS,
+} from '../lib/i18n';
+import { VoiceLanguageModal } from '../components/home/VoiceLanguageModal';
 
 interface HomePageProps {
   states: StateRecord[];
@@ -33,6 +40,8 @@ interface HomePageProps {
   onUpdateItinerary?: (itinerary: Itinerary | null) => void;
   scrollToExplore?: boolean;
   onExploreScrollComplete?: () => void;
+  currentLanguage?: SupportedLanguage;
+  onLanguageChange?: (lang: SupportedLanguage) => void;
 }
 
 interface ShowcaseArtifact {
@@ -427,9 +436,21 @@ export const HomePage: React.FC<HomePageProps> = ({
   onUpdateItinerary,
   scrollToExplore = false,
   onExploreScrollComplete,
+  currentLanguage: externalLanguage,
+  onLanguageChange,
 }) => {
   // 3D Showcase Cycling State
   const [activeArtifactIdx, setActiveArtifactIdx] = useState(0);
+
+  // Voice-Activated Language Switcher State (Home Tab Only)
+  const [internalLanguage, setInternalLanguage] = useState<SupportedLanguage>('en');
+  const currentLanguage = externalLanguage !== undefined ? externalLanguage : internalLanguage;
+  const handleSelectLanguage = (lang: SupportedLanguage) => {
+    if (onLanguageChange) onLanguageChange(lang);
+    setInternalLanguage(lang);
+  };
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
+  const t = TRANSLATIONS[currentLanguage];
 
   // Explore Places States (Relocated to Home Tab)
   const [activeStateFilter, setActiveStateFilter] = useState<string>(selectedStateId);
@@ -671,29 +692,28 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="space-y-5">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-[#C5A028]/35 text-[#996F09] text-xs font-semibold backdrop-blur-md shadow-xs">
                 <Sparkles className="w-3.5 h-3.5 text-[#B88E18]" />
-                <span>FUSION 2026 • Heritage Reimagined</span>
+                <span>{t.heroTag}</span>
               </div>
 
               <h1 className="font-serif font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#0A2F25] tracking-tight leading-[1.15]">
-                Discover the Stories Behind{' '}
+                {t.heroTitlePrefix}{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B88E18] via-[#C5A028] to-[#996F09] drop-shadow-xs">
-                  Malaysia
+                  {t.heroTitleHighlight}
                 </span>.
               </h1>
 
               <p className="text-sm text-[#0A2F25]/85 leading-relaxed max-w-lg font-normal">
-                Explore authentic cultural heritage across all 13 Malaysian states and 3 federal territories.
-                Discover living traditions, regional crafts, and architectural monuments reimagined through modern digital technology and explainable AI.
+                {t.heroDesc}
               </p>
 
-              {/* Minimalist Action CTAs (Cleaned & Focused) */}
+              {/* Minimalist Action CTAs (Cleaned & Focused) + Voice-Activated Language Switcher */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button
                   onClick={onOpenMelakaShowcase}
                   className="px-5 py-3 rounded-2xl bg-[#0A2F25] hover:bg-[#0E3D31] text-white text-sm font-bold border border-[#0A2F25] shadow-md shadow-teal-950/15 hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group"
                 >
                   <Sparkles className="w-4 h-4 text-[#E5C05C] group-hover:rotate-12 transition-transform" />
-                  <span>Explore Melaka Showcase</span>
+                  <span>{t.btnMelakaShowcase}</span>
                 </button>
 
                 <button
@@ -701,7 +721,23 @@ export const HomePage: React.FC<HomePageProps> = ({
                   className="px-5 py-3 rounded-2xl bg-white hover:bg-white/80 text-[#0A2F25] text-sm font-semibold border border-teal-900/15 hover:border-[#C5A028] shadow-xs backdrop-blur-md transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <Calendar className="w-4 h-4 text-[#B88E18]" />
-                  <span>Trip Planner</span>
+                  <span>{t.btnPlanTrip}</span>
+                </button>
+
+                {/* Voice-Activated Language Switcher (Home Tab ONLY) */}
+                <button
+                  type="button"
+                  onClick={() => setIsVoiceModalOpen(true)}
+                  className="px-4 py-3 rounded-2xl bg-white/90 hover:bg-[#EBF5F0] text-[#0A2F25] text-sm font-bold border border-teal-900/15 hover:border-[#C5A028] shadow-xs backdrop-blur-md transition-all flex items-center gap-2 cursor-pointer group"
+                  title={t.voiceButtonTitle}
+                >
+                  <div className="w-6 h-6 rounded-xl bg-gradient-to-tr from-[#E6F3ED] to-[#D5EDE2] border border-[#087E83]/30 flex items-center justify-center text-[#087E83] group-hover:scale-110 transition-transform shadow-xs">
+                    <Mic className="w-3.5 h-3.5 animate-pulse" />
+                  </div>
+                  <span>{t.voiceButtonLabel}</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-slate-100 text-[#087E83] border border-teal-900/10">
+                    {SUPPORTED_LANGUAGES[currentLanguage].flag} {SUPPORTED_LANGUAGES[currentLanguage].sampleGreeting}
+                  </span>
                 </button>
               </div>
             </div>
@@ -849,13 +885,13 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#996F09]">
-              <MapPin className="w-4 h-4 text-[#B88E18]" /> Nationwide Coverage
+              <MapPin className="w-4 h-4 text-[#B88E18]" /> {t.nationwideCoverageTag}
             </div>
             <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#0A2F25] mt-1">
-              Explore All 13 States & 3 Federal Territories
+              {t.nationwideTitle}
             </h2>
             <p className="text-sm text-[#0A2F25]/75 mt-1">
-              Select any Malaysian state to inspect its distinctive cultural themes, living crafts, and verified monuments below.
+              {t.nationwideSub}
             </p>
           </div>
 
@@ -867,7 +903,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             }}
             className="text-sm font-bold text-[#0A2F25] hover:text-[#087E83] transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
           >
-            Browse All Heritage Places <ArrowRight className="w-4 h-4 text-[#B88E18]" />
+            {t.browseAllHeritagePlaces} <ArrowRight className="w-4 h-4 text-[#B88E18]" />
           </button>
         </div>
 
@@ -1111,6 +1147,14 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         )}
       </section>
+
+      {/* Voice-Activated Language Switcher Modal (Home Tab ONLY) */}
+      <VoiceLanguageModal
+        isOpen={isVoiceModalOpen}
+        onClose={() => setIsVoiceModalOpen(false)}
+        currentLanguage={currentLanguage}
+        onSelectLanguage={handleSelectLanguage}
+      />
     </div>
   );
 };
