@@ -10,6 +10,9 @@
 
 import {
   ACCEPTED_PHOTO_TYPES,
+  DEFAULT_MEMORY_VISIBILITY,
+  MemoryVisibility,
+  isMemoryVisibility,
   LIMITS,
   PRESET_AVATAR_IDS,
   USERNAME_PATTERN,
@@ -379,12 +382,19 @@ export type PlaceInput =
   | { kind: 'newCustom'; name: string; lat: number; lng: number };
 
 export interface RecordInput {
+  // Optional: when creating, a missing value means Private; when editing, it keeps the current value.
+  visibility?: MemoryVisibility;
   place: PlaceInput;
   visitDate: string | null;
   notes: string;
 }
 
-export function validateRecordFields(input: Pick<RecordInput, 'visitDate' | 'notes'>): string | null {
+export function validateRecordFields(
+  input: Pick<RecordInput, 'visitDate' | 'notes'> & { visibility?: unknown },
+): string | null {
+  if (input.visibility !== undefined && !isMemoryVisibility(input.visibility)) {
+    return 'Please choose who can see this memory.';
+  }
   if (input.visitDate !== null && input.visitDate !== '') {
     if (!isValidDateString(input.visitDate)) return 'Please enter a valid visit date.';
     if (input.visitDate > todayString()) return 'The visit date cannot be in the future.';
@@ -470,6 +480,7 @@ export async function createRecord(input: RecordInput, files: File[] = []): Prom
     place: place.value,
     visitDate: input.visitDate ? input.visitDate : null,
     notes: input.notes,
+    visibility: input.visibility ?? DEFAULT_MEMORY_VISIBILITY,
     photoIds: built.photos.map((photo) => photo.id),
     createdAt: now,
     updatedAt: now,
@@ -529,6 +540,7 @@ export async function updateRecord(
     place: place.value,
     visitDate: input.visitDate ? input.visitDate : null,
     notes: input.notes,
+    visibility: input.visibility ?? existing.visibility,
     photoIds: [...keptIds, ...built.photos.map((photo) => photo.id)],
     updatedAt: now,
   };

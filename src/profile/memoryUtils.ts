@@ -184,3 +184,24 @@ export function formatTimestampDate(iso: string): string {
   if (Number.isNaN(date.getTime())) return '';
   return date.toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' });
 }
+
+
+// ---------- Memory privacy ----------
+
+// How the person looking at a memory relates to its owner.
+export type MemoryViewerRelation = 'owner' | 'friend' | 'other';
+
+// The one place that decides who may see a memory. Owners always can. Everyone else follows the
+// memory's visibility: public = anyone, friends = accepted friends only. Private, and any value
+// that is not recognised, is hidden from everyone but the owner.
+export function canViewMemory(record: TravelRecord, relation: MemoryViewerRelation): boolean {
+  if (relation === 'owner') return true;
+  switch (record.visibility) {
+    case 'public':
+      return true;
+    case 'friends':
+      return relation === 'friend';
+    default:
+      return false;
+  }
+}

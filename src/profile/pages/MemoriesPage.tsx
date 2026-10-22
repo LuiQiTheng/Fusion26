@@ -3,6 +3,7 @@ import React, { useId, useMemo } from 'react';
 import { Calendar, Camera, LayoutGrid, List, MapPin, Plus, Search, Trash2, X } from 'lucide-react';
 import { ProfileData } from '../types';
 import { StoredImage } from '../components/StoredImage';
+import { VisibilityBadge } from '../components/VisibilityBadge';
 import {
   DEFAULT_FILTERS,
   MemoriesViewState,

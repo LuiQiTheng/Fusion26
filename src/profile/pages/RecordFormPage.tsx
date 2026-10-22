@@ -2,7 +2,19 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { AlertTriangle, RefreshCw, Save, X } from 'lucide-react';
 import { HeritagePlace } from '../../types';
-import { LIMITS, ProfileData, Result, TravelPhoto, TravelRecord, fail } from '../types';
+import {
+  DEFAULT_MEMORY_VISIBILITY,
+  LIMITS,
+  MEMORY_VISIBILITIES,
+  MEMORY_VISIBILITY_DESCRIPTIONS,
+  MEMORY_VISIBILITY_LABELS,
+  MemoryVisibility,
+  ProfileData,
+  Result,
+  TravelPhoto,
+  TravelRecord,
+  fail,
+} from '../types';
 import {
   PlaceInput,
   RecordInput,
@@ -58,10 +70,12 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
     : null;
   const initialDate = record?.visitDate ?? '';
   const initialNotes = record?.notes ?? '';
+  const initialVisibility: MemoryVisibility = record?.visibility ?? DEFAULT_MEMORY_VISIBILITY;
 
   const [place, setPlace] = useState<PlaceInput | null>(initialPlace);
   const [visitDate, setVisitDate] = useState(initialDate);
   const [notes, setNotes] = useState(initialNotes);
+  const [visibility, setVisibility] = useState<MemoryVisibility>(initialVisibility);
   const [pendingPhotos, setPendingPhotos] = useState<PendingPhoto[]>([]);
   // Saved photos the user removed. They move to the Recycle Bin only when the form is saved.
   const [removedPhotoIds, setRemovedPhotoIds] = useState<string[]>([]);
@@ -89,13 +103,18 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
 
   // ---------- Unsaved-change tracking ----------
 
-  const isDirty = isEditing
+    const isDirty = isEditing
     ? placeSignature(place) !== placeSignature(initialPlace) ||
       visitDate !== initialDate ||
       notes !== initialNotes ||
+      visibility !== initialVisibility ||
       pendingPhotos.length > 0 ||
       removedPhotoIds.length > 0
-    : place !== null || visitDate !== '' || notes !== '' || pendingPhotos.length > 0;
+    : place !== null ||
+      visitDate !== '' ||
+      notes !== '' ||
+      visibility !== initialVisibility ||
+      pendingPhotos.length > 0;
 
   const onDirtyChangeRef = useRef(onDirtyChange);
   useEffect(() => {
@@ -160,7 +179,7 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
       return;
     }
 
-    const input: RecordInput = { place, visitDate: visitDate || null, notes };
+    const input: RecordInput = { place, visitDate: visitDate || null, notes, visibility };
     const files = pendingPhotos.map((photo) => photo.file);
 
     setSubmitting(true);
@@ -315,6 +334,41 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
           </div>
         </div>
       </section>
+
+            {/* Who can see this memory */}
+      <fieldset className={CARD} disabled={submitting}>
+        <legend className="px-2 font-serif text-lg font-bold text-[#F5F5F0]">Who can see this memory?</legend>
+        <p className="mb-4 text-xs text-[#F5F5F0]/60">
+          New memories are Private until you choose otherwise. You can change this at any time.
+        </p>
+        <div role="radiogroup" aria-label="Memory visibility" className="space-y-3">
+          {MEMORY_VISIBILITIES.map((option) => (
+            <label
+              key={option}
+              className={`flex min-h-[44px] cursor-pointer items-start gap-3 rounded-xl border p-3 ${
+                visibility === option
+                  ? 'border-[#D4AF37] bg-[#D4AF37]/10'
+                  : 'border-[#D4AF37]/25 hover:border-[#D4AF37]/60'
+              }`}
+            >
+              <input
+                type="radio"
+                name={`${ids}-visibility`}
+                value={option}
+                checked={visibility === option}
+                onChange={() => setVisibility(option)}
+                className={`mt-1 h-4 w-4 accent-[#D4AF37] ${FOCUS}`}
+              />
+              <span>
+                <span className="block text-sm font-semibold text-[#F5F5F0]">
+                  {MEMORY_VISIBILITY_LABELS[option]}
+                </span>
+                <span className="block text-xs text-[#F5F5F0]/65">{MEMORY_VISIBILITY_DESCRIPTIONS[option]}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       {/* Photos */}
       <div className={CARD}>

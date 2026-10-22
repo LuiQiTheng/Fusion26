@@ -6,6 +6,7 @@ import { ProfileData } from '../types';
 import { deleteRecord, resolvePlace } from '../profileRepository';
 import { loadPhotoBlobs } from '../photoDb';
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { VisibilityBadge } from '../components/VisibilityBadge';
 
 interface MemoryDetailPageProps {
   data: ProfileData;

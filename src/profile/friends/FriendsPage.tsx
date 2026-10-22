@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, ArrowLeft, Check, Info, RefreshCw, Search, Users, X } from 'lucide-react';
 import { HeritagePlace } from '../../types';
-import { Result, UserProfile, fail } from '../types';
+import { ProfileData, Result, TravelRecord, UserProfile, fail } from '../types';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { ProfileAvatar } from '../components/ProfileAvatar';
-import { formatVisitDate } from '../memoryUtils';
+import { MemoryViewerRelation, canViewMemory, formatVisitDate } from '../memoryUtils';
+import { resolvePlace } from '../profileRepository';
+import { StoredImage } from '../components/StoredImage';
+import { VisibilityBadge } from '../components/VisibilityBadge';
 import { DEMO_USERS, getDemoUser } from './demoUsers';
 import { DemoIdentityBar } from './DemoIdentityBar';
 import { FriendCardAction, FriendCardUser, FriendUserCard } from './FriendUserCard';
-import { FriendLinkEntry, FriendsData, ME_ID, pairKeyOf } from './friendsTypes';
+import { FriendLinkEntry, FriendsData, ME_ID, RelationshipStatus, pairKeyOf } from './friendsTypes';
 import {
   acceptFriendRequest,
   cancelFriendRequest,
@@ -25,6 +28,7 @@ import {
 interface FriendsPageProps {
   profile: UserProfile; // the real local Profile, shown as "You"
   places: HeritagePlace[]; // existing Fusion26 places, used to name the sample memories' places
+  memoriesData?: ProfileData; // the owner's real memories; filtered by visibility before anything is shown
 }
 
 type Tab = 'discover' | 'requests' | 'friends';
@@ -54,6 +58,11 @@ interface RemoveRequest {
 const FOCUS =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]';
 const PANEL = 'rounded-2xl border border-[#087E83]/20 bg-white shadow-sm';
+
+interface SharedMemory {
+  record: TravelRecord;
+  placeName: string;
+}
 
 // ---------- Small helpers ----------
 
@@ -134,11 +143,20 @@ const EmptyState: React.FC<EmptyStateProps> = ({ title, text, actionLabel, onAct
 interface FriendProfileDetailProps {
   user: FriendCardUser;
   placesById: Map<string, HeritagePlace>;
+  relationship: RelationshipStatus; // how the viewer relates to this user
+  sharedMemories: SharedMemory[] | null; // already filtered by visibility; null = none to show here
   backLabel: string;
   onBack: () => void;
 }
 
-const FriendProfileDetail: React.FC<FriendProfileDetailProps> = ({ user, placesById, backLabel, onBack }) => {
+const FriendProfileDetail: React.FC<FriendProfileDetailProps> = ({
+  user,
+  placesById,
+  relationship,
+  sharedMemories,
+  backLabel,
+  onBack,
+}) => {
   const headingId = useId();
   const demo = getDemoUser(user.id);
   const isMe = user.id === ME_ID;
@@ -162,8 +180,8 @@ const FriendProfileDetail: React.FC<FriendProfileDetailProps> = ({ user, placesB
       >
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#087E83]" aria-hidden="true" />
         <p>
-          <span className="font-bold">Read-only.</span> You are looking at {user.displayName}'s profile as a
-          friend. You can view it but not change it.
+          <span className="font-bold">Read-only.</span> You are looking at {user.displayName}'s profile
+          {relationship === 'friends' ? ' as a friend' : ''}. You can view it but not change it.
           {demo && ' This is a demo user, so everything here is sample data.'}
         </p>
       </div>
@@ -235,11 +253,47 @@ const FriendProfileDetail: React.FC<FriendProfileDetailProps> = ({ user, placesB
         </section>
       )}
 
-      {isMe && (
+            {isMe && sharedMemories === null && (
         <p className="rounded-xl bg-[#E6F3ED] p-4 text-sm text-[#0A2F25]">
-          This is the real profile on this device. Its memories and photos are private and are never shown in the
-          demo.
+          This profile's memories are not available to view here.
         </p>
+      )}
+
+      {isMe && sharedMemories !== null && (
+        <section aria-labelledby={`${headingId}-shared`} className={`${PANEL} space-y-4 p-5 sm:p-6`}>
+          <h3 id={`${headingId}-shared`} className="font-serif text-lg font-bold text-[#0A2F25]">
+            Memories shared with you
+          </h3>
+          <p className="text-xs text-[#0A2F25]/70">
+            {relationship === 'friends'
+              ? 'Public and Friends Only memories are shown.'
+              : 'Only Public memories are shown.'}
+          </p>
+          {sharedMemories.length === 0 ? (
+            <p className="text-sm text-[#0A2F25]/75">No memories are shared with you yet.</p>
+          ) : (
+            <ul aria-label={`Memories shared by ${user.displayName}`} className="space-y-3">
+              {sharedMemories.map(({ record, placeName }) => (
+                <li
+                  key={record.id}
+                  className="flex gap-4 overflow-hidden rounded-xl border border-[#087E83]/15 bg-[#F4F9F6]"
+                >
+                  <StoredImage
+                    photoId={record.photoIds[0]}
+                    alt={`Cover photo for ${user.displayName}'s memory at ${placeName}`}
+                    className="h-auto min-h-[96px] w-24 shrink-0 sm:w-32"
+                  />
+                  <div className="min-w-0 flex-1 space-y-1 py-3 pr-4">
+                    <h4 className="break-words font-semibold text-[#0A2F25]">{placeName}</h4>
+                    <p className="text-xs font-semibold text-[#087E83]">{formatVisitDate(record.visitDate)}</p>
+                    <VisibilityBadge visibility={record.visibility} tone="light" />
+                    {record.notes && <p className="text-sm text-[#0A2F25]/85">{record.notes}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       )}
     </article>
   );
@@ -247,7 +301,7 @@ const FriendProfileDetail: React.FC<FriendProfileDetailProps> = ({ user, placesB
 
 // ---------- Page ----------
 
-export const FriendsPage: React.FC<FriendsPageProps> = ({ profile, places }) => {
+export const FriendsPage: React.FC<FriendsPageProps> = ({ profile, places, memoriesData }) => {
   const uid = useId();
 
   const [load, setLoad] = useState<LoadState>({ status: 'loading' });
@@ -328,17 +382,34 @@ export const FriendsPage: React.FC<FriendsPageProps> = ({ profile, places }) => 
 
   // ---------- Viewing a friend's profile ----------
 
-  const profileUser = profileUserId ? resolveUser(profileUserId) : null;
-  const profileIsFriend =
-    data !== null && profileUserId !== null
-      ? getRelationshipStatus(data, actingAsId, profileUserId) === 'friends'
-      : false;
-  const showProfile = profileUser !== null && profileIsFriend;
+    const profileUser = profileUserId ? resolveUser(profileUserId) : null;
+  const profileRelationship: RelationshipStatus =
+    data !== null && profileUserId !== null ? getRelationshipStatus(data, actingAsId, profileUserId) : 'none';
+  // A profile can be opened for anyone except yourself. What is shown is decided below and is
+  // recomputed on every render, so ending a friendship takes effect immediately.
+  const showProfile = profileUser !== null && profileUser.id !== actingAsId;
 
-  // If the friendship ends while a profile is open, return to the lists.
+  // Real memories belong to "You". Who is looking decides which of them may be seen.
+  const viewerRelation: MemoryViewerRelation = actingAsMe
+    ? 'owner'
+    : profileRelationship === 'friends'
+      ? 'friend'
+      : 'other';
+
+  const sharedMemories: SharedMemory[] | null =
+    showProfile && profileUser && profileUser.id === ME_ID && memoriesData
+      ? memoriesData.records
+          .filter((record) => canViewMemory(record, viewerRelation))
+          .map((record) => ({
+            record,
+            placeName: resolvePlace(memoriesData, record.place)?.name ?? 'Unknown place',
+          }))
+          .sort((a, b) => b.record.createdAt.localeCompare(a.record.createdAt))
+      : null;
+
   useEffect(() => {
-    if (profileUserId !== null && data !== null && !showProfile) setProfileUserId(null);
-  }, [profileUserId, data, showProfile]);
+    if (profileUserId !== null && !showProfile) setProfileUserId(null);
+  }, [profileUserId, showProfile]);
 
   // ---------- Feedback ----------
 
@@ -396,8 +467,8 @@ export const FriendsPage: React.FC<FriendsPageProps> = ({ profile, places }) => 
   };
 
   const openProfile = (userId: string) => {
-    if (!data || getRelationshipStatus(data, actingAsId, userId) !== 'friends') {
-      showNotice('error', 'You can only view the profile of a friend.');
+    if (!data || userId === actingAsId || !resolveUser(userId)) {
+      showNotice('error', 'This profile cannot be opened.');
       return;
     }
     setProfileUserId(userId);
@@ -589,6 +660,8 @@ export const FriendsPage: React.FC<FriendsPageProps> = ({ profile, places }) => 
         <FriendProfileDetail
           user={profileUser}
           placesById={placesById}
+          relationship={profileRelationship}
+          sharedMemories={sharedMemories}
           backLabel={backLabel}
           onBack={() => setProfileUserId(null)}
         />

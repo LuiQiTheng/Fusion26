@@ -86,6 +86,30 @@ export interface CustomPlace {
   createdAt: string;
 }
 
+// ---------- Memory visibility ----------
+
+export const MEMORY_VISIBILITIES = ['public', 'friends', 'private'] as const;
+export type MemoryVisibility = (typeof MEMORY_VISIBILITIES)[number];
+
+// New memories start Private, and so does anything missing or unrecognised.
+export const DEFAULT_MEMORY_VISIBILITY: MemoryVisibility = 'private';
+
+export const MEMORY_VISIBILITY_LABELS: Record<MemoryVisibility, string> = {
+  public: 'Public',
+  friends: 'Friends Only',
+  private: 'Private',
+};
+
+export const MEMORY_VISIBILITY_DESCRIPTIONS: Record<MemoryVisibility, string> = {
+  public: 'Anyone can see this memory.',
+  friends: 'You and your accepted friends can see this memory.',
+  private: 'Only you can see this memory.',
+};
+
+export function isMemoryVisibility(value: unknown): value is MemoryVisibility {
+  return typeof value === 'string' && (MEMORY_VISIBILITIES as readonly string[]).includes(value);
+}
+
 // ---------- Travel records and photos ----------
 
 export interface TravelRecord {
@@ -93,6 +117,7 @@ export interface TravelRecord {
   place: PlaceRef;
   visitDate: string | null; // "YYYY-MM-DD", or null when not set
   notes: string; // empty string when not set
+  visibility: MemoryVisibility; // who can see this memory
   photoIds: string[]; // upload order; first is the cover
   createdAt: string;
   updatedAt: string;

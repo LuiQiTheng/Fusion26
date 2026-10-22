@@ -7,6 +7,8 @@ import {
   USERNAME_PATTERN,
   LIMITS,
   PRESET_AVATAR_IDS,
+  DEFAULT_MEMORY_VISIBILITY,
+  isMemoryVisibility,
   ProfileData,
   UserProfile,
   TravelRecord,
@@ -147,6 +149,9 @@ function sanitizeRecord(value: unknown): TravelRecord | null {
     visitDate,
     notes,
     photoIds: Array.from(new Set(photoIds)),
+    // Records saved before this feature have no visibility. Anything missing or not exactly
+    // 'public', 'friends' or 'private' becomes Private, so nothing is exposed by accident.
+    visibility: isMemoryVisibility(value.visibility) ? value.visibility : DEFAULT_MEMORY_VISIBILITY,
     createdAt: value.createdAt,
     updatedAt: value.updatedAt,
   };
