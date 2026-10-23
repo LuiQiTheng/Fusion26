@@ -1,32 +1,35 @@
 
 import React, { useEffect, useState } from 'react';
-import { AlertTriangle, Calendar, Camera, ImageOff, MapPin, Pencil, RefreshCw, Trash2 } from 'lucide-react';
+import { AlertTriangle, Calendar, Camera, ImageOff, MapPin, Pencil, RefreshCw, Share2, Trash2 } from 'lucide-react';
+import { ShareDialog } from '../../components/common/ShareDialog';
+import { buildMemoryShare } from '../../lib/share';
 import { HeritagePlace } from '../../types';
 import { ProfileData } from '../types';
-import { addComment, canCommentOnRecord, deleteComment, deleteRecord, resolvePlace } from '../profileRepository';
 import { loadPhotoBlobs } from '../photoDb';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { VisibilityBadge } from '../components/VisibilityBadge';
 import { MemoryComments } from '../components/MemoryComments';
-import { canViewMemory, MemoryViewerRelation } from '../memoryUtils';
-import { FriendsData, ME_ID } from '../friends/friendsTypes';
+import {
+  addComment,
+  canCommentOnRecord,
+  deleteComment,
+  deleteRecord,
+  resolvePlace,
+} from '../profileRepository';
+import { canViewMemory } from '../memoryUtils';
+import { ME_ID } from '../friends/friendsTypes';
+import type { FriendsData } from '../friends/friendsTypes';
 import { getDemoUser } from '../friends/demoUsers';
-import { getAcceptedFriends } from '../friends/friendsRepository';
-import { DemoIdentityBar } from '../friends/DemoIdentityBar';
 
 interface MemoryDetailPageProps {
   data: ProfileData;
   places: HeritagePlace[];
   recordId: string;
   onEdit: (recordId: string) => void;
-  // Called after the memory has been moved to the Recycle Bin.
   onDeleted: () => void;
-  // Friends data is needed to enforce comment permissions.
   friendsData: FriendsData;
-  // The real profile's display name (shown in the DemoIdentityBar).
   meDisplayName: string;
   meAvatarId: string;
-  // Callback so the parent can reload ProfileData after a comment is added/deleted.
   onDataChanged: () => void;
 }
 
@@ -122,10 +125,9 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
-
-  // The identity the user is currently acting as for the comments demo.
-  // Defaults to ME_ID (the real profile owner).
-  const [viewerId, setViewerId] = useState<string>(ME_ID);
+  const [shareOpen, setShareOpen] = useState(false);
+  // null = use the default for this memory's visibility (notes on for Public, off for Friends Only)
+  const [includeNotesChoice, setIncludeNotesChoice] = useState<boolean | null>(null);
 
   const { state: photoState, reload: reloadPhotos } = useRecordPhotos(record ? record.photoIds : []);
 
@@ -141,6 +143,20 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
 
   const resolved = resolvePlace(data, record.place);
   const placeName = resolved?.name ?? 'Unknown place';
+    // Whether and what can be shared comes from this memory's own visibility.
+  // Private, or an unrecognised value, gives null: nothing can be shared.
+  const includeShareNotes = includeNotesChoice ?? record.visibility === 'public';
+  const sharePayload = buildMemoryShare({
+    visibility: record.visibility,
+    placeName,
+    visitDateLabel: record.visitDate ? formatVisitDate(record.visitDate) : null,
+    notes: record.notes,
+    includeNotes: includeShareNotes,
+  });
+  const closeShare = () => {
+    setShareOpen(false);
+    setIncludeNotesChoice(null);
+  };
   const existingPlace =
     record.place.kind === 'existing'
       ? places.find((item) => item.id === (record.place as { placeId: string }).placeId)
@@ -148,7 +164,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   const placeDetail = existingPlace?.locality
     ? existingPlace.locality
     : resolved && resolved.isCustom
-      ? `Custom place Â· ${resolved.lat.toFixed(4)}, ${resolved.lng.toFixed(4)}`
+      ? `Custom place · ${resolved.lat.toFixed(4)}, ${resolved.lng.toFixed(4)}`
       : '';
 
   const photoIds = record.photoIds;
@@ -157,6 +173,66 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   const activeId = photoIds[activeIndex];
   const activeUrl = activeId ? photoState.urls[activeId] : undefined;
   const photoMeta = (id: string) => data.photos.find((photo) => photo.id === id);
+
+  // ---------- Comments ----------
+
+const comments = data.comments.filter(
+  (comment) => comment.recordId === record.id,
+);
+
+// This page displays memories belonging to the current profile owner.
+const viewerRelation = 'owner' as const;
+
+const canViewComments = canViewMemory(record, viewerRelation);
+const canAddComment =
+  canViewComments && canCommentOnRecord(record, viewerRelation);
+
+const resolveCommentUser = (authorId: string) => {
+  if (authorId === ME_ID) {
+    return {
+      displayName: meDisplayName,
+      avatarId: meAvatarId,
+    };
+  }
+
+  const user = getDemoUser(authorId);
+
+  if (!user) return null;
+
+  return {
+    displayName: user.displayName,
+    avatarId: user.avatarId,
+  };
+};
+
+const handleAddComment = (text: string) => {
+  if (!canAddComment) {
+    return { ok: false, error: 'You cannot comment on this memory.' };
+  }
+
+  const result = addComment(record.id, ME_ID, text);
+
+  if (result.ok) {
+    onDataChanged();
+  }
+
+  return result;
+};
+
+const handleDeleteComment = (commentId: string) => {
+  // Only the memory owner may delete comments.
+  if (viewerRelation !== 'owner') {
+    return { ok: false, error: 'You cannot delete this comment.' };
+  }
+
+  const result = deleteComment(commentId);
+
+  if (result.ok) {
+    onDataChanged();
+  }
+
+  return result;
+};
 
   const handleDelete = () => {
     if (deleting) return;
@@ -171,55 +247,6 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
       setConfirmOpen(false);
       setDeleteError(result.error);
     }
-  };
-
-  // ---------- Comment permissions ----------
-
-  // The real user (ME_ID) is always the memory owner in this single-profile app.
-  const isOwner = viewerId === ME_ID;
-
-  // Work out the relation of the current viewerId to the memory owner (ME_ID).
-  const relation: MemoryViewerRelation = (() => {
-    if (viewerId === ME_ID) return 'owner';
-    const friends = getAcceptedFriends(friendsData, ME_ID);
-    const isFriend = friends.some((entry) => entry.otherId === viewerId);
-    return isFriend ? 'friend' : 'other';
-  })();
-
-  // A non-owner who cannot view the record should not be on this page at all, but
-  // we guard here defensively so comments are never shown to someone who shouldn't see them.
-  const canView = canViewMemory(record, relation);
-  const canComment = canView && canCommentOnRecord(record, relation);
-
-  // Resolve a commenter's display name and avatar for rendering.
-  const resolveUser = (authorId: string): { displayName: string; avatarId: string } | null => {
-    if (authorId === ME_ID) {
-      return { displayName: meDisplayName || 'You', avatarId: meAvatarId };
-    }
-    const demo = getDemoUser(authorId);
-    return demo ? { displayName: demo.displayName, avatarId: demo.avatarId } : null;
-  };
-
-  // The current viewer's display name and avatar (for the comment input).
-  const viewerInfo = resolveUser(viewerId) ?? { displayName: 'Unknown', avatarId: 'avatar-1' };
-
-  // Comments for this record only, passed as a stable reference.
-  const recordComments = (data.comments ?? []).filter((c) => c.recordId === recordId);
-
-  const handleAddComment = (text: string): { ok: boolean; error?: string } => {
-    // Enforce permission in logic, not just UI.
-    if (!canComment) return { ok: false, error: 'You do not have permission to comment on this memory.' };
-    const result = addComment(recordId, viewerId, text);
-    if (result.ok) onDataChanged();
-    return result.ok ? { ok: true } : { ok: false, error: result.error };
-  };
-
-  const handleDeleteComment = (commentId: string): { ok: boolean; error?: string } => {
-    // Only the memory owner (the real profile user, ME_ID) may delete comments.
-    if (!isOwner) return { ok: false, error: 'Only the memory owner can delete comments.' };
-    const result = deleteComment(commentId);
-    if (result.ok) onDataChanged();
-    return result.ok ? { ok: true } : { ok: false, error: result.error };
   };
 
   return (
@@ -238,6 +265,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
             <Calendar className="h-4 w-4 text-[#087E83]" aria-hidden="true" />
             {formatVisitDate(record.visitDate)}
           </span>
+          <VisibilityBadge visibility={record.visibility} />
           {formatAddedDate(record.createdAt) && (
             <span className="text-xs text-[#0A2F25]/60">Added {formatAddedDate(record.createdAt)}</span>
           )}
@@ -260,7 +288,22 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
             <Trash2 className="h-4 w-4" aria-hidden="true" />
             Delete
           </button>
+          <button
+            type="button"
+            onClick={() => setShareOpen(true)}
+            disabled={sharePayload === null}
+            aria-describedby={sharePayload === null ? 'memory-share-help' : undefined}
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-5 py-2 text-sm font-bold text-[#F5F5F0] hover:border-[#00F0FF] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00F0FF]"
+          >
+            <Share2 className="h-4 w-4 text-[#D4AF37]" aria-hidden="true" />
+            Share
+          </button>
         </div>
+        {sharePayload === null && (
+          <p id="memory-share-help" className="text-xs text-[#F5F5F0]/60">
+            Private memories cannot be shared. Change who can see this memory to Friends Only or Public to share it.
+          </p>
+        )}
       </header>
 
       {deleteError && (
@@ -382,37 +425,36 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
         )}
       </section>
 
-      {/* Demo identity switcher â€” lets the user act as different people to test comment permissions */}
-      <DemoIdentityBar
-        actingAsId={viewerId}
-        onChange={setViewerId}
-        meDisplayName={meDisplayName}
-      />
-
-      {/* Comments â€” visibility badge shows why the form may be locked */}
-      <div className="space-y-2">
-        <div className="flex flex-wrap items-center gap-2 px-1">
-          <VisibilityBadge visibility={record.visibility} tone="light" />
-          <span className="text-xs text-[#0A2F25]/60">
-            {record.visibility === 'public'
-              ? 'Anyone can view and comment.'
-              : record.visibility === 'friends'
-                ? 'Friends can view and comment.'
-                : 'Only you can view and comment.'}
-          </span>
-        </div>
+      {/* Comments */}
+      {canViewComments && (
         <MemoryComments
-          comments={recordComments}
-          viewerId={viewerId}
-          viewerName={viewerInfo.displayName}
-          viewerAvatarId={viewerInfo.avatarId}
-          isOwner={isOwner}
-          canComment={canComment}
-          resolveUser={resolveUser}
+          comments={comments}
+          viewerId={ME_ID}
+          viewerName={meDisplayName}
+          viewerAvatarId={meAvatarId}
+          isOwner={viewerRelation === 'owner'}
+          canComment={canAddComment}
+          resolveUser={resolveCommentUser}
           onAdd={handleAddComment}
           onDelete={handleDeleteComment}
         />
-      </div>
+      )}
+
+            {sharePayload && (
+        <ShareDialog open={shareOpen} title="Share this memory" payload={sharePayload} onClose={closeShare}>
+          {record.notes.trim() !== '' && (
+            <label className="flex min-h-[44px] cursor-pointer items-start gap-3 rounded-xl border border-[#087E83]/30 p-3 text-sm text-[#0A2F25]">
+              <input
+                type="checkbox"
+                checked={includeShareNotes}
+                onChange={(event) => setIncludeNotesChoice(event.target.checked)}
+                className="mt-1 h-4 w-4 accent-[#087E83] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087E83]"
+              />
+              <span>Include my notes in the message</span>
+            </label>
+          )}
+        </ShareDialog>
+      )}
 
       <ConfirmDialog
         open={confirmOpen}

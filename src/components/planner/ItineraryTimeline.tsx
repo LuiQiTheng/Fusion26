@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   AlertCircle,
   Printer,
+  Share2,
   Plus,
   GripVertical,
   ChevronDown,
@@ -53,6 +54,8 @@ import { StartingPointMismatchModal } from './StartingPointMismatchModal';
 import { isFoodVendorStopId, vendorByPlaceId } from '../../lib/foodVendors';
 import { TTSMiniPlayer } from './TTSMiniPlayer';
 import { PrintableItinerary } from './PrintableItinerary';
+import { ShareDialog } from '../common/ShareDialog';
+import { buildItineraryShare } from '../../lib/share';
 
 interface ItineraryTimelineProps {
   itinerary: Itinerary;
@@ -89,6 +92,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
   };
 
   const [isTTSOpen, setIsTTSOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [initialAddModalTab, setInitialAddModalTab] = useState<'places' | 'food'>('places');
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -877,6 +881,16 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
             >
               <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'text-emerald-700' : 'text-[#E5C05C]'}`} />
               <span>{isSaved ? 'Saved to Browser' : 'Save Itinerary'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShareOpen(true)}
+              className="px-3 py-1.5 text-xs font-bold rounded-xl bg-[#087E83] hover:bg-[#066468] text-white border border-[#087E83] transition-colors cursor-pointer shrink-0 inline-flex items-center gap-1.5"
+              title="Share Itinerary"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              <span>Share</span>
             </button>
 
             <button
@@ -1747,6 +1761,13 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({
       itinerary={itinerary}
       allPlaces={allPlaces}
     />
+
+    <ShareDialog
+        open={shareOpen}
+        title="Share My Itinerary"
+        payload={buildItineraryShare(itinerary, allPlaces)}
+        onClose={() => setShareOpen(false)}
+      />
   </>
   );
 };

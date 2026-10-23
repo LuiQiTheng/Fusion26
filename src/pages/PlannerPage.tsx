@@ -260,6 +260,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block print:w-full">
           {/* Left Column: Itinerary Timeline (Strictly Constrained Scrollable Container, Expands on Print) */}
           <div className="lg:col-span-7 h-[65vh] min-h-[520px] max-h-[700px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 rounded-3xl print:h-auto print:max-h-none print:overflow-visible print:w-full print:block print:p-0">
+
             <ItineraryTimeline
               itinerary={activeItineraryForDisplay || currentItinerary}
               allPlaces={allPlacesWithFoodVendors}
@@ -317,6 +318,7 @@ export const PlannerPage: React.FC<PlannerPageProps> = ({
           </p>
         </div>
       )}
+
     </div>
   );
 };
