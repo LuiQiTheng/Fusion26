@@ -28,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: t.navHome, icon: <Compass className="w-4 h-4 text-[#D4AF37]" /> },
     { id: 'explore', label: t.navPlanner, icon: <MapPin className="w-4 h-4 text-[#D4AF37]" /> },
     { id: 'missions', label: t.navMissions, icon: <Award className="w-4 h-4 text-[#D4AF37]" /> },
-    { id: 'profile', label: t.navProfile, icon: <User className="w-4 h-4 text-[#D4AF37]" />, badge: favoritesCount > 0 ? favoritesCount : undefined },
+    { id: 'profile', label: t.navProfile, icon: <User className="w-4 h-4 text-[#D4AF37]" /> },
   ];
 
   const handleSelect = (tab: NavTab) => {
@@ -81,11 +81,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   {item.icon}
                   <span>{item.label}</span>
-                  {item.badge !== undefined && item.badge > 0 && (
-                    <span className="ml-1 inline-flex items-center justify-center px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-[#C5A028] text-white">
-                      {item.badge}
-                    </span>
-                  )}
                   {isActive && (
                     <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#C5A028] rounded-full shadow-[0_0_8px_#C5A028]" />
                   )}
@@ -137,11 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {item.icon}
                   <span>{item.label}</span>
                 </div>
-                {item.badge !== undefined && item.badge > 0 && (
-                  <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-[#C5A028] text-white">
-                    {item.badge}
-                  </span>
-                )}
+                
               </button>
             );
           })}
