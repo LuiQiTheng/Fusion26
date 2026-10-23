@@ -101,6 +101,7 @@ const GridCard: React.FC<{ item: MemoryItem; onOpen: () => void }> = ({ item, on
           {formatVisitDate(record.visitDate)}
           <PhotoCount count={record.photoIds.length} />
         </p>
+          <VisibilityBadge visibility={record.visibility} />
         {record.notes && <p className="line-clamp-2 text-sm text-[#0A2F25]/80">{record.notes}</p>}
       </div>
     </button>
@@ -132,6 +133,7 @@ const TimelineCard: React.FC<{ item: MemoryItem; onOpen: () => void }> = ({ item
           <PhotoCount count={record.photoIds.length} />
           {added && <span> · Added {added}</span>}
         </p>
+        <VisibilityBadge visibility={record.visibility} />
         {record.notes && <p className="line-clamp-2 text-sm text-[#0A2F25]/80">{record.notes}</p>}
       </div>
     </button>

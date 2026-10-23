@@ -103,18 +103,18 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
 
   // ---------- Unsaved-change tracking ----------
 
-    const isDirty = isEditing
+  const isDirty = isEditing
     ? placeSignature(place) !== placeSignature(initialPlace) ||
-      visitDate !== initialDate ||
-      notes !== initialNotes ||
-      visibility !== initialVisibility ||
-      pendingPhotos.length > 0 ||
-      removedPhotoIds.length > 0
+    visitDate !== initialDate ||
+    notes !== initialNotes ||
+    visibility !== initialVisibility ||
+    pendingPhotos.length > 0 ||
+    removedPhotoIds.length > 0
     : place !== null ||
-      visitDate !== '' ||
-      notes !== '' ||
-      visibility !== initialVisibility ||
-      pendingPhotos.length > 0;
+    visitDate !== '' ||
+    notes !== '' ||
+    visibility !== initialVisibility ||
+    pendingPhotos.length > 0;
 
   const onDirtyChangeRef = useRef(onDirtyChange);
   useEffect(() => {
@@ -156,9 +156,9 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
 
   const savedPhotos: TravelPhoto[] = record
     ? record.photoIds
-        .filter((id) => !removedPhotoIds.includes(id))
-        .map((id) => data.photos.find((photo) => photo.id === id))
-        .filter((photo): photo is TravelPhoto => photo !== undefined)
+      .filter((id) => !removedPhotoIds.includes(id))
+      .map((id) => data.photos.find((photo) => photo.id === id))
+      .filter((photo): photo is TravelPhoto => photo !== undefined)
     : [];
 
   // ---------- Saving ----------
@@ -335,21 +335,20 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
         </div>
       </section>
 
-            {/* Who can see this memory */}
+      {/* Who can see this memory */}
       <fieldset className={CARD} disabled={submitting}>
-        <legend className="px-2 font-serif text-lg font-bold text-[#F5F5F0]">Who can see this memory?</legend>
-        <p className="mb-4 text-xs text-[#F5F5F0]/60">
+        <legend className="px-2 font-serif text-lg font-bold text-[#0A2F25]">Who can see this memory?</legend>
+        <p className="mb-4 text-xs text-[#0A2F25]/60">
           New memories are Private until you choose otherwise. You can change this at any time.
         </p>
         <div role="radiogroup" aria-label="Memory visibility" className="space-y-3">
           {MEMORY_VISIBILITIES.map((option) => (
             <label
               key={option}
-              className={`flex min-h-[44px] cursor-pointer items-start gap-3 rounded-xl border p-3 ${
-                visibility === option
-                  ? 'border-[#D4AF37] bg-[#D4AF37]/10'
-                  : 'border-[#D4AF37]/25 hover:border-[#D4AF37]/60'
-              }`}
+              className={`flex min-h-[44px] cursor-pointer items-start gap-3 rounded-xl border p-3 ${visibility === option
+                ? 'border-[#D4AF37] bg-[#D4AF37]/10'
+                : 'border-[#D4AF37]/25 hover:border-[#D4AF37]/60'
+                }`}
             >
               <input
                 type="radio"
@@ -360,10 +359,10 @@ export const RecordFormPage: React.FC<RecordFormPageProps> = ({
                 className={`mt-1 h-4 w-4 accent-[#D4AF37] ${FOCUS}`}
               />
               <span>
-                <span className="block text-sm font-semibold text-[#F5F5F0]">
+                <span className="block text-sm font-semibold text-[#0A2F25]">
                   {MEMORY_VISIBILITY_LABELS[option]}
                 </span>
-                <span className="block text-xs text-[#F5F5F0]/65">{MEMORY_VISIBILITY_DESCRIPTIONS[option]}</span>
+                <span className="block text-xs text-[#0A2F25]/60">{MEMORY_VISIBILITY_DESCRIPTIONS[option]}</span>
               </span>
             </label>
           ))}

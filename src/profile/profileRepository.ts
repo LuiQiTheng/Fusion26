@@ -12,6 +12,7 @@ import {
   ACCEPTED_PHOTO_TYPES,
   DEFAULT_MEMORY_VISIBILITY,
   MemoryVisibility,
+  MemoryComment,
   isMemoryVisibility,
   LIMITS,
   PRESET_AVATAR_IDS,
@@ -41,6 +42,7 @@ import {
   listStoredPhotoIds,
   hasRoomFor,
 } from './photoDb';
+import { MemoryViewerRelation } from './memoryUtils';
 
 export { isProfileDataStale };
 
@@ -552,7 +554,7 @@ export async function updateRecord(
   return ok(updated);
 }
 
-// Moves a record, with its photos, to the Recycle Bin.
+// Moves a record, with its photos and comments, to the Recycle Bin.
 export function deleteRecord(recordId: string): Result<void> {
   const draftResult = loadDraft();
   if (!draftResult.ok) return draftResult;
@@ -568,6 +570,8 @@ export function deleteRecord(recordId: string): Result<void> {
   draft.recycleBin.records.push({ record, photos, deletedAt: new Date().toISOString() });
   draft.records = draft.records.filter((item) => item.id !== recordId);
   draft.photos = draft.photos.filter((photo) => !record.photoIds.includes(photo.id));
+  // Comments on a deleted record are removed immediately (no recycle for comments).
+  draft.comments = (draft.comments ?? []).filter((c) => c.recordId !== recordId);
 
   const saved = saveProfileData(draft);
   return saved.ok ? ok(undefined) : saved;
@@ -812,6 +816,79 @@ export async function emptyRecycleBin(): Promise<PermanentDeleteResult> {
 
   const warning = await removeUnreferencedBlobs([...ids], saved.value);
   return ok({ warning });
+}
+
+// ---------- Comments ----------
+
+// Mirrors the canViewMemory rule: owner can always comment; public memories allow anyone;
+// friends-only memories require an accepted friendship; private memories are owner-only.
+export function canCommentOnRecord(
+  record: TravelRecord,
+  relation: MemoryViewerRelation,
+): boolean {
+  if (relation === 'owner') return true;
+  switch (record.visibility) {
+    case 'public':
+      return true;
+    case 'friends':
+      return relation === 'friend';
+    default:
+      return false;
+  }
+}
+
+export function addComment(
+  recordId: string,
+  authorId: string,
+  text: string,
+): Result<MemoryComment> {
+  const trimmed = text.trim();
+  if (!trimmed) return fail('Comment text cannot be empty.');
+  if (trimmed.length > LIMITS.COMMENT_TEXT_MAX) {
+    return fail(`Comments can be at most ${LIMITS.COMMENT_TEXT_MAX} characters.`);
+  }
+
+  const draftResult = loadDraft();
+  if (!draftResult.ok) return draftResult;
+  const draft = draftResult.value;
+
+  if (!draft.records.some((r) => r.id === recordId)) {
+    return fail('This memory could not be found.');
+  }
+
+  const existing = draft.comments.filter((c) => c.recordId === recordId);
+  if (existing.length >= LIMITS.COMMENTS_PER_RECORD) {
+    return fail(`This memory already has ${LIMITS.COMMENTS_PER_RECORD} comments.`);
+  }
+
+  const comment: MemoryComment = {
+    id: createId('comment'),
+    recordId,
+    authorId,
+    text: trimmed,
+    createdAt: new Date().toISOString(),
+  };
+
+  draft.comments.push(comment);
+  const saved = saveProfileData(draft);
+  if (!saved.ok) return saved;
+  return ok(comment);
+}
+
+// Only the memory owner (i.e. the profile owner, not the comment author) may delete comments.
+// The caller is responsible for verifying that the current user is the record owner before calling.
+export function deleteComment(commentId: string): Result<void> {
+  const draftResult = loadDraft();
+  if (!draftResult.ok) return draftResult;
+  const draft = draftResult.value;
+
+  if (!draft.comments.some((c) => c.id === commentId)) {
+    return fail('This comment could not be found. It may already have been deleted.');
+  }
+
+  draft.comments = draft.comments.filter((c) => c.id !== commentId);
+  const saved = saveProfileData(draft);
+  return saved.ok ? ok(undefined) : saved;
 }
 
 // ---------- Reset Profile ----------

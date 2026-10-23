@@ -18,6 +18,7 @@ import {
   RecycleBin,
   RecycledRecord,
   RecycledPhoto,
+  MemoryComment,
   Result,
   ok,
   fail,
@@ -208,6 +209,24 @@ function sanitizeRecycledPhoto(value: unknown): RecycledPhoto | null {
   return { photo, originalIndex, deletedAt: value.deletedAt };
 }
 
+function sanitizeComment(value: unknown): MemoryComment | null {
+  if (!isObject(value)) return null;
+  if (!isNonEmptyString(value.id)) return null;
+  if (!isNonEmptyString(value.recordId)) return null;
+  // authorId must be a non-empty string (we accept any stored value; the UI enforces known ids)
+  if (typeof value.authorId !== 'string' || value.authorId.trim() === '') return null;
+  if (typeof value.text !== 'string' || value.text.trim() === '') return null;
+  if (value.text.length > LIMITS.COMMENT_TEXT_MAX) return null;
+  if (typeof value.createdAt !== 'string') return null;
+  return {
+    id: value.id,
+    recordId: value.recordId,
+    authorId: value.authorId,
+    text: value.text,
+    createdAt: value.createdAt,
+  };
+}
+
 function sanitizeRecycleBin(value: unknown, tally: Tally): RecycleBin {
   if (!isObject(value)) return { records: [], photos: [] };
   return {
@@ -274,6 +293,10 @@ export function loadProfileData(): Result<LoadOutcome> {
     photos: sanitizeList(parsed.photos, sanitizePhoto, tally),
     customPlaces: sanitizeList(parsed.customPlaces, sanitizeCustomPlace, tally),
     recycleBin: sanitizeRecycleBin(parsed.recycleBin, tally),
+    // comments were added later; old data has no 'comments' key, so default to []
+    comments: Array.isArray(parsed.comments)
+      ? sanitizeList(parsed.comments, sanitizeComment, tally)
+      : [],
     updatedAt: typeof parsed.updatedAt === 'string' ? parsed.updatedAt : new Date().toISOString(),
   };
 

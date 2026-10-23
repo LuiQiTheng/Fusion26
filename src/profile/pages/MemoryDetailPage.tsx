@@ -3,10 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { AlertTriangle, Calendar, Camera, ImageOff, MapPin, Pencil, RefreshCw, Trash2 } from 'lucide-react';
 import { HeritagePlace } from '../../types';
 import { ProfileData } from '../types';
-import { deleteRecord, resolvePlace } from '../profileRepository';
+import { addComment, canCommentOnRecord, deleteComment, deleteRecord, resolvePlace } from '../profileRepository';
 import { loadPhotoBlobs } from '../photoDb';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { VisibilityBadge } from '../components/VisibilityBadge';
+import { MemoryComments } from '../components/MemoryComments';
+import { canViewMemory, MemoryViewerRelation } from '../memoryUtils';
+import { FriendsData, ME_ID } from '../friends/friendsTypes';
+import { getDemoUser } from '../friends/demoUsers';
+import { getAcceptedFriends } from '../friends/friendsRepository';
+import { DemoIdentityBar } from '../friends/DemoIdentityBar';
 
 interface MemoryDetailPageProps {
   data: ProfileData;
@@ -15,6 +21,13 @@ interface MemoryDetailPageProps {
   onEdit: (recordId: string) => void;
   // Called after the memory has been moved to the Recycle Bin.
   onDeleted: () => void;
+  // Friends data is needed to enforce comment permissions.
+  friendsData: FriendsData;
+  // The real profile's display name (shown in the DemoIdentityBar).
+  meDisplayName: string;
+  meAvatarId: string;
+  // Callback so the parent can reload ProfileData after a comment is added/deleted.
+  onDataChanged: () => void;
 }
 
 const FOCUS =
@@ -98,6 +111,10 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   recordId,
   onEdit,
   onDeleted,
+  friendsData,
+  meDisplayName,
+  meAvatarId,
+  onDataChanged,
 }) => {
   const record = data.records.find((item) => item.id === recordId);
 
@@ -105,6 +122,10 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+
+  // The identity the user is currently acting as for the comments demo.
+  // Defaults to ME_ID (the real profile owner).
+  const [viewerId, setViewerId] = useState<string>(ME_ID);
 
   const { state: photoState, reload: reloadPhotos } = useRecordPhotos(record ? record.photoIds : []);
 
@@ -127,7 +148,7 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
   const placeDetail = existingPlace?.locality
     ? existingPlace.locality
     : resolved && resolved.isCustom
-      ? `Custom place · ${resolved.lat.toFixed(4)}, ${resolved.lng.toFixed(4)}`
+      ? `Custom place Â· ${resolved.lat.toFixed(4)}, ${resolved.lng.toFixed(4)}`
       : '';
 
   const photoIds = record.photoIds;
@@ -150,6 +171,55 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
       setConfirmOpen(false);
       setDeleteError(result.error);
     }
+  };
+
+  // ---------- Comment permissions ----------
+
+  // The real user (ME_ID) is always the memory owner in this single-profile app.
+  const isOwner = viewerId === ME_ID;
+
+  // Work out the relation of the current viewerId to the memory owner (ME_ID).
+  const relation: MemoryViewerRelation = (() => {
+    if (viewerId === ME_ID) return 'owner';
+    const friends = getAcceptedFriends(friendsData, ME_ID);
+    const isFriend = friends.some((entry) => entry.otherId === viewerId);
+    return isFriend ? 'friend' : 'other';
+  })();
+
+  // A non-owner who cannot view the record should not be on this page at all, but
+  // we guard here defensively so comments are never shown to someone who shouldn't see them.
+  const canView = canViewMemory(record, relation);
+  const canComment = canView && canCommentOnRecord(record, relation);
+
+  // Resolve a commenter's display name and avatar for rendering.
+  const resolveUser = (authorId: string): { displayName: string; avatarId: string } | null => {
+    if (authorId === ME_ID) {
+      return { displayName: meDisplayName || 'You', avatarId: meAvatarId };
+    }
+    const demo = getDemoUser(authorId);
+    return demo ? { displayName: demo.displayName, avatarId: demo.avatarId } : null;
+  };
+
+  // The current viewer's display name and avatar (for the comment input).
+  const viewerInfo = resolveUser(viewerId) ?? { displayName: 'Unknown', avatarId: 'avatar-1' };
+
+  // Comments for this record only, passed as a stable reference.
+  const recordComments = (data.comments ?? []).filter((c) => c.recordId === recordId);
+
+  const handleAddComment = (text: string): { ok: boolean; error?: string } => {
+    // Enforce permission in logic, not just UI.
+    if (!canComment) return { ok: false, error: 'You do not have permission to comment on this memory.' };
+    const result = addComment(recordId, viewerId, text);
+    if (result.ok) onDataChanged();
+    return result.ok ? { ok: true } : { ok: false, error: result.error };
+  };
+
+  const handleDeleteComment = (commentId: string): { ok: boolean; error?: string } => {
+    // Only the memory owner (the real profile user, ME_ID) may delete comments.
+    if (!isOwner) return { ok: false, error: 'Only the memory owner can delete comments.' };
+    const result = deleteComment(commentId);
+    if (result.ok) onDataChanged();
+    return result.ok ? { ok: true } : { ok: false, error: result.error };
   };
 
   return (
@@ -311,6 +381,38 @@ export const MemoryDetailPage: React.FC<MemoryDetailPageProps> = ({
           <p className="text-sm italic text-[#0A2F25]/60">No notes for this memory.</p>
         )}
       </section>
+
+      {/* Demo identity switcher â€” lets the user act as different people to test comment permissions */}
+      <DemoIdentityBar
+        actingAsId={viewerId}
+        onChange={setViewerId}
+        meDisplayName={meDisplayName}
+      />
+
+      {/* Comments â€” visibility badge shows why the form may be locked */}
+      <div className="space-y-2">
+        <div className="flex flex-wrap items-center gap-2 px-1">
+          <VisibilityBadge visibility={record.visibility} tone="light" />
+          <span className="text-xs text-[#0A2F25]/60">
+            {record.visibility === 'public'
+              ? 'Anyone can view and comment.'
+              : record.visibility === 'friends'
+                ? 'Friends can view and comment.'
+                : 'Only you can view and comment.'}
+          </span>
+        </div>
+        <MemoryComments
+          comments={recordComments}
+          viewerId={viewerId}
+          viewerName={viewerInfo.displayName}
+          viewerAvatarId={viewerInfo.avatarId}
+          isOwner={isOwner}
+          canComment={canComment}
+          resolveUser={resolveUser}
+          onAdd={handleAddComment}
+          onDelete={handleDeleteComment}
+        />
+      </div>
 
       <ConfirmDialog
         open={confirmOpen}

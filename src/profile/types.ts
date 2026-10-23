@@ -21,6 +21,8 @@ export const LIMITS = {
   INTEREST_LABEL_MAX: 24,
   PHOTOS_PER_RECORD: 10,
   PHOTO_MAX_BYTES: 10 * 1024 * 1024, // 10 MB
+  COMMENT_TEXT_MAX: 500,
+  COMMENTS_PER_RECORD: 200,
 } as const;
 
 export const USERNAME_PATTERN = /^[A-Za-z0-9_]{3,20}$/;
@@ -133,6 +135,17 @@ export interface TravelPhoto {
   createdAt: string;
 }
 
+// ---------- Comments ----------
+
+// authorId is ME_ID ('me') for the real user, or a demo user id.
+export interface MemoryComment {
+  id: string;
+  recordId: string;
+  authorId: string; // 'me' | demo user id
+  text: string;
+  createdAt: string; // ISO timestamp
+}
+
 // ---------- Recycle Bin ----------
 
 export interface RecycledRecord {
@@ -163,6 +176,7 @@ export interface ProfileData {
   photos: TravelPhoto[]; // metadata for photos attached to active records
   customPlaces: CustomPlace[];
   recycleBin: RecycleBin;
+  comments: MemoryComment[]; // comments on the owner's active memories
   updatedAt: string;
 }
 
@@ -174,6 +188,7 @@ export function createEmptyProfileData(): ProfileData {
     photos: [],
     customPlaces: [],
     recycleBin: { records: [], photos: [] },
+    comments: [],
     updatedAt: new Date().toISOString(),
   };
 }

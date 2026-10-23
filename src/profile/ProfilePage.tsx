@@ -22,6 +22,8 @@ import type { WishlistActionResult } from './pages/WishlistPage';
 import { ConfirmDialog } from './components/ConfirmDialog';
 import { Toast, ToastMessage, ToastTone } from './components/Toast';
 import { FriendsPage } from './friends/FriendsPage';
+import { loadFriends } from './friends/friendsRepository';
+import { FriendsData, createEmptyFriendsData } from './friends/friendsTypes';
 
 export interface ProfilePageProps {
   places: HeritagePlace[];
@@ -132,6 +134,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   const [tripsCount, setTripsCount] = useState(() => (loadItinerary() ? 1 : 0));
   const [isStale, setIsStale] = useState(false);
 
+  // Friends data is loaded once so MemoryDetailPage can determine viewer relationships.
+  const [friendsData, setFriendsData] = useState<FriendsData>(() => {
+    const result = loadFriends();
+    return result.ok ? result.value.data : createEmptyFriendsData();
+  });
+
   // Unsaved-change guard and toast.
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [confirmLeaveOpen, setConfirmLeaveOpen] = useState(false);
@@ -157,6 +165,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
     setLoadResult(loadProfile());
     setTripsCount(loadItinerary() ? 1 : 0);
     setIsStale(false);
+    // Refresh friends data so comment permissions stay up to date.
+    const fr = loadFriends();
+    if (fr.ok) setFriendsData(fr.value.data);
   }, []);
 
   const knownUpdatedAt = loadResult.ok ? loadResult.value.data.updatedAt : null;
@@ -392,6 +403,10 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             recordId={selectedRecordId}
             onEdit={handleEditMemory}
             onDeleted={handleMemoryDeleted}
+            friendsData={friendsData}
+            meDisplayName={data.profile.displayName}
+            meAvatarId={data.profile.avatarId}
+            onDataChanged={refresh}
           />
         ) : null;
       case 'memories':
