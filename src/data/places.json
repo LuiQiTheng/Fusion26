@@ -1737,7 +1737,7 @@
     "source_urls": [
       "https://pemetaanbudaya.jkkn.gov.my/senibudaya/detail/966"
     ],
-    "modelUrl": "/models/kuih-keria.glb"
+    "modelUrl": "/models/KuihKeria.glb"
   },
   {
     "id": "food-melaka-kari-debal",
@@ -1789,7 +1789,7 @@
     "source_urls": [
       "https://pemetaanbudaya.jkkn.gov.my/en/senibudaya/detail/1373"
     ],
-    "modelUrl": "/models/kari-debal.glb"
+    "modelUrl": "/models/KariDebal.glb"
   },
   {
     "id": "food-johor-laksa-johor",

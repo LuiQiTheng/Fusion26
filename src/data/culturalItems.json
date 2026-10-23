@@ -674,7 +674,7 @@
     "source_urls": [
       "https://perzim.gov.my"
     ],
-    "modelUrl": "/models/kuih-keria.glb"
+    "modelUrl": "/models/KuihKeria.glb"
   },
   {
     "id": "food-melaka-kari-debal",
@@ -727,7 +727,7 @@
     "source_urls": [
       "https://heritage.gov.my/en/pengenalan-cawangan-adat-budaya/makanan-warisan.html"
     ],
-    "modelUrl": "/models/kari-debal.glb"
+    "modelUrl": "/models/KariDebal.glb"
   },
   {
     "id": "food-johor-laksa-johor",

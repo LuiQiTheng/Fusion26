@@ -21,13 +21,14 @@ export const BuildingModelViewer: React.FC<BuildingModelViewerProps> = ({
   const modelGroupRef = useRef<THREE.Group | null>(null);
   const animFrameIdRef = useRef<number | null>(null);
 
+  const lowerUrl = modelUrl.toLowerCase();
   const isFoodItem =
     isFood ||
-    modelUrl.includes('kuih-keria') ||
-    modelUrl.includes('kari-debal') ||
-    modelUrl.includes('kuihkeria') ||
-    modelUrl.includes('kari') ||
-    modelUrl.includes('food');
+    lowerUrl.includes('kuih') ||
+    lowerUrl.includes('keria') ||
+    lowerUrl.includes('kari') ||
+    lowerUrl.includes('debal') ||
+    lowerUrl.includes('food');
 
   useEffect(() => {
     const container = mountRef.current;

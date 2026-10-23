@@ -38,16 +38,23 @@ export const PlaceDetailModal: React.FC<PlaceDetailModalProps> = ({
 
   if (!isOpen || !place) return null;
 
+  let rawModelUrl = place.modelUrl;
+  if (rawModelUrl === '/models/kuih-keria.glb' || place.id === 'food-melaka-kuih-keria') {
+    rawModelUrl = '/models/KuihKeria.glb';
+  } else if (rawModelUrl === '/models/kari-debal.glb' || place.id === 'food-melaka-kari-debal') {
+    rawModelUrl = '/models/KariDebal.glb';
+  }
+
   const modelUrl =
-    place.modelUrl ||
+    rawModelUrl ||
     (place.id === 'mlk-stadthuys'
       ? '/models/stadthuys.glb'
       : place.id === 'mlk-baba-nyonya'
       ? '/models/baba-nyonya.glb'
       : place.id === 'food-melaka-kuih-keria'
-      ? '/models/kuih-keria.glb'
+      ? '/models/KuihKeria.glb'
       : place.id === 'food-melaka-kari-debal'
-      ? '/models/kari-debal.glb'
+      ? '/models/KariDebal.glb'
       : place.id === 'perf-gamelan-melayu'
       ? '/models/gamelan.glb'
       : undefined);
